@@ -2,8 +2,8 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>xnesto – متجر الألعاب | PS4/PS5</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>xnesto – متجر الألعاب وبطاقات الشحن | PS4/PS5</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -31,9 +31,10 @@
       color: transparent;
     }
     .header p { color: #aab3e6; }
+    
     .control-bar {
       max-width: 1300px;
-      margin: 0 auto 1.8rem auto;
+      margin: 0 auto 1.5rem auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -96,203 +97,96 @@
       align-items: center;
       gap: 8px;
     }
-    .login-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      backdrop-filter: blur(10px);
+    
+    /* شريط البحث */
+    .search-bar-container {
+      max-width: 1300px;
+      margin: 0 auto 1.5rem auto;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 12px 20px;
+      border-radius: 60px;
+      backdrop-filter: blur(8px);
+    }
+    .search-box {
       display: flex;
       align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      visibility: hidden;
-      opacity: 0;
-      transition: 0.3s;
-    }
-    .login-modal.active { visibility: visible; opacity: 1; }
-    .login-box {
-      background: #11152b;
-      border-radius: 1.5rem;
-      padding: 2rem;
-      text-align: center;
-      border: 1px solid #ffaa44;
-      width: 320px;
-    }
-    .login-box h3 { margin-bottom: 1rem; color: #ffaa44; }
-    .login-box input, .login-box select {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border-radius: 40px;
-      border: none;
+      gap: 12px;
       background: #1e1e3a;
-      color: white;
-      text-align: center;
+      padding: 5px 15px;
+      border-radius: 50px;
     }
-    .login-box button {
-      background: #ffaa44;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 40px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 10px;
-      width: 100%;
+    .search-box i {
+      color: #ffaa66;
+      font-size: 1.1rem;
     }
-    .login-error { color: #ff6666; margin-top: 10px; }
-    .admin-panel {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.95);
-      backdrop-filter: blur(10px);
-      z-index: 1001;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      visibility: hidden;
-      opacity: 0;
-      transition: 0.3s;
-    }
-    .admin-panel.active { visibility: visible; opacity: 1; }
-    .admin-container {
-      background: #0a0c1a;
-      border-radius: 1.5rem;
-      width: 95%;
-      max-width: 1100px;
-      max-height: 90vh;
-      overflow-y: auto;
-      padding: 1.5rem;
-      border: 2px solid #ffaa44;
-    }
-    .admin-container h2 { text-align: center; color: #ffaa44; margin-bottom: 1rem; }
-    .admin-games-list { display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; }
-    .admin-game-item {
-      background: #11152b;
-      padding: 15px;
-      border-radius: 1rem;
-      border: 1px solid #2a2f55;
-    }
-    .admin-game-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-    .admin-game-name { font-weight: bold; font-size: 1.1rem; color: #ffaa66; }
-    .admin-price-input {
-      background: #1e1e3a;
-      border: 1px solid #ffaa44;
-      padding: 6px 12px;
-      border-radius: 30px;
-      width: 90px;
-      text-align: center;
-      color: #ffdd99;
-    }
-    .admin-specs {
-      margin: 10px 0;
-      padding: 10px;
-      background: #0a0c1a;
-      border-radius: 0.8rem;
-    }
-    .admin-specs textarea {
-      width: 100%;
-      background: #1e1e3a;
-      border: 1px solid #ffaa44;
-      border-radius: 12px;
-      padding: 8px;
-      color: white;
-      font-size: 0.8rem;
-      resize: vertical;
-      font-family: inherit;
-    }
-    .admin-specs label { font-size: 0.7rem; color: #ffaa66; display: block; margin-bottom: 5px; }
-    .admin-image-input {
-      width: 100%;
-      background: #1e1e3a;
-      border: 1px solid #ffaa44;
-      border-radius: 30px;
-      padding: 8px;
-      color: white;
-      margin-top: 8px;
-    }
-    .admin-buttons { display: flex; gap: 10px; justify-content: flex-end; margin-top: 10px; }
-    .admin-save-btn, .admin-delete-btn {
-      padding: 6px 16px;
-      border-radius: 30px;
-      cursor: pointer;
-      font-weight: bold;
-      border: none;
-    }
-    .admin-save-btn { background: #ffaa44; color: #0a0a1a; }
-    .admin-delete-btn { background: #ff4444; color: white; }
-    .add-game-section {
-      background: #11152b;
-      padding: 1rem;
-      border-radius: 1rem;
-      margin-top: 1rem;
-    }
-    .add-game-section h3 { color: #ffaa44; margin-bottom: 1rem; }
-    .add-game-form {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-    }
-    .add-game-form input, .add-game-form textarea {
-      background: #1e1e3a;
-      border: 1px solid #ffaa44;
-      padding: 8px 12px;
-      border-radius: 30px;
-      color: white;
+    #searchInput {
       flex: 1;
-      min-width: 140px;
-    }
-    .add-game-form textarea { min-width: 200px; border-radius: 15px; resize: vertical; }
-    .add-game-btn {
-      background: #00cc88;
+      background: transparent;
       border: none;
-      padding: 8px 20px;
-      border-radius: 30px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    .close-admin {
-      background: #ff4444;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 40px;
+      padding: 12px 0;
       color: white;
+      font-size: 1rem;
+      outline: none;
+    }
+    #searchInput::placeholder {
+      color: #8f9bcf;
+    }
+    .search-results-count {
+      font-size: 0.8rem;
+      color: #ffaa66;
+      background: #2d2f6e;
+      padding: 5px 12px;
+      border-radius: 30px;
+    }
+    
+    /* تبويبات الأقسام */
+    .tabs-container {
+      max-width: 1300px;
+      margin: 0 auto 1.5rem auto;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      background: #1e1e3a;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 40px;
+      color: #ffdd99;
       font-weight: bold;
       cursor: pointer;
-      display: block;
-      margin: 20px auto 0;
+      transition: 0.2s;
+      font-size: 0.9rem;
     }
-    .games-grid {
+    .tab-btn.active {
+      background: #ffaa44;
+      color: #0a0a1a;
+    }
+    .tab-btn:hover:not(.active) {
+      background: #2d2f6e;
+    }
+    
+    .games-grid, .giftcards-grid {
       max-width: 1300px;
       margin: 0 auto;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 1.8rem;
     }
-    .game-card {
+    .game-card, .giftcard-card {
       background: #11152b;
       border-radius: 1.2rem;
       overflow: hidden;
       transition: 0.3s;
       border: 1px solid #2a2f55;
     }
-    .game-card:hover { transform: translateY(-5px); border-color: #ffaa55; }
-    .game-image {
+    .game-card:hover, .giftcard-card:hover {
+      transform: translateY(-5px);
+      border-color: #ffaa55;
+    }
+    .game-image, .giftcard-image {
       width: 100%;
-      height: 200px;
+      height: 180px;
       position: relative;
       display: flex;
       align-items: center;
@@ -301,12 +195,12 @@
       background-size: cover;
       background-position: center;
     }
-    .game-icon-large {
-      font-size: 4rem;
+    .game-icon-large, .giftcard-icon {
+      font-size: 3.5rem;
       text-shadow: 0 4px 10px rgba(0,0,0,0.5);
       margin-bottom: 10px;
     }
-    .game-badge {
+    .game-badge, .giftcard-badge {
       position: absolute;
       bottom: 10px;
       right: 10px;
@@ -316,9 +210,20 @@
       font-size: 0.7rem;
       color: #ffcc77;
     }
-    .card-info { padding: 1rem; }
-    .game-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 5px; }
-    .game-version { font-size: 0.7rem; color: #8f9bcf; margin-bottom: 8px; }
+    .card-info {
+      padding: 1rem;
+      text-align: center;
+    }
+    .game-title, .giftcard-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+    .game-version, .giftcard-region {
+      font-size: 0.7rem;
+      color: #8f9bcf;
+      margin-bottom: 8px;
+    }
     .game-specs {
       background: rgba(0, 0, 0, 0.3);
       padding: 8px;
@@ -364,16 +269,28 @@
       border-radius: 40px;
       cursor: pointer;
     }
-    .page-btn.active { background: #ffaa44; color: #0a0a1a; }
-    .footer { text-align: center; margin-top: 2rem; padding: 1rem; color: #6f7bb3; }
-    @media (max-width: 640px) { body { padding: 0.8rem; } .game-image { height: 160px; } .game-icon-large { font-size: 3rem; } }
+    .page-btn.active {
+      background: #ffaa44;
+      color: #0a0a1a;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 2rem;
+      padding: 1rem;
+      color: #6f7bb3;
+    }
+    @media (max-width: 640px) {
+      body { padding: 0.8rem; }
+      .game-image, .giftcard-image { height: 150px; }
+      .game-icon-large, .giftcard-icon { font-size: 2.5rem; }
+    }
   </style>
 </head>
 <body dir="rtl">
 
 <div class="header">
   <h1>🎮 xnesto</h1>
-  <p id="welcomeMsg">ألعاب PS4 / PS5 – أسعار محدثة – رصيد شحن فوري</p>
+  <p id="welcomeMsg">ألعاب PS4 / PS5 – بطاقات شحن – أسعار محدثة – رصيد فوري</p>
 </div>
 
 <div class="control-bar">
@@ -397,7 +314,27 @@
   </div>
 </div>
 
-<div class="games-grid" id="gamesContainer"></div>
+<!-- شريط البحث -->
+<div class="search-bar-container">
+  <div class="search-box">
+    <i class="fas fa-search"></i>
+    <input type="text" id="searchInput" placeholder="🔍 ابحث عن لعبة...">
+    <span class="search-results-count" id="searchCount">0</span>
+  </div>
+</div>
+
+<!-- تبويبات الأقسام -->
+<div class="tabs-container">
+  <button class="tab-btn active" data-tab="games">🎮 ألعاب PS4/PS5</button>
+  <button class="tab-btn" data-tab="giftcards">💳 بطاقات شحن (Gift Cards)</button>
+</div>
+
+<!-- قسم الألعاب -->
+<div id="gamesSection" class="games-grid"></div>
+
+<!-- قسم بطاقات الشحن -->
+<div id="giftcardsSection" class="giftcards-grid" style="display: none;"></div>
+
 <div class="pagination" id="paginationContainer"></div>
 
 <div class="footer">
@@ -405,71 +342,79 @@
 </div>
 
 <!-- نافذة تسجيل الدخول -->
-<div class="login-modal" id="loginModal">
-  <div class="login-box">
-    <h3><i class="fas fa-sign-in-alt"></i> <span id="loginTitle">تسجيل الدخول</span></h3>
-    <select id="userTypeSelect">
-      <option value="user">👤 <span id="userOption">عميل / زائر</span></option>
-      <option value="admin">👑 <span id="adminOption">أدمن (مدير)</span></option>
+<div class="login-modal" id="loginModal" style="display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); backdrop-filter:blur(10px); align-items:center; justify-content:center; z-index:1000;">
+  <div class="login-box" style="background:#11152b; border-radius:1.5rem; padding:2rem; text-align:center; border:1px solid #ffaa44; width:320px;">
+    <h3 style="color:#ffaa44; margin-bottom:1rem;"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</h3>
+    <select id="userTypeSelect" style="width:100%; padding:12px; margin:10px 0; border-radius:40px; background:#1e1e3a; color:white;">
+      <option value="user">👤 عميل / زائر</option>
+      <option value="admin">👑 أدمن (مدير)</option>
     </select>
     <div id="adminPasswordField" style="display:none;">
-      <input type="password" id="adminPassword" placeholder="كلمة السر" autocomplete="off">
+      <input type="password" id="adminPassword" placeholder="كلمة السر" style="width:100%; padding:12px; margin:10px 0; border-radius:40px; background:#1e1e3a; color:white;">
     </div>
-    <button id="loginSubmitBtn"><span id="loginBtn">دخول</span></button>
-    <div class="login-error" id="loginError"></div>
-    <button id="closeLoginBtn" style="background:#444;"><span id="closeBtnText">إغلاق</span></button>
+    <button id="loginSubmitBtn" style="background:#ffaa44; border:none; padding:10px; border-radius:40px; font-weight:bold; width:100%; margin-top:10px;">دخول</button>
+    <div class="login-error" id="loginError" style="color:#ff6666; margin-top:10px;"></div>
+    <button id="closeLoginBtn" style="background:#444; border:none; padding:10px; border-radius:40px; width:100%; margin-top:10px;">إغلاق</button>
   </div>
 </div>
 
-<!-- لوحة تحكم الادمن -->
-<div class="admin-panel" id="adminPanel">
-  <div class="admin-container">
-    <h2><i class="fas fa-edit"></i> <span id="adminPanelTitle">لوحة تحكم الأدمن - تعديل الأسعار والمواصفات</span></h2>
-    <div class="admin-games-list" id="adminGamesList"></div>
-    <div class="add-game-section">
-      <h3><i class="fas fa-plus-circle"></i> <span id="addGameTitle">إضافة لعبة جديدة</span></h3>
-      <div class="add-game-form">
-        <input type="text" id="newGameNameAr" placeholder="الاسم بالعربية">
-        <input type="text" id="newGameNameEn" placeholder="Name in English">
-        <input type="text" id="newGameVersion" placeholder="الإصدار (PS5/PS4)">
-        <input type="number" id="newGamePrice" placeholder="السعر (ر.ع)">
-        <input type="text" id="newGameImage" placeholder="رابط الصورة (اختياري)">
-        <input type="text" id="newGameIcon" placeholder="أيقونة (مثل: 🎮, 🎭, 🔫)" value="🎮">
-        <textarea id="newGameSpecsAr" rows="2" placeholder="المواصفات بالعربية"></textarea>
-        <textarea id="newGameSpecsEn" rows="2" placeholder="Specifications in English"></textarea>
-        <button class="add-game-btn" id="addGameBtn"><i class="fas fa-save"></i> <span id="addBtnText">إضافة</span></button>
-      </div>
-    </div>
-    <button class="close-admin" id="closeAdminBtn"><span id="closeAdminText">إغلاق</span></button>
+<!-- لوحة تحكم الادمن (مبسطة) -->
+<div class="admin-panel" id="adminPanel" style="display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); backdrop-filter:blur(10px); align-items:center; justify-content:center; z-index:1001;">
+  <div class="admin-container" style="background:#0a0c1a; border-radius:1.5rem; width:90%; max-width:500px; max-height:80vh; overflow-y:auto; padding:1.5rem; border:2px solid #ffaa44;">
+    <h2 style="text-align:center; color:#ffaa44;"><i class="fas fa-edit"></i> لوحة التحكم</h2>
+    <div id="adminGamesList"></div>
+    <button class="close-admin" id="closeAdminBtn" style="background:#ff4444; border:none; padding:10px 20px; border-radius:40px; color:white; display:block; margin:20px auto 0;">إغلاق</button>
   </div>
 </div>
+
+<style>
+  .login-modal, .admin-panel { display: none; }
+  .login-modal.active, .admin-panel.active { display: flex; }
+</style>
 
 <script>
-  // ==================== قائمة الألعاب مع أيقونات مميزة ====================
-  // لا تحتاج هذه الأيقونات لأي صور خارجية - تعمل فوراً
+  // ==================== قائمة الألعاب ====================
   let gamesData = [
-    { id: 1, nameAr: "Assassin's Creed Shadows", nameEn: "Assassin's Creed Shadows", version: "PS5/PS4", priceOMR: 14, image: "", icon: "🎭", bgColor: "#2d4a6e", specsAr: "🏷️ الحجم: 65GB | 🎮 اللغة: عربية/إنجليزية | 💾 يتطلب مساحة 70GB", specsEn: "📦 Size: 65GB | 🎮 Language: Arabic/English | 💾 Storage: 70GB", msgAr: "أريد Assassin's Creed Shadows", msgEn: "I want Assassin's Creed Shadows" },
-    { id: 2, nameAr: "Call of Duty: Black Ops 6", nameEn: "Call of Duty: Black Ops 6", version: "PS5/PS4", priceOMR: 22, image: "", icon: "🔫", bgColor: "#5d3a1a", specsAr: "🏷️ الحجم: 120GB | 🎮 اللغة: إنجليزية | 🔫 وضع زومبي + حملة", specsEn: "📦 Size: 120GB | 🎮 Language: English | 🧟 Zombies Mode + Campaign", msgAr: "أريد Call of Duty Black Ops 6", msgEn: "I want Call of Duty Black Ops 6" },
-    { id: 3, nameAr: "Grand Theft Auto VI", nameEn: "Grand Theft Auto VI", version: "PS5", priceOMR: 6, image: "", icon: "🏎️", bgColor: "#2d5a4a", specsAr: "🏷️ الحجم: 150GB | 🎮 اللغة: عربية/إنجليزية | 🌍 عالم مفتوح ضخم", specsEn: "📦 Size: 150GB | 🎮 Language: Arabic/English | 🌍 Huge Open World", msgAr: "أريد GTA VI PS5", msgEn: "I want GTA VI PS5" },
-    { id: 4, nameAr: "Grand Theft Auto VI", nameEn: "Grand Theft Auto VI", version: "PS4", priceOMR: 5, image: "", icon: "🏎️", bgColor: "#2d5a4a", specsAr: "🏷️ الحجم: 120GB | 🎮 اللغة: عربية/إنجليزية | نسخة PS4", specsEn: "📦 Size: 120GB | 🎮 Language: Arabic/English | PS4 Version", msgAr: "أريد GTA VI PS4", msgEn: "I want GTA VI PS4" },
-    { id: 5, nameAr: "Monster Hunter Wilds", nameEn: "Monster Hunter Wilds", version: "PS5", priceOMR: 14, image: "", icon: "🐉", bgColor: "#3a5a2d", specsAr: "🏷️ الحجم: 75GB | 🎮 اللغة: إنجليزية | 🐉 صيد الوحوش + لعب جماعي", specsEn: "📦 Size: 75GB | 🎮 Language: English | 🐉 Monster Hunting + Multiplayer", msgAr: "أريد Monster Hunter Wilds", msgEn: "I want Monster Hunter Wilds" },
-    { id: 6, nameAr: "Ghost of Yōtei", nameEn: "Ghost of Yōtei", version: "PS5", priceOMR: 14, image: "", icon: "🗡️", bgColor: "#4a2d5a", specsAr: "🏷️ الحجم: 80GB | 🎮 اللغة: عربية/إنجليزية | 🗡️ عالم مفتوح - ساموراي", specsEn: "📦 Size: 80GB | 🎮 Language: Arabic/English | 🗡️ Open World - Samurai", msgAr: "أريد Ghost of Yōtei", msgEn: "I want Ghost of Yōtei" },
-    { id: 7, nameAr: "Death Stranding 2", nameEn: "Death Stranding 2", version: "PS5", priceOMR: 24, image: "", icon: "🌊", bgColor: "#2d4a6e", specsAr: "🏷️ الحجم: 100GB | 🎮 اللغة: عربية/إنجليزية | 🌊 مغامرة فريدة", specsEn: "📦 Size: 100GB | 🎮 Language: Arabic/English | 🌊 Unique Adventure", msgAr: "أريد Death Stranding 2", msgEn: "I want Death Stranding 2" },
-    { id: 8, nameAr: "EA Sports FC 26", nameEn: "EA Sports FC 26", version: "PS4/PS5", priceOMR: 13, image: "", icon: "⚽", bgColor: "#2d6e5a", specsAr: "🏷️ الحجم: 55GB | 🎮 اللغة: عربية/إنجليزية | ⚽ أندية محدثة + طور المهنة", specsEn: "📦 Size: 55GB | 🎮 Language: Arabic/English | ⚽ Updated Clubs + Career Mode", msgAr: "أريد EA Sports FC 26", msgEn: "I want EA Sports FC 26" },
-    { id: 9, nameAr: "Black Myth: Wukong", nameEn: "Black Myth: Wukong", version: "PS5", priceOMR: 16, image: "", icon: "🐒", bgColor: "#5a3a2d", specsAr: "🏷️ الحجم: 90GB | 🎮 اللغة: عربية/إنجليزية | 🐒 قصة المستهلك - قتال ملحمي", specsEn: "📦 Size: 90GB | 🎮 Language: Arabic/English | 🐒 Epic Action RPG", msgAr: "أريد Black Myth Wukong", msgEn: "I want Black Myth Wukong" },
-    { id: 10, nameAr: "Silent Hill 2 Remake", nameEn: "Silent Hill 2 Remake", version: "PS5", priceOMR: 14, image: "", icon: "👻", bgColor: "#4a2d2d", specsAr: "🏷️ الحجم: 50GB | 🎮 اللغة: إنجليزية | 👻 رعب نفسي - جرافيكس محسن", specsEn: "📦 Size: 50GB | 🎮 Language: English | 👻 Psychological Horror", msgAr: "أريد Silent Hill 2 Remake", msgEn: "I want Silent Hill 2 Remake" },
-    { id: 11, nameAr: "God of War Ragnarök", nameEn: "God of War Ragnarök", version: "PS4/PS5", priceOMR: 10, image: "", icon: "🪓", bgColor: "#5a3a4a", specsAr: "🏷️ الحجم: 85GB | 🎮 اللغة: عربية/إنجليزية | 🪓 ملحمة إسكندنافية", specsEn: "📦 Size: 85GB | 🎮 Language: Arabic/English | 🪓 Norse Saga", msgAr: "أريد God of War Ragnarök", msgEn: "I want God of War Ragnarök" },
-    { id: 12, nameAr: "Marvel's Spider-Man 2", nameEn: "Marvel's Spider-Man 2", version: "PS5", priceOMR: 16, image: "", icon: "🕷️", bgColor: "#2d4a6e", specsAr: "🏷️ الحجم: 98GB | 🎮 اللغة: عربية/إنجليزية | 🕷️ بيتر باركر + مايلز موراليس", specsEn: "📦 Size: 98GB | 🎮 Language: Arabic/English | 🕷️ Peter Parker + Miles Morales", msgAr: "أريد Spider-Man 2", msgEn: "I want Spider-Man 2" },
-    { id: 13, nameAr: "Hogwarts Legacy", nameEn: "Hogwarts Legacy", version: "PS4/PS5", priceOMR: 11, image: "", icon: "🧙", bgColor: "#4a2d5a", specsAr: "🏷️ الحجم: 85GB | 🎮 اللغة: عربية/إنجليزية | 🧙 عالم هاري بوتر المفتوح", specsEn: "📦 Size: 85GB | 🎮 Language: Arabic/English | 🧙 Open World Harry Potter", msgAr: "أريد Hogwarts Legacy", msgEn: "I want Hogwarts Legacy" },
-    { id: 14, nameAr: "Final Fantasy VII Rebirth", nameEn: "Final Fantasy VII Rebirth", version: "PS5", priceOMR: 18, image: "", icon: "🗡️", bgColor: "#2d6e6e", specsAr: "🏷️ الحجم: 145GB | 🎮 اللغة: عربية/إنجليزية | 🗡️ آر بي جي خيالية", specsEn: "📦 Size: 145GB | 🎮 Language: Arabic/English | 🗡️ Fantasy RPG", msgAr: "أريد Final Fantasy VII Rebirth", msgEn: "I want Final Fantasy VII Rebirth" },
-    { id: 15, nameAr: "Tekken 8", nameEn: "Tekken 8", version: "PS5", priceOMR: 12, image: "", icon: "🥊", bgColor: "#5a2d3a", specsAr: "🏷️ الحجم: 80GB | 🎮 اللغة: عربية/إنجليزية | 🥊 لعبة قتال", specsEn: "📦 Size: 80GB | 🎮 Language: Arabic/English | 🥊 Fighting Game", msgAr: "أريد Tekken 8", msgEn: "I want Tekken 8" }
+    { id: 1, nameAr: "Assassin's Creed Shadows", nameEn: "Assassin's Creed Shadows", version: "PS5/PS4", priceOMR: 14, icon: "🎭", bgColor: "#2d4a6e", specsAr: "🏷️ الحجم: 65GB | 🎮 اللغة: عربية/إنجليزية", specsEn: "📦 Size: 65GB | 🎮 Language: Arabic/English", msgAr: "أريد Assassin's Creed Shadows", msgEn: "I want Assassin's Creed Shadows" },
+    { id: 2, nameAr: "Call of Duty: Black Ops 6", nameEn: "Call of Duty: Black Ops 6", version: "PS5/PS4", priceOMR: 22, icon: "🔫", bgColor: "#5d3a1a", specsAr: "🏷️ الحجم: 120GB | 🎮 اللغة: إنجليزية", specsEn: "📦 Size: 120GB | 🎮 Language: English", msgAr: "أريد Call of Duty Black Ops 6", msgEn: "I want Call of Duty Black Ops 6" },
+    { id: 3, nameAr: "Grand Theft Auto VI", nameEn: "Grand Theft Auto VI", version: "PS5", priceOMR: 6, icon: "🏎️", bgColor: "#2d5a4a", specsAr: "🏷️ الحجم: 150GB | 🌍 عالم مفتوح", specsEn: "📦 Size: 150GB | 🌍 Open World", msgAr: "أريد GTA VI PS5", msgEn: "I want GTA VI PS5" },
+    { id: 4, nameAr: "Grand Theft Auto VI", nameEn: "Grand Theft Auto VI", version: "PS4", priceOMR: 5, icon: "🏎️", bgColor: "#2d5a4a", specsAr: "🏷️ الحجم: 120GB | نسخة PS4", specsEn: "📦 Size: 120GB | PS4 Version", msgAr: "أريد GTA VI PS4", msgEn: "I want GTA VI PS4" },
+    { id: 5, nameAr: "Monster Hunter Wilds", nameEn: "Monster Hunter Wilds", version: "PS5", priceOMR: 14, icon: "🐉", bgColor: "#3a5a2d", specsAr: "🏷️ الحجم: 75GB | 🐉 صيد الوحوش", specsEn: "📦 Size: 75GB | 🐉 Monster Hunting", msgAr: "أريد Monster Hunter Wilds", msgEn: "I want Monster Hunter Wilds" },
+    { id: 6, nameAr: "Ghost of Yōtei", nameEn: "Ghost of Yōtei", version: "PS5", priceOMR: 14, icon: "🗡️", bgColor: "#4a2d5a", specsAr: "🏷️ الحجم: 80GB | 🗡️ عالم مفتوح", specsEn: "📦 Size: 80GB | 🗡️ Open World", msgAr: "أريد Ghost of Yōtei", msgEn: "I want Ghost of Yōtei" },
+    { id: 7, nameAr: "Death Stranding 2", nameEn: "Death Stranding 2", version: "PS5", priceOMR: 24, icon: "🌊", bgColor: "#2d4a6e", specsAr: "🏷️ الحجم: 100GB | 🌊 مغامرة فريدة", specsEn: "📦 Size: 100GB | 🌊 Unique Adventure", msgAr: "أريد Death Stranding 2", msgEn: "I want Death Stranding 2" },
+    { id: 8, nameAr: "EA Sports FC 26", nameEn: "EA Sports FC 26", version: "PS4/PS5", priceOMR: 13, icon: "⚽", bgColor: "#2d6e5a", specsAr: "🏷️ الحجم: 55GB | ⚽ أندية محدثة", specsEn: "📦 Size: 55GB | ⚽ Updated Clubs", msgAr: "أريد EA Sports FC 26", msgEn: "I want EA Sports FC 26" },
+    { id: 9, nameAr: "Black Myth: Wukong", nameEn: "Black Myth: Wukong", version: "PS5", priceOMR: 16, icon: "🐒", bgColor: "#5a3a2d", specsAr: "🏷️ الحجم: 90GB | 🐒 قصة المستهلك", specsEn: "📦 Size: 90GB | 🐒 Epic Action RPG", msgAr: "أريد Black Myth Wukong", msgEn: "I want Black Myth Wukong" },
+    { id: 10, nameAr: "Silent Hill 2 Remake", nameEn: "Silent Hill 2 Remake", version: "PS5", priceOMR: 14, icon: "👻", bgColor: "#4a2d2d", specsAr: "🏷️ الحجم: 50GB | 👻 رعب نفسي", specsEn: "📦 Size: 50GB | 👻 Psychological Horror", msgAr: "أريد Silent Hill 2 Remake", msgEn: "I want Silent Hill 2 Remake" },
+    { id: 11, nameAr: "God of War Ragnarök", nameEn: "God of War Ragnarök", version: "PS4/PS5", priceOMR: 10, icon: "🪓", bgColor: "#5a3a4a", specsAr: "🏷️ الحجم: 85GB | 🪓 ملحمة إسكندنافية", specsEn: "📦 Size: 85GB | 🪓 Norse Saga", msgAr: "أريد God of War Ragnarök", msgEn: "I want God of War Ragnarök" },
+    { id: 12, nameAr: "Marvel's Spider-Man 2", nameEn: "Marvel's Spider-Man 2", version: "PS5", priceOMR: 16, icon: "🕷️", bgColor: "#2d4a6e", specsAr: "🏷️ الحجم: 98GB | 🕷️ بيتر + مايلز", specsEn: "📦 Size: 98GB | 🕷️ Peter + Miles", msgAr: "أريد Spider-Man 2", msgEn: "I want Spider-Man 2" },
+    { id: 13, nameAr: "Hogwarts Legacy", nameEn: "Hogwarts Legacy", version: "PS4/PS5", priceOMR: 11, icon: "🧙", bgColor: "#4a2d5a", specsAr: "🏷️ الحجم: 85GB | 🧙 عالم هاري بوتر", specsEn: "📦 Size: 85GB | 🧙 Harry Potter World", msgAr: "أريد Hogwarts Legacy", msgEn: "I want Hogwarts Legacy" },
+    { id: 14, nameAr: "Final Fantasy VII Rebirth", nameEn: "Final Fantasy VII Rebirth", version: "PS5", priceOMR: 18, icon: "🗡️", bgColor: "#2d6e6e", specsAr: "🏷️ الحجم: 145GB | 🗡️ RPG خيالية", specsEn: "📦 Size: 145GB | 🗡️ Fantasy RPG", msgAr: "أريد Final Fantasy VII Rebirth", msgEn: "I want Final Fantasy VII Rebirth" },
+    { id: 15, nameAr: "Tekken 8", nameEn: "Tekken 8", version: "PS5", priceOMR: 12, icon: "🥊", bgColor: "#5a2d3a", specsAr: "🏷️ الحجم: 80GB | 🥊 لعبة قتال", specsEn: "📦 Size: 80GB | 🥊 Fighting Game", msgAr: "أريد Tekken 8", msgEn: "I want Tekken 8" }
   ];
 
-  let nextId = 16;
+  // ==================== بطاقات الشحن ====================
+  const giftCardsData = [
+    { id: 1, nameAr: "بطاقة شحن أمريكي", nameEn: "US Gift Card", region: "USA", currency: "USD", priceOMR: 5, icon: "🇺🇸", bgColor: "#1a3a5a", values: ["10$", "25$", "50$", "100$"], msgAr: "أريد بطاقة شحن أمريكي", msgEn: "I want US Gift Card" },
+    { id: 2, nameAr: "بطاقة شحن بريطاني", nameEn: "UK Gift Card", region: "UK", currency: "GBP", priceOMR: 6, icon: "🇬🇧", bgColor: "#1a4a6e", values: ["10£", "25£", "50£"], msgAr: "أريد بطاقة شحن بريطاني", msgEn: "I want UK Gift Card" },
+    { id: 3, nameAr: "بطاقة شحن تركي", nameEn: "Turkey Gift Card", region: "Turkey", currency: "TRY", priceOMR: 4, icon: "🇹🇷", bgColor: "#4a5a2d", values: ["100₺", "250₺", "500₺"], msgAr: "أريد بطاقة شحن تركي", msgEn: "I want Turkey Gift Card" },
+    { id: 4, nameAr: "بطاقة شحن هندي", nameEn: "India Gift Card", region: "India", currency: "INR", priceOMR: 3.5, icon: "🇮🇳", bgColor: "#4a6e2d", values: ["500₹", "1000₹", "2000₹"], msgAr: "أريد بطاقة شحن هندي", msgEn: "I want India Gift Card" },
+    { id: 5, nameAr: "بطاقة شحن إندونيسي", nameEn: "Indonesia Gift Card", region: "Indonesia", currency: "IDR", priceOMR: 4, icon: "🇮🇩", bgColor: "#2d5a4a", values: ["50k", "100k", "200k"], msgAr: "أريد بطاقة شحن إندونيسي", msgEn: "I want Indonesia Gift Card" },
+    { id: 6, nameAr: "بطاقة شحن سعودي", nameEn: "Saudi Gift Card", region: "Saudi Arabia", currency: "SAR", priceOMR: 4.5, icon: "🇸🇦", bgColor: "#2d6e4a", values: ["50ر.س", "100ر.س", "200ر.س"], msgAr: "أريد بطاقة شحن سعودي", msgEn: "I want Saudi Gift Card" },
+    { id: 7, nameAr: "بطاقة شحن قطري", nameEn: "Qatar Gift Card", region: "Qatar", currency: "QAR", priceOMR: 4.5, icon: "🇶🇦", bgColor: "#4a6e2d", values: ["50ر.ق", "100ر.ق", "200ر.ق"], msgAr: "أريد بطاقة شحن قطري", msgEn: "I want Qatar Gift Card" },
+    { id: 8, nameAr: "بطاقة شحن إماراتي", nameEn: "UAE Gift Card", region: "UAE", currency: "AED", priceOMR: 5, icon: "🇦🇪", bgColor: "#2d4a6e", values: ["50د.إ", "100د.إ", "200د.إ"], msgAr: "أريد بطاقة شحن إماراتي", msgEn: "I want UAE Gift Card" },
+    { id: 9, nameAr: "بطاقة شحن كويتي", nameEn: "Kuwait Gift Card", region: "Kuwait", currency: "KWD", priceOMR: 6, icon: "🇰🇼", bgColor: "#5a3a2d", values: ["5د.ك", "10د.ك", "20د.ك"], msgAr: "أريد بطاقة شحن كويتي", msgEn: "I want Kuwait Gift Card" },
+    { id: 10, nameAr: "بطاقة شحن بحريني", nameEn: "Bahrain Gift Card", region: "Bahrain", currency: "BHD", priceOMR: 5.5, icon: "🇧🇭", bgColor: "#4a2d5a", values: ["5د.ب", "10د.ب", "20د.ب"], msgAr: "أريد بطاقة شحن بحريني", msgEn: "I want Bahrain Gift Card" }
+  ];
+
+  let nextGameId = 16;
+  let nextGiftId = 11;
   let currentUser = { type: "guest", name: "زائر" };
   let currentLang = "ar";
   let currentCurrency = "OMR";
   let currentPage = 1;
+  let currentTab = "games";
+  let searchQuery = "";
+  let filteredGames = [...gamesData];
   const GAMES_PER_PAGE = 8;
   const ADMIN_PASSWORD = "admin123";
 
@@ -485,7 +430,9 @@
       if (parsed.length > 0) {
         gamesData.length = 0;
         parsed.forEach(g => gamesData.push(g));
-        nextId = Math.max(...gamesData.map(g => g.id), 0) + 1;
+        nextGameId = Math.max(...gamesData.map(g => g.id), 0) + 1;
+        filteredGames = [...gamesData];
+        updateSearchResults();
       }
     }
   }
@@ -494,6 +441,21 @@
   function convertPrice(price, currency) {
     let converted = price * exchangeRates[currency];
     return converted.toFixed(2);
+  }
+
+  function updateSearchResults() {
+    const query = searchQuery.trim().toLowerCase();
+    if (query === "") {
+      filteredGames = [...gamesData];
+    } else {
+      filteredGames = gamesData.filter(game => 
+        game.nameAr.toLowerCase().includes(query) || 
+        game.nameEn.toLowerCase().includes(query)
+      );
+    }
+    currentPage = 1;
+    document.getElementById("searchCount").innerHTML = filteredGames.length;
+    renderGames();
   }
 
   function buildGameCard(game) {
@@ -506,12 +468,9 @@
     const convertedPrice = convertPrice(game.priceOMR, currentCurrency);
     const currencySym = currencySymbols[currentCurrency];
     
-    // استخدام الصورة إذا وجدت، وإلا استخدام أيقونة وخلفية
-    const bgStyle = game.image ? `background-image: url('${game.image}'); background-size: cover;` : `background: linear-gradient(135deg, ${game.bgColor || "#2d4a6e"}, ${game.bgColor ? game.bgColor + "cc" : "#1a2a3a"});`;
-    
     card.innerHTML = `
-      <div class="game-image" style="${bgStyle} background-position: center;">
-        ${!game.image ? `<div class="game-icon-large">${game.icon || "🎮"}</div>` : ''}
+      <div class="game-image" style="background: linear-gradient(135deg, ${game.bgColor || "#2d4a6e"}, ${game.bgColor ? game.bgColor + "cc" : "#1a2a3a"});">
+        <div class="game-icon-large">${game.icon || "🎮"}</div>
         <div class="game-badge">${game.version}</div>
       </div>
       <div class="card-info">
@@ -525,23 +484,58 @@
     return card;
   }
 
+  function buildGiftCard(card) {
+    const cardDiv = document.createElement("div");
+    cardDiv.className = "giftcard-card";
+    const cardName = currentLang === "ar" ? card.nameAr : card.nameEn;
+    const regionText = currentLang === "ar" ? `المنطقة: ${card.region}` : `Region: ${card.region}`;
+    const valuesText = currentLang === "ar" ? `الفئات: ${card.values.join(" | ")}` : `Values: ${card.values.join(" | ")}`;
+    const whatsappMsg = currentLang === "ar" ? card.msgAr : card.msgEn;
+    const waLink = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(whatsappMsg)}`;
+    const convertedPrice = convertPrice(card.priceOMR, currentCurrency);
+    const currencySym = currencySymbols[currentCurrency];
+    
+    cardDiv.innerHTML = `
+      <div class="giftcard-image" style="background: linear-gradient(135deg, ${card.bgColor || "#2d4a6e"}, ${card.bgColor ? card.bgColor + "cc" : "#1a2a3a"});">
+        <div class="giftcard-icon">${card.icon || "💳"}</div>
+        <div class="giftcard-badge">${card.currency}</div>
+      </div>
+      <div class="card-info">
+        <div class="giftcard-title">${cardName}</div>
+        <div class="giftcard-region">${regionText}</div>
+        <div class="game-specs">${valuesText}</div>
+        <div class="price">${convertedPrice} <span>${currencySym}</span></div>
+        <a href="${waLink}" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> ${currentLang === "ar" ? "اطلب الآن" : "Order Now"}</a>
+      </div>
+    `;
+    return cardDiv;
+  }
+
   function renderGames() {
-    const container = document.getElementById("gamesContainer");
+    const container = document.getElementById("gamesSection");
     if (!container) return;
     container.innerHTML = "";
-    const totalPages = Math.ceil(gamesData.length / GAMES_PER_PAGE);
+    const totalPages = Math.ceil(filteredGames.length / GAMES_PER_PAGE);
     if (currentPage > totalPages) currentPage = 1;
     const start = (currentPage - 1) * GAMES_PER_PAGE;
-    const pageGames = gamesData.slice(start, start + GAMES_PER_PAGE);
+    const pageGames = filteredGames.slice(start, start + GAMES_PER_PAGE);
     pageGames.forEach(game => container.appendChild(buildGameCard(game)));
     renderPagination();
+  }
+
+  function renderGiftCards() {
+    const container = document.getElementById("giftcardsSection");
+    if (!container) return;
+    container.innerHTML = "";
+    giftCardsData.forEach(card => container.appendChild(buildGiftCard(card)));
   }
 
   function renderPagination() {
     const pagContainer = document.getElementById("paginationContainer");
     if (!pagContainer) return;
     pagContainer.innerHTML = "";
-    const totalPages = Math.ceil(gamesData.length / GAMES_PER_PAGE);
+    const totalPages = Math.ceil(filteredGames.length / GAMES_PER_PAGE);
+    if (totalPages <= 1) return;
     for (let i = 1; i <= totalPages; i++) {
       const btn = document.createElement("button");
       btn.className = "page-btn" + (i === currentPage ? " active" : "");
@@ -551,117 +545,31 @@
     }
   }
 
-  function renderAdminPanel() {
-    const container = document.getElementById("adminGamesList");
-    if (!container) return;
-    container.innerHTML = "";
-    gamesData.forEach(game => {
-      const item = document.createElement("div");
-      item.className = "admin-game-item";
-      item.innerHTML = `
-        <div class="admin-game-header">
-          <div class="admin-game-name">${game.nameAr} (${game.version})</div>
-          <div>
-            <input type="number" class="admin-price-input" id="price-${game.id}" value="${game.priceOMR}" step="0.5">
-            <span style="margin:0 5px">ر.ع</span>
-          </div>
-        </div>
-        <div class="admin-specs">
-          <label><i class="fas fa-info-circle"></i> المواصفات (عربي)</label>
-          <textarea id="specsAr-${game.id}" rows="2">${game.specsAr || ''}</textarea>
-          <label style="margin-top:8px;"><i class="fas fa-info-circle"></i> Specifications (English)</label>
-          <textarea id="specsEn-${game.id}" rows="2">${game.specsEn || ''}</textarea>
-          <label style="margin-top:8px;"><i class="fas fa-image"></i> أيقونة اللعبة (Emoji)</label>
-          <input type="text" id="icon-${game.id}" class="admin-image-input" value="${game.icon || '🎮'}">
-          <label style="margin-top:8px;"><i class="fas fa-palette"></i> لون الخلفية</label>
-          <input type="text" id="bgColor-${game.id}" class="admin-image-input" value="${game.bgColor || '#2d4a6e'}">
-          <label style="margin-top:8px;"><i class="fas fa-image"></i> رابط الصورة (اتركه فارغاً للأيقونة)</label>
-          <input type="text" id="imageUrl-${game.id}" class="admin-image-input" value="${game.image || ''}">
-        </div>
-        <div class="admin-buttons">
-          <button class="admin-save-btn" data-id="${game.id}"><i class="fas fa-save"></i> حفظ</button>
-          <button class="admin-delete-btn" data-id="${game.id}"><i class="fas fa-trash"></i> حذف</button>
-        </div>
-      `;
-      container.appendChild(item);
-    });
+  function switchTab(tab) {
+    currentTab = tab;
+    const gamesSection = document.getElementById("gamesSection");
+    const giftcardsSection = document.getElementById("giftcardsSection");
+    const pagination = document.getElementById("paginationContainer");
     
-    document.querySelectorAll(".admin-save-btn").forEach(btn => {
-      btn.addEventListener("click", (e) => {
-        const id = parseInt(btn.getAttribute("data-id"));
-        const newPrice = parseFloat(document.getElementById(`price-${id}`).value);
-        const newSpecsAr = document.getElementById(`specsAr-${id}`).value;
-        const newSpecsEn = document.getElementById(`specsEn-${id}`).value;
-        const newIcon = document.getElementById(`icon-${id}`).value;
-        const newBgColor = document.getElementById(`bgColor-${id}`).value;
-        const newImage = document.getElementById(`imageUrl-${id}`).value;
-        const game = gamesData.find(g => g.id === id);
-        if (game) {
-          if (!isNaN(newPrice)) game.priceOMR = newPrice;
-          game.specsAr = newSpecsAr;
-          game.specsEn = newSpecsEn;
-          game.icon = newIcon;
-          game.bgColor = newBgColor;
-          game.image = newImage;
-          saveGamesToLocal();
-          renderAdminPanel();
-          renderGames();
-        }
-      });
-    });
-    
-    document.querySelectorAll(".admin-delete-btn").forEach(btn => {
-      btn.addEventListener("click", (e) => {
-        const id = parseInt(btn.getAttribute("data-id"));
-        gamesData = gamesData.filter(g => g.id !== id);
-        saveGamesToLocal();
-        renderAdminPanel();
-        renderGames();
-      });
-    });
-  }
-
-  function addNewGame() {
-    const nameAr = document.getElementById("newGameNameAr").value;
-    const nameEn = document.getElementById("newGameNameEn").value;
-    const version = document.getElementById("newGameVersion").value;
-    const price = parseFloat(document.getElementById("newGamePrice").value);
-    const image = document.getElementById("newGameImage").value || "";
-    const icon = document.getElementById("newGameIcon").value || "🎮";
-    const specsAr = document.getElementById("newGameSpecsAr").value;
-    const specsEn = document.getElementById("newGameSpecsEn").value;
-    
-    if (!nameAr || !nameEn || !version || isNaN(price)) {
-      alert("يرجى ملء جميع الحقول الأساسية بشكل صحيح");
-      return;
+    if (tab === "games") {
+      gamesSection.style.display = "grid";
+      giftcardsSection.style.display = "none";
+      pagination.style.display = "flex";
+      renderGames();
+    } else {
+      gamesSection.style.display = "none";
+      giftcardsSection.style.display = "grid";
+      pagination.style.display = "none";
+      renderGiftCards();
     }
     
-    const newGame = {
-      id: nextId++,
-      nameAr, nameEn, version,
-      priceOMR: price,
-      image: image,
-      icon: icon,
-      bgColor: "#2d4a6e",
-      specsAr: specsAr || "🏷️ مواصفات قريباً",
-      specsEn: specsEn || "📦 Specifications coming soon",
-      msgAr: `أريد ${nameAr}`,
-      msgEn: `I want ${nameEn}`
-    };
-    
-    gamesData.push(newGame);
-    saveGamesToLocal();
-    renderAdminPanel();
-    renderGames();
-    
-    document.getElementById("newGameNameAr").value = "";
-    document.getElementById("newGameNameEn").value = "";
-    document.getElementById("newGameVersion").value = "";
-    document.getElementById("newGamePrice").value = "";
-    document.getElementById("newGameImage").value = "";
-    document.getElementById("newGameIcon").value = "🎮";
-    document.getElementById("newGameSpecsAr").value = "";
-    document.getElementById("newGameSpecsEn").value = "";
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      if (btn.getAttribute("data-tab") === tab) {
+        btn.classList.add("active");
+      } else {
+        btn.classList.remove("active");
+      }
+    });
   }
 
   function updateUIForUser() {
@@ -678,7 +586,7 @@
       document.getElementById("logoutBtn")?.addEventListener("click", logout);
     } else {
       authDiv.innerHTML = `<button class="login-btn" id="showLoginBtn"><i class="fas fa-user"></i> ${currentLang === "ar" ? "تسجيل دخول" : "Login"}</button>`;
-      welcomeMsg.innerHTML = currentLang === "ar" ? "ألعاب PS4 / PS5 – أسعار محدثة – رصيد شحن فوري" : "PS4 / PS5 Games – Updated Prices – Instant Credit";
+      welcomeMsg.innerHTML = currentLang === "ar" ? "ألعاب PS4 / PS5 – بطاقات شحن – أسعار محدثة – رصيد فوري" : "PS4/PS5 Games – Gift Cards – Updated Prices – Instant Credit";
       document.getElementById("showLoginBtn")?.addEventListener("click", () => showLoginModal());
     }
   }
@@ -686,7 +594,6 @@
   function logout() {
     currentUser = { type: "guest", name: "زائر" };
     updateUIForUser();
-    renderGames();
     const adminPanel = document.getElementById("adminPanel");
     if (adminPanel) adminPanel.classList.remove("active");
   }
@@ -704,8 +611,7 @@
         updateUIForUser();
         document.getElementById("loginModal").classList.remove("active");
         document.getElementById("adminPanel").classList.add("active");
-        renderAdminPanel();
-        document.getElementById("addGameBtn").onclick = addNewGame;
+        document.getElementById("adminGamesList").innerHTML = "<p style='text-align:center; color:#ffaa44;'>واجهة تعديل متقدمة قريباً</p>";
       } else {
         document.getElementById("loginError").textContent = currentLang === "ar" ? "كلمة السر غير صحيحة" : "Incorrect password";
       }
@@ -732,35 +638,39 @@
         btn.classList.add("active");
         document.body.dir = currentLang === "ar" ? "rtl" : "ltr";
         updateUIForUser();
-        renderGames();
+        if (currentTab === "games") renderGames();
+        else renderGiftCards();
         updateTexts();
       });
     });
     
     document.getElementById("currencySelect")?.addEventListener("change", (e) => {
       currentCurrency = e.target.value;
-      renderGames();
+      if (currentTab === "games") renderGames();
+      else renderGiftCards();
+    });
+    
+    document.getElementById("searchInput")?.addEventListener("input", (e) => {
+      searchQuery = e.target.value;
+      updateSearchResults();
+    });
+    
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        switchTab(btn.getAttribute("data-tab"));
+      });
     });
   }
 
   function updateTexts() {
     document.getElementById("currencyLabel").innerText = currentLang === "ar" ? "العملة:" : "Currency:";
     document.getElementById("loginBtnText").innerText = currentLang === "ar" ? "تسجيل دخول" : "Login";
-    document.getElementById("loginTitle").innerText = currentLang === "ar" ? "تسجيل الدخول" : "Login";
-    document.getElementById("userOption").innerText = currentLang === "ar" ? "عميل / زائر" : "User / Guest";
-    document.getElementById("adminOption").innerText = currentLang === "ar" ? "أدمن (مدير)" : "Admin";
-    document.getElementById("loginBtn").innerText = currentLang === "ar" ? "دخول" : "Login";
-    document.getElementById("closeBtnText").innerText = currentLang === "ar" ? "إغلاق" : "Close";
-    document.getElementById("adminPanelTitle").innerHTML = currentLang === "ar" ? "لوحة تحكم الأدمن - تعديل الأسعار والمواصفات" : "Admin Panel - Edit Prices & Specs";
-    document.getElementById("addGameTitle").innerHTML = currentLang === "ar" ? "إضافة لعبة جديدة" : "Add New Game";
-    document.getElementById("addBtnText").innerText = currentLang === "ar" ? "إضافة" : "Add";
-    document.getElementById("closeAdminText").innerText = currentLang === "ar" ? "إغلاق" : "Close";
   }
 
   function init() {
     initEvents();
     updateUIForUser();
-    renderGames();
+    switchTab("games");
     updateTexts();
   }
   
