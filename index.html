@@ -1,410 +1,770 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>xnesto - متجر ألعاب PS4 و PS5</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>xnesto – متجر الألعاب | PS4/PS5</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    :root {
-      --primary: #e63946;
-      --dark: #1d3557;
-      --light: #f1faee;
-      --gray: #457b9d;
-    }
-    * { margin:0; padding:0; box-sizing:border-box; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: system-ui, -apple-system, sans-serif;
-      background: var(--light);
-      color: var(--dark);
-      line-height: 1.6;
+      background: linear-gradient(135deg, #0a0a1a 0%, #0f0f1f 100%);
+      font-family: 'Segoe UI', Tahoma, system-ui, sans-serif;
+      color: #f0f0ff;
+      padding: 1.5rem;
+      min-height: 100vh;
     }
-    header {
-      background: var(--dark);
-      color: white;
-      padding: 1.2rem;
+    .header {
       text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      background: rgba(17, 17, 51, 0.7);
+      backdrop-filter: blur(10px);
+      padding: 1.5rem 1rem;
+      border-radius: 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(0, 204, 255, 0.3);
     }
-    header h1 { font-size: 2.8rem; margin-bottom: 0.4rem; }
-    .container { max-width: 1240px; margin: 2rem auto; padding: 0 1rem; }
+    .header h1 {
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, #00ccff, #ffaa44);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .header p { color: #aab3e6; }
+    .control-bar {
+      max-width: 1300px;
+      margin: 0 auto 1.8rem auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 12px 20px;
+      border-radius: 60px;
+    }
+    .lang-switch {
+      display: flex;
+      gap: 10px;
+      background: #1e1e3a;
+      padding: 5px;
+      border-radius: 50px;
+    }
+    .lang-btn {
+      background: transparent;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 40px;
+      color: #ccc;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .lang-btn.active { background: #ffaa44; color: #0a0a1a; }
+    .currency-selector {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #1e1e3a;
+      padding: 5px 15px;
+      border-radius: 50px;
+    }
+    #currencySelect {
+      background: #0a0c1a;
+      border: 1px solid #ffaa44;
+      color: #ffdd99;
+      padding: 8px 12px;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .auth-buttons { display: flex; gap: 10px; }
+    .login-btn, .logout-btn {
+      background: #2d2f6e;
+      border: none;
+      color: #ffaa66;
+      padding: 8px 16px;
+      border-radius: 40px;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+    .user-badge {
+      background: #1e1e3a;
+      padding: 8px 16px;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .login-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      visibility: hidden;
+      opacity: 0;
+      transition: 0.3s;
+    }
+    .login-modal.active { visibility: visible; opacity: 1; }
+    .login-box {
+      background: #11152b;
+      border-radius: 1.5rem;
+      padding: 2rem;
+      text-align: center;
+      border: 1px solid #ffaa44;
+      width: 320px;
+    }
+    .login-box h3 { margin-bottom: 1rem; color: #ffaa44; }
+    .login-box input, .login-box select {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 40px;
+      border: none;
+      background: #1e1e3a;
+      color: white;
+      text-align: center;
+    }
+    .login-box button {
+      background: #ffaa44;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      width: 100%;
+    }
+    .login-error { color: #ff6666; margin-top: 10px; }
+    .admin-panel {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: 0.3s;
+    }
+    .admin-panel.active { visibility: visible; opacity: 1; }
+    .admin-container {
+      background: #0a0c1a;
+      border-radius: 1.5rem;
+      width: 95%;
+      max-width: 1100px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 1.5rem;
+      border: 2px solid #ffaa44;
+    }
+    .admin-container h2 { text-align: center; color: #ffaa44; margin-bottom: 1rem; }
+    .admin-games-list { display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; }
+    .admin-game-item {
+      background: #11152b;
+      padding: 15px;
+      border-radius: 1rem;
+      border: 1px solid #2a2f55;
+    }
+    .admin-game-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .admin-game-name { font-weight: bold; font-size: 1.1rem; color: #ffaa66; }
+    .admin-price-input {
+      background: #1e1e3a;
+      border: 1px solid #ffaa44;
+      padding: 6px 12px;
+      border-radius: 30px;
+      width: 90px;
+      text-align: center;
+      color: #ffdd99;
+    }
+    .admin-specs {
+      margin: 10px 0;
+      padding: 10px;
+      background: #0a0c1a;
+      border-radius: 0.8rem;
+    }
+    .admin-specs textarea {
+      width: 100%;
+      background: #1e1e3a;
+      border: 1px solid #ffaa44;
+      border-radius: 12px;
+      padding: 8px;
+      color: white;
+      font-size: 0.8rem;
+      resize: vertical;
+      font-family: inherit;
+    }
+    .admin-specs label { font-size: 0.7rem; color: #ffaa66; display: block; margin-bottom: 5px; }
+    .admin-image-input {
+      width: 100%;
+      background: #1e1e3a;
+      border: 1px solid #ffaa44;
+      border-radius: 30px;
+      padding: 8px;
+      color: white;
+      margin-top: 8px;
+    }
+    .admin-buttons { display: flex; gap: 10px; justify-content: flex-end; margin-top: 10px; }
+    .admin-save-btn, .admin-delete-btn {
+      padding: 6px 16px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      border: none;
+    }
+    .admin-save-btn { background: #ffaa44; color: #0a0a1a; }
+    .admin-delete-btn { background: #ff4444; color: white; }
+    .add-game-section {
+      background: #11152b;
+      padding: 1rem;
+      border-radius: 1rem;
+      margin-top: 1rem;
+    }
+    .add-game-section h3 { color: #ffaa44; margin-bottom: 1rem; }
+    .add-game-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    .add-game-form input, .add-game-form textarea {
+      background: #1e1e3a;
+      border: 1px solid #ffaa44;
+      padding: 8px 12px;
+      border-radius: 30px;
+      color: white;
+      flex: 1;
+      min-width: 140px;
+    }
+    .add-game-form textarea { min-width: 200px; border-radius: 15px; resize: vertical; }
+    .add-game-btn {
+      background: #00cc88;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .close-admin {
+      background: #ff4444;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 40px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      display: block;
+      margin: 20px auto 0;
+    }
     .games-grid {
+      max-width: 1300px;
+      margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 1.8rem;
     }
     .game-card {
-      background: white;
-      border-radius: 14px;
+      background: #11152b;
+      border-radius: 1.2rem;
       overflow: hidden;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.14);
-      transition: all 0.28s ease;
+      transition: 0.3s;
+      border: 1px solid #2a2f55;
     }
-    .game-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 14px 32px rgba(0,0,0,0.22);
-    }
-    .game-card img {
+    .game-card:hover { transform: translateY(-5px); border-color: #ffaa55; }
+    .game-image {
       width: 100%;
-      height: 380px;
-      object-fit: cover;
-      background: #111;
-    }
-    .game-info { padding: 1.3rem; }
-    .game-info h3 { font-size: 1.35rem; margin-bottom: 0.5rem; }
-    .price { font-size: 1.55rem; font-weight: 700; color: var(--primary); margin: 0.7rem 0; }
-    .admin-controls {
-      margin-top: 1.2rem;
+      height: 200px;
+      position: relative;
       display: flex;
+      align-items: center;
+      justify-content: center;
       flex-direction: column;
-      gap: 0.7rem;
+      background-size: cover;
+      background-position: center;
     }
-    .admin-controls input {
-      padding: 0.7rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
+    .game-icon-large {
+      font-size: 4rem;
+      text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      margin-bottom: 10px;
     }
-    .btn {
-      padding: 0.75rem 1.5rem;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1rem;
-      font-weight: 600;
-      transition: 0.2s;
+    .game-badge {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      color: #ffcc77;
     }
-    .btn-primary  { background: var(--primary); color: white; }
-    .btn-primary:hover  { background: #c62839; }
-    .btn-success  { background: #2a9d8f; color: white; }
-    .btn-success:hover { background: #1f7a6d; }
-    .btn-danger   { background: #d32f2f; color: white; }
-    .btn-danger:hover  { background: #b71c1c; }
-
-    #authPage, #admin-login, #register-form {
-      max-width: 440px;
-      margin: 5rem auto 2rem;
-      background: white;
-      padding: 2.8rem;
-      border-radius: 14px;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.18);
-    }
-    #authPage h2, #admin-login h2 { text-align:center; color:var(--primary); margin-bottom:2rem; }
-    input { width:100%; padding:1rem; margin:0.9rem 0; border:1px solid #ddd; border-radius:8px; font-size:1.05rem; }
-    .hidden { display:none !important; }
-    .logout, .user-info {
-      position: fixed;
-      top: 1rem;
-      padding: 0.7rem 1.4rem;
-      border-radius: 8px;
-      color: white;
-      z-index: 999;
-      cursor: pointer;
-    }
-    .logout { left: 1rem; background: #d32f2f; }
-    .user-info { right: 1rem; background: var(--gray); }
-    #addProductForm {
-      background: white;
-      padding: 1.8rem;
+    .card-info { padding: 1rem; }
+    .game-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 5px; }
+    .game-version { font-size: 0.7rem; color: #8f9bcf; margin-bottom: 8px; }
+    .game-specs {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 8px;
       border-radius: 12px;
-      margin: 2rem 0;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      margin: 10px 0;
+      font-size: 0.75rem;
+      color: #b9c5f0;
+      line-height: 1.5;
+      border-right: 2px solid #ffaa44;
     }
-    @media (max-width: 640px) {
-      .games-grid { grid-template-columns: 1fr; }
-      .game-card img { height: 340px; }
+    .price {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #ff6666;
+      margin: 8px 0;
     }
+    .btn-wa {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #25D366;
+      color: #000;
+      width: 100%;
+      padding: 10px 0;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 8px;
+    }
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    .page-btn {
+      background: #1e1e3a;
+      border: 1px solid #ffaa44;
+      color: #ffdd99;
+      padding: 8px 14px;
+      border-radius: 40px;
+      cursor: pointer;
+    }
+    .page-btn.active { background: #ffaa44; color: #0a0a1a; }
+    .footer { text-align: center; margin-top: 2rem; padding: 1rem; color: #6f7bb3; }
+    @media (max-width: 640px) { body { padding: 0.8rem; } .game-image { height: 160px; } .game-icon-large { font-size: 3rem; } }
   </style>
 </head>
-<body>
+<body dir="rtl">
 
-  <div id="logoutBtn" class="logout hidden" onclick="logout()">تسجيل الخروج</div>
-  <div id="userInfo" class="user-info hidden"></div>
+<div class="header">
+  <h1>🎮 xnesto</h1>
+  <p id="welcomeMsg">ألعاب PS4 / PS5 – أسعار محدثة – رصيد شحن فوري</p>
+</div>
 
-  <!-- منطقة المصادقة -->
-  <div id="authPage">
-    <div id="auth-section">
-      <h2>مرحباً بك في xnesto</h2>
-      <div style="text-align:center; margin:2.5rem 0;">
-        <button class="btn btn-primary"  style="margin:0.8rem; padding:1rem 2rem;" onclick="showAdminLogin()">دخول الأدمن</button>
-        <button class="btn btn-success" style="margin:0.8rem; padding:1rem 2rem;" onclick="showCustomerArea()">متابعة كزائر</button>
-      </div>
-      <hr style="margin:2rem 0;">
-      <p style="text-align:center;">
-        <button class="btn" onclick="showRegister()">إنشاء حساب عميل جديد</button>
-      </p>
-    </div>
-
-    <div id="admin-login" class="hidden">
-      <h2>دخول الأدمن</h2>
-      <form onsubmit="adminLogin(event)">
-        <input type="password" id="adminPass" placeholder="كلمة المرور" required>
-        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:1rem;">دخول</button>
-      </form>
-      <p style="text-align:center; margin-top:1.2rem; color:#555; font-size:0.95rem;">
-        كلمة المرور الافتراضية: admin2026
-      </p>
-      <button class="btn" onclick="backToAuth()" style="width:100%; margin-top:1.2rem;">رجوع</button>
-    </div>
-
-    <div id="register-form" class="hidden">
-      <h2>إنشاء حساب عميل</h2>
-      <form onsubmit="registerCustomer(event)">
-        <input type="text" id="regUsername" placeholder="اسم المستخدم" required>
-        <input type="password" id="regPassword" placeholder="كلمة المرور" required>
-        <button type="submit" class="btn btn-success" style="width:100%; margin-top:1rem;">إنشاء الحساب</button>
-      </form>
-      <button class="btn" onclick="backToAuth()" style="width:100%; margin-top:1rem;">رجوع</button>
-    </div>
+<div class="control-bar">
+  <div class="lang-switch">
+    <button class="lang-btn active" data-lang="ar">🇸🇦 العربية</button>
+    <button class="lang-btn" data-lang="en">🇬🇧 English</button>
   </div>
+  <div class="currency-selector">
+    <label><i class="fas fa-coins"></i> <span id="currencyLabel">العملة:</span></label>
+    <select id="currencySelect">
+      <option value="OMR">ريال عماني (OMR)</option>
+      <option value="USD">دولار أمريكي (USD)</option>
+      <option value="SAR">ريال سعودي (SAR)</option>
+      <option value="QAR">ريال قطري (QAR)</option>
+      <option value="EUR">يورو (EUR)</option>
+      <option value="AED">درهم إماراتي (AED)</option>
+    </select>
+  </div>
+  <div class="auth-buttons" id="authButtons">
+    <button class="login-btn" id="showLoginBtn"><i class="fas fa-user"></i> <span id="loginBtnText">تسجيل دخول</span></button>
+  </div>
+</div>
 
-  <!-- المتجر -->
-  <div id="storePage" class="hidden">
-    <header>
-      <h1>xnesto</h1>
-      <p>متجر ألعاب PS4 و PS5 الأصلية – عمان</p>
-    </header>
+<div class="games-grid" id="gamesContainer"></div>
+<div class="pagination" id="paginationContainer"></div>
 
-    <div class="container">
-      <div id="admin-tools" class="hidden" style="text-align:center; margin:2.5rem 0;">
-        <h2 style="color:var(--primary);">لوحة تحكم الأدمن</h2>
-        <button class="btn btn-success" onclick="showAddProductForm()" style="padding:1rem 2rem;">إضافة لعبة جديدة</button>
+<div class="footer">
+  <i class="fas fa-gamepad"></i> xnesto - جميع الحقوق محفوظة
+</div>
+
+<!-- نافذة تسجيل الدخول -->
+<div class="login-modal" id="loginModal">
+  <div class="login-box">
+    <h3><i class="fas fa-sign-in-alt"></i> <span id="loginTitle">تسجيل الدخول</span></h3>
+    <select id="userTypeSelect">
+      <option value="user">👤 <span id="userOption">عميل / زائر</span></option>
+      <option value="admin">👑 <span id="adminOption">أدمن (مدير)</span></option>
+    </select>
+    <div id="adminPasswordField" style="display:none;">
+      <input type="password" id="adminPassword" placeholder="كلمة السر" autocomplete="off">
+    </div>
+    <button id="loginSubmitBtn"><span id="loginBtn">دخول</span></button>
+    <div class="login-error" id="loginError"></div>
+    <button id="closeLoginBtn" style="background:#444;"><span id="closeBtnText">إغلاق</span></button>
+  </div>
+</div>
+
+<!-- لوحة تحكم الادمن -->
+<div class="admin-panel" id="adminPanel">
+  <div class="admin-container">
+    <h2><i class="fas fa-edit"></i> <span id="adminPanelTitle">لوحة تحكم الأدمن - تعديل الأسعار والمواصفات</span></h2>
+    <div class="admin-games-list" id="adminGamesList"></div>
+    <div class="add-game-section">
+      <h3><i class="fas fa-plus-circle"></i> <span id="addGameTitle">إضافة لعبة جديدة</span></h3>
+      <div class="add-game-form">
+        <input type="text" id="newGameNameAr" placeholder="الاسم بالعربية">
+        <input type="text" id="newGameNameEn" placeholder="Name in English">
+        <input type="text" id="newGameVersion" placeholder="الإصدار (PS5/PS4)">
+        <input type="number" id="newGamePrice" placeholder="السعر (ر.ع)">
+        <input type="text" id="newGameImage" placeholder="رابط الصورة (اختياري)">
+        <input type="text" id="newGameIcon" placeholder="أيقونة (مثل: 🎮, 🎭, 🔫)" value="🎮">
+        <textarea id="newGameSpecsAr" rows="2" placeholder="المواصفات بالعربية"></textarea>
+        <textarea id="newGameSpecsEn" rows="2" placeholder="Specifications in English"></textarea>
+        <button class="add-game-btn" id="addGameBtn"><i class="fas fa-save"></i> <span id="addBtnText">إضافة</span></button>
       </div>
+    </div>
+    <button class="close-admin" id="closeAdminBtn"><span id="closeAdminText">إغلاق</span></button>
+  </div>
+</div>
 
-      <div id="addProductForm" class="hidden">
-        <h3 style="margin-bottom:1.2rem;">إضافة منتج جديد</h3>
-        <input type="text"     id="newName"        placeholder="اسم اللعبة" required>
-        <input type="text"     id="newPlatform"    placeholder="المنصة (PS4 / PS5)" required>
-        <input type="number"   id="newPrice"       placeholder="السعر (ر.ع)" step="1" min="1" required>
-        <input type="url"      id="newImage"       placeholder="رابط صورة الغلاف (مباشر)" required>
-        <div style="margin-top:1.2rem;">
-          <button class="btn btn-success" onclick="addNewProduct()">حفظ اللعبة</button>
-          <button class="btn" onclick="hideAddProductForm()" style="margin-right:0.8rem;">إلغاء</button>
+<script>
+  // ==================== قائمة الألعاب مع أيقونات مميزة ====================
+  // لا تحتاج هذه الأيقونات لأي صور خارجية - تعمل فوراً
+  let gamesData = [
+    { id: 1, nameAr: "Assassin's Creed Shadows", nameEn: "Assassin's Creed Shadows", version: "PS5/PS4", priceOMR: 14, image: "", icon: "🎭", bgColor: "#2d4a6e", specsAr: "🏷️ الحجم: 65GB | 🎮 اللغة: عربية/إنجليزية | 💾 يتطلب مساحة 70GB", specsEn: "📦 Size: 65GB | 🎮 Language: Arabic/English | 💾 Storage: 70GB", msgAr: "أريد Assassin's Creed Shadows", msgEn: "I want Assassin's Creed Shadows" },
+    { id: 2, nameAr: "Call of Duty: Black Ops 6", nameEn: "Call of Duty: Black Ops 6", version: "PS5/PS4", priceOMR: 22, image: "", icon: "🔫", bgColor: "#5d3a1a", specsAr: "🏷️ الحجم: 120GB | 🎮 اللغة: إنجليزية | 🔫 وضع زومبي + حملة", specsEn: "📦 Size: 120GB | 🎮 Language: English | 🧟 Zombies Mode + Campaign", msgAr: "أريد Call of Duty Black Ops 6", msgEn: "I want Call of Duty Black Ops 6" },
+    { id: 3, nameAr: "Grand Theft Auto VI", nameEn: "Grand Theft Auto VI", version: "PS5", priceOMR: 6, image: "", icon: "🏎️", bgColor: "#2d5a4a", specsAr: "🏷️ الحجم: 150GB | 🎮 اللغة: عربية/إنجليزية | 🌍 عالم مفتوح ضخم", specsEn: "📦 Size: 150GB | 🎮 Language: Arabic/English | 🌍 Huge Open World", msgAr: "أريد GTA VI PS5", msgEn: "I want GTA VI PS5" },
+    { id: 4, nameAr: "Grand Theft Auto VI", nameEn: "Grand Theft Auto VI", version: "PS4", priceOMR: 5, image: "", icon: "🏎️", bgColor: "#2d5a4a", specsAr: "🏷️ الحجم: 120GB | 🎮 اللغة: عربية/إنجليزية | نسخة PS4", specsEn: "📦 Size: 120GB | 🎮 Language: Arabic/English | PS4 Version", msgAr: "أريد GTA VI PS4", msgEn: "I want GTA VI PS4" },
+    { id: 5, nameAr: "Monster Hunter Wilds", nameEn: "Monster Hunter Wilds", version: "PS5", priceOMR: 14, image: "", icon: "🐉", bgColor: "#3a5a2d", specsAr: "🏷️ الحجم: 75GB | 🎮 اللغة: إنجليزية | 🐉 صيد الوحوش + لعب جماعي", specsEn: "📦 Size: 75GB | 🎮 Language: English | 🐉 Monster Hunting + Multiplayer", msgAr: "أريد Monster Hunter Wilds", msgEn: "I want Monster Hunter Wilds" },
+    { id: 6, nameAr: "Ghost of Yōtei", nameEn: "Ghost of Yōtei", version: "PS5", priceOMR: 14, image: "", icon: "🗡️", bgColor: "#4a2d5a", specsAr: "🏷️ الحجم: 80GB | 🎮 اللغة: عربية/إنجليزية | 🗡️ عالم مفتوح - ساموراي", specsEn: "📦 Size: 80GB | 🎮 Language: Arabic/English | 🗡️ Open World - Samurai", msgAr: "أريد Ghost of Yōtei", msgEn: "I want Ghost of Yōtei" },
+    { id: 7, nameAr: "Death Stranding 2", nameEn: "Death Stranding 2", version: "PS5", priceOMR: 24, image: "", icon: "🌊", bgColor: "#2d4a6e", specsAr: "🏷️ الحجم: 100GB | 🎮 اللغة: عربية/إنجليزية | 🌊 مغامرة فريدة", specsEn: "📦 Size: 100GB | 🎮 Language: Arabic/English | 🌊 Unique Adventure", msgAr: "أريد Death Stranding 2", msgEn: "I want Death Stranding 2" },
+    { id: 8, nameAr: "EA Sports FC 26", nameEn: "EA Sports FC 26", version: "PS4/PS5", priceOMR: 13, image: "", icon: "⚽", bgColor: "#2d6e5a", specsAr: "🏷️ الحجم: 55GB | 🎮 اللغة: عربية/إنجليزية | ⚽ أندية محدثة + طور المهنة", specsEn: "📦 Size: 55GB | 🎮 Language: Arabic/English | ⚽ Updated Clubs + Career Mode", msgAr: "أريد EA Sports FC 26", msgEn: "I want EA Sports FC 26" },
+    { id: 9, nameAr: "Black Myth: Wukong", nameEn: "Black Myth: Wukong", version: "PS5", priceOMR: 16, image: "", icon: "🐒", bgColor: "#5a3a2d", specsAr: "🏷️ الحجم: 90GB | 🎮 اللغة: عربية/إنجليزية | 🐒 قصة المستهلك - قتال ملحمي", specsEn: "📦 Size: 90GB | 🎮 Language: Arabic/English | 🐒 Epic Action RPG", msgAr: "أريد Black Myth Wukong", msgEn: "I want Black Myth Wukong" },
+    { id: 10, nameAr: "Silent Hill 2 Remake", nameEn: "Silent Hill 2 Remake", version: "PS5", priceOMR: 14, image: "", icon: "👻", bgColor: "#4a2d2d", specsAr: "🏷️ الحجم: 50GB | 🎮 اللغة: إنجليزية | 👻 رعب نفسي - جرافيكس محسن", specsEn: "📦 Size: 50GB | 🎮 Language: English | 👻 Psychological Horror", msgAr: "أريد Silent Hill 2 Remake", msgEn: "I want Silent Hill 2 Remake" },
+    { id: 11, nameAr: "God of War Ragnarök", nameEn: "God of War Ragnarök", version: "PS4/PS5", priceOMR: 10, image: "", icon: "🪓", bgColor: "#5a3a4a", specsAr: "🏷️ الحجم: 85GB | 🎮 اللغة: عربية/إنجليزية | 🪓 ملحمة إسكندنافية", specsEn: "📦 Size: 85GB | 🎮 Language: Arabic/English | 🪓 Norse Saga", msgAr: "أريد God of War Ragnarök", msgEn: "I want God of War Ragnarök" },
+    { id: 12, nameAr: "Marvel's Spider-Man 2", nameEn: "Marvel's Spider-Man 2", version: "PS5", priceOMR: 16, image: "", icon: "🕷️", bgColor: "#2d4a6e", specsAr: "🏷️ الحجم: 98GB | 🎮 اللغة: عربية/إنجليزية | 🕷️ بيتر باركر + مايلز موراليس", specsEn: "📦 Size: 98GB | 🎮 Language: Arabic/English | 🕷️ Peter Parker + Miles Morales", msgAr: "أريد Spider-Man 2", msgEn: "I want Spider-Man 2" },
+    { id: 13, nameAr: "Hogwarts Legacy", nameEn: "Hogwarts Legacy", version: "PS4/PS5", priceOMR: 11, image: "", icon: "🧙", bgColor: "#4a2d5a", specsAr: "🏷️ الحجم: 85GB | 🎮 اللغة: عربية/إنجليزية | 🧙 عالم هاري بوتر المفتوح", specsEn: "📦 Size: 85GB | 🎮 Language: Arabic/English | 🧙 Open World Harry Potter", msgAr: "أريد Hogwarts Legacy", msgEn: "I want Hogwarts Legacy" },
+    { id: 14, nameAr: "Final Fantasy VII Rebirth", nameEn: "Final Fantasy VII Rebirth", version: "PS5", priceOMR: 18, image: "", icon: "🗡️", bgColor: "#2d6e6e", specsAr: "🏷️ الحجم: 145GB | 🎮 اللغة: عربية/إنجليزية | 🗡️ آر بي جي خيالية", specsEn: "📦 Size: 145GB | 🎮 Language: Arabic/English | 🗡️ Fantasy RPG", msgAr: "أريد Final Fantasy VII Rebirth", msgEn: "I want Final Fantasy VII Rebirth" },
+    { id: 15, nameAr: "Tekken 8", nameEn: "Tekken 8", version: "PS5", priceOMR: 12, image: "", icon: "🥊", bgColor: "#5a2d3a", specsAr: "🏷️ الحجم: 80GB | 🎮 اللغة: عربية/إنجليزية | 🥊 لعبة قتال", specsEn: "📦 Size: 80GB | 🎮 Language: Arabic/English | 🥊 Fighting Game", msgAr: "أريد Tekken 8", msgEn: "I want Tekken 8" }
+  ];
+
+  let nextId = 16;
+  let currentUser = { type: "guest", name: "زائر" };
+  let currentLang = "ar";
+  let currentCurrency = "OMR";
+  let currentPage = 1;
+  const GAMES_PER_PAGE = 8;
+  const ADMIN_PASSWORD = "admin123";
+
+  const exchangeRates = { OMR: 1, USD: 2.6, SAR: 9.75, QAR: 9.46, EUR: 2.4, AED: 9.55 };
+  const currencySymbols = { OMR: "ر.ع", USD: "$", SAR: "ر.س", QAR: "ر.ق", EUR: "€", AED: "د.إ" };
+  const WA_NUMBER = "96879977100";
+
+  function saveGamesToLocal() { localStorage.setItem("xnesto_games", JSON.stringify(gamesData)); }
+  function loadGamesFromLocal() {
+    const saved = localStorage.getItem("xnesto_games");
+    if (saved) { 
+      const parsed = JSON.parse(saved);
+      if (parsed.length > 0) {
+        gamesData.length = 0;
+        parsed.forEach(g => gamesData.push(g));
+        nextId = Math.max(...gamesData.map(g => g.id), 0) + 1;
+      }
+    }
+  }
+  loadGamesFromLocal();
+
+  function convertPrice(price, currency) {
+    let converted = price * exchangeRates[currency];
+    return converted.toFixed(2);
+  }
+
+  function buildGameCard(game) {
+    const card = document.createElement("div");
+    card.className = "game-card";
+    const gameName = currentLang === "ar" ? game.nameAr : game.nameEn;
+    const specs = currentLang === "ar" ? game.specsAr : game.specsEn;
+    const whatsappMsg = currentLang === "ar" ? game.msgAr : game.msgEn;
+    const waLink = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(whatsappMsg)}`;
+    const convertedPrice = convertPrice(game.priceOMR, currentCurrency);
+    const currencySym = currencySymbols[currentCurrency];
+    
+    // استخدام الصورة إذا وجدت، وإلا استخدام أيقونة وخلفية
+    const bgStyle = game.image ? `background-image: url('${game.image}'); background-size: cover;` : `background: linear-gradient(135deg, ${game.bgColor || "#2d4a6e"}, ${game.bgColor ? game.bgColor + "cc" : "#1a2a3a"});`;
+    
+    card.innerHTML = `
+      <div class="game-image" style="${bgStyle} background-position: center;">
+        ${!game.image ? `<div class="game-icon-large">${game.icon || "🎮"}</div>` : ''}
+        <div class="game-badge">${game.version}</div>
+      </div>
+      <div class="card-info">
+        <div class="game-title">${gameName}</div>
+        <div class="game-version">${currentLang === "ar" ? "نسخة رقمية | تحميل فوري" : "Digital Edition"}</div>
+        ${specs ? `<div class="game-specs"><i class="fas fa-info-circle"></i> ${specs}</div>` : ''}
+        <div class="price">${convertedPrice} <span>${currencySym}</span></div>
+        <a href="${waLink}" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> ${currentLang === "ar" ? "اطلب الآن" : "Order Now"}</a>
+      </div>
+    `;
+    return card;
+  }
+
+  function renderGames() {
+    const container = document.getElementById("gamesContainer");
+    if (!container) return;
+    container.innerHTML = "";
+    const totalPages = Math.ceil(gamesData.length / GAMES_PER_PAGE);
+    if (currentPage > totalPages) currentPage = 1;
+    const start = (currentPage - 1) * GAMES_PER_PAGE;
+    const pageGames = gamesData.slice(start, start + GAMES_PER_PAGE);
+    pageGames.forEach(game => container.appendChild(buildGameCard(game)));
+    renderPagination();
+  }
+
+  function renderPagination() {
+    const pagContainer = document.getElementById("paginationContainer");
+    if (!pagContainer) return;
+    pagContainer.innerHTML = "";
+    const totalPages = Math.ceil(gamesData.length / GAMES_PER_PAGE);
+    for (let i = 1; i <= totalPages; i++) {
+      const btn = document.createElement("button");
+      btn.className = "page-btn" + (i === currentPage ? " active" : "");
+      btn.textContent = i;
+      btn.onclick = () => { currentPage = i; renderGames(); };
+      pagContainer.appendChild(btn);
+    }
+  }
+
+  function renderAdminPanel() {
+    const container = document.getElementById("adminGamesList");
+    if (!container) return;
+    container.innerHTML = "";
+    gamesData.forEach(game => {
+      const item = document.createElement("div");
+      item.className = "admin-game-item";
+      item.innerHTML = `
+        <div class="admin-game-header">
+          <div class="admin-game-name">${game.nameAr} (${game.version})</div>
+          <div>
+            <input type="number" class="admin-price-input" id="price-${game.id}" value="${game.priceOMR}" step="0.5">
+            <span style="margin:0 5px">ر.ع</span>
+          </div>
         </div>
-      </div>
-
-      <div class="games-grid" id="gamesContainer"></div>
-    </div>
-  </div>
-
-  <script>
-    // ────────────────────────────────────────────────
-    // البيانات الافتراضية + صور محدثة 2024-2025
-    // ────────────────────────────────────────────────
-    let games = [
-      { 
-        id:1, 
-        name:"God of War Ragnarök", 
-        platform:"PS5", 
-        price:229, 
-        img:"https://image.api.playstation.com/vulcan/ap/rnd/202207/1117/4uH3OH4dQtHMe2gmdFuth02u.jpg"
-      },
-      { 
-        id:2, 
-        name:"Elden Ring", 
-        platform:"PS5", 
-        price:189, 
-        img:"https://m.media-amazon.com/images/I/81exy+9s4EL._AC_SL1500_.jpg"
-      },
-      { 
-        id:3, 
-        name:"EA Sports FC 25", 
-        platform:"PS5", 
-        price:219, 
-        img:"https://m.media-amazon.com/images/I/81i-5G5f2QL._AC_SL1500_.jpg"
-      },
-      { 
-        id:4, 
-        name:"Marvel's Spider-Man 2", 
-        platform:"PS5", 
-        price:249, 
-        img:"https://image.api.playstation.com/vulcan/ap/rnd/202306/1219/60eca3ac155247e21850c7d075d01ebf0f3f5dbf6f2c7a2d.jpg"
-      },
-      { 
-        id:5, 
-        name:"The Last of Us Part I", 
-        platform:"PS5", 
-        price:199, 
-        img:"https://m.media-amazon.com/images/I/81m0KHtJH+L._AC_SL1500_.jpg"
-      },
-      { 
-        id:6, 
-        name:"Ghost of Tsushima Director's Cut", 
-        platform:"PS5", 
-        price:169, 
-        img:"https://m.media-amazon.com/images/I/81QDWVG+2BL._AC_SL1500_.jpg"
-      },
-      { 
-        id:7, 
-        name:"Horizon Forbidden West", 
-        platform:"PS5", 
-        price:209, 
-        img:"https://m.media-amazon.com/images/I/81a0h3d6jUL._AC_SL1500_.jpg"
-      }
-    ];
-
-    const ADMIN_PASS = "admin2026";
-    let currentUser = null;
-
-    // ─── تحميل / حفظ ───
-    function loadData() {
-      const saved = localStorage.getItem("xnesto_games");
-      if (saved) games = JSON.parse(saved);
-    }
-
-    function saveGames() {
-      localStorage.setItem("xnesto_games", JSON.stringify(games));
-    }
-
-    // ─── عرض المنتجات ───
-    function renderGames() {
-      const container = document.getElementById("gamesContainer");
-      container.innerHTML = "";
-      const isAdmin = currentUser === "admin";
-
-      games.forEach(game => {
-        const card = document.createElement("div");
-        card.className = "game-card";
-
-        let html = `
-          <img src="${game.img}" 
-               alt="${game.name}" 
-               onerror="this.src='https://via.placeholder.com/290x380/1d3557/ffffff?text=${encodeURIComponent(game.name)}'; this.onerror=null;">
-          <div class="game-info">
-            <h3>${game.name}</h3>
-            <div class="price">${game.price} ر.ع</div>
-            <small style="color:#555;">${game.platform}</small>
-        `;
-
-        if (isAdmin) {
-          html += `
-            <div class="admin-controls">
-              <input type="number" value="\( {game.price}" id="price- \){game.id}" min="1">
-              <button class="btn btn-success" onclick="updatePrice(${game.id})">تحديث السعر</button>
-              <button class="btn btn-danger" onclick="deleteProduct(${game.id})">حذف</button>
-            </div>
-          `;
+        <div class="admin-specs">
+          <label><i class="fas fa-info-circle"></i> المواصفات (عربي)</label>
+          <textarea id="specsAr-${game.id}" rows="2">${game.specsAr || ''}</textarea>
+          <label style="margin-top:8px;"><i class="fas fa-info-circle"></i> Specifications (English)</label>
+          <textarea id="specsEn-${game.id}" rows="2">${game.specsEn || ''}</textarea>
+          <label style="margin-top:8px;"><i class="fas fa-image"></i> أيقونة اللعبة (Emoji)</label>
+          <input type="text" id="icon-${game.id}" class="admin-image-input" value="${game.icon || '🎮'}">
+          <label style="margin-top:8px;"><i class="fas fa-palette"></i> لون الخلفية</label>
+          <input type="text" id="bgColor-${game.id}" class="admin-image-input" value="${game.bgColor || '#2d4a6e'}">
+          <label style="margin-top:8px;"><i class="fas fa-image"></i> رابط الصورة (اتركه فارغاً للأيقونة)</label>
+          <input type="text" id="imageUrl-${game.id}" class="admin-image-input" value="${game.image || ''}">
+        </div>
+        <div class="admin-buttons">
+          <button class="admin-save-btn" data-id="${game.id}"><i class="fas fa-save"></i> حفظ</button>
+          <button class="admin-delete-btn" data-id="${game.id}"><i class="fas fa-trash"></i> حذف</button>
+        </div>
+      `;
+      container.appendChild(item);
+    });
+    
+    document.querySelectorAll(".admin-save-btn").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        const id = parseInt(btn.getAttribute("data-id"));
+        const newPrice = parseFloat(document.getElementById(`price-${id}`).value);
+        const newSpecsAr = document.getElementById(`specsAr-${id}`).value;
+        const newSpecsEn = document.getElementById(`specsEn-${id}`).value;
+        const newIcon = document.getElementById(`icon-${id}`).value;
+        const newBgColor = document.getElementById(`bgColor-${id}`).value;
+        const newImage = document.getElementById(`imageUrl-${id}`).value;
+        const game = gamesData.find(g => g.id === id);
+        if (game) {
+          if (!isNaN(newPrice)) game.priceOMR = newPrice;
+          game.specsAr = newSpecsAr;
+          game.specsEn = newSpecsEn;
+          game.icon = newIcon;
+          game.bgColor = newBgColor;
+          game.image = newImage;
+          saveGamesToLocal();
+          renderAdminPanel();
+          renderGames();
         }
-
-        html += "</div>";
-        card.innerHTML = html;
-        container.appendChild(card);
       });
+    });
+    
+    document.querySelectorAll(".admin-delete-btn").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        const id = parseInt(btn.getAttribute("data-id"));
+        gamesData = gamesData.filter(g => g.id !== id);
+        saveGamesToLocal();
+        renderAdminPanel();
+        renderGames();
+      });
+    });
+  }
+
+  function addNewGame() {
+    const nameAr = document.getElementById("newGameNameAr").value;
+    const nameEn = document.getElementById("newGameNameEn").value;
+    const version = document.getElementById("newGameVersion").value;
+    const price = parseFloat(document.getElementById("newGamePrice").value);
+    const image = document.getElementById("newGameImage").value || "";
+    const icon = document.getElementById("newGameIcon").value || "🎮";
+    const specsAr = document.getElementById("newGameSpecsAr").value;
+    const specsEn = document.getElementById("newGameSpecsEn").value;
+    
+    if (!nameAr || !nameEn || !version || isNaN(price)) {
+      alert("يرجى ملء جميع الحقول الأساسية بشكل صحيح");
+      return;
     }
+    
+    const newGame = {
+      id: nextId++,
+      nameAr, nameEn, version,
+      priceOMR: price,
+      image: image,
+      icon: icon,
+      bgColor: "#2d4a6e",
+      specsAr: specsAr || "🏷️ مواصفات قريباً",
+      specsEn: specsEn || "📦 Specifications coming soon",
+      msgAr: `أريد ${nameAr}`,
+      msgEn: `I want ${nameEn}`
+    };
+    
+    gamesData.push(newGame);
+    saveGamesToLocal();
+    renderAdminPanel();
+    renderGames();
+    
+    document.getElementById("newGameNameAr").value = "";
+    document.getElementById("newGameNameEn").value = "";
+    document.getElementById("newGameVersion").value = "";
+    document.getElementById("newGamePrice").value = "";
+    document.getElementById("newGameImage").value = "";
+    document.getElementById("newGameIcon").value = "🎮";
+    document.getElementById("newGameSpecsAr").value = "";
+    document.getElementById("newGameSpecsEn").value = "";
+  }
 
-    // ─── تعديل سعر ───
-    function updatePrice(id) {
-      const val = Number(document.getElementById(`price-${id}`).value);
-      if (!val || val < 1) return alert("أدخل سعر صحيح");
-      
-      const game = games.find(g => g.id === id);
-      game.price = val;
-      saveGames();
-      renderGames();
-      alert(`تم تعديل سعر ${game.name}`);
+  function updateUIForUser() {
+    const authDiv = document.getElementById("authButtons");
+    const welcomeMsg = document.getElementById("welcomeMsg");
+    
+    if (currentUser.type === "admin") {
+      authDiv.innerHTML = `<div class="user-badge"><i class="fas fa-crown"></i> ${currentLang === "ar" ? "مرحباً Admin" : "Welcome Admin"}</div><button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> ${currentLang === "ar" ? "خروج" : "Logout"}</button>`;
+      welcomeMsg.innerHTML = currentLang === "ar" ? "🎮 مرحباً بك أيها المدير! يمكنك تعديل الأسعار والحذف والإضافة" : "🎮 Welcome Admin! You can edit prices, delete and add games";
+      document.getElementById("logoutBtn")?.addEventListener("click", logout);
+    } else if (currentUser.type === "user") {
+      authDiv.innerHTML = `<div class="user-badge"><i class="fas fa-user"></i> ${currentLang === "ar" ? "مرحباً عميل" : "Welcome User"}</div><button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> ${currentLang === "ar" ? "خروج" : "Logout"}</button>`;
+      welcomeMsg.innerHTML = currentLang === "ar" ? "🎮 أهلاً بك! يمكنك تصفح الألعاب والطلب عبر واتساب" : "🎮 Welcome! You can browse games and order via WhatsApp";
+      document.getElementById("logoutBtn")?.addEventListener("click", logout);
+    } else {
+      authDiv.innerHTML = `<button class="login-btn" id="showLoginBtn"><i class="fas fa-user"></i> ${currentLang === "ar" ? "تسجيل دخول" : "Login"}</button>`;
+      welcomeMsg.innerHTML = currentLang === "ar" ? "ألعاب PS4 / PS5 – أسعار محدثة – رصيد شحن فوري" : "PS4 / PS5 Games – Updated Prices – Instant Credit";
+      document.getElementById("showLoginBtn")?.addEventListener("click", () => showLoginModal());
     }
+  }
 
-    // ─── حذف ───
-    function deleteProduct(id) {
-      if (!confirm("هل أنت متأكد من الحذف؟")) return;
-      games = games.filter(g => g.id !== id);
-      saveGames();
-      renderGames();
-    }
+  function logout() {
+    currentUser = { type: "guest", name: "زائر" };
+    updateUIForUser();
+    renderGames();
+    const adminPanel = document.getElementById("adminPanel");
+    if (adminPanel) adminPanel.classList.remove("active");
+  }
 
-    // ─── إضافة منتج ───
-    function addNewProduct() {
-      const name     = document.getElementById("newName").value.trim();
-      const platform = document.getElementById("newPlatform").value.trim();
-      const price    = Number(document.getElementById("newPrice").value);
-      const img      = document.getElementById("newImage").value.trim();
+  function showLoginModal() {
+    document.getElementById("loginModal").classList.add("active");
+  }
 
-      if (!name || !platform || !price || !img) {
-        return alert("املأ جميع الحقول");
-      }
-
-      const newId = games.length ? Math.max(...games.map(g => g.id)) + 1 : 1;
-      games.push({ id: newId, name, platform, price, img });
-      saveGames();
-      hideAddProductForm();
-      renderGames();
-      alert("تمت الإضافة بنجاح!");
-    }
-
-    function showAddProductForm()  { document.getElementById("addProductForm").classList.remove("hidden"); }
-    function hideAddProductForm()  { document.getElementById("addProductForm").classList.add("hidden"); }
-
-    // ─── مصادقة ───
-    function adminLogin(e) {
-      e.preventDefault();
-      if (document.getElementById("adminPass").value === ADMIN_PASS) {
-        currentUser = "admin";
-        loginSuccess("الأدمن");
+  function handleLogin() {
+    const userType = document.getElementById("userTypeSelect").value;
+    if (userType === "admin") {
+      const password = document.getElementById("adminPassword").value;
+      if (password === ADMIN_PASSWORD) {
+        currentUser = { type: "admin", name: "Admin" };
+        updateUIForUser();
+        document.getElementById("loginModal").classList.remove("active");
+        document.getElementById("adminPanel").classList.add("active");
+        renderAdminPanel();
+        document.getElementById("addGameBtn").onclick = addNewGame;
       } else {
-        alert("كلمة المرور خاطئة");
+        document.getElementById("loginError").textContent = currentLang === "ar" ? "كلمة السر غير صحيحة" : "Incorrect password";
       }
+    } else {
+      currentUser = { type: "user", name: "عميل" };
+      updateUIForUser();
+      document.getElementById("loginModal").classList.remove("active");
     }
+  }
 
-    function registerCustomer(e) {
-      e.preventDefault();
-      const u = document.getElementById("regUsername").value.trim();
-      const p = document.getElementById("regPassword").value;
-      if (!u || !p) return alert("املأ الحقول");
-      
-      let users = JSON.parse(localStorage.getItem("xnesto_users") || "[]");
-      if (users.some(x => x.username === u)) return alert("الاسم موجود مسبقاً");
-      
-      users.push({ username: u, password: p });
-      localStorage.setItem("xnesto_users", JSON.stringify(users));
-      alert("تم إنشاء الحساب ✓ يمكنك الآن المتابعة كزائر");
-      backToAuth();
-    }
-
-    function showCustomerArea() {
-      currentUser = "guest";
-      loginSuccess("زائر");
-    }
-
-    function loginSuccess(role) {
-      document.getElementById("authPage").classList.add("hidden");
-      document.getElementById("storePage").classList.remove("hidden");
-      document.getElementById("logoutBtn").classList.remove("hidden");
-      
-      document.getElementById("userInfo").textContent = `مرحباً: ${role}`;
-      document.getElementById("userInfo").classList.remove("hidden");
-
-      const isAdmin = currentUser === "admin";
-      document.getElementById("admin-tools").classList.toggle("hidden", !isAdmin);
+  function initEvents() {
+    document.getElementById("showLoginBtn")?.addEventListener("click", showLoginModal);
+    document.getElementById("closeLoginBtn")?.addEventListener("click", () => document.getElementById("loginModal").classList.remove("active"));
+    document.getElementById("loginSubmitBtn")?.addEventListener("click", handleLogin);
+    document.getElementById("closeAdminBtn")?.addEventListener("click", () => document.getElementById("adminPanel").classList.remove("active"));
+    document.getElementById("userTypeSelect")?.addEventListener("change", (e) => {
+      document.getElementById("adminPasswordField").style.display = e.target.value === "admin" ? "block" : "none";
+    });
+    
+    document.querySelectorAll(".lang-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        currentLang = btn.getAttribute("data-lang");
+        document.querySelectorAll(".lang-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        document.body.dir = currentLang === "ar" ? "rtl" : "ltr";
+        updateUIForUser();
+        renderGames();
+        updateTexts();
+      });
+    });
+    
+    document.getElementById("currencySelect")?.addEventListener("change", (e) => {
+      currentCurrency = e.target.value;
       renderGames();
-    }
+    });
+  }
 
-    function logout() {
-      currentUser = null;
-      document.getElementById("storePage").classList.add("hidden");
-      document.getElementById("authPage").classList.remove("hidden");
-      document.getElementById("logoutBtn").classList.add("hidden");
-      document.getElementById("userInfo").classList.add("hidden");
-      document.getElementById("admin-tools").classList.add("hidden");
-      hideAddProductForm();
-    }
+  function updateTexts() {
+    document.getElementById("currencyLabel").innerText = currentLang === "ar" ? "العملة:" : "Currency:";
+    document.getElementById("loginBtnText").innerText = currentLang === "ar" ? "تسجيل دخول" : "Login";
+    document.getElementById("loginTitle").innerText = currentLang === "ar" ? "تسجيل الدخول" : "Login";
+    document.getElementById("userOption").innerText = currentLang === "ar" ? "عميل / زائر" : "User / Guest";
+    document.getElementById("adminOption").innerText = currentLang === "ar" ? "أدمن (مدير)" : "Admin";
+    document.getElementById("loginBtn").innerText = currentLang === "ar" ? "دخول" : "Login";
+    document.getElementById("closeBtnText").innerText = currentLang === "ar" ? "إغلاق" : "Close";
+    document.getElementById("adminPanelTitle").innerHTML = currentLang === "ar" ? "لوحة تحكم الأدمن - تعديل الأسعار والمواصفات" : "Admin Panel - Edit Prices & Specs";
+    document.getElementById("addGameTitle").innerHTML = currentLang === "ar" ? "إضافة لعبة جديدة" : "Add New Game";
+    document.getElementById("addBtnText").innerText = currentLang === "ar" ? "إضافة" : "Add";
+    document.getElementById("closeAdminText").innerText = currentLang === "ar" ? "إغلاق" : "Close";
+  }
 
-    function showAdminLogin() {
-      document.getElementById("auth-section").classList.add("hidden");
-      document.getElementById("admin-login").classList.remove("hidden");
-    }
-
-    function showRegister() {
-      document.getElementById("auth-section").classList.add("hidden");
-      document.getElementById("register-form").classList.remove("hidden");
-    }
-
-    function backToAuth() {
-      document.getElementById("admin-login").classList.add("hidden");
-      document.getElementById("register-form").classList.add("hidden");
-      document.getElementById("auth-section").classList.remove("hidden");
-    }
-
-    // بداية
-    loadData();
-  </script>
+  function init() {
+    initEvents();
+    updateUIForUser();
+    renderGames();
+    updateTexts();
+  }
+  
+  init();
+</script>
 </body>
 </html>
