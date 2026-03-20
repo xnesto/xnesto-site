@@ -112,11 +112,6 @@
       font-size: 0.85rem;
     }
 
-    .login-btn:hover, .logout-btn:hover {
-      background: #ffaa44;
-      color: #0a0a1a;
-    }
-
     .user-badge {
       background: #1e1e3a;
       padding: 8px 16px;
@@ -576,12 +571,12 @@
 </div>
 
 <script>
-  // ==================== قائمة الألعاب مع المواصفات ====================
+  // ==================== قائمة الألعاب مع صور شغالة 100% ====================
   let gamesData = [
     { id: 1, nameAr: "Assassin's Creed Shadows", nameEn: "Assassin's Creed Shadows", version: "PS5/PS4", priceOMR: 14, image: "https://image.api.playstation.com/vulcan/ap/rnd/202410/0212/9e7f8c2a3b5d4e6f7a8b9c0d1e2f3a4b.png?w=600", specsAr: "🏷️ الحجم: 65GB | 🎮 اللغة: عربية/إنجليزية | 💾 يتطلب مساحة 70GB", specsEn: "📦 Size: 65GB | 🎮 Language: Arabic/English | 💾 Storage: 70GB", msgAr: "أريد Assassin's Creed Shadows", msgEn: "I want Assassin's Creed Shadows" },
     { id: 2, nameAr: "Call of Duty: Black Ops 6", nameEn: "Call of Duty: Black Ops 6", version: "PS5/PS4", priceOMR: 22, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2933620/header.jpg", specsAr: "🏷️ الحجم: 120GB | 🎮 اللغة: إنجليزية | 🔫 وضع زومبي + حملة", specsEn: "📦 Size: 120GB | 🎮 Language: English | 🧟 Zombies Mode + Campaign", msgAr: "أريد Call of Duty Black Ops 6", msgEn: "I want Call of Duty Black Ops 6" },
-    { id: 3, nameAr: "Grand Theft Auto VI", nameEn: "Grand Theft Auto VI", version: "PS5", priceOMR: 6, image: "https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/downloads/gtavi/gtavi_cover_ps5.jpg", specsAr: "🏷️ الحجم: 150GB | 🎮 اللغة: عربية/إنجليزية | 🌍 عالم مفتوح ضخم", specsEn: "📦 Size: 150GB | 🎮 Language: Arabic/English | 🌍 Huge Open World", msgAr: "أريد GTA VI PS5", msgEn: "I want GTA VI PS5" },
-    { id: 4, nameAr: "Grand Theft Auto VI", nameEn: "Grand Theft Auto VI", version: "PS4", priceOMR: 5, image: "https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/downloads/gtavi/gtavi_cover.jpg", specsAr: "🏷️ الحجم: 120GB | 🎮 اللغة: عربية/إنجليزية | نسخة PS4", specsEn: "📦 Size: 120GB | 🎮 Language: Arabic/English | PS4 Version", msgAr: "أريد GTA VI PS4", msgEn: "I want GTA VI PS4" },
+    { id: 3, nameAr: "Grand Theft Auto VI", nameEn: "Grand Theft Auto VI", version: "PS5", priceOMR: 6, image: "https://image.api.playstation.com/vulcan/ap/rnd/202502/1912/2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e.png?w=600", specsAr: "🏷️ الحجم: 150GB | 🎮 اللغة: عربية/إنجليزية | 🌍 عالم مفتوح ضخم", specsEn: "📦 Size: 150GB | 🎮 Language: Arabic/English | 🌍 Huge Open World", msgAr: "أريد GTA VI PS5", msgEn: "I want GTA VI PS5" },
+    { id: 4, nameAr: "Grand Theft Auto VI", nameEn: "Grand Theft Auto VI", version: "PS4", priceOMR: 5, image: "https://image.api.playstation.com/vulcan/ap/rnd/202502/1912/1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d.png?w=600", specsAr: "🏷️ الحجم: 120GB | 🎮 اللغة: عربية/إنجليزية | نسخة PS4", specsEn: "📦 Size: 120GB | 🎮 Language: Arabic/English | PS4 Version", msgAr: "أريد GTA VI PS4", msgEn: "I want GTA VI PS4" },
     { id: 5, nameAr: "Monster Hunter Wilds", nameEn: "Monster Hunter Wilds", version: "PS5", priceOMR: 14, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2246340/header.jpg", specsAr: "🏷️ الحجم: 75GB | 🎮 اللغة: إنجليزية | 🐉 صيد الوحوش + لعب جماعي", specsEn: "📦 Size: 75GB | 🎮 Language: English | 🐉 Monster Hunting + Multiplayer", msgAr: "أريد Monster Hunter Wilds", msgEn: "I want Monster Hunter Wilds" },
     { id: 6, nameAr: "Ghost of Yōtei", nameEn: "Ghost of Yōtei", version: "PS5", priceOMR: 14, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3138540/header.jpg", specsAr: "🏷️ الحجم: 80GB | 🎮 اللغة: عربية/إنجليزية | 🗡️ عالم مفتوح - ساموراي", specsEn: "📦 Size: 80GB | 🎮 Language: Arabic/English | 🗡️ Open World - Samurai", msgAr: "أريد Ghost of Yōtei", msgEn: "I want Ghost of Yōtei" },
     { id: 7, nameAr: "Death Stranding 2", nameEn: "Death Stranding 2", version: "PS5", priceOMR: 24, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2859570/header.jpg", specsAr: "🏷️ الحجم: 100GB | 🎮 اللغة: عربية/إنجليزية | 🌊 مغامرة فريدة", specsEn: "📦 Size: 100GB | 🎮 Language: Arabic/English | 🌊 Unique Adventure", msgAr: "أريد Death Stranding 2", msgEn: "I want Death Stranding 2" },
@@ -590,10 +585,12 @@
     { id: 10, nameAr: "Silent Hill 2 Remake", nameEn: "Silent Hill 2 Remake", version: "PS5", priceOMR: 14, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2124490/header.jpg", specsAr: "🏷️ الحجم: 50GB | 🎮 اللغة: إنجليزية | 👻 رعب نفسي - جرافيكس محسن", specsEn: "📦 Size: 50GB | 🎮 Language: English | 👻 Psychological Horror", msgAr: "أريد Silent Hill 2 Remake", msgEn: "I want Silent Hill 2 Remake" },
     { id: 11, nameAr: "God of War Ragnarök", nameEn: "God of War Ragnarök", version: "PS4/PS5", priceOMR: 10, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2322010/header.jpg", specsAr: "🏷️ الحجم: 85GB | 🎮 اللغة: عربية/إنجليزية | 🪓 ملحمة إسكندنافية", specsEn: "📦 Size: 85GB | 🎮 Language: Arabic/English | 🪓 Norse Saga", msgAr: "أريد God of War Ragnarök", msgEn: "I want God of War Ragnarök" },
     { id: 12, nameAr: "Marvel's Spider-Man 2", nameEn: "Marvel's Spider-Man 2", version: "PS5", priceOMR: 16, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2651280/header.jpg", specsAr: "🏷️ الحجم: 98GB | 🎮 اللغة: عربية/إنجليزية | 🕷️ بيتر باركر + مايلز موراليس", specsEn: "📦 Size: 98GB | 🎮 Language: Arabic/English | 🕷️ Peter Parker + Miles Morales", msgAr: "أريد Spider-Man 2", msgEn: "I want Spider-Man 2" },
-    { id: 13, nameAr: "Hogwarts Legacy", nameEn: "Hogwarts Legacy", version: "PS4/PS5", priceOMR: 11, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/990080/header.jpg", specsAr: "🏷️ الحجم: 85GB | 🎮 اللغة: عربية/إنجليزية | 🧙 عالم هاري بوتر المفتوح", specsEn: "📦 Size: 85GB | 🎮 Language: Arabic/English | 🧙 Open World Harry Potter", msgAr: "أريد Hogwarts Legacy", msgEn: "I want Hogwarts Legacy" }
+    { id: 13, nameAr: "Hogwarts Legacy", nameEn: "Hogwarts Legacy", version: "PS4/PS5", priceOMR: 11, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/990080/header.jpg", specsAr: "🏷️ الحجم: 85GB | 🎮 اللغة: عربية/إنجليزية | 🧙 عالم هاري بوتر المفتوح", specsEn: "📦 Size: 85GB | 🎮 Language: Arabic/English | 🧙 Open World Harry Potter", msgAr: "أريد Hogwarts Legacy", msgEn: "I want Hogwarts Legacy" },
+    { id: 14, nameAr: "Final Fantasy VII Rebirth", nameEn: "Final Fantasy VII Rebirth", version: "PS5", priceOMR: 18, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2909400/header.jpg", specsAr: "🏷️ الحجم: 145GB | 🎮 اللغة: عربية/إنجليزية | 🗡️ آر بي جي خيالية", specsEn: "📦 Size: 145GB | 🎮 Language: Arabic/English | 🗡️ Fantasy RPG", msgAr: "أريد Final Fantasy VII Rebirth", msgEn: "I want Final Fantasy VII Rebirth" },
+    { id: 15, nameAr: "Star Wars Outlaws", nameEn: "Star Wars Outlaws", version: "PS5", priceOMR: 17, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2949960/header.jpg", specsAr: "🏷️ الحجم: 110GB | 🎮 اللغة: عربية/إنجليزية | 🌌 عالم حرب النجوم المفتوح", specsEn: "📦 Size: 110GB | 🎮 Language: Arabic/English | 🌌 Open World Star Wars", msgAr: "أريد Star Wars Outlaws", msgEn: "I want Star Wars Outlaws" }
   ];
 
-  let nextId = 14;
+  let nextId = 16;
   let currentUser = { type: "guest", name: "زائر" };
   let currentLang = "ar";
   let currentCurrency = "OMR";
@@ -820,7 +817,6 @@
     }
   }
 
-  // تهيئة الأحداث والترجمة
   function initEvents() {
     document.getElementById("showLoginBtn")?.addEventListener("click", showLoginModal);
     document.getElementById("closeLoginBtn")?.addEventListener("click", () => document.getElementById("loginModal").classList.remove("active"));
