@@ -516,52 +516,6 @@
     .social-icons { margin-bottom: 0.5rem; }
     .social-icons i { font-size: 1.2rem; margin: 0 8px; color: #ffaa66; }
     
-    .copy-code-section {
-      max-width: 1400px;
-      margin: 2rem auto 0;
-      background: rgba(15, 15, 42, 0.9);
-      border-radius: 1rem;
-      border: 1px solid rgba(255, 170, 68, 0.3);
-      overflow: hidden;
-    }
-    .copy-code-header {
-      background: #1e1e3a;
-      padding: 0.8rem 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .copy-code-header span {
-      color: #ffaa66;
-      font-size: 0.8rem;
-    }
-    .copy-code-btn {
-      background: #ffaa44;
-      border: none;
-      padding: 5px 15px;
-      border-radius: 30px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 0.7rem;
-    }
-    .copy-code-content {
-      padding: 1rem;
-      background: #0a0c1a;
-      max-height: 300px;
-      overflow: auto;
-    }
-    .copy-code-content pre {
-      color: #b9c5f0;
-      font-size: 0.7rem;
-      font-family: monospace;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-      direction: ltr;
-      text-align: left;
-    }
-    
     @media (max-width: 640px) { body { padding: 1rem; } .product-image { height: 140px; } }
   </style>
 </head>
@@ -638,8 +592,8 @@
 
 <div class="footer">
   <div class="social-icons">
-    <i class="fab fa-instagram"></i> <span id="instagramText">xnesto_</span>
-    <i class="fab fa-whatsapp"></i> <span id="whatsappText">+968 79977100</span>
+    <i class="fab fa-instagram"></i> <span id="instagramText">xnesto_store</span>
+    <i class="fab fa-whatsapp"></i> <span id="whatsappText">+96879977100</span>
   </div>
   <p>© 2025 xnesto - جميع الحقوق محفوظة</p>
 </div>
@@ -657,23 +611,12 @@
       <p>5. في حال وجود أي مشكلة تقنية، يرجى التواصل معنا خلال 24 ساعة.</p>
       <p>6. xnesto غير مسؤول عن أي حظر أو تعليق لحساب PlayStation بسبب مخالفة شروط سوني.</p>
       <p>7. باستمرارك في الشراء، أنت توافق على جميع الشروط والأحكام المذكورة أعلاه.</p>
-      <p>📞 للتواصل: واتساب +968 79977100 | انستقرام xnesto_</p>
+      <p>📞 للتواصل: واتساب +96879977100 | انستقرام xnesto_store</p>
     </div>
     <div class="terms-buttons">
       <button id="acceptTermsBtn" class="accept-btn">✅ أوافق على الشروط</button>
       <button id="declineTermsBtn" class="decline-btn">❌ لا أوافق</button>
     </div>
-  </div>
-</div>
-
-<!-- قسم نسخ الكود في الأسفل -->
-<div class="copy-code-section">
-  <div class="copy-code-header">
-    <span><i class="fas fa-code"></i> كود المتجر الكامل - xnesto</span>
-    <button class="copy-code-btn" id="copyCodeBtn"><i class="fas fa-copy"></i> نسخ الكود</button>
-  </div>
-  <div class="copy-code-content">
-    <pre id="codeToCopy"></pre>
   </div>
 </div>
 
@@ -692,7 +635,7 @@
   let pendingOrder = null;
   const ITEMS_PER_PAGE = 6;
   const ADMIN_PASSWORD = "ssp1995";
-  const WA_NUMBER = "+96879977100";
+  const WA_NUMBER = "96879977100";
   const INSTA_USERNAME = "xnesto_store";
   
   const exchangeRates = { OMR: 1, USD: 2.6, SAR: 9.75, QAR: 9.46, EUR: 2.4, AED: 9.55 };
@@ -793,7 +736,7 @@
     return filtered;
   }
   
-  function showTermsModal(productName, waLink) {
+  function showTermsModal(productName, waLink, productDetails) {
     pendingOrder = { productName, waLink };
     document.getElementById("termsModal").style.display = "flex";
   }
@@ -868,7 +811,6 @@
     card.className = "product-card";
     const name = currentLang === "ar" ? p.nameAr : p.nameEn;
     const details = currentLang === "ar" ? p.detailsAr : p.detailsEn;
-    const msg = currentLang === "ar" ? p.msgAr : p.msgEn;
     const price = convertPrice(p.priceOMR);
     const sym = currencySymbols[currentCurrency];
     const hasDiscount = p.oldPrice && p.oldPrice > p.priceOMR;
@@ -886,7 +828,28 @@
       imgHtml = `<div class="product-image" style="background: linear-gradient(135deg, ${bgColor}, ${bgColor}cc);"><div style="font-size: 2.5rem;">${icon}</div><div class="product-badge">${categoryName}</div></div>`;
     }
     
-    const waLink = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+    // إنشاء رسالة واتساب كاملة التفاصيل
+    let whatsappMsg = `🛒 *طلب شراء من xnesto*\n\n`;
+    whatsappMsg += `━━━━━━━━━━━━━━━━━━━━\n`;
+    whatsappMsg += `🎮 *المنتج:* ${name}\n`;
+    whatsappMsg += `🏷️ *التصنيف:* ${categoryName}\n`;
+    if (hasDiscount) {
+      whatsappMsg += `💰 *السعر الأصلي:* ${oldPrice} ${sym}\n`;
+      whatsappMsg += `🔥 *السعر بعد الخصم:* ${price} ${sym} (خصم ${discountPercent}%)\n`;
+    } else {
+      whatsappMsg += `💰 *السعر:* ${price} ${sym}\n`;
+    }
+    if (details) {
+      whatsappMsg += `📝 *المواصفات:* ${details}\n`;
+    }
+    if (remaining) {
+      whatsappMsg += `⏱️ *انتهاء العرض:* ${remaining}\n`;
+    }
+    whatsappMsg += `━━━━━━━━━━━━━━━━━━━━\n`;
+    whatsappMsg += `📦 *يرجى تأكيد الطلب مع إرسال طريقة الدفع*\n`;
+    whatsappMsg += `📞 للتواصل: xnesto_store\n`;
+    
+    const waLink = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(whatsappMsg)}`;
     
     card.innerHTML = `
       ${hasDiscount ? `<div class="discount-badge">🔥 خصم ${discountPercent}%</div>` : ''}
@@ -1120,14 +1083,6 @@
   document.getElementById("whatsappText").innerText = WA_NUMBER;
   window.showTermsModal = showTermsModal;
   window.deleteCategory = deleteCategory;
-  
-  // وضع الكود في الأسفل
-  const currentCode = document.documentElement.outerHTML;
-  document.getElementById("codeToCopy").innerText = currentCode;
-  document.getElementById("copyCodeBtn").onclick = () => {
-    navigator.clipboard.writeText(currentCode);
-    alert("تم نسخ الكود بنجاح!");
-  };
 </script>
 </body>
 </html>
