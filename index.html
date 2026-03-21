@@ -195,7 +195,7 @@
     }
     .admin-container h2 { text-align: center; color: #ffaa44; margin-bottom: 1rem; }
     .admin-games-list { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
-    .admin-game-item {
+    .admin-game-item, .admin-gift-item {
       background: #11152b;
       border-radius: 1rem;
       padding: 1rem;
@@ -519,8 +519,9 @@
 <!-- لوحة تحكم الادمن -->
 <div id="adminPanel" class="admin-panel">
   <div class="admin-container">
-    <h2><i class="fas fa-edit"></i> لوحة تحكم xnesto - تعديل الألعاب</h2>
+    <h2><i class="fas fa-edit"></i> لوحة تحكم xnesto - تعديل الأسعار والتخفيضات</h2>
     <div id="adminGamesList" class="admin-games-list"></div>
+    <div id="adminGiftList" class="admin-games-list"></div>
     
     <div class="add-game-section">
       <h3><i class="fas fa-plus-circle"></i> إضافة لعبة جديدة</h3>
@@ -542,7 +543,7 @@
 </div>
 
 <script>
-  // ==================== قائمة الألعاب مع صور حقيقية وعروض ====================
+  // ==================== قائمة الألعاب مع تخفيضات ====================
   let gamesData = [
     { id: 1, nameAr: "Assassin's Creed Shadows", nameEn: "Assassin's Creed Shadows", version: "PS5/PS4", priceOMR: 14, oldPrice: 20, image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/3159340/header.jpg", bgColor: "#2d4a6e", specsAr: "🏷️ الحجم: 65GB | 🎮 اللغة: عربية/إنجليزية", specsEn: "📦 Size: 65GB | 🎮 Language: Arabic/English", msgAr: "أريد Assassin's Creed Shadows", msgEn: "I want Assassin's Creed Shadows" },
     { id: 2, nameAr: "Call of Duty: Black Ops 6", nameEn: "Call of Duty: Black Ops 6", version: "PS5/PS4", priceOMR: 22, oldPrice: 30, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2933620/header.jpg", bgColor: "#5d3a1a", specsAr: "🏷️ الحجم: 120GB | 🎮 اللغة: إنجليزية", specsEn: "📦 Size: 120GB | 🎮 Language: English", msgAr: "أريد Call of Duty Black Ops 6", msgEn: "I want Call of Duty Black Ops 6" },
@@ -561,8 +562,8 @@
     { id: 15, nameAr: "Tekken 8", nameEn: "Tekken 8", version: "PS5", priceOMR: 12, oldPrice: 18, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1778820/header.jpg", bgColor: "#5a2d3a", specsAr: "🏷️ الحجم: 80GB | 🥊 لعبة قتال", specsEn: "📦 Size: 80GB | 🥊 Fighting Game", msgAr: "أريد Tekken 8", msgEn: "I want Tekken 8" }
   ];
 
-  // بطاقات الشحن
-  const giftCardsData = [
+  // ==================== بطاقات الشحن مع تخفيضات ====================
+  let giftCardsData = [
     { id: 1, nameAr: "بطاقة شحن أمريكي", nameEn: "US Gift Card", region: "USA", currency: "USD", priceOMR: 5, oldPrice: 6, icon: "🇺🇸", bgColor: "#1a3a5a", values: ["10$", "25$", "50$", "100$"], msgAr: "أريد بطاقة شحن أمريكي", msgEn: "I want US Gift Card" },
     { id: 2, nameAr: "بطاقة شحن بريطاني", nameEn: "UK Gift Card", region: "UK", currency: "GBP", priceOMR: 6, oldPrice: 7, icon: "🇬🇧", bgColor: "#1a4a6e", values: ["10£", "25£", "50£"], msgAr: "أريد بطاقة شحن بريطاني", msgEn: "I want UK Gift Card" },
     { id: 3, nameAr: "بطاقة شحن تركي", nameEn: "Turkey Gift Card", region: "Turkey", currency: "TRY", priceOMR: 4, oldPrice: 5, icon: "🇹🇷", bgColor: "#4a5a2d", values: ["100₺", "250₺", "500₺"], msgAr: "أريد بطاقة شحن تركي", msgEn: "I want Turkey Gift Card" },
@@ -576,7 +577,8 @@
     { id: 11, nameAr: "بطاقة شحن عماني", nameEn: "Oman Gift Card", region: "Oman", currency: "OMR", priceOMR: 5, oldPrice: 6, icon: "🇴🇲", bgColor: "#2d6e6e", values: ["5ر.ع", "10ر.ع", "20ر.ع", "50ر.ع"], msgAr: "أريد بطاقة شحن عماني", msgEn: "I want Oman Gift Card" }
   ];
 
-  let nextId = 16;
+  let nextGameId = 16;
+  let nextGiftId = 12;
   let currentUser = { type: "guest", name: "زائر" };
   let currentLang = "ar";
   let currentCurrency = "OMR";
@@ -594,21 +596,31 @@
   const WA_NUMBER = "96879977100";
 
   function saveGamesToLocal() { localStorage.setItem("xnesto_games", JSON.stringify(gamesData)); }
-  function loadGamesFromLocal() {
-    const saved = localStorage.getItem("xnesto_games");
-    if (saved) { 
-      const parsed = JSON.parse(saved);
+  function saveGiftsToLocal() { localStorage.setItem("xnesto_gifts", JSON.stringify(giftCardsData)); }
+  function loadFromLocal() {
+    const savedGames = localStorage.getItem("xnesto_games");
+    if (savedGames) { 
+      const parsed = JSON.parse(savedGames);
       if (parsed.length > 0) {
         gamesData.length = 0;
         parsed.forEach(g => gamesData.push(g));
-        nextId = Math.max(...gamesData.map(g => g.id), 0) + 1;
-        filteredGames = [...gamesData];
-        filteredOffers = [...gamesData.filter(g => g.oldPrice && g.oldPrice > g.priceOMR), ...giftCardsData.filter(g => g.oldPrice && g.oldPrice > g.priceOMR)];
-        updateSearchResults();
+        nextGameId = Math.max(...gamesData.map(g => g.id), 0) + 1;
       }
     }
+    const savedGifts = localStorage.getItem("xnesto_gifts");
+    if (savedGifts) {
+      const parsed = JSON.parse(savedGifts);
+      if (parsed.length > 0) {
+        giftCardsData.length = 0;
+        parsed.forEach(g => giftCardsData.push(g));
+        nextGiftId = Math.max(...giftCardsData.map(g => g.id), 0) + 1;
+      }
+    }
+    filteredGames = [...gamesData];
+    filteredGiftCards = [...giftCardsData];
+    filteredOffers = [...gamesData.filter(g => g.oldPrice && g.oldPrice > g.priceOMR), ...giftCardsData.filter(g => g.oldPrice && g.oldPrice > g.priceOMR)];
   }
-  loadGamesFromLocal();
+  loadFromLocal();
 
   function convertPrice(price, currency) {
     return (price * exchangeRates[currency]).toFixed(2);
@@ -641,7 +653,7 @@
     else renderOffers();
   }
 
-  function buildGameCard(game, isOffer = false) {
+  function buildGameCard(game) {
     const card = document.createElement("div");
     card.className = "game-card";
     const gameName = currentLang === "ar" ? game.nameAr : game.nameEn;
@@ -652,9 +664,10 @@
     const currencySym = currencySymbols[currentCurrency];
     const hasDiscount = game.oldPrice && game.oldPrice > game.priceOMR;
     const convertedOldPrice = hasDiscount ? convertPrice(game.oldPrice, currentCurrency) : null;
+    const discountPercent = hasDiscount ? Math.round((1 - game.priceOMR / game.oldPrice) * 100) : 0;
     
     card.innerHTML = `
-      ${hasDiscount ? `<div class="discount-badge">🔥 خصم ${Math.round((1 - game.priceOMR/game.oldPrice) * 100)}%</div>` : ''}
+      ${hasDiscount ? `<div class="discount-badge">🔥 خصم ${discountPercent}%</div>` : ''}
       <div class="game-image" style="background-image: url('${game.image}'); background-size: cover; background-position: center;">
         <div class="game-badge">${game.version}</div>
       </div>
@@ -682,7 +695,7 @@
     return card;
   }
 
-  function buildGiftCard(card, isOffer = false) {
+  function buildGiftCard(card) {
     const cardDiv = document.createElement("div");
     cardDiv.className = "giftcard-card";
     const cardName = currentLang === "ar" ? card.nameAr : card.nameEn;
@@ -694,9 +707,10 @@
     const currencySym = currencySymbols[currentCurrency];
     const hasDiscount = card.oldPrice && card.oldPrice > card.priceOMR;
     const convertedOldPrice = hasDiscount ? convertPrice(card.oldPrice, currentCurrency) : null;
+    const discountPercent = hasDiscount ? Math.round((1 - card.priceOMR / card.oldPrice) * 100) : 0;
     
     cardDiv.innerHTML = `
-      ${hasDiscount ? `<div class="discount-badge">🔥 خصم ${Math.round((1 - card.priceOMR/card.oldPrice) * 100)}%</div>` : ''}
+      ${hasDiscount ? `<div class="discount-badge">🔥 خصم ${discountPercent}%</div>` : ''}
       <div class="giftcard-image" style="background: linear-gradient(135deg, ${card.bgColor}, ${card.bgColor}cc);">
         <div style="font-size: 3rem;">${card.icon}</div>
         <div class="giftcard-badge">${card.currency}</div>
@@ -748,8 +762,8 @@
     const start = (currentPage - 1) * ITEMS_PER_PAGE;
     const pageItems = filteredOffers.slice(start, start + ITEMS_PER_PAGE);
     pageItems.forEach(item => {
-      if (item.version) container.appendChild(buildGameCard(item, true));
-      else container.appendChild(buildGiftCard(item, true));
+      if (item.version) container.appendChild(buildGameCard(item));
+      else container.appendChild(buildGiftCard(item));
     });
     renderPagination(totalPages);
   }
@@ -806,70 +820,122 @@
 
   // ==================== وظائف الأدمن ====================
   function renderAdminPanel() {
-    const container = document.getElementById("adminGamesList");
-    if (!container) return;
-    container.innerHTML = "";
-    gamesData.forEach(game => {
-      const item = document.createElement("div");
-      item.className = "admin-game-item";
-      item.innerHTML = `
-        <div class="admin-game-header">
-          <div class="admin-game-name">${game.nameAr} (${game.version})</div>
-          <div><input type="number" class="admin-price-input" id="price-${game.id}" value="${game.priceOMR}" step="0.5"> <span>ر.ع</span></div>
-        </div>
-        <div class="admin-specs">
-          <label>السعر القديم (للخصم)</label>
-          <input type="number" id="oldPrice-${game.id}" value="${game.oldPrice || ''}" step="0.5" placeholder="اتركه فارغاً إذا لا يوجد خصم">
-          <label><i class="fas fa-image"></i> رابط الصورة</label>
-          <input type="text" id="image-${game.id}" value="${game.image || ''}">
-          <label>المواصفات (عربي)</label>
-          <textarea id="specsAr-${game.id}" rows="2">${game.specsAr || ''}</textarea>
-          <label>Specifications (English)</label>
-          <textarea id="specsEn-${game.id}" rows="2">${game.specsEn || ''}</textarea>
-        </div>
-        <div class="admin-buttons">
-          <button class="admin-save-btn" data-id="${game.id}"><i class="fas fa-save"></i> حفظ</button>
-          <button class="admin-delete-btn" data-id="${game.id}"><i class="fas fa-trash"></i> حذف</button>
-        </div>
-      `;
-      container.appendChild(item);
-    });
+    const gamesContainer = document.getElementById("adminGamesList");
+    const giftsContainer = document.getElementById("adminGiftList");
+    if (gamesContainer) {
+      gamesContainer.innerHTML = "<h3 style='color:#ffaa44; margin:1rem 0;'>🎮 الألعاب</h3>";
+      gamesData.forEach(game => {
+        const item = document.createElement("div");
+        item.className = "admin-game-item";
+        item.innerHTML = `
+          <div class="admin-game-header">
+            <div class="admin-game-name">${game.nameAr} (${game.version})</div>
+            <div><input type="number" class="admin-price-input" id="price-${game.id}" value="${game.priceOMR}" step="0.5"> <span>ر.ع</span></div>
+          </div>
+          <div class="admin-specs">
+            <label>💰 السعر القديم (للخصم)</label>
+            <input type="number" id="oldPrice-${game.id}" value="${game.oldPrice || ''}" step="0.5" placeholder="اتركه فارغاً إذا لا يوجد خصم">
+            <label><i class="fas fa-image"></i> رابط الصورة</label>
+            <input type="text" id="image-${game.id}" value="${game.image || ''}">
+            <label>📝 المواصفات (عربي)</label>
+            <textarea id="specsAr-${game.id}" rows="2">${game.specsAr || ''}</textarea>
+            <label>📝 Specifications (English)</label>
+            <textarea id="specsEn-${game.id}" rows="2">${game.specsEn || ''}</textarea>
+          </div>
+          <div class="admin-buttons">
+            <button class="admin-save-btn" data-id="${game.id}" data-type="game"><i class="fas fa-save"></i> حفظ</button>
+            <button class="admin-delete-btn" data-id="${game.id}" data-type="game"><i class="fas fa-trash"></i> حذف</button>
+          </div>
+        `;
+        gamesContainer.appendChild(item);
+      });
+    }
+    
+    if (giftsContainer) {
+      giftsContainer.innerHTML = "<h3 style='color:#ffaa44; margin:1rem 0;'>💳 بطاقات الشحن</h3>";
+      giftCardsData.forEach(card => {
+        const item = document.createElement("div");
+        item.className = "admin-game-item";
+        item.innerHTML = `
+          <div class="admin-game-header">
+            <div class="admin-game-name">${card.nameAr} (${card.region})</div>
+            <div><input type="number" class="admin-price-input" id="gift-price-${card.id}" value="${card.priceOMR}" step="0.5"> <span>ر.ع</span></div>
+          </div>
+          <div class="admin-specs">
+            <label>💰 السعر القديم (للخصم)</label>
+            <input type="number" id="gift-oldPrice-${card.id}" value="${card.oldPrice || ''}" step="0.5" placeholder="اتركه فارغاً إذا لا يوجد خصم">
+            <label>🏷️ الفئات (مثال: 10$, 25$)</label>
+            <input type="text" id="gift-values-${card.id}" value="${card.values.join(', ')}" placeholder="10$, 25$, 50$">
+          </div>
+          <div class="admin-buttons">
+            <button class="admin-save-btn" data-id="${card.id}" data-type="gift"><i class="fas fa-save"></i> حفظ</button>
+            <button class="admin-delete-btn" data-id="${card.id}" data-type="gift"><i class="fas fa-trash"></i> حذف</button>
+          </div>
+        `;
+        giftsContainer.appendChild(item);
+      });
+    }
     
     document.querySelectorAll(".admin-save-btn").forEach(btn => {
       btn.addEventListener("click", (e) => {
         const id = parseInt(btn.getAttribute("data-id"));
-        const newPrice = parseFloat(document.getElementById(`price-${id}`).value);
-        const newOldPrice = parseFloat(document.getElementById(`oldPrice-${id}`).value);
-        const newImage = document.getElementById(`image-${id}`).value;
-        const newSpecsAr = document.getElementById(`specsAr-${id}`).value;
-        const newSpecsEn = document.getElementById(`specsEn-${id}`).value;
-        const game = gamesData.find(g => g.id === id);
-        if (game) {
-          if (!isNaN(newPrice)) game.priceOMR = newPrice;
-          game.oldPrice = isNaN(newOldPrice) ? null : newOldPrice;
-          if (newImage) game.image = newImage;
-          game.specsAr = newSpecsAr;
-          game.specsEn = newSpecsEn;
-          saveGamesToLocal();
-          renderAdminPanel();
-          filteredGames = [...gamesData];
-          filteredOffers = [...gamesData.filter(g => g.oldPrice && g.oldPrice > g.priceOMR), ...giftCardsData.filter(g => g.oldPrice && g.oldPrice > g.priceOMR)];
-          if (currentTab === "games") renderGames();
-          else if (currentTab === "offers") renderOffers();
+        const type = btn.getAttribute("data-type");
+        if (type === "game") {
+          const newPrice = parseFloat(document.getElementById(`price-${id}`).value);
+          const newOldPrice = parseFloat(document.getElementById(`oldPrice-${id}`).value);
+          const newImage = document.getElementById(`image-${id}`).value;
+          const newSpecsAr = document.getElementById(`specsAr-${id}`).value;
+          const newSpecsEn = document.getElementById(`specsEn-${id}`).value;
+          const game = gamesData.find(g => g.id === id);
+          if (game) {
+            if (!isNaN(newPrice)) game.priceOMR = newPrice;
+            game.oldPrice = isNaN(newOldPrice) ? null : newOldPrice;
+            if (newImage) game.image = newImage;
+            game.specsAr = newSpecsAr;
+            game.specsEn = newSpecsEn;
+            saveGamesToLocal();
+          }
+        } else if (type === "gift") {
+          const newPrice = parseFloat(document.getElementById(`gift-price-${id}`).value);
+          const newOldPrice = parseFloat(document.getElementById(`gift-oldPrice-${id}`).value);
+          const newValues = document.getElementById(`gift-values-${id}`).value.split(',').map(v => v.trim());
+          const card = giftCardsData.find(c => c.id === id);
+          if (card) {
+            if (!isNaN(newPrice)) card.priceOMR = newPrice;
+            card.oldPrice = isNaN(newOldPrice) ? null : newOldPrice;
+            if (newValues.length > 0 && newValues[0] !== "") card.values = newValues;
+            saveGiftsToLocal();
+          }
         }
+        filteredGames = [...gamesData];
+        filteredGiftCards = [...giftCardsData];
+        filteredOffers = [...gamesData.filter(g => g.oldPrice && g.oldPrice > g.priceOMR), ...giftCardsData.filter(g => g.oldPrice && g.oldPrice > g.priceOMR)];
+        renderAdminPanel();
+        if (currentTab === "games") renderGames();
+        else if (currentTab === "giftcards") renderGiftCards();
+        else renderOffers();
       });
     });
     
     document.querySelectorAll(".admin-delete-btn").forEach(btn => {
       btn.addEventListener("click", (e) => {
         const id = parseInt(btn.getAttribute("data-id"));
-        gamesData = gamesData.filter(g => g.id !== id);
+        const type = btn.getAttribute("data-type");
+        if (type === "game") {
+          gamesData = gamesData.filter(g => g.id !== id);
+          saveGamesToLocal();
+        } else if (type === "gift") {
+          const index = giftCardsData.findIndex(c => c.id === id);
+          if (index !== -1) giftCardsData.splice(index, 1);
+          saveGiftsToLocal();
+        }
         filteredGames = [...gamesData];
+        filteredGiftCards = [...giftCardsData];
         filteredOffers = [...gamesData.filter(g => g.oldPrice && g.oldPrice > g.priceOMR), ...giftCardsData.filter(g => g.oldPrice && g.oldPrice > g.priceOMR)];
-        saveGamesToLocal();
         renderAdminPanel();
         if (currentTab === "games") renderGames();
-        else if (currentTab === "offers") renderOffers();
+        else if (currentTab === "giftcards") renderGiftCards();
+        else renderOffers();
       });
     });
   }
@@ -890,7 +956,7 @@
     }
     
     const newGame = {
-      id: nextId++,
+      id: nextGameId++,
       nameAr, nameEn, version,
       priceOMR: price,
       oldPrice: isNaN(oldPrice) ? null : oldPrice,
@@ -927,7 +993,7 @@
     
     if (currentUser.type === "admin") {
       authDiv.innerHTML = `<div class="user-badge"><i class="fas fa-crown"></i> ${currentLang === "ar" ? "مرحباً Admin" : "Welcome Admin"}</div><button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> ${currentLang === "ar" ? "خروج" : "Logout"}</button>`;
-      welcomeMsg.innerHTML = currentLang === "ar" ? "🎮 مرحباً بك أيها المدير! يمكنك تعديل الأسعار والحذف والإضافة" : "🎮 Welcome Admin! You can edit prices, delete and add games";
+      welcomeMsg.innerHTML = currentLang === "ar" ? "🎮 مرحباً بك أيها المدير! يمكنك تعديل الأسعار والتخفيضات" : "🎮 Welcome Admin! You can edit prices and discounts";
       document.getElementById("logoutBtn")?.addEventListener("click", logout);
     } else if (currentUser.type === "user") {
       authDiv.innerHTML = `<div class="user-badge"><i class="fas fa-user"></i> ${currentLang === "ar" ? "مرحباً عميل" : "Welcome User"}</div><button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> ${currentLang === "ar" ? "خروج" : "Logout"}</button>`;
