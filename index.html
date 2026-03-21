@@ -20,7 +20,7 @@
             min-height: 100vh;
         }
 
-        /* Header Styles */
+        /* Header */
         header {
             background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(10px);
@@ -66,7 +66,6 @@
             color: #fff;
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
             font-size: 15px;
         }
 
@@ -92,13 +91,17 @@
             font-size: 13px;
         }
 
+        .admin-btn {
+            background: #ff4444;
+        }
+
+        .admin-btn:hover {
+            background: #cc0000;
+        }
+
         .cart-icon {
             position: relative;
             cursor: pointer;
-        }
-
-        .cart-icon i {
-            font-size: 20px;
         }
 
         .cart-count {
@@ -152,10 +155,6 @@
             border-radius: 20px;
         }
 
-        .user-info span {
-            font-size: 13px;
-        }
-
         .logout-btn {
             background: #ff4444;
             padding: 3px 8px;
@@ -164,11 +163,10 @@
             font-size: 11px;
         }
 
-        /* Hero Section */
+        /* Hero */
         .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1605901309584-818e25960a8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1859&q=80');
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1605901309584-818e25960a8f?w=1859');
             background-size: cover;
-            background-position: center;
             padding: 50px 20px;
             text-align: center;
         }
@@ -176,11 +174,6 @@
         .hero h1 {
             font-size: 42px;
             margin-bottom: 10px;
-        }
-
-        .hero p {
-            font-size: 16px;
-            opacity: 0.9;
         }
 
         /* Modals */
@@ -191,7 +184,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.95);
             z-index: 2000;
             justify-content: center;
             align-items: center;
@@ -202,7 +195,7 @@
             padding: 25px;
             border-radius: 20px;
             width: 90%;
-            max-width: 380px;
+            max-width: 450px;
             text-align: center;
             border: 2px solid #003791;
         }
@@ -210,10 +203,9 @@
         .modal-content h2 {
             margin-bottom: 15px;
             color: #003791;
-            font-size: 22px;
         }
 
-        .modal-content input {
+        .modal-content input, .modal-content textarea {
             width: 100%;
             padding: 10px;
             margin: 8px 0;
@@ -239,7 +231,80 @@
             background: #ff4444 !important;
         }
 
-        /* Section Styles */
+        /* Admin Panel */
+        .admin-panel {
+            display: none;
+            padding: 30px;
+            background: rgba(0,0,0,0.5);
+            border-bottom: 2px solid #003791;
+        }
+
+        .admin-panel.active {
+            display: block;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .add-product-btn {
+            background: #003791;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .products-table {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 13px;
+        }
+
+        th {
+            background: rgba(0,55,145,0.3);
+        }
+
+        .edit-btn, .delete-btn {
+            padding: 5px 10px;
+            margin: 0 3px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .edit-btn {
+            background: #ffa500;
+            color: #fff;
+        }
+
+        .delete-btn {
+            background: #ff4444;
+            color: #fff;
+        }
+
+        /* Sections */
         .section {
             padding: 40px 25px;
         }
@@ -334,7 +399,35 @@
             background: #003791;
         }
 
-        /* Gift Cards Section */
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .page-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .page-btn:hover {
+            background: #003791;
+        }
+
+        .page-btn.active {
+            background: #003791;
+            border-color: #003791;
+        }
+
+        /* Gift Cards */
         .gift-section {
             background: rgba(0, 55, 145, 0.1);
             padding: 40px 25px;
@@ -366,25 +459,9 @@
         .gift-card i {
             font-size: 35px;
             color: #ffd700;
-            margin-bottom: 8px;
         }
 
-        .gift-card h3 {
-            font-size: 18px;
-        }
-
-        .gift-price {
-            font-size: 16px;
-            color: #003791;
-            font-weight: bold;
-            margin: 8px 0;
-        }
-
-        /* Top Up Section */
-        .topup-section {
-            padding: 40px 25px;
-        }
-
+        /* Top Up */
         .topup-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -399,15 +476,6 @@
             padding: 15px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .topup-card:hover {
-            background: rgba(0,55,145,0.3);
-        }
-
-        .topup-card h3 {
-            font-size: 18px;
         }
 
         /* Footer */
@@ -429,21 +497,6 @@
             font-size: 16px;
             margin-bottom: 12px;
             color: #003791;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 6px;
-        }
-
-        .footer-section ul li a {
-            color: #fff;
-            text-decoration: none;
-            opacity: 0.8;
-            font-size: 13px;
         }
 
         .social-links {
@@ -484,26 +537,11 @@
                 padding: 10px 15px;
                 flex-direction: column;
             }
-            
-            .section {
-                padding: 30px 15px;
-            }
-            
-            .section-title {
-                font-size: 22px;
-            }
-            
             .games-grid {
                 grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-                gap: 12px;
             }
-            
             .game-image {
                 height: 140px;
-            }
-            
-            .hero h1 {
-                font-size: 28px;
             }
         }
     </style>
@@ -543,6 +581,10 @@
                 <i class="fas fa-user"></i>
                 <span>تسجيل دخول</span>
             </div>
+            <div id="adminSection" class="admin-btn" onclick="openAdminModal()">
+                <i class="fas fa-user-shield"></i>
+                <span>أدمن</span>
+            </div>
             <div class="cart-icon">
                 <i class="fas fa-shopping-cart"></i>
                 <span class="cart-count">0</span>
@@ -550,45 +592,85 @@
         </div>
     </header>
 
+    <!-- Admin Login Modal -->
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <h2><i class="fas fa-user-shield"></i> دخول الأدمن</h2>
+            <input type="text" id="adminUsername" placeholder="اسم المستخدم">
+            <input type="password" id="adminPassword" placeholder="كلمة المرور">
+            <button onclick="loginAdmin()">دخول</button>
+            <button class="close-modal" onclick="closeAdminModal()">إلغاء</button>
+        </div>
+    </div>
+
     <!-- User Login Modal -->
     <div id="userModal" class="modal">
         <div class="modal-content">
             <h2><i class="fas fa-user"></i> تسجيل دخول العميل</h2>
             <input type="email" id="userEmail" placeholder="البريد الإلكتروني">
             <input type="text" id="userName" placeholder="الاسم الكامل">
-            <button onclick="loginUser()">تسجيل دخول / إنشاء حساب</button>
+            <button onclick="loginUser()">تسجيل دخول</button>
             <button class="close-modal" onclick="closeUserModal()">إلغاء</button>
         </div>
     </div>
 
-    <!-- Hero Section -->
+    <!-- Product Form Modal (للأدمن) -->
+    <div id="productFormModal" class="modal">
+        <div class="modal-content">
+            <h2 id="formTitle">إضافة منتج جديد</h2>
+            <input type="text" id="productName" placeholder="اسم المنتج">
+            <input type="text" id="productImage" placeholder="رابط الصورة">
+            <input type="number" id="productPriceUSD" placeholder="السعر بالدولار">
+            <textarea id="productDesc" placeholder="وصف المنتج" rows="3"></textarea>
+            <button onclick="saveProduct()">حفظ</button>
+            <button class="close-modal" onclick="closeProductForm()">إلغاء</button>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="adminPanel" class="admin-panel">
+        <div class="admin-header">
+            <h2><i class="fas fa-user-shield"></i> لوحة تحكم الأدمن</h2>
+            <button class="add-product-btn" onclick="openProductForm()">
+                <i class="fas fa-plus"></i> إضافة منتج جديد
+            </button>
+            <button class="add-product-btn" onclick="logoutAdmin()" style="background:#ff4444;">
+                <i class="fas fa-sign-out-alt"></i> تسجيل خروج
+            </button>
+        </div>
+        <div class="products-table">
+            <table>
+                <thead>
+                    <tr><th>الصورة</th><th>اسم المنتج</th><th>السعر</th><th>الإجراءات</th></tr>
+                </thead>
+                <tbody id="adminTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Hero -->
     <section class="hero">
         <h1>XNESTO STORE</h1>
         <p>أكبر متجر لألعاب PlayStation وبطاقات الهدايا والشحن الفوري</p>
     </section>
 
-    <!-- Games Section - 50+ Games -->
+    <!-- Games Section with Pagination -->
     <section id="games" class="section">
         <h2 class="section-title">🎮 الألعاب المميزة 🎮</h2>
-        <div id="gamesGrid" class="games-grid">
-            <!-- Games will be loaded here -->
-        </div>
+        <div id="gamesGrid" class="games-grid"></div>
+        <div id="pagination" class="pagination"></div>
     </section>
 
-    <!-- Gift Cards Section -->
+    <!-- Gift Cards -->
     <section id="gift" class="gift-section">
-        <h2 class="section-title">🎁 بطاقات الهدايا - جميع الدول 🎁</h2>
-        <div id="giftGrid" class="gift-grid">
-            <!-- Gift cards will be loaded here -->
-        </div>
+        <h2 class="section-title">🎁 بطاقات الهدايا 🎁</h2>
+        <div id="giftGrid" class="gift-grid"></div>
     </section>
 
-    <!-- Top Up Section -->
-    <section id="topup" class="topup-section">
+    <!-- Top Up -->
+    <section id="topup" class="section">
         <h2 class="section-title">💰 شحن رصيد بلايستيشن 💰</h2>
-        <div id="topupGrid" class="topup-grid">
-            <!-- Top up options will be loaded here -->
-        </div>
+        <div id="topupGrid" class="topup-grid"></div>
     </section>
 
     <!-- Footer -->
@@ -596,29 +678,19 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h4>XNESTO STORE</h4>
-                <p>متجر رقمي متخصص في ألعاب PlayStation وبطاقات الهدايا</p>
-            </div>
-            <div class="footer-section">
-                <h4>روابط سريعة</h4>
-                <ul>
-                    <li><a href="#">الرئيسية</a></li>
-                    <li><a href="#games">الألعاب</a></li>
-                    <li><a href="#gift">بطاقات الهدايا</a></li>
-                    <li><a href="#topup">شحن رصيد</a></li>
-                </ul>
+                <p>متجر رقمي متخصص في ألعاب PlayStation</p>
             </div>
             <div class="footer-section">
                 <h4>تواصل معنا</h4>
                 <ul>
                     <li><i class="fab fa-whatsapp"></i> <a href="https://wa.me/96879977100">+968 79977100</a></li>
-                    <li><i class="fab fa-instagram"></i> <a href="https://instagram.com/xnesto_" target="_blank">@xnesto_</a></li>
-                    <li><i class="fas fa-envelope"></i> support@xnesto.com</li>
+                    <li><i class="fab fa-instagram"></i> <a href="https://instagram.com/xnesto_">@xnesto_</a></li>
                 </ul>
             </div>
             <div class="footer-section">
                 <h4>تابعنا</h4>
                 <div class="social-links">
-                    <a href="https://instagram.com/xnesto_" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://instagram.com/xnesto_"><i class="fab fa-instagram"></i></a>
                     <a href="https://wa.me/96879977100"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
@@ -633,14 +705,8 @@
     </a>
 
     <script>
-        // Exchange rates
-        const exchangeRates = {
-            USD: 1, SAR: 3.75, AED: 3.67, QAR: 3.64, KWD: 0.308, BHD: 0.376, OMR: 0.385, INR: 83.5, TRY: 32.5, IDR: 15700
-        };
-        const currencySymbols = { USD: '$', SAR: '﷼', AED: 'د.إ', QAR: '﷼', KWD: 'د.ك', BHD: 'د.ب', OMR: '﷼', INR: '₹', TRY: '₺', IDR: 'Rp' };
-
-        // 52 PS5 Games
-        const games = [
+        // ========== البيانات ==========
+        let games = [
             { id: 1, name: "God of War Ragnarök", image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=300", priceUSD: 59.99, desc: "لعبة الأكشن والمغامرات الملحمية" },
             { id: 2, name: "Spider-Man 2", image: "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?w=300", priceUSD: 69.99, desc: "مغامرات سبايدرمان في نيويورك" },
             { id: 3, name: "Final Fantasy XVI", image: "https://images.unsplash.com/photo-1611996575749-79a3a250f948?w=300", priceUSD: 79.99, desc: "لعبة الأدوار الأسطورية" },
@@ -664,112 +730,47 @@
             { id: 21, name: "NBA 2K24", image: "https://images.unsplash.com/photo-1504450758481-7338eba7524a?w=300", priceUSD: 59.99, desc: "لعبة كرة السلة" },
             { id: 22, name: "WWE 2K24", image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=300", priceUSD: 59.99, desc: "لعبة المصارعة" },
             { id: 23, name: "F1 23", image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300", priceUSD: 69.99, desc: "لعبة سباقات الفورمولا 1" },
-            { id: 24, name: "The Witcher 3", image: "https://images.unsplash.com/photo-1611996575749-79a3a250f948?w=300", priceUSD: 39.99, desc: "النسخة الكاملة مع الإضافات" },
-            { id: 25, name: "Red Dead Redemption 2", image: "https://images.unsplash.com/photo-1581791059214-c32d904985b7?w=300", priceUSD: 39.99, desc: "ملحمة الغرب الأمريكي" },
-            { id: 26, name: "GTA V", image: "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?w=300", priceUSD: 29.99, desc: "لعبة العالم المفتوح الأشهر" },
-            { id: 27, name: "Ghost of Tsushima", image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=300", priceUSD: 49.99, desc: "مغامرات الساموراي" },
-            { id: 28, name: "Death Stranding", image: "https://images.unsplash.com/photo-1611996575749-79a3a250f948?w=300", priceUSD: 39.99, desc: "لعبة من إنتاج هيديو كوجيما" },
-            { id: 29, name: "Demon's Souls", image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=300", priceUSD: 69.99, desc: "ريميك لعبة السولز الكلاسيكية" },
-            { id: 30, name: "Returnal", image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=300", priceUSD: 59.99, desc: "لعبة أكشن روغ لايك" },
-            { id: 31, name: "Ratchet & Clank", image: "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?w=300", priceUSD: 49.99, desc: "مغامرات الكوميدية" },
-            { id: 32, name: "Sackboy Adventure", image: "https://images.unsplash.com/photo-1611996575749-79a3a250f948?w=300", priceUSD: 39.99, desc: "لعبة مغامرات للعائلة" },
-            { id: 33, name: "Uncharted Legacy", image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=300", priceUSD: 49.99, desc: "مغامرات ناثان دريك" },
-            { id: 34, name: "Days Gone", image: "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?w=300", priceUSD: 39.99, desc: "عالم الزومبي المفتوح" },
-            { id: 35, name: "Bloodborne", image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=300", priceUSD: 29.99, desc: "لعبة الأكشن من فروم سوفت وير" },
-            { id: 36, name: "Nioh 2", image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=300", priceUSD: 39.99, desc: "لعبة أكشن ساموراي" },
-            { id: 37, name: "Sekiro", image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=300", priceUSD: 49.99, desc: "لعبة الأكشن الحائزة على جوائز" },
-            { id: 38, name: "Wo Long Fallen", image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=300", priceUSD: 59.99, desc: "لعبة أكشن صينية" },
-            { id: 39, name: "Lies of P", image: "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?w=300", priceUSD: 59.99, desc: "لعبة سولز لايك مستوحاة من بينوكيو" },
-            { id: 40, name: "Armored Core VI", image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=300", priceUSD: 59.99, desc: "لعبة الميكا من فروم سوفت وير" },
-            { id: 41, name: "Starfield", image: "https://images.unsplash.com/photo-1611996575749-79a3a250f948?w=300", priceUSD: 69.99, desc: "مغامرات فضائية من Bethesda" },
-            { id: 42, name: "Forza Motorsport", image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300", priceUSD: 69.99, desc: "لعبة سباقات السيارات" },
-            { id: 43, name: "Avatar Frontiers", image: "https://images.unsplash.com/photo-1581791059214-c32d904985b7?w=300", priceUSD: 59.99, desc: "مغامرات في عالم أفاتار" },
-            { id: 44, name: "Alan Wake 2", image: "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?w=300", priceUSD: 59.99, desc: "لعبة الرعب النفسي" },
-            { id: 45, name: "Dead Space", image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=300", priceUSD: 69.99, desc: "ريميك لعبة الرعب الشهيرة" },
-            { id: 46, name: "Callisto Protocol", image: "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?w=300", priceUSD: 39.99, desc: "لعبة رعب في الفضاء" },
-            { id: 47, name: "Jedi Fallen Order", image: "https://images.unsplash.com/photo-1581791059214-c32d904985b7?w=300", priceUSD: 29.99, desc: "مغامرات الجيداي" },
-            { id: 48, name: "Outriders", image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=300", priceUSD: 29.99, desc: "لعبة أكشن وتصويب" },
-            { id: 49, name: "Back 4 Blood", image: "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?w=300", priceUSD: 29.99, desc: "لعبة زومبي تعاونية" },
-            { id: 50, name: "Evil West", image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=300", priceUSD: 49.99, desc: "لعبة أكشن غربية" },
-            { id: 51, name: "Atomic Heart", image: "https://images.unsplash.com/photo-1611996575749-79a3a250f948?w=300", priceUSD: 59.99, desc: "عالم سوفييتي مستقبلي" },
-            { id: 52, name: "Stray", image: "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?w=300", priceUSD: 29.99, desc: "مغامرات قطة في عالم سايبربنك" }
+            { id: 24, name: "The Witcher 3", image: "https://images.unsplash.com/photo-1611996575749-79a3a250f948?w=300", priceUSD: 39.99, desc: "النسخة الكاملة مع الإضافات" }
         ];
 
-        // Gift Cards
+        // إضافة المزيد من الألعاب حتى 50+
+        for (let i = 25; i <= 52; i++) {
+            games.push({
+                id: i,
+                name: `لعبة مميزة ${i}`,
+                image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=300",
+                priceUSD: 49.99,
+                desc: `وصف اللعبة المميزة رقم ${i}`
+            });
+        }
+
         const giftCards = [
-            { country: "أمريكا", flag: "🇺🇸", code: "US", priceUSD: 50 },
-            { country: "السعودية", flag: "🇸🇦", code: "SA", priceUSD: 50 },
-            { country: "الإمارات", flag: "🇦🇪", code: "AE", priceUSD: 50 },
-            { country: "قطر", flag: "🇶🇦", code: "QA", priceUSD: 50 },
-            { country: "الكويت", flag: "🇰🇼", code: "KW", priceUSD: 50 },
-            { country: "البحرين", flag: "🇧🇭", code: "BH", priceUSD: 50 },
-            { country: "عمان", flag: "🇴🇲", code: "OM", priceUSD: 50 },
-            { country: "الهند", flag: "🇮🇳", code: "IN", priceUSD: 50 },
-            { country: "تركيا", flag: "🇹🇷", code: "TR", priceUSD: 50 },
-            { country: "إندونيسيا", flag: "🇮🇩", code: "ID", priceUSD: 50 }
+            { country: "أمريكا", flag: "🇺🇸", priceUSD: 50 },
+            { country: "السعودية", flag: "🇸🇦", priceUSD: 50 },
+            { country: "الإمارات", flag: "🇦🇪", priceUSD: 50 },
+            { country: "قطر", flag: "🇶🇦", priceUSD: 50 },
+            { country: "الكويت", flag: "🇰🇼", priceUSD: 50 },
+            { country: "البحرين", flag: "🇧🇭", priceUSD: 50 },
+            { country: "عمان", flag: "🇴🇲", priceUSD: 50 },
+            { country: "الهند", flag: "🇮🇳", priceUSD: 50 },
+            { country: "تركيا", flag: "🇹🇷", priceUSD: 50 },
+            { country: "إندونيسيا", flag: "🇮🇩", priceUSD: 50 }
         ];
-
-        // Top Up Amounts
         const topupAmounts = [10, 25, 50, 100];
 
+        // ========== المتغيرات ==========
+        const exchangeRates = { USD: 1, SAR: 3.75, AED: 3.67, QAR: 3.64, KWD: 0.308, BHD: 0.376, OMR: 0.385, INR: 83.5, TRY: 32.5, IDR: 15700 };
+        const currencySymbols = { USD: '$', SAR: '﷼', AED: 'د.إ', QAR: '﷼', KWD: 'د.ك', BHD: 'د.ب', OMR: '﷼', INR: '₹', TRY: '₺', IDR: 'Rp' };
+        
         let currentCurrency = 'USD';
         let currentUser = null;
+        let isAdminLoggedIn = false;
+        let currentPage = 1;
+        const gamesPerPage = 12;
 
-        // Load all content
-        document.addEventListener('DOMContentLoaded', function() {
-            loadGames();
-            loadGiftCards();
-            loadTopUp();
-            updateCartCount();
-            loadUserFromStorage();
-        });
-
-        function loadGames() {
-            const grid = document.getElementById('gamesGrid');
-            grid.innerHTML = games.map(game => `
-                <div class="game-card">
-                    <div class="game-image">
-                        <img src="${game.image}" alt="${game.name}" onerror="this.src='https://via.placeholder.com/300x170?text=Game'">
-                    </div>
-                    <div class="game-info">
-                        <h3>${game.name}</h3>
-                        <div class="game-desc">${game.desc}</div>
-                        <div class="game-price">${formatPrice(game.priceUSD)}</div>
-                        <button class="buy-btn" onclick="buyProduct('game', ${game.id}, '${game.name}', ${game.priceUSD})">
-                            <i class="fab fa-whatsapp"></i> شراء عبر واتساب
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function loadGiftCards() {
-            const grid = document.getElementById('giftGrid');
-            grid.innerHTML = giftCards.map(card => `
-                <div class="gift-card" onclick="buyProduct('gift', '${card.code}', 'بطاقة ${card.country} ${card.flag}', ${card.priceUSD})">
-                    <i class="fas fa-gift"></i>
-                    <h3>${card.flag} بطاقة ${card.country}</h3>
-                    <div class="gift-price">${formatPrice(card.priceUSD)}</div>
-                    <button class="buy-btn" style="margin-top:8px;"><i class="fab fa-whatsapp"></i> شراء</button>
-                </div>
-            `).join('');
-        }
-
-        function loadTopUp() {
-            const grid = document.getElementById('topupGrid');
-            grid.innerHTML = topupAmounts.map(amount => `
-                <div class="topup-card" onclick="buyProduct('topup', ${amount}, 'شحن رصيد PSN $${amount}', ${amount})">
-                    <i class="fas fa-coins"></i>
-                    <h3>PSN $${amount}</h3>
-                    <div class="gift-price">${formatPrice(amount)}</div>
-                    <button class="buy-btn" style="margin-top:8px;"><i class="fab fa-whatsapp"></i> شحن</button>
-                </div>
-            `).join('');
-        }
-
+        // ========== الوظائف ==========
         function formatPrice(priceUSD) {
-            const converted = priceUSD * exchangeRates[currentCurrency];
-            return `${currencySymbols[currentCurrency]} ${converted.toFixed(2)}`;
+            return `${currencySymbols[currentCurrency]} ${(priceUSD * exchangeRates[currentCurrency]).toFixed(2)}`;
         }
 
         function changeCurrency(currency) {
@@ -779,97 +780,211 @@
             loadTopUp();
         }
 
-        // Buy Product - Send full details to WhatsApp
-        function buyProduct(type, id, name, priceUSD) {
+        // تحميل الألعاب مع صفحات
+        function loadGames() {
+            const start = (currentPage - 1) * gamesPerPage;
+            const end = start + gamesPerPage;
+            const currentGames = games.slice(start, end);
+            
+            const grid = document.getElementById('gamesGrid');
+            grid.innerHTML = currentGames.map(game => `
+                <div class="game-card">
+                    <div class="game-image"><img src="${game.image}" alt="${game.name}" onerror="this.src='https://via.placeholder.com/300x170?text=Game'"></div>
+                    <div class="game-info">
+                        <h3>${game.name}</h3>
+                        <div class="game-desc">${game.desc}</div>
+                        <div class="game-price">${formatPrice(game.priceUSD)}</div>
+                        <button class="buy-btn" onclick="buyProduct('game', ${game.id})"><i class="fab fa-whatsapp"></i> شراء عبر واتساب</button>
+                    </div>
+                </div>
+            `).join('');
+            
+            // أزرار الترقيم
+            const totalPages = Math.ceil(games.length / gamesPerPage);
+            const paginationDiv = document.getElementById('pagination');
+            let pagesHtml = '';
+            for (let i = 1; i <= totalPages; i++) {
+                pagesHtml += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+            }
+            paginationDiv.innerHTML = pagesHtml;
+        }
+
+        function goToPage(page) {
+            currentPage = page;
+            loadGames();
+            document.getElementById('games').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function loadGiftCards() {
+            const grid = document.getElementById('giftGrid');
+            grid.innerHTML = giftCards.map(card => `
+                <div class="gift-card" onclick="buyProduct('gift', '${card.country}')">
+                    <i class="fas fa-gift"></i>
+                    <h3>${card.flag} بطاقة ${card.country}</h3>
+                    <div class="game-price">${formatPrice(card.priceUSD)}</div>
+                    <button class="buy-btn" style="margin-top:8px;"><i class="fab fa-whatsapp"></i> شراء</button>
+                </div>
+            `).join('');
+        }
+
+        function loadTopUp() {
+            const grid = document.getElementById('topupGrid');
+            grid.innerHTML = topupAmounts.map(amount => `
+                <div class="topup-card" onclick="buyProduct('topup', ${amount})">
+                    <i class="fas fa-coins"></i>
+                    <h3>PSN $${amount}</h3>
+                    <div class="game-price">${formatPrice(amount)}</div>
+                    <button class="buy-btn" style="margin-top:8px;"><i class="fab fa-whatsapp"></i> شحن</button>
+                </div>
+            `).join('');
+        }
+
+        // شراء المنتج مع تفاصيل كاملة
+        function buyProduct(type, id) {
             if (!currentUser) {
                 alert('الرجاء تسجيل الدخول أولاً');
                 openUserModal();
                 return;
             }
-
-            const convertedPrice = priceUSD * exchangeRates[currentCurrency];
-            const currencyName = getCurrencyName(currentCurrency);
             
-            let productDetails = '';
+            let productName = '', priceUSD = 0, details = '';
             if (type === 'game') {
                 const game = games.find(g => g.id === id);
-                productDetails = `
-🛒 طلب شراء لعبة:
-━━━━━━━━━━━━━━━━
-🎮 اسم اللعبة: ${game.name}
-📝 الوصف: ${game.desc}
-💰 السعر الأصلي: $${priceUSD}
-💵 السعر بالعملة: ${currencySymbols[currentCurrency]} ${convertedPrice.toFixed(2)} (${currencyName})
-━━━━━━━━━━━━━━━━
-👤 معلومات العميل:
-📧 البريد الإلكتروني: ${currentUser.email}
-👤 الاسم: ${currentUser.name}
-━━━━━━━━━━━━━━━━
-🔗 رابط المنتج: Xnesto Store
-📅 تاريخ الطلب: ${new Date().toLocaleString('ar-SA')}
-            `;
+                productName = game.name;
+                priceUSD = game.priceUSD;
+                details = `🎮 اسم اللعبة: ${game.name}\n📝 الوصف: ${game.desc}`;
             } else if (type === 'gift') {
-                const card = giftCards.find(c => c.code === id);
-                productDetails = `
-🛒 طلب شراء بطاقة هدايا:
-━━━━━━━━━━━━━━━━
-🎁 البطاقة: بطاقة ${card.country} ${card.flag}
-💰 السعر الأصلي: $${priceUSD}
-💵 السعر بالعملة: ${currencySymbols[currentCurrency]} ${convertedPrice.toFixed(2)} (${currencyName})
-━━━━━━━━━━━━━━━━
-👤 معلومات العميل:
-📧 البريد الإلكتروني: ${currentUser.email}
-👤 الاسم: ${currentUser.name}
-━━━━━━━━━━━━━━━━
-🔗 رابط المنتج: Xnesto Store
-📅 تاريخ الطلب: ${new Date().toLocaleString('ar-SA')}
-            `;
-            } else if (type === 'topup') {
-                productDetails = `
-🛒 طلب شحن رصيد بلايستيشن:
-━━━━━━━━━━━━━━━━
-💰 المبلغ: PSN $${id}
-💵 السعر بالعملة: ${currencySymbols[currentCurrency]} ${convertedPrice.toFixed(2)} (${currencyName})
-━━━━━━━━━━━━━━━━
-👤 معلومات العميل:
-📧 البريد الإلكتروني: ${currentUser.email}
-👤 الاسم: ${currentUser.name}
-━━━━━━━━━━━━━━━━
-🔗 رابط المنتج: Xnesto Store
-📅 تاريخ الطلب: ${new Date().toLocaleString('ar-SA')}
-            `;
+                productName = `بطاقة ${id}`;
+                priceUSD = 50;
+                details = `🎁 بطاقة هدايا ${id}`;
+            } else {
+                productName = `شحن رصيد PSN $${id}`;
+                priceUSD = id;
+                details = `💰 شحن رصيد بلايستيشن بقيمة $${id}`;
             }
-
-            const message = `مرحباً، أريد شراء المنتج التالي:\n${productDetails}\nالرجاء تأكيد الطلب وإرسال طريقة الدفع.`;
+            
+            const convertedPrice = priceUSD * exchangeRates[currentCurrency];
+            const message = `
+🛒 طلب شراء:
+━━━━━━━━━━━━━━━━
+${details}
+💰 السعر: ${currencySymbols[currentCurrency]} ${convertedPrice.toFixed(2)} (${currentCurrency})
+━━━━━━━━━━━━━━━━
+👤 معلومات العميل:
+📧 البريد: ${currentUser.email}
+👤 الاسم: ${currentUser.name}
+📅 التاريخ: ${new Date().toLocaleString('ar-SA')}
+━━━━━━━━━━━━━━━━
+الرجاء تأكيد الطلب وإرسال طريقة الدفع.
+            `;
             window.open(`https://wa.me/96879977100?text=${encodeURIComponent(message)}`, '_blank');
         }
 
-        function getCurrencyName(code) {
-            const names = { USD: 'دولار أمريكي', SAR: 'ريال سعودي', AED: 'درهم إماراتي', QAR: 'ريال قطري', KWD: 'دينار كويتي', BHD: 'دينار بحريني', OMR: 'ريال عماني', INR: 'روبية هندي', TRY: 'ليرة تركي', IDR: 'روبية إندونيسي' };
-            return names[code] || code;
+        // ========== وظائف الأدمن ==========
+        function openAdminModal() { document.getElementById('adminModal').style.display = 'flex'; }
+        function closeAdminModal() { document.getElementById('adminModal').style.display = 'none'; }
+        
+        function loginAdmin() {
+            const username = document.getElementById('adminUsername').value;
+            const password = document.getElementById('adminPassword').value;
+            if (username === 'admin' && password === 'admin123') {
+                isAdminLoggedIn = true;
+                closeAdminModal();
+                document.getElementById('adminPanel').classList.add('active');
+                loadAdminTable();
+                alert('تم تسجيل الدخول كأدمن بنجاح');
+            } else {
+                alert('اسم المستخدم أو كلمة المرور غير صحيحة');
+            }
         }
-
-        // User Functions
-        function openUserModal() {
-            document.getElementById('userModal').style.display = 'flex';
+        
+        function logoutAdmin() {
+            isAdminLoggedIn = false;
+            document.getElementById('adminPanel').classList.remove('active');
+            alert('تم تسجيل الخروج من لوحة الأدمن');
         }
-
-        function closeUserModal() {
-            document.getElementById('userModal').style.display = 'none';
+        
+        function loadAdminTable() {
+            const tbody = document.getElementById('adminTableBody');
+            tbody.innerHTML = games.map(game => `
+                <tr>
+                    <td><img src="${game.image}" width="40" height="40" style="border-radius:5px; object-fit:cover;"></td>
+                    <td>${game.name}</td>
+                    <td>$${game.priceUSD}</td>
+                    <td>
+                        <button class="edit-btn" onclick="editProduct(${game.id})">تعديل</button>
+                        <button class="delete-btn" onclick="deleteProduct(${game.id})">حذف</button>
+                    </td>
+                </tr>
+            `).join('');
         }
-
+        
+        function openProductForm(productId = null) {
+            document.getElementById('productFormModal').style.display = 'flex';
+            if (productId) {
+                const game = games.find(g => g.id === productId);
+                if (game) {
+                    document.getElementById('formTitle').innerText = 'تعديل منتج';
+                    document.getElementById('productName').value = game.name;
+                    document.getElementById('productImage').value = game.image;
+                    document.getElementById('productPriceUSD').value = game.priceUSD;
+                    document.getElementById('productDesc').value = game.desc;
+                    window.currentEditId = productId;
+                }
+            } else {
+                document.getElementById('formTitle').innerText = 'إضافة منتج جديد';
+                document.getElementById('productName').value = '';
+                document.getElementById('productImage').value = '';
+                document.getElementById('productPriceUSD').value = '';
+                document.getElementById('productDesc').value = '';
+                window.currentEditId = null;
+            }
+        }
+        
+        function closeProductForm() { document.getElementById('productFormModal').style.display = 'none'; }
+        
+        function saveProduct() {
+            const productData = {
+                id: window.currentEditId || Date.now(),
+                name: document.getElementById('productName').value,
+                image: document.getElementById('productImage').value,
+                priceUSD: parseFloat(document.getElementById('productPriceUSD').value),
+                desc: document.getElementById('productDesc').value
+            };
+            if (window.currentEditId) {
+                const index = games.findIndex(g => g.id === window.currentEditId);
+                if (index !== -1) games[index] = productData;
+            } else {
+                games.push(productData);
+            }
+            closeProductForm();
+            loadGames();
+            if (isAdminLoggedIn) loadAdminTable();
+            alert('تم حفظ المنتج بنجاح');
+        }
+        
+        function editProduct(id) { openProductForm(id); }
+        
+        function deleteProduct(id) {
+            if (confirm('هل أنت متأكد من حذف هذا المنتج؟')) {
+                games = games.filter(g => g.id !== id);
+                if (currentPage > Math.ceil(games.length / gamesPerPage)) currentPage = 1;
+                loadGames();
+                if (isAdminLoggedIn) loadAdminTable();
+                alert('تم حذف المنتج بنجاح');
+            }
+        }
+        
+        // ========== وظائف العميل ==========
+        function openUserModal() { document.getElementById('userModal').style.display = 'flex'; }
+        function closeUserModal() { document.getElementById('userModal').style.display = 'none'; }
+        
         function loginUser() {
             const email = document.getElementById('userEmail').value;
             const name = document.getElementById('userName').value;
-            
-            if (!email || !name) {
-                alert('الرجاء إدخال البريد الإلكتروني والاسم');
-                return;
-            }
-            
+            if (!email || !name) { alert('الرجاء إدخال البريد الإلكتروني والاسم'); return; }
             currentUser = { email, name };
             localStorage.setItem('xnesto_user', JSON.stringify(currentUser));
-            
             document.getElementById('userSection').innerHTML = `
                 <div class="user-info">
                     <i class="fas fa-user-check"></i>
@@ -880,7 +995,7 @@
             closeUserModal();
             alert(`مرحباً ${name}! تم تسجيل الدخول بنجاح`);
         }
-
+        
         function loadUserFromStorage() {
             const saved = localStorage.getItem('xnesto_user');
             if (saved) {
@@ -894,28 +1009,26 @@
                 `;
             }
         }
-
+        
         function logoutUser() {
             currentUser = null;
             localStorage.removeItem('xnesto_user');
-            document.getElementById('userSection').innerHTML = `
-                <div class="user-btn" onclick="openUserModal()">
-                    <i class="fas fa-user"></i>
-                    <span>تسجيل دخول</span>
-                </div>
-            `;
+            document.getElementById('userSection').innerHTML = `<div class="user-btn" onclick="openUserModal()"><i class="fas fa-user"></i><span>تسجيل دخول</span></div>`;
             alert('تم تسجيل الخروج بنجاح');
         }
-
-        function updateCartCount() {
-            const count = localStorage.getItem('cartCount') || 0;
-            document.querySelectorAll('.cart-count').forEach(el => el.textContent = count);
-        }
-
+        
         function switchLanguage(lang) {
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
         }
+        
+        // تحميل البيانات عند بدء التشغيل
+        document.addEventListener('DOMContentLoaded', () => {
+            loadGames();
+            loadGiftCards();
+            loadTopUp();
+            loadUserFromStorage();
+        });
     </script>
 </body>
 </html>
