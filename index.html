@@ -15,7 +15,6 @@
       min-height: 100vh;
     }
     
-    /* Header */
     .header {
       text-align: center;
       background: linear-gradient(135deg, #0f0f2a, #0a0a1f);
@@ -23,8 +22,6 @@
       border-radius: 1.5rem;
       margin-bottom: 1.5rem;
       border: 1px solid rgba(255, 170, 68, 0.3);
-      position: relative;
-      overflow: hidden;
     }
     .header h1 {
       font-size: 2.5rem;
@@ -35,7 +32,6 @@
     }
     .header p { color: #ffdd99; font-size: 0.9rem; }
     
-    /* Control Bar */
     .control-bar {
       max-width: 1400px;
       margin: 0 auto 1rem auto;
@@ -196,7 +192,6 @@
       cursor: pointer;
     }
     
-    /* Search */
     .search-bar-container {
       max-width: 1400px;
       margin: 0 auto 1rem auto;
@@ -228,7 +223,6 @@
       color: #ffaa66;
     }
     
-    /* Tabs - Categories */
     .tabs-container {
       max-width: 1400px;
       margin: 0 auto 1rem auto;
@@ -248,17 +242,7 @@
       font-size: 0.85rem;
     }
     .tab-btn.active { background: #ffaa44; color: #0a0a1a; }
-    .delete-cat-btn {
-      background: #ff4444;
-      border: none;
-      border-radius: 20px;
-      padding: 2px 6px;
-      margin-right: 5px;
-      cursor: pointer;
-      font-size: 0.6rem;
-    }
     
-    /* Products Grid */
     .products-grid {
       max-width: 1400px;
       margin: 0 auto;
@@ -353,6 +337,7 @@
       font-weight: bold;
       margin-top: 6px;
       font-size: 0.8rem;
+      cursor: pointer;
     }
     
     /* Admin Edit Section */
@@ -467,7 +452,58 @@
     }
     .page-btn.active { background: #ffaa44; color: #0a0a1a; }
     
-    /* Footer */
+    /* Modal for Terms */
+    .terms-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(12px);
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+    .terms-box {
+      background: #11152b;
+      border-radius: 1.5rem;
+      padding: 2rem;
+      text-align: center;
+      border: 2px solid #ffaa44;
+      width: 90%;
+      max-width: 500px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .terms-box h3 {
+      color: #ffaa44;
+      margin-bottom: 1rem;
+    }
+    .terms-box p {
+      text-align: right;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      color: #b9c5f0;
+    }
+    .terms-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+    .terms-buttons button {
+      padding: 10px 20px;
+      border-radius: 40px;
+      cursor: pointer;
+      font-weight: bold;
+      border: none;
+    }
+    .accept-btn { background: #ffaa44; color: #0a0a1a; }
+    .decline-btn { background: #444; color: white; }
+    
     .footer {
       text-align: center;
       margin-top: 2rem;
@@ -480,7 +516,6 @@
       text-decoration: none;
       margin: 0 8px;
     }
-    .footer a:hover { text-decoration: underline; }
     .social-icons { margin-bottom: 0.5rem; }
     .social-icons i { font-size: 1.2rem; margin: 0 8px; color: #ffaa66; }
     
@@ -563,10 +598,32 @@
 
 <div class="footer">
   <div class="social-icons">
-    <i class="fab fa-instagram"></i> <span id="instagramText">xnesto_store</span>
+    <i class="fab fa-instagram"></i> <span id="instagramText">xnesto_</span>
     <i class="fab fa-whatsapp"></i> <span id="whatsappText">+968 79977100</span>
   </div>
   <p>© 2025 xnesto - جميع الحقوق محفوظة</p>
+</div>
+
+<!-- نافذة الشروط والأحكام -->
+<div id="termsModal" class="terms-modal">
+  <div class="terms-box">
+    <h3><i class="fas fa-file-contract"></i> شروط وأحكام الشراء</h3>
+    <div id="termsContent">
+      <p>📌 <strong>شروط الشراء من xnesto:</strong></p>
+      <p>1. جميع المنتجات رقمية (ألعاب - بطاقات شحن) يتم تسليمها فور إتمام الدفع عبر واتساب.</p>
+      <p>2. المنتجات الرقمية غير قابلة للاسترجاع أو الاستبدال بعد التسليم.</p>
+      <p>3. يرجى التأكد من صحة حساب PlayStation الخاص بك قبل الطلب.</p>
+      <p>4. الأسعار المعلنة شاملة جميع الرسوم ولا تضاف أي رسوم إضافية.</p>
+      <p>5. في حال وجود أي مشكلة تقنية، يرجى التواصل معنا خلال 24 ساعة.</p>
+      <p>6. xnesto غير مسؤول عن أي حظر أو تعليق لحساب PlayStation بسبب مخالفة شروط سوني.</p>
+      <p>7. باستمرارك في الشراء، أنت توافق على جميع الشروط والأحكام المذكورة أعلاه.</p>
+      <p>📞 للتواصل: واتساب +968 79977100 | انستقرام xnesto_</p>
+    </div>
+    <div class="terms-buttons">
+      <button id="acceptTermsBtn" class="accept-btn">✅ أوافق على الشروط</button>
+      <button id="declineTermsBtn" class="decline-btn">❌ لا أوافق</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -581,13 +638,14 @@
   let currentPage = 1;
   let currentCategory = "games";
   let searchQuery = "";
+  let pendingOrder = null; // لتخزين بيانات الطلب قبل الموافقة على الشروط
   const ITEMS_PER_PAGE = 6;
   const ADMIN_PASSWORD = "ssp1995";
+  const WA_NUMBER = "+96879977100";
+  const INSTA_USERNAME = "xnesto_";
   
   const exchangeRates = { OMR: 1, USD: 2.6, SAR: 9.75, QAR: 9.46, EUR: 2.4, AED: 9.55 };
   const currencySymbols = { OMR: "ر.ع", USD: "$", SAR: "ر.س", QAR: "ر.ق", EUR: "€", AED: "د.إ" };
-  const WA_NUMBER = "96879977100";
-  const INSTA_USERNAME = "xnesto_";
   
   const categoryColors = { games: "#2d4a6e", giftcards: "#1a3a5a" };
   const categoryIcons = { games: "🎮", giftcards: "💳" };
@@ -670,6 +728,23 @@
     return filtered;
   }
   
+  function showTermsModal(productName, waLink) {
+    pendingOrder = { productName, waLink };
+    document.getElementById("termsModal").style.display = "flex";
+  }
+  
+  function closeTermsModal() {
+    document.getElementById("termsModal").style.display = "none";
+    pendingOrder = null;
+  }
+  
+  function acceptTerms() {
+    if (pendingOrder) {
+      window.open(pendingOrder.waLink, "_blank");
+    }
+    closeTermsModal();
+  }
+  
   function renderTabs() {
     const container = document.getElementById("tabsContainer");
     if (!container) return;
@@ -744,6 +819,8 @@
       imgHtml = `<div class="product-image" style="background: linear-gradient(135deg, ${bgColor}, ${bgColor}cc);"><div style="font-size: 2.5rem;">${icon}</div><div class="product-badge">${categoryName}</div></div>`;
     }
     
+    const waLink = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+    
     card.innerHTML = `
       ${hasDiscount ? `<div class="discount-badge">🔥 خصم ${discountPercent}%</div>` : ''}
       ${remaining ? `<div class="timer-badge">⏱️ ${remaining}</div>` : ''}
@@ -756,7 +833,7 @@
           ${hasDiscount ? `<span class="old-price">${oldPrice} ${sym}</span>` : ''}
           <span class="price">${price} ${sym}</span>
         </div>
-        <a href="https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> ${currentLang === "ar" ? "اطلب الآن" : "Order Now"}</a>
+        <div class="btn-wa" onclick="showTermsModal('${name.replace(/'/g, "\\'")}', '${waLink}')"><i class="fab fa-whatsapp"></i> ${currentLang === "ar" ? "اطلب الآن" : "Order Now"}</div>
       </div>
     `;
     
@@ -939,6 +1016,8 @@
     document.getElementById("searchInput")?.addEventListener("input", (e) => { searchQuery = e.target.value; currentPage = 1; renderProducts(); });
     document.getElementById("addProductBtn")?.addEventListener("click", addNewProduct);
     document.getElementById("addCategoryBtn")?.addEventListener("click", addNewCategory);
+    document.getElementById("acceptTermsBtn")?.addEventListener("click", acceptTerms);
+    document.getElementById("declineTermsBtn")?.addEventListener("click", closeTermsModal);
   }
   
   const loginModalHtml = `
@@ -972,6 +1051,7 @@
   renderProducts();
   document.getElementById("instagramText").innerText = INSTA_USERNAME;
   document.getElementById("whatsappText").innerText = WA_NUMBER;
+  window.showTermsModal = showTermsModal;
   window.deleteCategory = deleteCategory;
 </script>
 </body>
