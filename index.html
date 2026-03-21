@@ -102,7 +102,6 @@
       font-size: 0.8rem;
     }
     
-    /* Admin Add Product Section */
     .admin-add-section {
       max-width: 1400px;
       margin: 0 auto 1rem auto;
@@ -147,7 +146,6 @@
       font-weight: bold;
     }
     
-    /* Category Management */
     .category-management {
       max-width: 1400px;
       margin: 0 auto 1rem auto;
@@ -338,9 +336,9 @@
       margin-top: 6px;
       font-size: 0.8rem;
       cursor: pointer;
+      border: none;
     }
     
-    /* Admin Edit Section */
     .admin-edit-section {
       background: #0a0c1a;
       border-top: 1px solid #2a2f55;
@@ -452,7 +450,6 @@
     }
     .page-btn.active { background: #ffaa44; color: #0a0a1a; }
     
-    /* Modal for Terms */
     .terms-modal {
       display: none;
       position: fixed;
@@ -519,6 +516,52 @@
     .social-icons { margin-bottom: 0.5rem; }
     .social-icons i { font-size: 1.2rem; margin: 0 8px; color: #ffaa66; }
     
+    .copy-code-section {
+      max-width: 1400px;
+      margin: 2rem auto 0;
+      background: rgba(15, 15, 42, 0.9);
+      border-radius: 1rem;
+      border: 1px solid rgba(255, 170, 68, 0.3);
+      overflow: hidden;
+    }
+    .copy-code-header {
+      background: #1e1e3a;
+      padding: 0.8rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .copy-code-header span {
+      color: #ffaa66;
+      font-size: 0.8rem;
+    }
+    .copy-code-btn {
+      background: #ffaa44;
+      border: none;
+      padding: 5px 15px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.7rem;
+    }
+    .copy-code-content {
+      padding: 1rem;
+      background: #0a0c1a;
+      max-height: 300px;
+      overflow: auto;
+    }
+    .copy-code-content pre {
+      color: #b9c5f0;
+      font-size: 0.7rem;
+      font-family: monospace;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      direction: ltr;
+      text-align: left;
+    }
+    
     @media (max-width: 640px) { body { padding: 1rem; } .product-image { height: 140px; } }
   </style>
 </head>
@@ -559,10 +602,7 @@
   <div class="admin-add-body">
     <input type="text" id="newNameAr" placeholder="الاسم بالعربية">
     <input type="text" id="newNameEn" placeholder="Name in English">
-    <select id="newCategory">
-      <option value="games">🎮 ألعاب</option>
-      <option value="giftcards">💳 بطاقات شحن</option>
-    </select>
+    <select id="newCategorySelect"></select>
     <input type="number" id="newPrice" step="0.5" placeholder="السعر (ر.ع)">
     <input type="text" id="newImage" placeholder="رابط الصورة">
     <textarea id="newDetails" rows="2" placeholder="تفاصيل المنتج (وصف، مواصفات...)"></textarea>
@@ -626,6 +666,17 @@
   </div>
 </div>
 
+<!-- قسم نسخ الكود في الأسفل -->
+<div class="copy-code-section">
+  <div class="copy-code-header">
+    <span><i class="fas fa-code"></i> كود المتجر الكامل - xnesto</span>
+    <button class="copy-code-btn" id="copyCodeBtn"><i class="fas fa-copy"></i> نسخ الكود</button>
+  </div>
+  <div class="copy-code-content">
+    <pre id="codeToCopy"></pre>
+  </div>
+</div>
+
 <script>
   // ==================== البيانات ====================
   let products = [];
@@ -638,11 +689,11 @@
   let currentPage = 1;
   let currentCategory = "games";
   let searchQuery = "";
-  let pendingOrder = null; // لتخزين بيانات الطلب قبل الموافقة على الشروط
+  let pendingOrder = null;
   const ITEMS_PER_PAGE = 6;
   const ADMIN_PASSWORD = "ssp1995";
   const WA_NUMBER = "+96879977100";
-  const INSTA_USERNAME = "xnesto_";
+  const INSTA_USERNAME = "xnesto_store";
   
   const exchangeRates = { OMR: 1, USD: 2.6, SAR: 9.75, QAR: 9.46, EUR: 2.4, AED: 9.55 };
   const currencySymbols = { OMR: "ر.ع", USD: "$", SAR: "ر.س", QAR: "ر.ق", EUR: "€", AED: "د.إ" };
@@ -701,9 +752,23 @@
       categories = cats.categories;
       categoryNames = cats.names;
     }
+    updateCategorySelect();
   }
   function saveToLocal() { localStorage.setItem("xnesto_products", JSON.stringify(products)); }
   function saveCategories() { localStorage.setItem("xnesto_categories", JSON.stringify({ categories, names: categoryNames })); }
+  
+  function updateCategorySelect() {
+    const select = document.getElementById("newCategorySelect");
+    if (!select) return;
+    select.innerHTML = "";
+    categories.forEach(cat => {
+      const option = document.createElement("option");
+      option.value = cat;
+      option.textContent = categoryNames[cat] || cat;
+      select.appendChild(option);
+    });
+  }
+  
   loadFromLocal();
   
   function convertPrice(price) { return (price * exchangeRates[currentCurrency]).toFixed(2); }
@@ -777,6 +842,7 @@
     categories = categories.filter(c => c !== cat);
     delete categoryNames[cat];
     saveCategories();
+    updateCategorySelect();
     renderCategoriesList();
     renderTabs();
     if (currentCategory === cat) currentCategory = "all";
@@ -791,6 +857,7 @@
     categories.push(catKey);
     categoryNames[catKey] = newCatName;
     saveCategories();
+    updateCategorySelect();
     renderCategoriesList();
     renderTabs();
     document.getElementById("newCategoryName").value = "";
@@ -942,7 +1009,7 @@
   function addNewProduct() {
     const nameAr = document.getElementById("newNameAr").value;
     const nameEn = document.getElementById("newNameEn").value;
-    const category = document.getElementById("newCategory").value;
+    const category = document.getElementById("newCategorySelect").value;
     const price = parseFloat(document.getElementById("newPrice").value);
     const image = document.getElementById("newImage").value;
     const details = document.getElementById("newDetails").value;
@@ -1053,6 +1120,14 @@
   document.getElementById("whatsappText").innerText = WA_NUMBER;
   window.showTermsModal = showTermsModal;
   window.deleteCategory = deleteCategory;
+  
+  // وضع الكود في الأسفل
+  const currentCode = document.documentElement.outerHTML;
+  document.getElementById("codeToCopy").innerText = currentCode;
+  document.getElementById("copyCodeBtn").onclick = () => {
+    navigator.clipboard.writeText(currentCode);
+    alert("تم نسخ الكود بنجاح!");
+  };
 </script>
 </body>
 </html>
