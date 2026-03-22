@@ -683,6 +683,143 @@
     }
     .social-icons { margin-bottom: 0.5rem; }
     .social-icons i { font-size: 1.2rem; margin: 0 8px; color: #ffaa66; }
+
+    /* ── زر الاستفسار العائم ── */
+    .inquiry-float {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .inquiry-label {
+      background: #25D366;
+      color: white;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      animation: fadeInOut 3s ease-in-out infinite;
+      white-space: nowrap;
+    }
+    @keyframes fadeInOut {
+      0%,100%{opacity:0.7} 50%{opacity:1}
+    }
+    .inquiry-btn {
+      width: 58px;
+      height: 58px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+      cursor: pointer;
+      text-decoration: none;
+      animation: inquiryPulse 2s ease-in-out infinite;
+      border: 3px solid rgba(255,255,255,0.3);
+    }
+    @keyframes inquiryPulse {
+      0%,100%{ box-shadow: 0 4px 20px rgba(37,211,102,0.5); transform: scale(1); }
+      50%    { box-shadow: 0 4px 30px rgba(37,211,102,0.8); transform: scale(1.08); }
+    }
+
+    /* ── مودال الشروط والأحكام المحسّن ── */
+    .terms-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.95);
+      backdrop-filter: blur(12px);
+      align-items: center;
+      justify-content: center;
+      z-index: 4000;
+      padding: 1rem;
+    }
+    .terms-box {
+      background: #11152b;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      border: 2px solid #ffaa44;
+      width: 100%;
+      max-width: 500px;
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+    .terms-box h3 { color: #ffaa44; margin-bottom: 1rem; text-align: center; font-size: 1rem; }
+    .terms-item-row {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      margin-bottom: 8px;
+      background: rgba(255,170,68,0.05);
+      border-radius: 8px;
+      padding: 8px 10px;
+      border-right: 3px solid rgba(255,170,68,0.3);
+    }
+    .terms-item-row .t-num {
+      background: #ffaa44;
+      color: #0a0a1a;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 900;
+    }
+    .terms-item-row p {
+      font-size: 0.78rem;
+      color: #b9c5f0;
+      line-height: 1.5;
+      text-align: right;
+      flex: 1;
+    }
+    .terms-checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,204,136,0.08);
+      border: 1px solid rgba(0,204,136,0.3);
+      border-radius: 8px;
+      padding: 10px;
+      margin: 12px 0 8px;
+      cursor: pointer;
+    }
+    .terms-checkbox-row input { accent-color: #00cc88; width: 18px; height: 18px; cursor: pointer; }
+    .terms-checkbox-row label { font-size: 0.8rem; color: #00cc88; font-weight: 700; cursor: pointer; }
+    .terms-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 8px;
+    }
+    .terms-buttons button {
+      padding: 10px 20px;
+      border-radius: 40px;
+      cursor: pointer;
+      font-weight: bold;
+      border: none;
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.85rem;
+    }
+    .accept-btn {
+      background: #ffaa44;
+      color: #0a0a1a;
+      flex: 1;
+      opacity: 0.5;
+      pointer-events: none;
+      transition: 0.2s;
+    }
+    .accept-btn.enabled { opacity: 1; pointer-events: all; }
+    .decline-btn { background: #444; color: white; }
     
     @media (max-width: 640px) { 
       body { padding: 0.5rem; } 
@@ -1294,7 +1431,64 @@
   <p>© 2025 xnesto - جميع الحقوق محفوظة</p>
 </div>
 
-<!-- CHECKOUT MODAL -->
+<!-- زر الاستفسار العائم -->
+<div class="inquiry-float">
+  <div class="inquiry-label">💬 استفسر الآن</div>
+  <a class="inquiry-btn" id="inquiryBtn" href="#" target="_blank" title="تواصل معنا عبر واتساب">
+    <i class="fab fa-whatsapp" style="color:white;"></i>
+  </a>
+</div>
+
+<!-- مودال الشروط والأحكام -->
+<div id="termsModal" class="terms-modal">
+  <div class="terms-box">
+    <h3><i class="fas fa-file-contract"></i> شروط وأحكام الشراء</h3>
+
+    <div class="terms-item-row">
+      <div class="t-num">1</div>
+      <p>جميع المنتجات رقمية (ألعاب - بطاقات شحن) يتم تسليمها فور إتمام الدفع عبر واتساب.</p>
+    </div>
+    <div class="terms-item-row">
+      <div class="t-num">2</div>
+      <p>المنتجات الرقمية غير قابلة للاسترجاع أو الاستبدال بعد التسليم.</p>
+    </div>
+    <div class="terms-item-row">
+      <div class="t-num">3</div>
+      <p>يرجى التأكد من صحة حساب PlayStation الخاص بك قبل الطلب.</p>
+    </div>
+    <div class="terms-item-row">
+      <div class="t-num">4</div>
+      <p>الأسعار المعلنة شاملة جميع الرسوم ولا تضاف أي رسوم إضافية.</p>
+    </div>
+    <div class="terms-item-row">
+      <div class="t-num">5</div>
+      <p>في حال وجود أي مشكلة تقنية، يرجى التواصل معنا خلال 24 ساعة من الاستلام.</p>
+    </div>
+    <div class="terms-item-row">
+      <div class="t-num">6</div>
+      <p>xnesto غير مسؤول عن أي حظر أو تعليق لحساب PlayStation بسبب مخالفة شروط سوني.</p>
+    </div>
+    <div class="terms-item-row">
+      <div class="t-num">7</div>
+      <p>وقت التسليم من 5 دقائق إلى 24 ساعة حسب التوفر والوقت.</p>
+    </div>
+
+    <div class="terms-checkbox-row" onclick="toggleTermsAccept()">
+      <input type="checkbox" id="termsCheck">
+      <label for="termsCheck">أقر بأنني قرأت وأوافق على جميع الشروط والأحكام أعلاه</label>
+    </div>
+
+    <div class="terms-buttons">
+      <button id="acceptTermsBtn" class="accept-btn" onclick="acceptTerms()">
+        ✅ أوافق وأكمل الطلب
+      </button>
+      <button id="declineTermsBtn" class="decline-btn" onclick="closeTermsModal()">❌ إغلاق</button>
+    </div>
+    <p style="text-align:center;font-size:0.65rem;color:#555;margin-top:8px;">
+      📞 للتواصل: واتساب +96879977100 | انستقرام xnesto_store
+    </p>
+  </div>
+</div>
 <div id="checkoutModal" class="checkout-modal">
   <div class="checkout-wrap">
     <!-- LEFT: FORM -->
@@ -1529,7 +1723,53 @@
     { id: 12, nameAr: "Marvel's Spider-Man 2", nameEn: "Marvel's Spider-Man 2", category: "games", priceOMR: 16, oldPrice: 22, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2651280/header.jpg", detailsAr: "🏷️ الحجم: 98GB | 🕷️ بيتر + مايلز", detailsEn: "📦 Size: 98GB | 🕷️ Peter + Miles", timer: null, msgAr: "أريد Spider-Man 2", msgEn: "I want Spider-Man 2" },
     { id: 13, nameAr: "Hogwarts Legacy", nameEn: "Hogwarts Legacy", category: "games", priceOMR: 11, oldPrice: 16, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/990080/header.jpg", detailsAr: "🏷️ الحجم: 85GB | 🧙 عالم هاري بوتر", detailsEn: "📦 Size: 85GB | 🧙 Harry Potter World", timer: null, msgAr: "أريد Hogwarts Legacy", msgEn: "I want Hogwarts Legacy" },
     { id: 14, nameAr: "Final Fantasy VII Rebirth", nameEn: "Final Fantasy VII Rebirth", category: "games", priceOMR: 18, oldPrice: 25, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2909400/header.jpg", detailsAr: "🏷️ الحجم: 145GB | 🗡️ RPG خيالية", detailsEn: "📦 Size: 145GB | 🗡️ Fantasy RPG", timer: null, msgAr: "أريد Final Fantasy VII Rebirth", msgEn: "I want Final Fantasy VII Rebirth" },
-    { id: 15, nameAr: "Tekken 8", nameEn: "Tekken 8", category: "games", priceOMR: 12, oldPrice: 18, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1778820/header.jpg", detailsAr: "🏷️ الحجم: 80GB | 🥊 لعبة قتال", detailsEn: "📦 Size: 80GB | 🥊 Fighting Game", timer: null, msgAr: "أريد Tekken 8", msgEn: "I want Tekken 8" }
+    { id: 15, nameAr: "Tekken 8", nameEn: "Tekken 8", category: "games", priceOMR: 12, oldPrice: 18, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1778820/header.jpg", detailsAr: "🏷️ الحجم: 80GB | 🥊 لعبة قتال", detailsEn: "📦 Size: 80GB | 🥊 Fighting Game", timer: null, msgAr: "أريد Tekken 8", msgEn: "I want Tekken 8" },
+    { id: 29, nameAr: "The Last of Us Part II", nameEn: "The Last of Us Part II", category: "games", priceOMR: 8, oldPrice: 14, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1888930/header.jpg", detailsAr: "🏷️ الحجم: 78GB | 🧟 بقاء ورعب", detailsEn: "📦 Size: 78GB | 🧟 Survival Horror", timer: null, msgAr: "أريد The Last of Us Part II", msgEn: "I want The Last of Us Part II" },
+    { id: 30, nameAr: "Red Dead Redemption 2", nameEn: "Red Dead Redemption 2", category: "games", priceOMR: 9, oldPrice: 15, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1174180/header.jpg", detailsAr: "🏷️ الحجم: 150GB | 🤠 مغامرة غرب", detailsEn: "📦 Size: 150GB | 🤠 Western Adventure", timer: null, msgAr: "أريد Red Dead Redemption 2", msgEn: "I want Red Dead Redemption 2" },
+    { id: 31, nameAr: "Cyberpunk 2077", nameEn: "Cyberpunk 2077", category: "games", priceOMR: 10, oldPrice: 16, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/header.jpg", detailsAr: "🏷️ الحجم: 70GB | 🌆 مستقبل مفتوح", detailsEn: "📦 Size: 70GB | 🌆 Open World Future", timer: null, msgAr: "أريد Cyberpunk 2077", msgEn: "I want Cyberpunk 2077" },
+    { id: 32, nameAr: "Elden Ring", nameEn: "Elden Ring", category: "games", priceOMR: 12, oldPrice: 18, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg", detailsAr: "🏷️ الحجم: 60GB | ⚔️ RPG خيالي", detailsEn: "📦 Size: 60GB | ⚔️ Fantasy RPG", timer: null, msgAr: "أريد Elden Ring", msgEn: "I want Elden Ring" },
+    { id: 33, nameAr: "Horizon Forbidden West", nameEn: "Horizon Forbidden West", category: "games", priceOMR: 11, oldPrice: 17, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1151640/header.jpg", detailsAr: "🏷️ الحجم: 96GB | 🦕 مغامرة مستقبلية", detailsEn: "📦 Size: 96GB | 🦕 Future Adventure", timer: null, msgAr: "أريد Horizon Forbidden West", msgEn: "I want Horizon Forbidden West" },
+    { id: 34, nameAr: "Ratchet & Clank: Rift Apart", nameEn: "Ratchet & Clank: Rift Apart", category: "games", priceOMR: 10, oldPrice: 16, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1895880/header.jpg", detailsAr: "🏷️ الحجم: 83GB | 🔧 مغامرة PS5", detailsEn: "📦 Size: 83GB | 🔧 PS5 Adventure", timer: null, msgAr: "أريد Ratchet & Clank Rift Apart", msgEn: "I want Ratchet & Clank Rift Apart" },
+    { id: 35, nameAr: "Returnal", nameEn: "Returnal", category: "games", priceOMR: 10, oldPrice: 15, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1649240/header.jpg", detailsAr: "🏷️ الحجم: 60GB | 👾 حصري PS5", detailsEn: "📦 Size: 60GB | 👾 PS5 Exclusive", timer: null, msgAr: "أريد Returnal", msgEn: "I want Returnal" },
+    { id: 36, nameAr: "Demon's Souls Remake", nameEn: "Demon's Souls Remake", category: "games", priceOMR: 9, oldPrice: 14, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1259420/header.jpg", detailsAr: "🏷️ الحجم: 66GB | ⚔️ حصري PS5", detailsEn: "📦 Size: 66GB | ⚔️ PS5 Exclusive", timer: null, msgAr: "أريد Demon's Souls Remake", msgEn: "I want Demon's Souls Remake" },
+    { id: 37, nameAr: "Mortal Kombat 1", nameEn: "Mortal Kombat 1", category: "games", priceOMR: 12, oldPrice: 18, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1971870/header.jpg", detailsAr: "🏷️ الحجم: 100GB | 🥊 قتال دموي", detailsEn: "📦 Size: 100GB | 🥊 Fighting", timer: null, msgAr: "أريد Mortal Kombat 1", msgEn: "I want Mortal Kombat 1" },
+    { id: 38, nameAr: "Street Fighter 6", nameEn: "Street Fighter 6", category: "games", priceOMR: 11, oldPrice: 17, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1799460/header.jpg", detailsAr: "🏷️ الحجم: 60GB | 🥊 قتال كلاسيكي", detailsEn: "📦 Size: 60GB | 🥊 Classic Fighting", timer: null, msgAr: "أريد Street Fighter 6", msgEn: "I want Street Fighter 6" },
+    { id: 39, nameAr: "WWE 2K24", nameEn: "WWE 2K24", category: "games", priceOMR: 12, oldPrice: 18, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2285550/header.jpg", detailsAr: "🏷️ الحجم: 55GB | 🤼 مصارعة", detailsEn: "📦 Size: 55GB | 🤼 Wrestling", timer: null, msgAr: "أريد WWE 2K24", msgEn: "I want WWE 2K24" },
+    { id: 40, nameAr: "NBA 2K24", nameEn: "NBA 2K24", category: "games", priceOMR: 10, oldPrice: 16, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2338770/header.jpg", detailsAr: "🏷️ الحجم: 150GB | 🏀 كرة سلة", detailsEn: "📦 Size: 150GB | 🏀 Basketball", timer: null, msgAr: "أريد NBA 2K24", msgEn: "I want NBA 2K24" },
+    { id: 41, nameAr: "FIFA 23", nameEn: "FIFA 23", category: "games", priceOMR: 8, oldPrice: 14, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1811260/header.jpg", detailsAr: "🏷️ الحجم: 100GB | ⚽ كرة قدم", detailsEn: "📦 Size: 100GB | ⚽ Football", timer: null, msgAr: "أريد FIFA 23", msgEn: "I want FIFA 23" },
+    { id: 42, nameAr: "UFC 5", nameEn: "UFC 5", category: "games", priceOMR: 12, oldPrice: 18, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2365960/header.jpg", detailsAr: "🏷️ الحجم: 60GB | 🥊 فنون قتالية", detailsEn: "📦 Size: 60GB | 🥊 MMA Fighting", timer: null, msgAr: "أريد UFC 5", msgEn: "I want UFC 5" },
+    { id: 43, nameAr: "It Takes Two", nameEn: "It Takes Two", category: "games", priceOMR: 8, oldPrice: 13, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1426210/header.jpg", detailsAr: "🏷️ الحجم: 50GB | 👫 لعب ثنائي", detailsEn: "📦 Size: 50GB | 👫 Co-op", timer: null, msgAr: "أريد It Takes Two", msgEn: "I want It Takes Two" },
+    { id: 44, nameAr: "A Plague Tale: Requiem", nameEn: "A Plague Tale: Requiem", category: "games", priceOMR: 10, oldPrice: 15, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1182480/header.jpg", detailsAr: "🏷️ الحجم: 55GB | 🐀 مغامرة تاريخية", detailsEn: "📦 Size: 55GB | 🐀 Historical Adventure", timer: null, msgAr: "أريد A Plague Tale Requiem", msgEn: "I want A Plague Tale Requiem" },
+    { id: 45, nameAr: "Star Wars Jedi: Survivor", nameEn: "Star Wars Jedi: Survivor", category: "games", priceOMR: 12, oldPrice: 18, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1775010/header.jpg", detailsAr: "🏷️ الحجم: 130GB | ⚡ حرب النجوم", detailsEn: "📦 Size: 130GB | ⚡ Star Wars", timer: null, msgAr: "أريد Star Wars Jedi Survivor", msgEn: "I want Star Wars Jedi Survivor" },
+    { id: 46, nameAr: "Resident Evil 4 Remake", nameEn: "Resident Evil 4 Remake", category: "games", priceOMR: 11, oldPrice: 17, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2050650/header.jpg", detailsAr: "🏷️ الحجم: 67GB | 🧟 رعب وأكشن", detailsEn: "📦 Size: 67GB | 🧟 Horror Action", timer: null, msgAr: "أريد Resident Evil 4 Remake", msgEn: "I want Resident Evil 4 Remake" },
+    { id: 47, nameAr: "Lies of P", nameEn: "Lies of P", category: "games", priceOMR: 10, oldPrice: 15, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1627720/header.jpg", detailsAr: "🏷️ الحجم: 30GB | 🪆 RPG أكشن", detailsEn: "📦 Size: 30GB | 🪆 Action RPG", timer: null, msgAr: "أريد Lies of P", msgEn: "I want Lies of P" },
+    { id: 48, nameAr: "Alan Wake 2", nameEn: "Alan Wake 2", category: "games", priceOMR: 11, oldPrice: 17, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1874189/header.jpg", detailsAr: "🏷️ الحجم: 90GB | 🔦 رعب نفسي", detailsEn: "📦 Size: 90GB | 🔦 Psychological Horror", timer: null, msgAr: "أريد Alan Wake 2", msgEn: "I want Alan Wake 2" },
+    { id: 49, nameAr: "Forspoken", nameEn: "Forspoken", category: "games", priceOMR: 7, oldPrice: 12, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1680880/header.jpg", detailsAr: "🏷️ الحجم: 60GB | ✨ سحر وخيال", detailsEn: "📦 Size: 60GB | ✨ Magic Fantasy", timer: null, msgAr: "أريد Forspoken", msgEn: "I want Forspoken" },
+    { id: 50, nameAr: "Gotham Knights", nameEn: "Gotham Knights", category: "games", priceOMR: 9, oldPrice: 15, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1496790/header.jpg", detailsAr: "🏷️ الحجم: 45GB | 🦇 باتمان", detailsEn: "📦 Size: 45GB | 🦇 Batman Universe", timer: null, msgAr: "أريد Gotham Knights", msgEn: "I want Gotham Knights" },
+    { id: 51, nameAr: "Suicide Squad: Kill the Justice League", nameEn: "Suicide Squad: Kill JL", category: "games", priceOMR: 8, oldPrice: 14, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/315210/header.jpg", detailsAr: "🏷️ الحجم: 65GB | 💥 أبطال خارقون", detailsEn: "📦 Size: 65GB | 💥 Superheroes", timer: null, msgAr: "أريد Suicide Squad", msgEn: "I want Suicide Squad" },
+    { id: 52, nameAr: "Ghost of Tsushima", nameEn: "Ghost of Tsushima", category: "games", priceOMR: 11, oldPrice: 17, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2215430/header.jpg", detailsAr: "🏷️ الحجم: 50GB | 🗡️ ساموراي", detailsEn: "📦 Size: 50GB | 🗡️ Samurai", timer: null, msgAr: "أريد Ghost of Tsushima", msgEn: "I want Ghost of Tsushima" },
+    { id: 53, nameAr: "Uncharted 4", nameEn: "Uncharted 4", category: "games", priceOMR: 7, oldPrice: 12, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1659420/header.jpg", detailsAr: "🏷️ الحجم: 50GB | 🏺 مغامرة", detailsEn: "📦 Size: 50GB | 🏺 Adventure", timer: null, msgAr: "أريد Uncharted 4", msgEn: "I want Uncharted 4" },
+    { id: 54, nameAr: "Bloodborne", nameEn: "Bloodborne", category: "games", priceOMR: 8, oldPrice: 13, image: "https://upload.wikimedia.org/wikipedia/en/6/6a/Bloodborne_Cover_Wallpaper.jpg", detailsAr: "🏷️ الحجم: 50GB | 🩸 رعب وأكشن", detailsEn: "📦 Size: 50GB | 🩸 Horror Action", timer: null, msgAr: "أريد Bloodborne", msgEn: "I want Bloodborne" },
+    { id: 55, nameAr: "Sekiro: Shadows Die Twice", nameEn: "Sekiro: Shadows Die Twice", category: "games", priceOMR: 10, oldPrice: 16, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/814380/header.jpg", detailsAr: "🏷️ الحجم: 25GB | ⛩️ ساموراي", detailsEn: "📦 Size: 25GB | ⛩️ Samurai Action", timer: null, msgAr: "أريد Sekiro Shadows Die Twice", msgEn: "I want Sekiro Shadows Die Twice" },
+    { id: 56, nameAr: "Dragon's Dogma 2", nameEn: "Dragon's Dogma 2", category: "games", priceOMR: 12, oldPrice: 18, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2054970/header.jpg", detailsAr: "🏷️ الحجم: 60GB | 🐉 RPG خيالي", detailsEn: "📦 Size: 60GB | 🐉 Fantasy RPG", timer: null, msgAr: "أريد Dragon's Dogma 2", msgEn: "I want Dragon's Dogma 2" },
+    { id: 57, nameAr: "Rise of the Ronin", nameEn: "Rise of the Ronin", category: "games", priceOMR: 13, oldPrice: 19, image: "https://image.api.playstation.com/vulcan/ap/rnd/202310/1000/c9e9fbf7d3c3a7ab02cf37df3bfca60fc4ae6d45.png", detailsAr: "🏷️ الحجم: 60GB | ⚔️ حصري PS5", detailsEn: "📦 Size: 60GB | ⚔️ PS5 Exclusive", timer: null, msgAr: "أريد Rise of the Ronin", msgEn: "I want Rise of the Ronin" },
+    { id: 58, nameAr: "Like a Dragon: Infinite Wealth", nameEn: "Like a Dragon: Infinite Wealth", category: "games", priceOMR: 13, oldPrice: 19, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2072450/header.jpg", detailsAr: "🏷️ الحجم: 58GB | 🐉 RPG ياباني", detailsEn: "📦 Size: 58GB | 🐉 Japanese RPG", timer: null, msgAr: "أريد Like a Dragon Infinite Wealth", msgEn: "I want Like a Dragon Infinite Wealth" },
+    { id: 59, nameAr: "Baldur's Gate 3", nameEn: "Baldur's Gate 3", category: "games", priceOMR: 14, oldPrice: 20, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1086940/header.jpg", detailsAr: "🏷️ الحجم: 150GB | 🧙 RPG خيالي", detailsEn: "📦 Size: 150GB | 🧙 Fantasy RPG", timer: null, msgAr: "أريد Baldur's Gate 3", msgEn: "I want Baldur's Gate 3" },
+    { id: 60, nameAr: "Starfield", nameEn: "Starfield", category: "games", priceOMR: 11, oldPrice: 17, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1716740/header.jpg", detailsAr: "🏷️ الحجم: 140GB | 🚀 فضاء مفتوح", detailsEn: "📦 Size: 140GB | 🚀 Space RPG", timer: null, msgAr: "أريد Starfield", msgEn: "I want Starfield" },
+    { id: 61, nameAr: "Armored Core VI", nameEn: "Armored Core VI: Fires of Rubicon", category: "games", priceOMR: 11, oldPrice: 16, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1888160/header.jpg", detailsAr: "🏷️ الحجم: 50GB | 🤖 روبوت أكشن", detailsEn: "📦 Size: 50GB | 🤖 Mech Action", timer: null, msgAr: "أريد Armored Core VI", msgEn: "I want Armored Core VI" },
+    { id: 62, nameAr: "Avatar: Frontiers of Pandora", nameEn: "Avatar: Frontiers of Pandora", category: "games", priceOMR: 12, oldPrice: 18, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1580380/header.jpg", detailsAr: "🏷️ الحجم: 90GB | 🌿 عالم مفتوح", detailsEn: "📦 Size: 90GB | 🌿 Open World", timer: null, msgAr: "أريد Avatar Frontiers of Pandora", msgEn: "I want Avatar Frontiers of Pandora" },
+    { id: 63, nameAr: "The Witcher 3: Wild Hunt", nameEn: "The Witcher 3: Wild Hunt", category: "games", priceOMR: 7, oldPrice: 12, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/292030/header.jpg", detailsAr: "🏷️ الحجم: 50GB | 🗡️ RPG خيالي", detailsEn: "📦 Size: 50GB | 🗡️ Fantasy RPG", timer: null, msgAr: "أريد The Witcher 3", msgEn: "I want The Witcher 3" },
+    { id: 64, nameAr: "Diablo IV", nameEn: "Diablo IV", category: "games", priceOMR: 12, oldPrice: 18, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2344520/header.jpg", detailsAr: "🏷️ الحجم: 90GB | 😈 RPG مظلم", detailsEn: "📦 Size: 90GB | 😈 Dark RPG", timer: null, msgAr: "أريد Diablo IV", msgEn: "I want Diablo IV" },
+    { id: 65, nameAr: "Fortnite", nameEn: "Fortnite", category: "games", priceOMR: 0, oldPrice: null, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1677740/header.jpg", detailsAr: "🏷️ مجاني | 🏗️ Battle Royale", detailsEn: "📦 Free | 🏗️ Battle Royale", timer: null, msgAr: "أريد V-Bucks Fortnite", msgEn: "I want Fortnite V-Bucks" },
+    { id: 66, nameAr: "Helldivers 2", nameEn: "Helldivers 2", category: "games", priceOMR: 10, oldPrice: 15, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/553850/header.jpg", detailsAr: "🏷️ الحجم: 100GB | 🪖 تعاوني", detailsEn: "📦 Size: 100GB | 🪖 Co-op Shooter", timer: null, msgAr: "أريد Helldivers 2", msgEn: "I want Helldivers 2" },
+    { id: 67, nameAr: "Prince of Persia: The Lost Crown", nameEn: "Prince of Persia: The Lost Crown", category: "games", priceOMR: 9, oldPrice: 14, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1951270/header.jpg", detailsAr: "🏷️ الحجم: 10GB | 👑 مغامرة", detailsEn: "📦 Size: 10GB | 👑 Adventure", timer: null, msgAr: "أريد Prince of Persia The Lost Crown", msgEn: "I want Prince of Persia The Lost Crown" },
+    { id: 68, nameAr: "Crash Bandicoot 4", nameEn: "Crash Bandicoot 4: It's About Time", category: "games", priceOMR: 8, oldPrice: 13, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1378990/header.jpg", detailsAr: "🏷️ الحجم: 50GB | 🐺 منصات", detailsEn: "📦 Size: 50GB | 🐺 Platformer", timer: null, msgAr: "أريد Crash Bandicoot 4", msgEn: "I want Crash Bandicoot 4" },
+    { id: 69, nameAr: "Spyro Reignited Trilogy", nameEn: "Spyro Reignited Trilogy", category: "games", priceOMR: 7, oldPrice: 12, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/996580/header.jpg", detailsAr: "🏷️ الحجم: 50GB | 🐉 3 ألعاب", detailsEn: "📦 Size: 50GB | 🐉 3 Games", timer: null, msgAr: "أريد Spyro Reignited Trilogy", msgEn: "I want Spyro Reignited Trilogy" },
+    { id: 70, nameAr: "Sackboy: A Big Adventure", nameEn: "Sackboy: A Big Adventure", category: "games", priceOMR: 8, oldPrice: 14, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1497790/header.jpg", detailsAr: "🏷️ الحجم: 12GB | 🧸 منصات عائلي", detailsEn: "📦 Size: 12GB | 🧸 Family Platformer", timer: null, msgAr: "أريد Sackboy A Big Adventure", msgEn: "I want Sackboy A Big Adventure" },
+    { id: 71, nameAr: "Kena: Bridge of Spirits", nameEn: "Kena: Bridge of Spirits", category: "games", priceOMR: 8, oldPrice: 13, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1325200/header.jpg", detailsAr: "🏷️ الحجم: 30GB | 🌸 مغامرة جميلة", detailsEn: "📦 Size: 30GB | 🌸 Beautiful Adventure", timer: null, msgAr: "أريد Kena Bridge of Spirits", msgEn: "I want Kena Bridge of Spirits" },
+    { id: 72, nameAr: "Gran Turismo 7", nameEn: "Gran Turismo 7", category: "games", priceOMR: 11, oldPrice: 17, image: "https://image.api.playstation.com/vulcan/ap/rnd/202109/1321/nBW6AOVBgTYGhhUEVwklGPgr.png", detailsAr: "🏷️ الحجم: 110GB | 🏎️ سباق سيارات", detailsEn: "📦 Size: 110GB | 🏎️ Racing", timer: null, msgAr: "أريد Gran Turismo 7", msgEn: "I want Gran Turismo 7" },
+    { id: 73, nameAr: "Need for Speed Unbound", nameEn: "Need for Speed Unbound", category: "games", priceOMR: 9, oldPrice: 15, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1846350/header.jpg", detailsAr: "🏷️ الحجم: 50GB | 🚗 سباق شوارع", detailsEn: "📦 Size: 50GB | 🚗 Street Racing", timer: null, msgAr: "أريد Need for Speed Unbound", msgEn: "I want Need for Speed Unbound" },
+    { id: 74, nameAr: "The Callisto Protocol", nameEn: "The Callisto Protocol", category: "games", priceOMR: 8, oldPrice: 14, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1272500/header.jpg", detailsAr: "🏷️ الحجم: 36GB | 👾 رعب فضائي", detailsEn: "📦 Size: 36GB | 👾 Space Horror", timer: null, msgAr: "أريد The Callisto Protocol", msgEn: "I want The Callisto Protocol" }
   ];
   
   const defaultGiftcards = [
@@ -1548,14 +1788,22 @@
     { id: 28, nameAr: "بطاقة شحن عماني", nameEn: "Oman Gift Card", category: "giftcards", priceOMR: 5, oldPrice: 6, image: "", detailsAr: "الفئات: 5ر.ع | 10ر.ع | 20ر.ع", detailsEn: "Values: 5 OMR | 10 OMR | 20 OMR", timer: null, msgAr: "أريد بطاقة شحن عماني", msgEn: "I want Oman Gift Card", icon: "🇴🇲" }
   ];
   
+  const DATA_VERSION = "v3"; // غيّر هذا الرقم كلما أضفت منتجات جديدة
+
   function loadFromLocal() {
+    const savedVersion = localStorage.getItem("xnesto_version");
+    // إذا تغيرت النسخة امسح البيانات القديمة وحمّل الجديدة
+    if (savedVersion !== DATA_VERSION) {
+      localStorage.removeItem("xnesto_products");
+      localStorage.setItem("xnesto_version", DATA_VERSION);
+    }
     const saved = localStorage.getItem("xnesto_products");
     if (saved) {
       products = JSON.parse(saved);
       nextId = Math.max(...products.map(p => p.id), 0) + 1;
     } else {
       products = [...defaultGames, ...defaultGiftcards];
-      nextId = 29;
+      nextId = 75;
       saveToLocal();
     }
     const savedCats = localStorage.getItem("xnesto_categories");
@@ -1619,33 +1867,10 @@
     const p = products.find(x => x.id === productId);
     if (!p) return;
     checkoutProduct = p;
-    checkoutQty = 1;
-    couponDiscount = 0;
-
-    const name = currentLang === "ar" ? p.nameAr : p.nameEn;
-    const sym = currencySymbols[currentCurrency];
-
-    document.getElementById("coProductName").textContent = name;
-    document.getElementById("coProductCat").textContent = categoryNames[p.category] || p.category;
-    document.getElementById("coQty").textContent = 1;
-
-    // صورة المنتج
-    const imgDiv = document.getElementById("coProductImg");
-    if (p.image && p.image.trim()) {
-      imgDiv.innerHTML = `<img src="${p.image}" onerror="this.style.display='none';">`;
-    } else {
-      imgDiv.innerHTML = p.icon || "🎮";
-    }
-
-    document.getElementById("couponInput").value = "";
-    document.getElementById("couponMsg").style.display = "none";
-    document.getElementById("coName").value = "";
-    document.getElementById("coPhone").value = "";
-    document.getElementById("coEmail").value = "";
-    document.getElementById("coNote").value = "";
-
-    updateCheckoutPrices();
-    document.getElementById("checkoutModal").classList.add("active");
+    // أظهر الشروط أولاً قبل الدفع
+    document.getElementById("termsCheck").checked = false;
+    document.getElementById("acceptTermsBtn").classList.remove("enabled");
+    document.getElementById("termsModal").style.display = "flex";
   }
 
   function updateCheckoutPrices() {
@@ -1740,14 +1965,50 @@
     document.getElementById("checkoutModal").classList.remove("active");
     checkoutProduct = null;
   }
+  function toggleTermsAccept() {
+    const cb = document.getElementById("termsCheck");
+    cb.checked = !cb.checked;
+    const btn = document.getElementById("acceptTermsBtn");
+    if (cb.checked) btn.classList.add("enabled");
+    else btn.classList.remove("enabled");
+  }
+
   function closeTermsModal() {
     document.getElementById("termsModal").style.display = "none";
-    pendingOrder = null;
+    checkoutProduct = null;
   }
+
   function acceptTerms() {
-    if (pendingOrder) window.open(pendingOrder.waLink, "_blank");
-    closeTermsModal();
+    if (!document.getElementById("termsCheck").checked) return;
+    document.getElementById("termsModal").style.display = "none";
+    // افتح صفحة الطلب
+    const p = checkoutProduct;
+    if (!p) return;
+    checkoutQty = 1;
+    couponDiscount = 0;
+    const name = currentLang === "ar" ? p.nameAr : p.nameEn;
+    document.getElementById("coProductName").textContent = name;
+    document.getElementById("coProductCat").textContent = categoryNames[p.category] || p.category;
+    document.getElementById("coQty").textContent = 1;
+    const imgDiv = document.getElementById("coProductImg");
+    if (p.image && p.image.trim()) {
+      imgDiv.innerHTML = `<img src="${p.image}" onerror="this.style.display='none';">`;
+    } else {
+      imgDiv.innerHTML = p.icon || "🎮";
+    }
+    document.getElementById("couponInput").value = "";
+    document.getElementById("couponMsg").style.display = "none";
+    document.getElementById("coName").value = "";
+    document.getElementById("coPhone").value = "";
+    document.getElementById("coEmail").value = "";
+    document.getElementById("coNote").value = "";
+    updateCheckoutPrices();
+    document.getElementById("checkoutModal").classList.add("active");
   }
+
+  // زر الاستفسار
+  const inquiryMsg = encodeURIComponent("مرحباً، أريد الاستفسار عن منتج في متجر xnesto 🎮");
+  document.getElementById("inquiryBtn").href = `https://wa.me/${WA_NUMBER}?text=${inquiryMsg}`;
   
   // صور وألوان التصنيفات
   const categoryImages = {
@@ -2158,6 +2419,10 @@
   window.setTab = setTab;
   window.deleteCategory = deleteCategory;
   window.openCheckout = openCheckout;
+  window.toggleTermsAccept = toggleTermsAccept;
+  window.acceptTerms = acceptTerms;
+  window.closeTermsModal = closeTermsModal;
+  window.closeCheckout = closeCheckout;
 
   // ── اختيار حجم العرض ──
   function setView(view) {
@@ -2173,4 +2438,3 @@
 </script>
 </body>
 </html>
-
