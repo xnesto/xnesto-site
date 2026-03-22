@@ -245,7 +245,7 @@
       max-width: 1400px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: 1.5rem;
     }
     .product-card {
@@ -282,23 +282,27 @@
     }
     .product-image {
       width: 100%;
-      height: 180px;
+      height: 200px;
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      background-size: cover;
+      background-size: contain;
       background-position: center;
+      background-repeat: no-repeat;
+      background-color: #0a0c1a;
     }
     .product-badge {
       position: absolute;
       bottom: 8px;
       right: 8px;
       background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
       padding: 3px 10px;
       border-radius: 20px;
       font-size: 0.6rem;
       color: #ffcc77;
+      font-weight: bold;
     }
     .card-info { padding: 0.8rem; }
     .product-title { font-size: 1rem; font-weight: 700; margin-bottom: 4px; text-align: center; }
@@ -512,7 +516,11 @@
     .social-icons { margin-bottom: 0.5rem; }
     .social-icons i { font-size: 1.2rem; margin: 0 8px; color: #ffaa66; }
     
-    @media (max-width: 640px) { body { padding: 1rem; } .product-image { height: 140px; } .products-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 640px) { 
+      body { padding: 1rem; } 
+      .product-image { height: 160px; } 
+      .products-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body dir="rtl">
@@ -819,7 +827,7 @@
     
     let imgHtml = "";
     if (p.image && p.image.trim()) {
-      imgHtml = `<div class="product-image" style="background-image: url('${p.image}'); background-size: cover; background-position: center;"><div class="product-badge">${categoryName}</div></div>`;
+      imgHtml = `<div class="product-image" style="background-image: url('${p.image}'); background-size: contain; background-position: center; background-repeat: no-repeat; background-color: #0a0c1a;"><div class="product-badge">${categoryName}</div></div>`;
     } else {
       imgHtml = `<div class="product-image" style="background: linear-gradient(135deg, ${bgColor}, ${bgColor}cc);"><div style="font-size: 2.5rem;">${icon}</div><div class="product-badge">${categoryName}</div></div>`;
     }
