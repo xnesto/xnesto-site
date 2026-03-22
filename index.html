@@ -245,7 +245,7 @@
       max-width: 1400px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
       gap: 1.5rem;
     }
     .product-card {
@@ -282,7 +282,7 @@
     }
     .product-image {
       width: 100%;
-      height: 160px;
+      height: 180px;
       position: relative;
       display: flex;
       align-items: center;
@@ -350,21 +350,22 @@
       color: #ffaa66;
       margin-bottom: 8px;
     }
-    .edit-price-row {
+    .edit-price-row, .edit-image-row {
       display: flex;
       align-items: center;
       gap: 8px;
       margin-bottom: 8px;
       flex-wrap: wrap;
     }
-    .edit-price-row input {
+    .edit-price-row input, .edit-image-row input {
       background: #1e1e3a;
       border: 1px solid #ffaa44;
       border-radius: 30px;
       padding: 6px 10px;
-      width: 90px;
+      flex: 1;
       color: white;
     }
+    .edit-price-row input { width: 90px; flex: none; }
     .discount-buttons {
       display: flex;
       gap: 6px;
@@ -508,15 +509,10 @@
       color: #6f7bb3;
       border-top: 1px solid rgba(255, 170, 68, 0.2);
     }
-    .footer a {
-      color: #ffaa44;
-      text-decoration: none;
-      margin: 0 8px;
-    }
     .social-icons { margin-bottom: 0.5rem; }
     .social-icons i { font-size: 1.2rem; margin: 0 8px; color: #ffaa66; }
     
-    @media (max-width: 640px) { body { padding: 1rem; } .product-image { height: 140px; } }
+    @media (max-width: 640px) { body { padding: 1rem; } .product-image { height: 140px; } .products-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body dir="rtl">
@@ -558,7 +554,7 @@
     <input type="text" id="newNameEn" placeholder="Name in English">
     <select id="newCategorySelect"></select>
     <input type="number" id="newPrice" step="0.5" placeholder="السعر (ر.ع)">
-    <input type="text" id="newImage" placeholder="رابط الصورة">
+    <input type="text" id="newImage" placeholder="رابط الصورة (URL)">
     <textarea id="newDetails" rows="2" placeholder="تفاصيل المنتج (وصف، مواصفات...)"></textarea>
     <input type="number" id="newDiscount" step="1" placeholder="نسبة الخصم %">
     <input type="datetime-local" id="newTimer">
@@ -736,7 +732,7 @@
     return filtered;
   }
   
-  function showTermsModal(productName, waLink, productDetails) {
+  function showTermsModal(productName, waLink) {
     pendingOrder = { productName, waLink };
     document.getElementById("termsModal").style.display = "flex";
   }
@@ -823,32 +819,20 @@
     
     let imgHtml = "";
     if (p.image && p.image.trim()) {
-      imgHtml = `<div class="product-image" style="background-image: url('${p.image}');"><div class="product-badge">${categoryName}</div></div>`;
+      imgHtml = `<div class="product-image" style="background-image: url('${p.image}'); background-size: cover; background-position: center;"><div class="product-badge">${categoryName}</div></div>`;
     } else {
       imgHtml = `<div class="product-image" style="background: linear-gradient(135deg, ${bgColor}, ${bgColor}cc);"><div style="font-size: 2.5rem;">${icon}</div><div class="product-badge">${categoryName}</div></div>`;
     }
     
-    // إنشاء رسالة واتساب كاملة التفاصيل
-    let whatsappMsg = `🛒 *طلب شراء من xnesto*\n\n`;
-    whatsappMsg += `━━━━━━━━━━━━━━━━━━━━\n`;
-    whatsappMsg += `🎮 *المنتج:* ${name}\n`;
-    whatsappMsg += `🏷️ *التصنيف:* ${categoryName}\n`;
+    let whatsappMsg = `🛒 *طلب شراء من xnesto*\n\n━━━━━━━━━━━━━━━━━━━━\n🎮 *المنتج:* ${name}\n🏷️ *التصنيف:* ${categoryName}\n`;
     if (hasDiscount) {
-      whatsappMsg += `💰 *السعر الأصلي:* ${oldPrice} ${sym}\n`;
-      whatsappMsg += `🔥 *السعر بعد الخصم:* ${price} ${sym} (خصم ${discountPercent}%)\n`;
+      whatsappMsg += `💰 *السعر الأصلي:* ${oldPrice} ${sym}\n🔥 *السعر بعد الخصم:* ${price} ${sym} (خصم ${discountPercent}%)\n`;
     } else {
       whatsappMsg += `💰 *السعر:* ${price} ${sym}\n`;
     }
-    if (details) {
-      whatsappMsg += `📝 *المواصفات:* ${details}\n`;
-    }
-    if (remaining) {
-      whatsappMsg += `⏱️ *انتهاء العرض:* ${remaining}\n`;
-    }
-    whatsappMsg += `━━━━━━━━━━━━━━━━━━━━\n`;
-    whatsappMsg += `📦 *يرجى تأكيد الطلب مع إرسال طريقة الدفع*\n`;
-    whatsappMsg += `📞 للتواصل: xnesto_store\n`;
-    
+    if (details) whatsappMsg += `📝 *المواصفات:* ${details}\n`;
+    if (remaining) whatsappMsg += `⏱️ *انتهاء العرض:* ${remaining}\n`;
+    whatsappMsg += `━━━━━━━━━━━━━━━━━━━━\n📦 *يرجى تأكيد الطلب مع إرسال طريقة الدفع*\n📞 للتواصل: xnesto_store`;
     const waLink = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(whatsappMsg)}`;
     
     card.innerHTML = `
@@ -873,9 +857,13 @@
       editSection.innerHTML = `
         <h4><i class="fas fa-edit"></i> تعديل المنتج</h4>
         <div class="edit-price-row">
-          <span>السعر:</span>
+          <span>💰 السعر:</span>
           <input type="number" id="edit-price-${p.id}" value="${p.priceOMR}" step="0.5">
           <span>ر.ع</span>
+        </div>
+        <div class="edit-image-row">
+          <span>🖼️ رابط الصورة:</span>
+          <input type="text" id="edit-image-${p.id}" value="${p.image || ''}" placeholder="https://...">
         </div>
         <div class="discount-buttons">
           <button data-discount="30" data-id="${p.id}">30%</button>
@@ -884,7 +872,7 @@
           <button data-discount="0" data-id="${p.id}">0%</button>
         </div>
         <div class="custom-discount-row">
-          <span>نسبة مخصصة:</span>
+          <span>🏷️ نسبة مخصصة:</span>
           <input type="number" id="custom-discount-${p.id}" step="1" min="0" max="100" placeholder="%">
           <button class="apply-discount-btn" data-id="${p.id}">تطبيق</button>
         </div>
@@ -903,7 +891,6 @@
           const priceInput = document.getElementById(`edit-price-${p.id}`);
           const currentPrice = parseFloat(priceInput.value);
           if (!isNaN(currentPrice) && currentPrice > 0) {
-            const newOldPrice = currentPrice / (1 - discount / 100);
             document.getElementById(`custom-discount-${p.id}`).value = discount;
           }
         });
@@ -921,10 +908,12 @@
       
       editSection.querySelector(".save-edit-btn")?.addEventListener("click", () => {
         const newPrice = parseFloat(document.getElementById(`edit-price-${p.id}`).value);
+        const newImage = document.getElementById(`edit-image-${p.id}`).value;
         const customDiscount = parseFloat(document.getElementById(`custom-discount-${p.id}`).value);
         const newTimer = document.getElementById(`edit-timer-${p.id}`).value || null;
         if (!isNaN(newPrice)) {
           p.priceOMR = newPrice;
+          if (newImage !== undefined) p.image = newImage;
           if (!isNaN(customDiscount) && customDiscount > 0) p.oldPrice = newPrice / (1 - customDiscount / 100);
           else if (customDiscount === 0) p.oldPrice = null;
           p.timer = newTimer;
@@ -982,7 +971,8 @@
     const newProduct = {
       id: nextId++, nameAr, nameEn, category, priceOMR: price,
       oldPrice: (!isNaN(discount) && discount > 0) ? price / (1 - discount / 100) : null,
-      image, detailsAr: details, detailsEn: details, timer,
+      image: image || "",
+      detailsAr: details, detailsEn: details, timer,
       msgAr: `أريد ${nameAr}`, msgEn: `I want ${nameEn}`,
       icon: category === "giftcards" ? "💳" : "🎮"
     };
