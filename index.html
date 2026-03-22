@@ -138,7 +138,6 @@
     }
     .admin-add-body textarea { min-width: 200px; border-radius: 15px; }
     
-    /* قسم رفع الصورة */
     .image-upload-area {
       background: #1e1e3a;
       border: 2px dashed #ffaa44;
@@ -604,7 +603,6 @@
     <select id="newCategorySelect"></select>
     <input type="number" id="newPrice" step="0.5" placeholder="السعر (ر.ع)">
     
-    <!-- قسم رفع الصورة -->
     <div class="image-upload-area" id="imageUploadArea">
       <i class="fas fa-cloud-upload-alt"></i> 📸 اختر صورة من جهازك
       <input type="file" id="newImageFile" accept="image/*">
@@ -636,7 +634,6 @@
   </div>
 </div>
 
-<!-- تبويبات التصنيفات -->
 <div id="tabsContainer" class="tabs-container"></div>
 
 <div id="productsContainer" class="products-grid"></div>
@@ -650,7 +647,6 @@
   <p>© 2025 xnesto - جميع الحقوق محفوظة</p>
 </div>
 
-<!-- نافذة الشروط والأحكام -->
 <div id="termsModal" class="terms-modal">
   <div class="terms-box">
     <h3><i class="fas fa-file-contract"></i> شروط وأحكام الشراء</h3>
@@ -685,7 +681,7 @@
   let currentCategory = "games";
   let searchQuery = "";
   let pendingOrder = null;
-  let currentImageData = null; // لتخزين الصورة المرفوعة للإضافة
+  let currentImageData = null;
   const ITEMS_PER_PAGE = 6;
   const ADMIN_PASSWORD = "ssp1995";
   const WA_NUMBER = "96879977100";
@@ -859,7 +855,6 @@
     document.getElementById("newCategoryName").value = "";
   }
   
-  // دالة لرفع الصورة وتحويلها إلى Base64
   function handleImageUpload(file, callback) {
     if (!file) return;
     const reader = new FileReader();
@@ -921,20 +916,21 @@
     if (currentUser.type === "admin") {
       const editSection = document.createElement("div");
       editSection.className = "admin-edit-section";
+      editSection.id = `edit-section-${p.id}`;
       editSection.innerHTML = `
         <h4><i class="fas fa-edit"></i> تعديل المنتج</h4>
         <div class="edit-price-row">
           <span>💰 السعر:</span>
-          <input type="number" id="edit-price-${p.id}" value="${p.priceOMR}" step="0.5">
+          <input type="number" class="edit-price" data-id="${p.id}" value="${p.priceOMR}" step="0.5">
           <span>ر.ع</span>
         </div>
         <div class="edit-image-row">
           <span>🖼️ تغيير الصورة:</span>
-          <div class="edit-image-upload" id="edit-upload-${p.id}" style="cursor:pointer;">
+          <div class="edit-image-upload" data-id="${p.id}" style="cursor:pointer;">
             <i class="fas fa-cloud-upload-alt"></i> اختر صورة
-            <input type="file" id="edit-image-file-${p.id}" accept="image/*" style="display:none;">
+            <input type="file" class="edit-image-file" data-id="${p.id}" accept="image/*" style="display:none;">
           </div>
-          <img id="edit-image-preview-${p.id}" class="edit-image-preview" alt="معاينة">
+          <img class="edit-image-preview" data-id="${p.id}" style="display:none; max-width:100px; max-height:60px; margin-top:5px;">
         </div>
         <div class="discount-buttons">
           <button data-discount="30" data-id="${p.id}">30%</button>
@@ -944,86 +940,93 @@
         </div>
         <div class="custom-discount-row">
           <span>🏷️ نسبة مخصصة:</span>
-          <input type="number" id="custom-discount-${p.id}" step="1" min="0" max="100" placeholder="%">
+          <input type="number" class="custom-discount" data-id="${p.id}" step="1" min="0" max="100" placeholder="%">
           <button class="apply-discount-btn" data-id="${p.id}">تطبيق</button>
         </div>
         <div class="timer-row">
           <span>⏱️ عداد تنازلي:</span>
-          <input type="datetime-local" id="edit-timer-${p.id}" value="${p.timer ? p.timer.slice(0, 16) : ''}">
+          <input type="datetime-local" class="edit-timer" data-id="${p.id}" value="${p.timer ? p.timer.slice(0, 16) : ''}">
         </div>
         <button class="save-edit-btn" data-id="${p.id}"><i class="fas fa-save"></i> حفظ التعديلات</button>
         <button class="delete-product-btn" data-id="${p.id}"><i class="fas fa-trash"></i> حذف المنتج</button>
       `;
       card.appendChild(editSection);
       
-      // رفع الصورة للتعديل
-      const uploadDiv = document.getElementById(`edit-upload-${p.id}`);
-      const fileInput = document.getElementById(`edit-image-file-${p.id}`);
-      const previewImg = document.getElementById(`edit-image-preview-${p.id}`);
-      
-      if (uploadDiv && fileInput) {
-        uploadDiv.addEventListener("click", () => fileInput.click());
-        fileInput.addEventListener("change", (e) => {
-          const file = e.target.files[0];
-          if (file) {
-            handleImageUpload(file, (imageData) => {
-              p.tempImage = imageData;
-              if (previewImg) {
-                previewImg.src = imageData;
-                previewImg.style.display = "block";
-              }
-              alert("✅ تم اختيار الصورة، اضغط 'حفظ التعديلات' لتطبيقها");
-            });
-          }
+      // ربط الأحداث بعد إضافة العنصر للDOM
+      setTimeout(() => {
+        // رفع الصورة
+        const uploadDiv = editSection.querySelector(`.edit-image-upload[data-id="${p.id}"]`);
+        const fileInput = editSection.querySelector(`.edit-image-file[data-id="${p.id}"]`);
+        const previewImg = editSection.querySelector(`.edit-image-preview[data-id="${p.id}"]`);
+        
+        if (uploadDiv && fileInput) {
+          uploadDiv.addEventListener("click", () => fileInput.click());
+          fileInput.addEventListener("change", (e) => {
+            const file = e.target.files[0];
+            if (file) {
+              handleImageUpload(file, (imageData) => {
+                p.tempImage = imageData;
+                if (previewImg) {
+                  previewImg.src = imageData;
+                  previewImg.style.display = "block";
+                }
+                alert("✅ تم اختيار الصورة، اضغط 'حفظ التعديلات' لتطبيقها");
+              });
+            }
+          });
+        }
+        
+        // أزرار الخصم
+        editSection.querySelectorAll(`.discount-buttons button[data-id="${p.id}"]`).forEach(btn => {
+          btn.addEventListener("click", () => {
+            const discount = parseInt(btn.getAttribute("data-discount"));
+            const priceInput = editSection.querySelector(`.edit-price[data-id="${p.id}"]`);
+            const currentPrice = parseFloat(priceInput.value);
+            if (!isNaN(currentPrice) && currentPrice > 0) {
+              editSection.querySelector(`.custom-discount[data-id="${p.id}"]`).value = discount;
+            }
+          });
         });
-      }
-      
-      editSection.querySelectorAll(".discount-buttons button").forEach(btn => {
-        btn.addEventListener("click", () => {
-          const discount = parseInt(btn.getAttribute("data-discount"));
-          const priceInput = document.getElementById(`edit-price-${p.id}`);
+        
+        // تطبيق الخصم
+        editSection.querySelector(`.apply-discount-btn[data-id="${p.id}"]`)?.addEventListener("click", () => {
+          const discount = parseFloat(editSection.querySelector(`.custom-discount[data-id="${p.id}"]`).value);
+          const priceInput = editSection.querySelector(`.edit-price[data-id="${p.id}"]`);
           const currentPrice = parseFloat(priceInput.value);
-          if (!isNaN(currentPrice) && currentPrice > 0) {
-            document.getElementById(`custom-discount-${p.id}`).value = discount;
+          if (!isNaN(discount) && !isNaN(currentPrice) && currentPrice > 0) {
+            const newOldPrice = currentPrice / (1 - discount / 100);
+            alert(`سيتم تطبيق خصم ${discount}%، السعر القديم سيكون ${newOldPrice.toFixed(2)} ر.ع`);
           }
         });
-      });
-      
-      editSection.querySelector(".apply-discount-btn")?.addEventListener("click", () => {
-        const discount = parseFloat(document.getElementById(`custom-discount-${p.id}`).value);
-        const priceInput = document.getElementById(`edit-price-${p.id}`);
-        const currentPrice = parseFloat(priceInput.value);
-        if (!isNaN(discount) && !isNaN(currentPrice) && currentPrice > 0) {
-          const newOldPrice = currentPrice / (1 - discount / 100);
-          alert(`سيتم تطبيق خصم ${discount}%، السعر القديم سيكون ${newOldPrice.toFixed(2)} ر.ع`);
-        }
-      });
-      
-      editSection.querySelector(".save-edit-btn")?.addEventListener("click", () => {
-        const newPrice = parseFloat(document.getElementById(`edit-price-${p.id}`).value);
-        const customDiscount = parseFloat(document.getElementById(`custom-discount-${p.id}`).value);
-        const newTimer = document.getElementById(`edit-timer-${p.id}`).value || null;
-        if (!isNaN(newPrice)) {
-          p.priceOMR = newPrice;
-          if (p.tempImage) {
-            p.image = p.tempImage;
-            delete p.tempImage;
+        
+        // حفظ التعديلات
+        editSection.querySelector(`.save-edit-btn[data-id="${p.id}"]`)?.addEventListener("click", () => {
+          const newPrice = parseFloat(editSection.querySelector(`.edit-price[data-id="${p.id}"]`).value);
+          const customDiscount = parseFloat(editSection.querySelector(`.custom-discount[data-id="${p.id}"]`).value);
+          const newTimer = editSection.querySelector(`.edit-timer[data-id="${p.id}"]`).value || null;
+          if (!isNaN(newPrice)) {
+            p.priceOMR = newPrice;
+            if (p.tempImage) {
+              p.image = p.tempImage;
+              delete p.tempImage;
+            }
+            if (!isNaN(customDiscount) && customDiscount > 0) p.oldPrice = newPrice / (1 - customDiscount / 100);
+            else if (customDiscount === 0) p.oldPrice = null;
+            p.timer = newTimer;
+            saveToLocal();
+            renderProducts();
           }
-          if (!isNaN(customDiscount) && customDiscount > 0) p.oldPrice = newPrice / (1 - customDiscount / 100);
-          else if (customDiscount === 0) p.oldPrice = null;
-          p.timer = newTimer;
-          saveToLocal();
-          renderProducts();
-        }
-      });
-      
-      editSection.querySelector(".delete-product-btn")?.addEventListener("click", () => {
-        if (confirm("هل أنت متأكد من حذف هذا المنتج؟")) {
-          products = products.filter(x => x.id !== p.id);
-          saveToLocal();
-          renderProducts();
-        }
-      });
+        });
+        
+        // حذف المنتج
+        editSection.querySelector(`.delete-product-btn[data-id="${p.id}"]`)?.addEventListener("click", () => {
+          if (confirm("هل أنت متأكد من حذف هذا المنتج؟")) {
+            products = products.filter(x => x.id !== p.id);
+            saveToLocal();
+            renderProducts();
+          }
+        });
+      }, 10);
     }
     return card;
   }
@@ -1076,7 +1079,6 @@
     saveToLocal();
     renderProducts();
     
-    // reset form
     document.getElementById("newNameAr").value = "";
     document.getElementById("newNameEn").value = "";
     document.getElementById("newPrice").value = "";
@@ -1139,7 +1141,6 @@
     document.getElementById("acceptTermsBtn")?.addEventListener("click", acceptTerms);
     document.getElementById("declineTermsBtn")?.addEventListener("click", closeTermsModal);
     
-    // رفع الصورة في قسم الإضافة
     const uploadArea = document.getElementById("imageUploadArea");
     const fileInput = document.getElementById("newImageFile");
     const preview = document.getElementById("newImagePreview");
@@ -1156,7 +1157,6 @@
             preview.src = imageData;
             preview.style.display = "block";
             preview.style.maxHeight = "80px";
-            console.log("تم تحميل الصورة بنجاح");
           });
         }
       });
