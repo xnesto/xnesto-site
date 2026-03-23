@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <style>
+    /* كل الكود الأصلي موجود كما هو لم يتغير */
     html { font-size: 14px; }
     @media (min-width: 768px) { html { font-size: 15px; } }
     @media (min-width: 1200px) { html { font-size: 16px; } }
@@ -99,6 +100,7 @@
   <title>xnesto – متجر الألعاب وبطاقات الشحن | PS4/PS5</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
+    /* كل الـ CSS الأصلي موجود كما هو - لم يتغير */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       background: linear-gradient(135deg, #0a0a1a 0%, #0a0a1a 100%);
@@ -1833,29 +1835,40 @@
     { id: 28, nameAr: "بطاقة شحن عماني", nameEn: "Oman Gift Card", category: "giftcards", priceOMR: 5, oldPrice: 6, image: "", detailsAr: "الفئات: 5ر.ع | 10ر.ع | 20ر.ع", detailsEn: "Values: 5 OMR | 10 OMR | 20 OMR", timer: null, msgAr: "أريد بطاقة شحن عماني", msgEn: "I want Oman Gift Card", icon: "🇴🇲" }
   ];
   
-  const DATA_VERSION = "v3";
-
+  // 🔥 التعديل المهم: تغيير رقم الإصدار لضمان ظهور المنتجات للجميع
+  const DATA_VERSION = "v4_2025_03_24";
+  
   function loadFromLocal() {
     const savedVersion = localStorage.getItem("xnesto_version");
-    // إذا تغيرت النسخة امسح البيانات القديمة وحمّل الجديدة
+    // إذا تغيرت النسخة أو لم توجد نسخة محفوظة، استخدم المنتجات الافتراضية
     if (savedVersion !== DATA_VERSION) {
-      localStorage.removeItem("xnesto_products");
-      localStorage.setItem("xnesto_version", DATA_VERSION);
-    }
-    const saved = localStorage.getItem("xnesto_products");
-    if (saved) {
-      products = JSON.parse(saved);
-      nextId = Math.max(...products.map(p => p.id), 0) + 1;
-    } else {
+      // النسخة مختلفة → تحميل المنتجات الافتراضية
       products = [...defaultGames, ...defaultGiftcards];
       nextId = 75;
       saveToLocal();
-    }
-    const savedCats = localStorage.getItem("xnesto_categories");
-    if (savedCats) {
-      const cats = JSON.parse(savedCats);
-      categories = cats.categories;
-      categoryNames = cats.names;
+      localStorage.setItem("xnesto_version", DATA_VERSION);
+      
+      // مسح التصنيفات القديمة
+      categories = ["games", "giftcards"];
+      categoryNames = { games: "🎮 ألعاب PS4/PS5", giftcards: "💳 بطاقات شحن" };
+      saveCategories();
+    } else {
+      // نفس النسخة → تحميل المنتجات المخزنة
+      const saved = localStorage.getItem("xnesto_products");
+      if (saved) {
+        products = JSON.parse(saved);
+        nextId = Math.max(...products.map(p => p.id), 0) + 1;
+      } else {
+        products = [...defaultGames, ...defaultGiftcards];
+        nextId = 75;
+        saveToLocal();
+      }
+      const savedCats = localStorage.getItem("xnesto_categories");
+      if (savedCats) {
+        const cats = JSON.parse(savedCats);
+        categories = cats.categories;
+        categoryNames = cats.names;
+      }
     }
     updateCategorySelect();
   }
@@ -1876,6 +1889,7 @@
   
   loadFromLocal();
   
+  // باقي الكود الأصلي كما هو دون أي تغيير...
   function convertPrice(price) { return (price * exchangeRates[currentCurrency]).toFixed(2); }
   function calcDiscount(oldPrice, newPrice) { if (!oldPrice || oldPrice <= newPrice) return 0; return Math.round((1 - newPrice / oldPrice) * 100); }
   function getRemainingTime(timer) {
