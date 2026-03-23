@@ -3,68 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>xnesto – متجر الألعاب وبطاقات الشحن | PS4/PS5</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     html { font-size: 14px; }
     @media (min-width: 768px) { html { font-size: 15px; } }
     @media (min-width: 1200px) { html { font-size: 16px; } }
 
-    /* ── وضع النهار ── */
-    body.light-mode { background: #f0f4ff !important; color: #1a1a2e !important; }
-    body.light-mode .header { background: linear-gradient(135deg, #1a3a7a, #0d2a6e) !important; }
-    body.light-mode .control-bar { background: rgba(255,255,255,0.95) !important; box-shadow: 0 2px 16px rgba(0,0,0,0.08); }
-    body.light-mode .lang-btn { color: #444 !important; }
-    body.light-mode .lang-btn.active { color: #0a0a1a !important; }
-    body.light-mode #currencySelect { background: #fff !important; color: #333 !important; }
-    body.light-mode .search-bar-container { background: rgba(255,255,255,0.95) !important; }
-    body.light-mode .search-box { background: #f0f4ff !important; }
-    body.light-mode #searchInput { color: #222 !important; }
-    body.light-mode .product-card { background: #ffffff !important; border-color: rgba(0,0,0,0.1) !important; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
-    body.light-mode .product-title { color: #1a1a2e !important; }
-    body.light-mode .product-details { background: rgba(0,0,0,0.05) !important; color: #444 !important; }
-    body.light-mode .admin-add-section { background: rgba(255,255,255,0.98) !important; }
-    body.light-mode .admin-add-body input,
-    body.light-mode .admin-add-body select,
-    body.light-mode .admin-add-body textarea { background: #f0f4ff !important; color: #222 !important; }
-    body.light-mode .admin-edit-section { background: #f5f5ff !important; }
-    body.light-mode .page-btn { background: #fff !important; color: #333 !important; }
-    body.light-mode .page-btn.active { background: #ffaa44 !important; color: #0a0a1a !important; }
-    body.light-mode .footer { background: #1a3a7a !important; }
-    body.light-mode .tab-btn { background: #ffffff !important; }
-    body.light-mode .section-divider .divider-badge { background: #fff !important; color: #1a3a7a !important; }
-    body.light-mode .device-bar { background: #1a3a7a !important; }
-    body.light-mode .login-btn { background: #e8eeff !important; color: #1a3a7a !important; }
 
-    /* ── زر الوضع ── */
-    .mode-toggle-btn {
-      background: transparent;
-      border: 1px solid rgba(255,170,68,0.4);
-      color: #ffaa66;
-      padding: 5px 14px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 0.8rem;
-      font-family: 'Cairo', sans-serif;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      transition: 0.2s;
-    }
-    .mode-toggle-btn:hover { background: rgba(255,170,68,0.1); }
-
-    /* حجم الجوال */
-    body.view-mobile .products-grid { grid-template-columns: repeat(2, 1fr) !important; }
-    body.view-mobile .header h1 { font-size: 1.6rem !important; }
-    body.view-mobile .price { font-size: 0.95rem !important; }
-    body.view-mobile .product-title { font-size: 0.78rem !important; }
-    body.view-mobile .product-image { height: 130px !important; }
-    body.view-mobile .card-info { padding: 0.5rem !important; }
-    body.view-mobile .btn-wa { font-size: 0.72rem !important; }
-    body.view-desktop .products-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important; }
-
-    /* ── DEVICE BAR ── */
     .device-bar {
       background: #07071a;
       border-bottom: 1px solid rgba(255,170,68,0.2);
@@ -92,7 +36,68 @@
     }
     .device-btn.active { background: #ffaa44; color: #0a0a1a; border-color: #ffaa44; font-weight: 700; }
     .device-btn:hover:not(.active) { border-color: #ffaa44; color: #ffaa44; }
+
+    /* حجم الجوال */
+    /* ── وضع النهار ── */
+    body.light-mode {
+      background: #f0f4ff !important;
+      color: #1a1a2e !important;
+    }
+    body.light-mode .header { background: linear-gradient(135deg, #1a3a7a, #0d2a6e) !important; }
+    body.light-mode .control-bar { background: rgba(255,255,255,0.95) !important; box-shadow: 0 2px 16px rgba(0,0,0,0.08); }
+    body.light-mode .lang-btn { color: #444 !important; }
+    body.light-mode .lang-btn.active { color: #0a0a1a !important; }
+    body.light-mode #currencySelect { background: #fff !important; color: #333 !important; }
+    body.light-mode .search-bar-container { background: rgba(255,255,255,0.95) !important; }
+    body.light-mode .search-box { background: #f0f4ff !important; }
+    body.light-mode #searchInput { color: #222 !important; }
+    body.light-mode .product-card { background: #ffffff !important; border-color: rgba(0,0,0,0.1) !important; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    body.light-mode .product-title { color: #1a1a2e !important; }
+    body.light-mode .product-details { background: rgba(0,0,0,0.05) !important; color: #444 !important; }
+    body.light-mode .admin-add-section { background: rgba(255,255,255,0.98) !important; }
+    body.light-mode .admin-add-body input,
+    body.light-mode .admin-add-body select,
+    body.light-mode .admin-add-body textarea { background: #f0f4ff !important; color: #222 !important; }
+    body.light-mode .admin-edit-section { background: #f5f5ff !important; }
+    body.light-mode .page-btn { background: #fff !important; color: #333 !important; }
+    body.light-mode .page-btn.active { background: #ffaa44 !important; color: #0a0a1a !important; }
+    body.light-mode .footer { background: #1a3a7a !important; }
+    body.light-mode .tab-btn { background: #ffffff !important; border-color: rgba(0,0,0,0.15) !important; }
+    body.light-mode .section-divider .divider-badge { background: #fff !important; color: #1a3a7a !important; }
+    body.light-mode .device-bar { background: #1a3a7a !important; }
+    body.light-mode .login-btn { background: #e8eeff !important; color: #1a3a7a !important; }
+
+    /* ── زر الوضع ── */
+    .mode-toggle-btn {
+      background: transparent;
+      border: 1px solid rgba(255,170,68,0.4);
+      color: #ffaa66;
+      padding: 5px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-family: 'Cairo', sans-serif;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: 0.2s;
+    }
+    .mode-toggle-btn:hover { background: rgba(255,170,68,0.1); }
+
+    body.view-mobile .products-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    body.view-mobile .header h1 { font-size: 1.6rem !important; }
+    body.view-mobile .price { font-size: 0.95rem !important; }
+    body.view-mobile .product-title { font-size: 0.78rem !important; }
+    body.view-mobile .product-image { height: 130px !important; }
+    body.view-mobile .card-info { padding: 0.5rem !important; }
+    body.view-mobile .btn-wa { font-size: 0.72rem !important; }
+
+    /* حجم الكمبيوتر */
+    body.view-desktop .products-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important; }
   </style>
+  <title>xnesto – متجر الألعاب وبطاقات الشحن | PS4/PS5</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -102,6 +107,7 @@
       padding: 1.5rem;
       min-height: 100vh;
     }
+    
     .header {
       text-align: center;
       background: linear-gradient(135deg, #0f0f2a, #0a0a1f);
@@ -110,7 +116,6 @@
       margin-bottom: 1.5rem;
       border: 1px solid rgba(255, 170, 68, 0.3);
       overflow: visible;
-      position: relative;
     }
     .header h1 {
       font-size: 2.5rem;
@@ -119,211 +124,1111 @@
       -webkit-background-clip: text;
       color: transparent;
     }
-    .logo-glow { animation: logoPulse 2s ease-in-out infinite; }
+    .logo-glow {
+      animation: logoPulse 2s ease-in-out infinite;
+    }
     @keyframes logoPulse {
       0%,100% { filter: drop-shadow(0 0 8px rgba(255,170,44,0.9)) drop-shadow(0 0 20px rgba(255,100,0,0.6)); }
-      50%      { filter: drop-shadow(0 0 16px rgba(255,200,44,1)) drop-shadow(0 0 35px rgba(255,140,0,0.9)); }
+      50%      { filter: drop-shadow(0 0 16px rgba(255,200,44,1))  drop-shadow(0 0 35px rgba(255,140,0,0.9)); }
     }
-    .fire-wrap { display:flex; justify-content:center; align-items:flex-end; gap:4px; height:55px; margin-bottom:4px; }
-    .fire-flame { width:14px; border-radius:50% 50% 20% 20%; animation:flicker 0.5s ease-in-out infinite alternate; transform-origin:bottom center; }
-    .fire-flame:nth-child(1){background:linear-gradient(to top,#ff4400,#ffaa00,#ffff00);height:25px;animation-delay:0.0s}
-    .fire-flame:nth-child(2){background:linear-gradient(to top,#ff3300,#ff8800,#ffee00);height:38px;animation-delay:0.1s}
-    .fire-flame:nth-child(3){background:linear-gradient(to top,#ff4400,#ffaa00,#ffff00);height:30px;animation-delay:0.2s}
-    .fire-flame:nth-child(4){background:linear-gradient(to top,#ff2200,#ff6600,#ffdd00);height:45px;animation-delay:0.05s}
-    .fire-flame:nth-child(5){background:linear-gradient(to top,#ff3300,#ff9900,#ffff00);height:52px;animation-delay:0.15s;width:18px}
-    .fire-flame:nth-child(6){background:linear-gradient(to top,#ff2200,#ff6600,#ffdd00);height:45px;animation-delay:0.0s}
-    .fire-flame:nth-child(7){background:linear-gradient(to top,#ff4400,#ffaa00,#ffff00);height:30px;animation-delay:0.2s}
-    .fire-flame:nth-child(8){background:linear-gradient(to top,#ff3300,#ff8800,#ffee00);height:38px;animation-delay:0.1s}
-    .fire-flame:nth-child(9){background:linear-gradient(to top,#ff4400,#ffaa00,#ffff00);height:25px;animation-delay:0.05s}
+    /* ── FIRE ── */
+    .fire-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 4px;
+      height: 55px;
+      margin-bottom: 4px;
+    }
+    .fire-flame {
+      width: 14px;
+      border-radius: 50% 50% 20% 20%;
+      animation: flicker 0.5s ease-in-out infinite alternate;
+      transform-origin: bottom center;
+    }
+    .fire-flame:nth-child(1) { background: linear-gradient(to top, #ff4400, #ffaa00, #ffff00); height: 25px; animation-delay: 0.0s; }
+    .fire-flame:nth-child(2) { background: linear-gradient(to top, #ff3300, #ff8800, #ffee00); height: 38px; animation-delay: 0.1s; }
+    .fire-flame:nth-child(3) { background: linear-gradient(to top, #ff4400, #ffaa00, #ffff00); height: 30px; animation-delay: 0.2s; }
+    .fire-flame:nth-child(4) { background: linear-gradient(to top, #ff2200, #ff6600, #ffdd00); height: 45px; animation-delay: 0.05s; }
+    .fire-flame:nth-child(5) { background: linear-gradient(to top, #ff3300, #ff9900, #ffff00); height: 52px; animation-delay: 0.15s; width: 18px; }
+    .fire-flame:nth-child(6) { background: linear-gradient(to top, #ff2200, #ff6600, #ffdd00); height: 45px; animation-delay: 0.0s; }
+    .fire-flame:nth-child(7) { background: linear-gradient(to top, #ff4400, #ffaa00, #ffff00); height: 30px; animation-delay: 0.2s; }
+    .fire-flame:nth-child(8) { background: linear-gradient(to top, #ff3300, #ff8800, #ffee00); height: 38px; animation-delay: 0.1s; }
+    .fire-flame:nth-child(9) { background: linear-gradient(to top, #ff4400, #ffaa00, #ffff00); height: 25px; animation-delay: 0.05s; }
     @keyframes flicker {
-      0%   { transform:scaleX(1)   scaleY(1)   rotate(-4deg); opacity:1; }
-      100% { transform:scaleX(0.8) scaleY(1.2) rotate(4deg);  opacity:0.8; }
+      0%   { transform: scaleX(1)   scaleY(1)   rotate(-4deg); opacity: 1;   }
+      100% { transform: scaleX(0.8) scaleY(1.2) rotate(4deg);  opacity: 0.8; }
     }
     .header p { color: #ffdd99; font-size: 0.9rem; }
+    
     .control-bar {
-      max-width:1400px; margin:0 auto 1rem; display:flex; justify-content:space-between;
-      align-items:center; flex-wrap:wrap; gap:10px; background:rgba(15,15,42,0.8);
-      backdrop-filter:blur(10px); padding:10px 20px; border-radius:50px;
-      border:1px solid rgba(255,170,68,0.2);
+      max-width: 1400px;
+      margin: 0 auto 1rem auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      background: rgba(15, 15, 42, 0.8);
+      backdrop-filter: blur(10px);
+      padding: 10px 20px;
+      border-radius: 50px;
+      border: 1px solid rgba(255, 170, 68, 0.2);
     }
-    .lang-switch { display:flex; gap:8px; background:#1e1e3a; padding:4px; border-radius:40px; }
-    .lang-btn { background:transparent; border:none; padding:6px 16px; border-radius:40px; color:#ccc; font-weight:bold; cursor:pointer; font-size:0.8rem; }
-    .lang-btn.active { background:#ffaa44; color:#0a0a1a; }
-    .currency-selector { display:flex; align-items:center; gap:8px; background:#1e1e3a; padding:4px 12px; border-radius:40px; }
-    #currencySelect { background:#0a0c1a; border:1px solid #ffaa44; color:#ffdd99; padding:5px 10px; border-radius:30px; font-weight:bold; cursor:pointer; font-size:0.8rem; }
-    .user-badge { background:#1e1e3a; padding:6px 14px; border-radius:40px; display:flex; align-items:center; gap:6px; color:#ffaa66; font-size:0.8rem; }
-    .login-btn,.logout-btn { background:#2d2f6e; border:none; color:#ffaa66; padding:6px 14px; border-radius:40px; cursor:pointer; font-size:0.8rem; }
-    .admin-add-section { max-width:1400px; margin:0 auto 1rem; background:rgba(15,15,42,0.9); border-radius:1rem; border:2px solid #ffaa44; overflow:hidden; display:none; }
-    .admin-add-section.active { display:block; }
-    .admin-add-header { background:#ffaa44; padding:0.8rem 1.5rem; display:flex; justify-content:space-between; align-items:center; }
-    .admin-add-header h3 { color:#0a0a1a; font-size:1rem; margin:0; }
-    .admin-add-body { padding:1rem; display:flex; flex-wrap:wrap; gap:1rem; }
-    .admin-add-body input,.admin-add-body select,.admin-add-body textarea { background:#1e1e3a; border:1px solid #ffaa44; border-radius:30px; padding:8px 12px; color:white; font-size:0.8rem; flex:1; min-width:150px; }
-    .admin-add-body textarea { min-width:200px; border-radius:15px; }
-    .image-upload-area { background:#1e1e3a; border:2px dashed #ffaa44; border-radius:1rem; padding:0.8rem; text-align:center; cursor:pointer; transition:0.2s; flex:1; min-width:150px; }
-    .image-upload-area:hover { background:#2d2f6e; }
-    .image-upload-area input { display:none; }
-    .image-preview { margin-top:8px; max-width:100%; max-height:80px; border-radius:8px; display:none; object-fit:contain; }
-    .btn-add-product { background:#00cc88; border:none; padding:8px 20px; border-radius:30px; cursor:pointer; font-weight:bold; }
-    .category-management { max-width:1400px; margin:0 auto 1rem; background:rgba(15,15,42,0.9); border-radius:1rem; border:1px solid rgba(255,170,68,0.3); padding:0.8rem 1rem; display:none; flex-wrap:wrap; align-items:center; gap:10px; }
-    .category-management.active { display:flex; }
-    .category-management span { color:#ffaa66; font-size:0.8rem; }
-    .category-badge { background:#2d2f6e; padding:4px 12px; border-radius:30px; font-size:0.7rem; display:inline-flex; align-items:center; gap:5px; }
-    .category-badge i { cursor:pointer; color:#ff6666; }
-    .add-category-input { display:flex; gap:5px; }
-    .add-category-input input { background:#1e1e3a; border:1px solid #ffaa44; border-radius:30px; padding:4px 10px; color:white; width:120px; }
-    .add-category-input button { background:#ffaa44; border:none; padding:4px 12px; border-radius:30px; cursor:pointer; }
-    .search-bar-container { max-width:1400px; margin:0 auto 1rem; background:rgba(15,15,42,0.8); padding:8px 20px; border-radius:50px; }
-    .search-box { display:flex; align-items:center; gap:10px; background:#1e1e3a; padding:5px 15px; border-radius:40px; }
-    #searchInput { flex:1; background:transparent; border:none; padding:10px 0; color:white; outline:none; }
-    .search-results-count { background:#2d2f6e; padding:4px 10px; border-radius:30px; font-size:0.7rem; color:#ffaa66; }
+    .lang-switch {
+      display: flex;
+      gap: 8px;
+      background: #1e1e3a;
+      padding: 4px;
+      border-radius: 40px;
+    }
+    .lang-btn {
+      background: transparent;
+      border: none;
+      padding: 6px 16px;
+      border-radius: 40px;
+      color: #ccc;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    .lang-btn.active { background: #ffaa44; color: #0a0a1a; }
+    .currency-selector {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #1e1e3a;
+      padding: 4px 12px;
+      border-radius: 40px;
+    }
+    #currencySelect {
+      background: #0a0c1a;
+      border: 1px solid #ffaa44;
+      color: #ffdd99;
+      padding: 5px 10px;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    .user-badge {
+      background: #1e1e3a;
+      padding: 6px 14px;
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #ffaa66;
+      font-size: 0.8rem;
+    }
+    .login-btn, .logout-btn {
+      background: #2d2f6e;
+      border: none;
+      color: #ffaa66;
+      padding: 6px 14px;
+      border-radius: 40px;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    
+    .admin-add-section {
+      max-width: 1400px;
+      margin: 0 auto 1rem auto;
+      background: rgba(15, 15, 42, 0.9);
+      border-radius: 1rem;
+      border: 2px solid #ffaa44;
+      overflow: hidden;
+      display: none;
+    }
+    .admin-add-section.active { display: block; }
+    .admin-add-header {
+      background: #ffaa44;
+      padding: 0.8rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .admin-add-header h3 { color: #0a0a1a; font-size: 1rem; margin: 0; }
+    .admin-add-body {
+      padding: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .admin-add-body input, .admin-add-body select, .admin-add-body textarea {
+      background: #1e1e3a;
+      border: 1px solid #ffaa44;
+      border-radius: 30px;
+      padding: 8px 12px;
+      color: white;
+      font-size: 0.8rem;
+      flex: 1;
+      min-width: 150px;
+    }
+    .admin-add-body textarea { min-width: 200px; border-radius: 15px; }
+    
+    .image-upload-area {
+      background: #1e1e3a;
+      border: 2px dashed #ffaa44;
+      border-radius: 1rem;
+      padding: 0.8rem;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.2s;
+      flex: 1;
+      min-width: 150px;
+    }
+    .image-upload-area:hover { background: #2d2f6e; }
+    .image-upload-area input { display: none; }
+    .image-preview {
+      margin-top: 8px;
+      max-width: 100%;
+      max-height: 80px;
+      border-radius: 8px;
+      display: none;
+      object-fit: contain;
+    }
+    .btn-add-product {
+      background: #00cc88;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    
+    .category-management {
+      max-width: 1400px;
+      margin: 0 auto 1rem auto;
+      background: rgba(15, 15, 42, 0.9);
+      border-radius: 1rem;
+      border: 1px solid rgba(255, 170, 68, 0.3);
+      padding: 0.8rem 1rem;
+      display: none;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+    .category-management.active { display: flex; }
+    .category-management span { color: #ffaa66; font-size: 0.8rem; }
+    .category-badge {
+      background: #2d2f6e;
+      padding: 4px 12px;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .category-badge i { cursor: pointer; color: #ff6666; }
+    .add-category-input {
+      display: flex;
+      gap: 5px;
+    }
+    .add-category-input input {
+      background: #1e1e3a;
+      border: 1px solid #ffaa44;
+      border-radius: 30px;
+      padding: 4px 10px;
+      color: white;
+      width: 120px;
+    }
+    .add-category-input button {
+      background: #ffaa44;
+      border: none;
+      padding: 4px 12px;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+    
+    .search-bar-container {
+      max-width: 1400px;
+      margin: 0 auto 1rem auto;
+      background: rgba(15, 15, 42, 0.8);
+      padding: 8px 20px;
+      border-radius: 50px;
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #1e1e3a;
+      padding: 5px 15px;
+      border-radius: 40px;
+    }
+    #searchInput {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 10px 0;
+      color: white;
+      outline: none;
+    }
+    .search-results-count {
+      background: #2d2f6e;
+      padding: 4px 10px;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      color: #ffaa66;
+    }
+    
+    .tabs-container {
+      max-width: 1400px;
+      margin: 0 auto 2rem auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      padding: 0 4px;
+    }
+    @media (max-width: 640px) {
+      .tabs-container { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    }
+    .tab-btn {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid transparent;
+      aspect-ratio: 1/1;
+      transition: 0.25s;
+      background: #1e1e3a;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 0;
+    }
+    .tab-btn:hover { transform: translateY(-3px); border-color: #ffaa44; }
+    .tab-btn.active { border-color: #ffaa44; box-shadow: 0 0 16px rgba(255,170,68,0.4); }
+    .tab-btn-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    .tab-btn-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+    }
+    .tab-btn-text {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 8px 6px;
+      width: 100%;
+    }
+    .tab-btn-title {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 900;
+      color: white;
+      line-height: 1.2;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+    }
+    .tab-btn-sub {
+      display: block;
+      font-size: 0.62rem;
+      color: rgba(255,255,255,0.65);
+      margin-top: 2px;
+    }
+    @media (max-width: 640px) {
+      .tab-btn-title { font-size: 0.75rem; }
+      .tab-btn-sub { font-size: 0.55rem; }
+    }
+    
+    .products-grid {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid rgba(255,170,68,0.15);
+    }
+    .product-card {
+      background: #11152b;
+      border-radius: 1rem;
+      overflow: hidden;
+      transition: 0.3s;
+      border: 1px solid rgba(255, 170, 68, 0.2);
+      position: relative;
+    }
+    .product-card:hover { transform: translateY(-4px); border-color: #ffaa44; }
+    .discount-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: #ff4444;
+      color: white;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      z-index: 2;
+    }
+    .timer-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(0,0,0,0.7);
+      color: #ffaa44;
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-size: 0.6rem;
+      z-index: 2;
+    }
+    .product-image {
+      width: 100%;
+      height: 200px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: #0a0c1a;
+    }
+    .product-badge {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.6rem;
+      color: #ffcc77;
+      font-weight: bold;
+    }
+    .card-info { padding: 0.8rem; }
+    .product-title { font-size: 1rem; font-weight: 700; margin-bottom: 4px; text-align: center; }
+    .product-category { font-size: 0.6rem; color: #ffaa66; margin-bottom: 6px; text-align: center; }
+    .product-details {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 6px;
+      border-radius: 10px;
+      margin: 8px 0;
+      font-size: 0.65rem;
+      color: #b9c5f0;
+      border-right: 2px solid #ffaa44;
+    }
+    .price-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 6px 0;
+    }
+    .old-price { font-size: 0.8rem; color: #888; text-decoration: line-through; }
+    .price { font-size: 1.2rem; font-weight: 800; color: #ffaa44; }
+    .btn-wa {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: #25D366;
+      color: #000;
+      width: 100%;
+      padding: 8px 0;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 6px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      border: none;
+    }
+    
+    .admin-edit-section {
+      background: #0a0c1a;
+      border-top: 1px solid #2a2f55;
+      padding: 0.8rem;
+      margin-top: 0.5rem;
+    }
+    .admin-edit-section h4 {
+      font-size: 0.7rem;
+      color: #ffaa66;
+      margin-bottom: 8px;
+    }
+    .edit-price-row, .edit-image-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+    .edit-price-row input, .edit-image-row input {
+      background: #1e1e3a;
+      border: 1px solid #ffaa44;
+      border-radius: 30px;
+      padding: 6px 10px;
+      flex: 1;
+      color: white;
+    }
+    .edit-price-row input { width: 90px; flex: none; }
+    .edit-image-upload {
+      background: #1e1e3a;
+      border: 1px dashed #ffaa44;
+      border-radius: 30px;
+      padding: 6px 10px;
+      text-align: center;
+      cursor: pointer;
+      flex: 1;
+    }
+    .edit-image-upload input { display: none; }
+    .edit-image-preview {
+      margin-top: 5px;
+      max-width: 100%;
+      max-height: 60px;
+      border-radius: 8px;
+      display: none;
+      object-fit: contain;
+    }
+    .discount-buttons {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .discount-buttons button {
+      background: #2d2f6e;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 30px;
+      color: #ffaa66;
+      cursor: pointer;
+      font-size: 0.7rem;
+    }
+    .custom-discount-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .custom-discount-row input {
+      background: #1e1e3a;
+      border: 1px solid #ffaa44;
+      border-radius: 30px;
+      padding: 5px 8px;
+      width: 70px;
+      color: white;
+    }
+    .timer-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .timer-row input {
+      background: #1e1e3a;
+      border: 1px solid #ffaa44;
+      border-radius: 30px;
+      padding: 6px 10px;
+      flex: 1;
+      color: white;
+      font-size: 0.7rem;
+    }
+    .save-edit-btn {
+      background: #00cc88;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      width: 100%;
+      font-size: 0.75rem;
+    }
+    .delete-product-btn {
+      background: #ff4444;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      width: 100%;
+      margin-top: 6px;
+      font-size: 0.75rem;
+    }
+    
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .page-btn {
+      background: #1e1e3a;
+      border: 1px solid #ffaa44;
+      color: #ffdd99;
+      padding: 6px 12px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    .page-btn.active { background: #ffaa44; color: #0a0a1a; }
+    
+    .terms-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(12px);
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+    .terms-box {
+      background: #11152b;
+      border-radius: 1.5rem;
+      padding: 2rem;
+      text-align: center;
+      border: 2px solid #ffaa44;
+      width: 90%;
+      max-width: 500px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .terms-box h3 { color: #ffaa44; margin-bottom: 1rem; }
+    .terms-box p {
+      text-align: right;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      color: #b9c5f0;
+    }
+    .terms-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+    .terms-buttons button {
+      padding: 10px 20px;
+      border-radius: 40px;
+      cursor: pointer;
+      font-weight: bold;
+      border: none;
+    }
+    .accept-btn { background: #ffaa44; color: #0a0a1a; }
+    .decline-btn { background: #444; color: white; }
+    
+    .footer {
+      text-align: center;
+      margin-top: 2rem;
+      padding: 1.5rem;
+      color: #6f7bb3;
+      border-top: 1px solid rgba(255, 170, 68, 0.2);
+    }
+    .social-icons { margin-bottom: 0.5rem; }
+    .social-icons i { font-size: 1.2rem; margin: 0 8px; color: #ffaa66; }
 
-    /* ── TABS مع صور ── */
-    .tabs-container { max-width:1400px; margin:0 auto 2rem; display:grid; grid-template-columns:repeat(4,1fr); gap:10px; padding:0 4px; }
-    @media(max-width:640px){ .tabs-container{ grid-template-columns:repeat(2,1fr); gap:8px; } }
-    .tab-btn { position:relative; border-radius:14px; overflow:hidden; cursor:pointer; border:2px solid transparent; aspect-ratio:1/1; transition:0.25s; background:#1e1e3a; display:flex; align-items:flex-end; justify-content:center; padding:0; }
-    .tab-btn:hover { transform:translateY(-3px); border-color:#ffaa44; }
-    .tab-btn.active { border-color:#ffaa44; box-shadow:0 0 16px rgba(255,170,68,0.4); }
-    .tab-bg { position:absolute; inset:0; width:100%; height:100%; overflow:hidden; }
-    .tab-bg img { width:100%; height:100%; object-fit:contain; padding:18%; filter:drop-shadow(0 2px 8px rgba(0,0,0,0.6)); }
-    .tab-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(0,0,0,0.88) 0%,rgba(0,0,0,0.25) 55%,transparent 100%); }
-    .tab-text { position:relative; z-index:2; text-align:center; padding:8px 6px; width:100%; }
-    .tab-title { display:block; font-size:0.85rem; font-weight:900; color:white; line-height:1.2; text-shadow:0 1px 4px rgba(0,0,0,0.8); }
-    .tab-sub { display:block; font-size:0.62rem; color:rgba(255,255,255,0.65); margin-top:2px; }
-    @media(max-width:640px){ .tab-title{font-size:0.75rem} .tab-sub{font-size:0.55rem} }
+    /* ── زر الاستفسار العائم ── */
+    .inquiry-float {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .inquiry-label {
+      background: #25D366;
+      color: white;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      animation: fadeInOut 3s ease-in-out infinite;
+      white-space: nowrap;
+    }
+    @keyframes fadeInOut {
+      0%,100%{opacity:0.7} 50%{opacity:1}
+    }
+    .inquiry-btn {
+      width: 58px;
+      height: 58px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+      cursor: pointer;
+      text-decoration: none;
+      animation: inquiryPulse 2s ease-in-out infinite;
+      border: 3px solid rgba(255,255,255,0.3);
+    }
+    @keyframes inquiryPulse {
+      0%,100%{ box-shadow: 0 4px 20px rgba(37,211,102,0.5); transform: scale(1); }
+      50%    { box-shadow: 0 4px 30px rgba(37,211,102,0.8); transform: scale(1.08); }
+    }
 
-    /* فاصل ذهبي */
-    .section-divider { max-width:1400px; margin:0 auto 1.8rem; display:flex; align-items:center; gap:12px; padding:0 4px; }
-    .divider-line { flex:1; height:1px; background:linear-gradient(90deg,transparent,#ffaa44,transparent); }
-    .divider-badge { background:linear-gradient(135deg,#1e1e3a,#2d2f6e); border:1px solid rgba(255,170,68,0.4); color:#ffaa44; padding:5px 16px; border-radius:20px; font-size:0.78rem; font-weight:700; white-space:nowrap; box-shadow:0 0 12px rgba(255,170,44,0.2); }
+    /* ── مودال الشروط والأحكام المحسّن ── */
+    .terms-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.95);
+      backdrop-filter: blur(12px);
+      align-items: center;
+      justify-content: center;
+      z-index: 4000;
+      padding: 1rem;
+    }
+    .terms-box {
+      background: #11152b;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      border: 2px solid #ffaa44;
+      width: 100%;
+      max-width: 500px;
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+    .terms-box h3 { color: #ffaa44; margin-bottom: 1rem; text-align: center; font-size: 1rem; }
+    .terms-item-row {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      margin-bottom: 8px;
+      background: rgba(255,170,68,0.05);
+      border-radius: 8px;
+      padding: 8px 10px;
+      border-right: 3px solid rgba(255,170,68,0.3);
+    }
+    .terms-item-row .t-num {
+      background: #ffaa44;
+      color: #0a0a1a;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 900;
+    }
+    .terms-item-row p {
+      font-size: 0.78rem;
+      color: #b9c5f0;
+      line-height: 1.5;
+      text-align: right;
+      flex: 1;
+    }
+    .terms-checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,204,136,0.08);
+      border: 1px solid rgba(0,204,136,0.3);
+      border-radius: 8px;
+      padding: 10px;
+      margin: 12px 0 8px;
+      cursor: pointer;
+    }
+    .terms-checkbox-row input { accent-color: #00cc88; width: 18px; height: 18px; cursor: pointer; }
+    .terms-checkbox-row label { font-size: 0.8rem; color: #00cc88; font-weight: 700; cursor: pointer; }
+    .terms-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 8px;
+    }
+    .terms-buttons button {
+      padding: 10px 20px;
+      border-radius: 40px;
+      cursor: pointer;
+      font-weight: bold;
+      border: none;
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.85rem;
+    }
+    .accept-btn {
+      background: #ffaa44;
+      color: #0a0a1a;
+      flex: 1;
+      opacity: 0.5;
+      pointer-events: none;
+      transition: 0.2s;
+    }
+    .accept-btn.enabled { opacity: 1; pointer-events: all; }
+    .decline-btn { background: #444; color: white; }
+    
+    @media (max-width: 640px) { 
+      body { padding: 0.5rem; } 
+      .header { padding: 1rem 0.8rem; border-radius: 1rem; }
+      .header h1 { font-size: 1.6rem; }
+      .header p { font-size: 0.75rem; }
+      .product-image { height: 140px; } 
+      .products-grid { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+      .product-title { font-size: 0.78rem; }
+      .price { font-size: 0.95rem; }
+      .old-price { font-size: 0.7rem; }
+      .btn-wa { font-size: 0.72rem; padding: 6px 0; }
+      .card-info { padding: 0.5rem; }
+      .product-details { font-size: 0.6rem; padding: 4px; }
+      .control-bar { padding: 8px 12px; border-radius: 30px; gap: 6px; }
+      .lang-btn { padding: 4px 10px; font-size: 0.72rem; }
+      #currencySelect { font-size: 0.72rem; padding: 4px 8px; }
+      .tabs-container { gap: 5px; }
+      .tab-btn { padding: 5px 12px; font-size: 0.75rem; }
+      .search-bar-container { padding: 6px 12px; }
+      #searchInput { font-size: 0.8rem; }
+      .discount-badge { font-size: 0.6rem; padding: 3px 7px; }
+      .admin-add-body { gap: 0.6rem; }
+      .admin-add-body input, .admin-add-body select, .admin-add-body textarea { font-size: 0.75rem; padding: 6px 10px; }
+      .checkout-wrap { flex-direction: column; gap: 0.8rem; padding: 0.5rem 0 1rem; }
+      .co-input { font-size: 0.8rem; padding: 8px 10px; }
+      .checkout-section { padding: 0.8rem; }
+      .checkout-section h3 { font-size: 0.8rem; }
+      .order-summary { position: static; }
+      .checkout-submit-btn { font-size: 0.85rem; padding: 10px; }
+    }
 
-    .products-grid { max-width:1400px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:1.5rem; padding-top:0.5rem; border-top:1px solid rgba(255,170,68,0.15); }
-    .product-card { background:#11152b; border-radius:1rem; overflow:hidden; transition:0.3s; border:1px solid rgba(255,170,68,0.2); position:relative; }
-    .product-card:hover { transform:translateY(-4px); border-color:#ffaa44; }
-    .discount-badge { position:absolute; top:8px; left:8px; background:#ff4444; color:white; padding:4px 10px; border-radius:20px; font-size:0.7rem; font-weight:bold; z-index:2; }
-    .timer-badge { position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.7); color:#ffaa44; padding:3px 8px; border-radius:20px; font-size:0.6rem; z-index:2; }
-    .product-image { width:100%; height:200px; position:relative; display:flex; align-items:center; justify-content:center; background-size:contain; background-position:center; background-repeat:no-repeat; background-color:#0a0c1a; }
-    .product-badge { position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.7); backdrop-filter:blur(4px); padding:3px 10px; border-radius:20px; font-size:0.6rem; color:#ffcc77; font-weight:bold; }
-    .card-info { padding:0.8rem; }
-    .product-title { font-size:1rem; font-weight:700; margin-bottom:4px; text-align:center; }
-    .product-category { font-size:0.6rem; color:#ffaa66; margin-bottom:6px; text-align:center; }
-    .product-details { background:rgba(0,0,0,0.3); padding:6px; border-radius:10px; margin:8px 0; font-size:0.65rem; color:#b9c5f0; border-right:2px solid #ffaa44; }
-    .price-container { display:flex; align-items:center; justify-content:center; gap:8px; margin:6px 0; }
-    .old-price { font-size:0.8rem; color:#888; text-decoration:line-through; }
-    .price { font-size:1.2rem; font-weight:800; color:#ffaa44; }
-    .btn-wa { display:inline-flex; align-items:center; justify-content:center; gap:6px; background:#25D366; color:#000; width:100%; padding:8px 0; border-radius:40px; text-decoration:none; font-weight:bold; margin-top:6px; font-size:0.8rem; cursor:pointer; border:none; }
-    .admin-edit-section { background:#0a0c1a; border-top:1px solid #2a2f55; padding:0.8rem; margin-top:0.5rem; }
-    .admin-edit-section h4 { font-size:0.7rem; color:#ffaa66; margin-bottom:8px; }
-    .edit-price-row,.edit-image-row { display:flex; align-items:center; gap:8px; margin-bottom:8px; flex-wrap:wrap; }
-    .edit-price-row input,.edit-image-row input { background:#1e1e3a; border:1px solid #ffaa44; border-radius:30px; padding:6px 10px; flex:1; color:white; }
-    .edit-price-row input { width:90px; flex:none; }
-    .edit-image-upload { background:#1e1e3a; border:1px dashed #ffaa44; border-radius:30px; padding:6px 10px; text-align:center; cursor:pointer; flex:1; }
-    .edit-image-upload input { display:none; }
-    .edit-image-preview { margin-top:5px; max-width:100%; max-height:60px; border-radius:8px; display:none; object-fit:contain; }
-    .discount-buttons { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px; }
-    .discount-buttons button { background:#2d2f6e; border:none; padding:4px 10px; border-radius:30px; color:#ffaa66; cursor:pointer; font-size:0.7rem; }
-    .custom-discount-row { display:flex; gap:8px; align-items:center; margin-bottom:8px; }
-    .custom-discount-row input { background:#1e1e3a; border:1px solid #ffaa44; border-radius:30px; padding:5px 8px; width:70px; color:white; }
-    .timer-row { display:flex; gap:8px; align-items:center; margin-bottom:10px; flex-wrap:wrap; }
-    .timer-row input { background:#1e1e3a; border:1px solid #ffaa44; border-radius:30px; padding:6px 10px; flex:1; color:white; font-size:0.7rem; }
-    .save-edit-btn { background:#00cc88; border:none; padding:6px 12px; border-radius:30px; cursor:pointer; font-weight:bold; width:100%; font-size:0.75rem; }
-    .delete-product-btn { background:#ff4444; border:none; padding:6px 12px; border-radius:30px; cursor:pointer; font-weight:bold; width:100%; margin-top:6px; font-size:0.75rem; }
-    .pagination { display:flex; justify-content:center; gap:8px; margin-top:1.5rem; flex-wrap:wrap; }
-    .page-btn { background:#1e1e3a; border:1px solid #ffaa44; color:#ffdd99; padding:6px 12px; border-radius:30px; cursor:pointer; font-size:0.8rem; }
-    .page-btn.active { background:#ffaa44; color:#0a0a1a; }
+    /* ── CHECKOUT MODAL ── */
+    .checkout-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.92);
+      backdrop-filter: blur(12px);
+      z-index: 3000;
+      overflow-y: auto;
+      padding: 1rem;
+    }
+    .checkout-modal.active { display: block; }
+    .checkout-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      padding: 1rem 0 2rem;
+    }
+    .checkout-left {
+      flex: 1.5;
+      min-width: 280px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .checkout-right {
+      flex: 1;
+      min-width: 260px;
+    }
+    .checkout-section {
+      background: #11152b;
+      border-radius: 1rem;
+      border: 1px solid rgba(255,170,68,0.25);
+      padding: 1rem 1.2rem;
+    }
+    .checkout-section h3 {
+      font-size: 0.9rem;
+      color: #ffaa66;
+      margin-bottom: 0.8rem;
+      text-align: right;
+      border-bottom: 1px solid rgba(255,170,68,0.2);
+      padding-bottom: 0.5rem;
+    }
+    .co-input {
+      width: 100%;
+      background: #1e1e3a;
+      border: 1px solid rgba(255,170,68,0.3);
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: white;
+      font-size: 0.85rem;
+      font-family: 'Cairo', sans-serif;
+      margin-bottom: 10px;
+      outline: none;
+      transition: 0.2s;
+      text-align: right;
+    }
+    .co-input:focus { border-color: #ffaa44; }
+    .co-input::placeholder { color: #6f7bb3; }
+    .co-row {
+      display: flex;
+      gap: 8px;
+    }
+    .co-row .co-input { margin-bottom: 0; }
+    .phone-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .phone-flag {
+      background: #1e1e3a;
+      border: 1px solid rgba(255,170,68,0.3);
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: #ffaa66;
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+    .phone-row .co-input { margin-bottom: 0; flex: 1; }
+    .coupon-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .coupon-row .co-input { margin-bottom: 0; flex: 1; }
+    .coupon-btn {
+      background: #ffaa44;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      color: #0a0a1a;
+      font-family: 'Cairo', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+    .payment-option {
+      background: #1e1e3a;
+      border: 2px solid rgba(255,170,68,0.2);
+      border-radius: 10px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: 0.2s;
+      margin-bottom: 8px;
+    }
+    .payment-option.selected { border-color: #25D366; background: rgba(37,211,102,0.08); }
+    .payment-option input[type=radio] { accent-color: #25D366; width: 18px; height: 18px; }
+    .payment-option-info { flex: 1; text-align: right; }
+    .payment-option-info strong { display: block; font-size: 0.85rem; color: white; }
+    .payment-option-info span { font-size: 0.72rem; color: #6f7bb3; }
+    .payment-icon { font-size: 1.8rem; }
 
-    /* مودال الشروط */
-    .terms-modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); backdrop-filter:blur(12px); align-items:center; justify-content:center; z-index:4000; padding:1rem; }
-    .terms-box { background:#11152b; border-radius:1.5rem; padding:1.5rem; border:2px solid #ffaa44; width:100%; max-width:500px; max-height:85vh; overflow-y:auto; }
-    .terms-box h3 { color:#ffaa44; margin-bottom:1rem; text-align:center; font-size:1rem; }
-    .terms-item-row { display:flex; gap:8px; align-items:flex-start; margin-bottom:8px; background:rgba(255,170,68,0.05); border-radius:8px; padding:8px 10px; border-right:3px solid rgba(255,170,68,0.3); }
-    .terms-item-row .t-num { background:#ffaa44; color:#0a0a1a; border-radius:50%; width:20px; height:20px; min-width:20px; display:flex; align-items:center; justify-content:center; font-size:0.65rem; font-weight:900; }
-    .terms-item-row p { font-size:0.78rem; color:#b9c5f0; line-height:1.5; text-align:right; flex:1; }
-    .terms-checkbox-row { display:flex; align-items:center; gap:8px; background:rgba(0,204,136,0.08); border:1px solid rgba(0,204,136,0.3); border-radius:8px; padding:10px; margin:12px 0 8px; cursor:pointer; }
-    .terms-checkbox-row input { accent-color:#00cc88; width:18px; height:18px; cursor:pointer; }
-    .terms-checkbox-row label { font-size:0.8rem; color:#00cc88; font-weight:700; cursor:pointer; }
-    .terms-buttons { display:flex; gap:10px; justify-content:center; margin-top:8px; }
-    .terms-buttons button { padding:10px 20px; border-radius:40px; cursor:pointer; font-weight:bold; border:none; font-family:'Cairo',sans-serif; font-size:0.85rem; }
-    .accept-btn { background:#ffaa44; color:#0a0a1a; flex:1; opacity:0.5; pointer-events:none; transition:0.2s; }
-    .accept-btn.enabled { opacity:1; pointer-events:all; }
-    .decline-btn { background:#444; color:white; }
-
-    /* Checkout */
-    .checkout-modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.92); backdrop-filter:blur(12px); z-index:3000; overflow-y:auto; padding:1rem; }
-    .checkout-modal.active { display:block; }
-    .checkout-wrap { max-width:900px; margin:0 auto; display:flex; gap:1.5rem; flex-wrap:wrap; padding:1rem 0 2rem; }
-    .checkout-left { flex:1.5; min-width:280px; display:flex; flex-direction:column; gap:1rem; }
-    .checkout-right { flex:1; min-width:260px; }
-    .checkout-section { background:#11152b; border-radius:1rem; border:1px solid rgba(255,170,68,0.25); padding:1rem 1.2rem; }
-    .checkout-section h3 { font-size:0.9rem; color:#ffaa66; margin-bottom:0.8rem; text-align:right; border-bottom:1px solid rgba(255,170,68,0.2); padding-bottom:0.5rem; }
-    .co-input { width:100%; background:#1e1e3a; border:1px solid rgba(255,170,68,0.3); border-radius:8px; padding:10px 12px; color:white; font-size:0.85rem; font-family:'Cairo',sans-serif; margin-bottom:10px; outline:none; transition:0.2s; text-align:right; }
-    .co-input:focus { border-color:#ffaa44; }
-    .co-input::placeholder { color:#6f7bb3; }
-    .phone-row { display:flex; gap:8px; align-items:center; margin-bottom:10px; }
-    .phone-row .co-input { margin-bottom:0; flex:1; }
-    .coupon-row { display:flex; gap:8px; align-items:center; }
-    .coupon-row .co-input { margin-bottom:0; flex:1; }
-    .coupon-btn { background:#ffaa44; border:none; padding:10px 16px; border-radius:8px; color:#0a0a1a; font-family:'Cairo',sans-serif; font-weight:700; cursor:pointer; font-size:0.85rem; white-space:nowrap; }
-    .payment-option { background:#1e1e3a; border:2px solid rgba(255,170,68,0.2); border-radius:10px; padding:12px; display:flex; align-items:center; gap:10px; cursor:pointer; transition:0.2s; margin-bottom:8px; }
-    .payment-option.selected { border-color:#25D366; background:rgba(37,211,102,0.08); }
-    .payment-option input[type=radio] { accent-color:#25D366; width:18px; height:18px; }
-    .payment-option-info { flex:1; text-align:right; }
-    .payment-option-info strong { display:block; font-size:0.85rem; color:white; }
-    .payment-option-info span { font-size:0.72rem; color:#6f7bb3; }
-    .payment-icon { font-size:1.8rem; }
-    .order-summary { background:#11152b; border-radius:1rem; border:1px solid rgba(255,170,68,0.25); padding:1rem 1.2rem; position:sticky; top:10px; }
-    .order-summary-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; font-size:0.8rem; color:#ffaa66; border-bottom:1px solid rgba(255,170,68,0.2); padding-bottom:0.5rem; }
-    .order-product-row { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
-    .order-product-img { width:55px; height:55px; border-radius:8px; background:#1e1e3a; display:flex; align-items:center; justify-content:center; font-size:1.5rem; flex-shrink:0; overflow:hidden; }
-    .order-product-img img { width:100%; height:100%; object-fit:cover; }
-    .order-product-info { flex:1; text-align:right; }
-    .order-product-info .pname { font-size:0.8rem; font-weight:700; color:white; }
-    .order-product-info .pcat { font-size:0.65rem; color:#6f7bb3; }
-    .order-qty { display:flex; align-items:center; gap:6px; background:#1e1e3a; border-radius:20px; padding:3px 8px; }
-    .qty-btn { background:none; border:none; color:#ffaa44; cursor:pointer; font-size:0.9rem; font-weight:700; padding:0 4px; }
-    .qty-num { font-size:0.8rem; color:white; min-width:16px; text-align:center; }
-    .order-price { font-size:0.9rem; font-weight:700; color:#ffaa44; white-space:nowrap; }
-    .summary-line { display:flex; justify-content:space-between; align-items:center; font-size:0.8rem; margin-bottom:6px; color:#b9c5f0; }
-    .summary-line.total { font-size:1rem; font-weight:700; color:white; border-top:1px solid rgba(255,170,68,0.2); margin-top:8px; padding-top:8px; }
-    .summary-line .saved { color:#00cc88; }
-    .summary-line .label { color:#6f7bb3; }
-    .checkout-submit-btn { background:#25D366; border:none; width:100%; padding:12px; border-radius:40px; color:white; font-family:'Cairo',sans-serif; font-weight:700; font-size:0.95rem; cursor:pointer; margin-top:1rem; display:flex; align-items:center; justify-content:center; gap:8px; transition:0.2s; }
-    .checkout-submit-btn:hover { background:#1da851; }
-    .checkout-close-btn { background:transparent; border:1px solid rgba(255,170,68,0.3); width:100%; padding:8px; border-radius:40px; color:#ffaa66; font-family:'Cairo',sans-serif; font-weight:700; font-size:0.8rem; cursor:pointer; margin-top:8px; }
-    .warning-box { background:rgba(255,170,0,0.1); border:1px solid rgba(255,170,0,0.4); border-radius:8px; padding:8px 12px; font-size:0.75rem; color:#ffcc77; margin-bottom:8px; }
-
-    /* Footer */
-    .footer { text-align:center; margin-top:2rem; padding:1.5rem; color:#6f7bb3; border-top:1px solid rgba(255,170,68,0.2); }
-    .social-icons { margin-bottom:0.5rem; }
-    .social-icons i { font-size:1.2rem; margin:0 8px; color:#ffaa66; }
-
-    /* زر الاستفسار */
-    .inquiry-float { position:fixed; bottom:24px; left:24px; z-index:999; display:flex; flex-direction:column; align-items:flex-start; gap:8px; }
-    .inquiry-label { background:#25D366; color:white; font-size:0.72rem; font-weight:700; padding:4px 10px; border-radius:20px; animation:fadeInOut 3s ease-in-out infinite; white-space:nowrap; }
-    @keyframes fadeInOut { 0%,100%{opacity:0.7} 50%{opacity:1} }
-    .inquiry-btn { width:58px; height:58px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.6rem; box-shadow:0 4px 20px rgba(37,211,102,0.5); cursor:pointer; text-decoration:none; animation:inquiryPulse 2s ease-in-out infinite; border:3px solid rgba(255,255,255,0.3); }
-    @keyframes inquiryPulse { 0%,100%{box-shadow:0 4px 20px rgba(37,211,102,0.5);transform:scale(1)} 50%{box-shadow:0 4px 30px rgba(37,211,102,0.8);transform:scale(1.08)} }
-
-    @media(max-width:640px){
-      body{padding:0.5rem}
-      .header{padding:1rem 0.8rem;border-radius:1rem}
-      .product-image{height:140px}
-      .products-grid{grid-template-columns:repeat(2,1fr);gap:0.6rem}
-      .product-title{font-size:0.78rem}
-      .price{font-size:0.95rem}
-      .btn-wa{font-size:0.72rem;padding:6px 0}
-      .card-info{padding:0.5rem}
-      .product-details{font-size:0.6rem;padding:4px}
-      .control-bar{padding:8px 12px;border-radius:30px;gap:6px}
-      .checkout-wrap{flex-direction:column;gap:0.8rem;padding:0.5rem 0 1rem}
-      .co-input{font-size:0.8rem;padding:8px 10px}
-      .order-summary{position:static}
+    /* ORDER SUMMARY */
+    .order-summary {
+      background: #11152b;
+      border-radius: 1rem;
+      border: 1px solid rgba(255,170,68,0.25);
+      padding: 1rem 1.2rem;
+      position: sticky;
+      top: 10px;
+    }
+    .order-summary-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-size: 0.8rem;
+      color: #ffaa66;
+      border-bottom: 1px solid rgba(255,170,68,0.2);
+      padding-bottom: 0.5rem;
+    }
+    .order-product-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .order-product-img {
+      width: 55px;
+      height: 55px;
+      border-radius: 8px;
+      background: #1e1e3a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .order-product-img img { width: 100%; height: 100%; object-fit: cover; }
+    .order-product-info { flex: 1; text-align: right; }
+    .order-product-info .pname { font-size: 0.8rem; font-weight: 700; color: white; }
+    .order-product-info .pcat { font-size: 0.65rem; color: #6f7bb3; }
+    .order-qty {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #1e1e3a;
+      border-radius: 20px;
+      padding: 3px 8px;
+    }
+    .qty-btn {
+      background: none;
+      border: none;
+      color: #ffaa44;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 0 4px;
+    }
+    .qty-num { font-size: 0.8rem; color: white; min-width: 16px; text-align: center; }
+    .order-price { font-size: 0.9rem; font-weight: 700; color: #ffaa44; white-space: nowrap; }
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      margin-bottom: 6px;
+      color: #b9c5f0;
+    }
+    .summary-line.total {
+      font-size: 1rem;
+      font-weight: 700;
+      color: white;
+      border-top: 1px solid rgba(255,170,68,0.2);
+      margin-top: 8px;
+      padding-top: 8px;
+    }
+    .summary-line .saved { color: #00cc88; }
+    .summary-line .label { color: #6f7bb3; }
+    .checkout-submit-btn {
+      background: #25D366;
+      border: none;
+      width: 100%;
+      padding: 12px;
+      border-radius: 40px;
+      color: white;
+      font-family: 'Cairo', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: 0.2s;
+    }
+    .checkout-submit-btn:hover { background: #1da851; }
+    .checkout-close-btn {
+      background: transparent;
+      border: 1px solid rgba(255,170,68,0.3);
+      width: 100%;
+      padding: 8px;
+      border-radius: 40px;
+      color: #ffaa66;
+      font-family: 'Cairo', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+    .warning-box {
+      background: rgba(255,170,0,0.1);
+      border: 1px solid rgba(255,170,0,0.4);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.75rem;
+      color: #ffcc77;
+      margin-bottom: 8px;
     }
   </style>
-</head>
+  <style>
+    /* ── HEADER ENHANCED ── */
+    .header {
+      position: relative;
+      overflow: hidden;
+    }
+    /* جزيئات عائمة */
+    .header-particles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      font-size: 1.4rem;
+      animation: floatParticle linear infinite;
+      opacity: 0.7;
+    }
+    @keyframes floatParticle {
+      0%   { transform: translateY(100%) rotate(0deg);   opacity: 0; }
+      10%  { opacity: 0.7; }
+      90%  { opacity: 0.7; }
+      100% { transform: translateY(-120%) rotate(360deg); opacity: 0; }
+    }
+
+    /* يد PS5 */
+    .ps5-controller {
+      font-size: 3.5rem;
+      display: inline-block;
+      animation: controllerFloat 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 12px rgba(0,100,255,0.6));
+      margin: 0.3rem 0;
+    }
+    @keyframes controllerFloat {
+      0%,100% { transform: translateY(0) rotate(-5deg); }
+      50%      { transform: translateY(-10px) rotate(5deg); }
+    }
+
+    /* ألعاب صغيرة تطير */
+    .floating-games {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin: 0.4rem 0;
+      flex-wrap: wrap;
+    }
+    .game-icon {
+      font-size: 1.3rem;
+      animation: gameFloat ease-in-out infinite;
+      filter: drop-shadow(0 0 6px rgba(255,170,44,0.5));
+    }
+    .game-icon:nth-child(1) { animation-duration: 2.1s; animation-delay: 0.0s; }
+    .game-icon:nth-child(2) { animation-duration: 2.5s; animation-delay: 0.3s; }
+    .game-icon:nth-child(3) { animation-duration: 1.9s; animation-delay: 0.6s; }
+    .game-icon:nth-child(4) { animation-duration: 2.3s; animation-delay: 0.1s; }
+    .game-icon:nth-child(5) { animation-duration: 2.7s; animation-delay: 0.4s; }
+    .game-icon:nth-child(6) { animation-duration: 2.0s; animation-delay: 0.8s; }
+    @keyframes gameFloat {
+      0%,100% { transform: translateY(0)    scale(1);    }
+      50%      { transform: translateY(-8px) scale(1.15); }
+    }
+
+    /* خط فاصل ذهبي بين التصنيفات والمنتجات */
+    .section-divider {
+      max-width: 1400px;
+      margin: 0 auto 1.8rem auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 4px;
+    }
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #ffaa44, transparent);
+    }
+    .divider-badge {
+      background: linear-gradient(135deg, #1e1e3a, #2d2f6e);
+      border: 1px solid rgba(255,170,68,0.4);
+      color: #ffaa44;
+      padding: 5px 16px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      white-space: nowrap;
+      box-shadow: 0 0 12px rgba(255,170,44,0.2);
+    }
+  </style>
 <body dir="rtl">
 
-<!-- شريط الجهاز والوضع -->
+<!-- شريط اختيار الجهاز -->
 <div class="device-bar">
   <button class="device-btn active" id="btnMobile" onclick="setView('mobile')">
     <i class="fas fa-mobile-alt"></i> جوال
@@ -331,48 +1236,165 @@
   <button class="device-btn" id="btnDesktop" onclick="setView('desktop')">
     <i class="fas fa-desktop"></i> كمبيوتر
   </button>
-  <button class="mode-toggle-btn" id="modeToggleBtn" onclick="toggleMode()">🌙 ليلي</button>
+  <button class="mode-toggle-btn" id="modeToggleBtn" onclick="toggleMode()">
+    🌙 ليلي
+  </button>
 </div>
 
-<!-- HEADER -->
 <div class="header" style="position:relative;overflow:hidden;padding:0;min-height:280px;background:linear-gradient(135deg,#02020a,#0a0a1f);border-radius:1.5rem;margin-bottom:1.5rem;border:1px solid rgba(255,170,68,0.3);">
+
+  <!-- هالة الطاقة -->
   <div style="position:absolute;width:100%;height:100%;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(255,140,0,0.25),rgba(0,67,156,0.1),transparent 70%);filter:blur(40px);animation:pulseAura 4s infinite alternate;pointer-events:none;"></div>
+
+  <!-- النار في الأسفل -->
   <div id="fire-container" style="position:absolute;bottom:0;width:100%;height:120px;z-index:2;pointer-events:none;"></div>
+
+  <!-- المحتوى الرئيسي -->
   <div style="position:relative;z-index:10;padding:2rem 1rem 1.5rem;text-align:center;">
+
+    <!-- الشعار + يد التحكم -->
     <div style="display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;">
-      <span style="font-size:clamp(2.5rem,10vw,5rem);font-weight:900;font-family:'Cairo',sans-serif;background:linear-gradient(90deg,#ffcc66,#fff,#ffcc66);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:textShine 3s linear infinite;filter:drop-shadow(0 0 20px rgba(255,204,102,0.7));letter-spacing:3px;">xnesto</span>
-      <span style="font-size:clamp(2rem,7vw,3.5rem);display:inline-block;filter:drop-shadow(0 0 15px #00439c);animation:floatMain 3s infinite ease-in-out;">🎮</span>
+      <span style="
+        font-size:clamp(2.5rem,10vw,5rem);
+        font-weight:900;
+        font-family:'Cairo',sans-serif;
+        background:linear-gradient(90deg,#ffcc66,#fff,#ffcc66);
+        background-size:200% auto;
+        -webkit-background-clip:text;
+        background-clip:text;
+        -webkit-text-fill-color:transparent;
+        animation:textShine 3s linear infinite;
+        filter:drop-shadow(0 0 20px rgba(255,204,102,0.7));
+        letter-spacing:3px;
+      ">xnesto</span>
+      <span style="
+        font-size:clamp(2rem,7vw,3.5rem);
+        display:inline-block;
+        filter:drop-shadow(0 0 15px #00439c);
+        animation:floatMain 3s infinite ease-in-out;
+      ">🎮</span>
     </div>
+
+    <!-- ألعاب صغيرة تطفو -->
     <div style="display:flex;justify-content:center;gap:14px;margin:0.5rem 0;">
-      <span style="font-size:1.3rem;animation:gameFloat 2.1s ease-in-out infinite;">⚔️</span>
+      <span style="font-size:1.3rem;animation:gameFloat 2.1s ease-in-out infinite;animation-delay:0s;">⚔️</span>
       <span style="font-size:1.3rem;animation:gameFloat 2.5s ease-in-out infinite;animation-delay:0.3s;">🏆</span>
       <span style="font-size:1.3rem;animation:gameFloat 1.9s ease-in-out infinite;animation-delay:0.6s;">🕹️</span>
       <span style="font-size:1.3rem;animation:gameFloat 2.3s ease-in-out infinite;animation-delay:0.1s;">💥</span>
       <span style="font-size:1.3rem;animation:gameFloat 2.7s ease-in-out infinite;animation-delay:0.4s;">🎯</span>
       <span style="font-size:1.3rem;animation:gameFloat 2.0s ease-in-out infinite;animation-delay:0.8s;">🌟</span>
     </div>
-    <div style="color:#fff;font-size:clamp(0.75rem,2.5vw,1rem);font-weight:700;background:rgba(255,255,255,0.05);padding:8px 24px;border-radius:50px;border:1px solid rgba(255,204,102,0.3);backdrop-filter:blur(10px);display:inline-block;margin-top:0.5rem;box-shadow:0 10px 30px rgba(0,0,0,0.5);" id="welcomeMsg">العب بذكاء، اشحن بأقل سعر – xnesto الاختيار الأول 🏆🔥</div>
+
+    <!-- النص الإعلاني -->
+    <div style="
+      color:#fff;
+      font-size:clamp(0.75rem,2.5vw,1rem);
+      font-weight:700;
+      background:rgba(255,255,255,0.05);
+      padding:8px 24px;
+      border-radius:50px;
+      border:1px solid rgba(255,204,102,0.3);
+      backdrop-filter:blur(10px);
+      display:inline-block;
+      margin-top:0.5rem;
+      box-shadow:0 10px 30px rgba(0,0,0,0.5);
+    " id="welcomeMsg">العب بذكاء، اشحن بأقل سعر – xnesto الاختيار الأول 🏆🔥</div>
+
   </div>
+
+  <!-- جزيئات الأيقونات -->
   <div id="particles-container" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:5;"></div>
 </div>
 
 <style>
-  @keyframes textShine{to{background-position:200% center}}
-  @keyframes floatMain{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-15px) rotate(5deg)}}
-  @keyframes pulseAura{0%{transform:scale(1);opacity:0.3}100%{transform:scale(1.3);opacity:0.6}}
-  @keyframes gameFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.15)}}
-  @keyframes riseUp{0%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(-130px) scale(0.1);opacity:0}}
-  @keyframes iconDrift{0%{transform:translate(0,0) rotate(0deg);opacity:0}20%{opacity:0.6}80%{opacity:0.6}100%{transform:translate(var(--mx),var(--my)) rotate(360deg);opacity:0}}
+  @keyframes textShine { to { background-position: 200% center; } }
+  @keyframes floatMain {
+    0%,100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-15px) rotate(5deg); }
+  }
+  @keyframes pulseAura {
+    0%   { transform: scale(1);   opacity: 0.3; }
+    100% { transform: scale(1.3); opacity: 0.6; }
+  }
+  @keyframes gameFloat {
+    0%,100% { transform: translateY(0)    scale(1);    }
+    50%      { transform: translateY(-8px) scale(1.15); }
+  }
 </style>
+
 <script>
-  const fc=document.getElementById('fire-container');
-  function createFire(){if(!fc)return;const f=document.createElement('div');const size=Math.random()*35+15;Object.assign(f.style,{position:'absolute',bottom:'0',width:size+'px',height:size+'px',background:'radial-gradient(circle,#fff,#ffcc66,#ff4500,transparent 70%)',borderRadius:'50% 50% 20% 20%',left:Math.random()*100+'%',animation:'riseUp '+(Math.random()*0.5+0.8)+'s ease-in forwards',mixBlendMode:'screen',pointerEvents:'none'});fc.appendChild(f);setTimeout(()=>f.remove(),1200);}
-  function createSpark(){if(!fc)return;const s=document.createElement('div');Object.assign(s.style,{position:'absolute',width:'3px',height:'3px',background:'#fff',borderRadius:'50%',left:Math.random()*100+'%',bottom:'10px',boxShadow:'0 0 8px #ffcc66',zIndex:'3'});fc.appendChild(s);const anim=s.animate([{transform:'translate(0,0)',opacity:1},{transform:`translate(${(Math.random()-0.5)*150}px,-200px)`,opacity:0}],{duration:1500,easing:'ease-out'});anim.onfinish=()=>s.remove();}
-  const pc=document.getElementById('particles-container');
-  const icons=['🎮','💿','⚡','⭐','🔥','🕹️','💎','💳'];
-  function createIcon(){if(!pc)return;const ic=document.createElement('div');const mx=(Math.random()-0.5)*300,my=(Math.random()-0.5)*200,dur=Math.random()*4+4;Object.assign(ic.style,{position:'absolute',fontSize:(Math.random()*16+14)+'px',left:Math.random()*100+'%',top:Math.random()*100+'%',opacity:'0',animation:`iconDrift ${dur}s linear forwards`,'--mx':mx+'px','--my':my+'px'});ic.textContent=icons[Math.floor(Math.random()*icons.length)];pc.appendChild(ic);setTimeout(()=>ic.remove(),dur*1000);}
-  setInterval(createFire,100);setInterval(createSpark,200);setInterval(createIcon,600);
+  // نار متحركة
+  const fc = document.getElementById('fire-container');
+  function createFire() {
+    if (!fc) return;
+    const f = document.createElement('div');
+    const size = Math.random() * 35 + 15;
+    Object.assign(f.style, {
+      position:'absolute', bottom:'0',
+      width: size+'px', height: size+'px',
+      background:'radial-gradient(circle,#fff,#ffcc66,#ff4500,transparent 70%)',
+      borderRadius:'50% 50% 20% 20%',
+      left: Math.random()*100+'%',
+      animation:'riseUp '+(Math.random()*0.5+0.8)+'s ease-in forwards',
+      mixBlendMode:'screen', pointerEvents:'none'
+    });
+    fc.appendChild(f);
+    setTimeout(()=>f.remove(), 1200);
+  }
+  // شرارات
+  function createSpark() {
+    if (!fc) return;
+    const s = document.createElement('div');
+    Object.assign(s.style, {
+      position:'absolute', width:'3px', height:'3px',
+      background:'#fff', borderRadius:'50%',
+      left: Math.random()*100+'%', bottom:'10px',
+      boxShadow:'0 0 8px #ffcc66', zIndex:'3'
+    });
+    fc.appendChild(s);
+    const anim = s.animate([
+      {transform:'translate(0,0)', opacity:1},
+      {transform:`translate(${(Math.random()-0.5)*150}px,-200px)`, opacity:0}
+    ], {duration:1500, easing:'ease-out'});
+    anim.onfinish = ()=>s.remove();
+  }
+  // أيقونات طائرة
+  const pc = document.getElementById('particles-container');
+  const icons = ['🎮','💿','⚡','⭐','🔥','🕹️','💎','💳'];
+  function createIcon() {
+    if (!pc) return;
+    const ic = document.createElement('div');
+    const mx = (Math.random()-0.5)*300, my = (Math.random()-0.5)*200;
+    const dur = Math.random()*4+4;
+    Object.assign(ic.style, {
+      position:'absolute',
+      fontSize: (Math.random()*16+14)+'px',
+      left: Math.random()*100+'%',
+      top:  Math.random()*100+'%',
+      opacity:'0',
+      animation:`iconDrift ${dur}s linear forwards`,
+      '--mx': mx+'px', '--my': my+'px'
+    });
+    ic.textContent = icons[Math.floor(Math.random()*icons.length)];
+    pc.appendChild(ic);
+    setTimeout(()=>ic.remove(), dur*1000);
+  }
+  setInterval(createFire, 100);
+  setInterval(createSpark, 200);
+  setInterval(createIcon, 600);
 </script>
+<style>
+  @keyframes riseUp {
+    0%   { transform: translateY(0) scale(1);   opacity:1; }
+    100% { transform: translateY(-130px) scale(0.1); opacity:0; }
+  }
+  @keyframes iconDrift {
+    0%   { transform:translate(0,0) rotate(0deg);   opacity:0; }
+    20%  { opacity:0.6; }
+    80%  { opacity:0.6; }
+    100% { transform:translate(var(--mx),var(--my)) rotate(360deg); opacity:0; }
+  }
+</style>
 
 <div class="control-bar">
   <div class="lang-switch">
@@ -410,7 +1432,7 @@
       <input type="file" id="newImageFile" accept="image/*">
       <img id="newImagePreview" class="image-preview" alt="معاينة الصورة">
     </div>
-    <textarea id="newDetails" rows="2" placeholder="تفاصيل المنتج..."></textarea>
+    <textarea id="newDetails" rows="2" placeholder="تفاصيل المنتج (وصف، مواصفات...)"></textarea>
     <input type="number" id="newDiscount" step="1" placeholder="نسبة الخصم %">
     <input type="datetime-local" id="newTimer">
     <button id="addProductBtn" class="btn-add-product"><i class="fas fa-cloud-upload-alt"></i> إضافة المنتج</button>
@@ -436,6 +1458,7 @@
 
 <div id="tabsContainer" class="tabs-container"></div>
 
+<!-- فاصل ذهبي -->
 <div class="section-divider">
   <div class="divider-line"></div>
   <div class="divider-badge">🎮 المنتجات المتاحة</div>
@@ -453,40 +1476,70 @@
   <p>© 2025 xnesto - جميع الحقوق محفوظة</p>
 </div>
 
+<!-- زر الاستفسار العائم -->
 <div class="inquiry-float">
   <div class="inquiry-label">💬 استفسر الآن</div>
-  <a class="inquiry-btn" id="inquiryBtn" href="#" target="_blank">
+  <a class="inquiry-btn" id="inquiryBtn" href="#" target="_blank" title="تواصل معنا عبر واتساب">
     <i class="fab fa-whatsapp" style="color:white;"></i>
   </a>
 </div>
 
-<!-- مودال الشروط -->
+<!-- مودال الشروط والأحكام -->
 <div id="termsModal" class="terms-modal">
   <div class="terms-box">
     <h3><i class="fas fa-file-contract"></i> شروط وأحكام الشراء</h3>
-    <div class="terms-item-row"><div class="t-num">1</div><p>جميع المنتجات رقمية يتم تسليمها فور إتمام الدفع عبر واتساب.</p></div>
-    <div class="terms-item-row"><div class="t-num">2</div><p>المنتجات الرقمية غير قابلة للاسترجاع أو الاستبدال بعد التسليم.</p></div>
-    <div class="terms-item-row"><div class="t-num">3</div><p>يرجى التأكد من صحة حساب PlayStation الخاص بك قبل الطلب.</p></div>
-    <div class="terms-item-row"><div class="t-num">4</div><p>الأسعار المعلنة شاملة جميع الرسوم ولا تضاف أي رسوم إضافية.</p></div>
-    <div class="terms-item-row"><div class="t-num">5</div><p>في حال وجود أي مشكلة تقنية، يرجى التواصل معنا خلال 24 ساعة.</p></div>
-    <div class="terms-item-row"><div class="t-num">6</div><p>xnesto غير مسؤول عن أي حظر لحساب PlayStation بسبب مخالفة شروط سوني.</p></div>
-    <div class="terms-item-row"><div class="t-num">7</div><p>وقت التسليم من 5 دقائق إلى 24 ساعة حسب التوفر والوقت.</p></div>
+
+    <div class="terms-item-row">
+      <div class="t-num">1</div>
+      <p>جميع المنتجات رقمية (ألعاب - بطاقات شحن) يتم تسليمها فور إتمام الدفع عبر واتساب.</p>
+    </div>
+    <div class="terms-item-row">
+      <div class="t-num">2</div>
+      <p>المنتجات الرقمية غير قابلة للاسترجاع أو الاستبدال بعد التسليم.</p>
+    </div>
+    <div class="terms-item-row">
+      <div class="t-num">3</div>
+      <p>يرجى التأكد من صحة حساب PlayStation الخاص بك قبل الطلب.</p>
+    </div>
+    <div class="terms-item-row">
+      <div class="t-num">4</div>
+      <p>الأسعار المعلنة شاملة جميع الرسوم ولا تضاف أي رسوم إضافية.</p>
+    </div>
+    <div class="terms-item-row">
+      <div class="t-num">5</div>
+      <p>في حال وجود أي مشكلة تقنية، يرجى التواصل معنا خلال 24 ساعة من الاستلام.</p>
+    </div>
+    <div class="terms-item-row">
+      <div class="t-num">6</div>
+      <p>xnesto غير مسؤول عن أي حظر أو تعليق لحساب PlayStation بسبب مخالفة شروط سوني.</p>
+    </div>
+    <div class="terms-item-row">
+      <div class="t-num">7</div>
+      <p>وقت التسليم من 5 دقائق إلى 24 ساعة حسب التوفر والوقت.</p>
+    </div>
+
     <div class="terms-checkbox-row" onclick="toggleTermsAccept()">
       <input type="checkbox" id="termsCheck">
       <label for="termsCheck">أقر بأنني قرأت وأوافق على جميع الشروط والأحكام أعلاه</label>
     </div>
+
     <div class="terms-buttons">
-      <button id="acceptTermsBtn" class="accept-btn" onclick="acceptTerms()">✅ أوافق وأكمل الطلب</button>
-      <button class="decline-btn" onclick="closeTermsModal()">❌ إغلاق</button>
+      <button id="acceptTermsBtn" class="accept-btn" onclick="acceptTerms()">
+        ✅ أوافق وأكمل الطلب
+      </button>
+      <button id="declineTermsBtn" class="decline-btn" onclick="closeTermsModal()">❌ إغلاق</button>
     </div>
-    <p style="text-align:center;font-size:0.65rem;color:#555;margin-top:8px;">📞 واتساب +96879977100 | انستقرام xnesto_store</p>
+    <p style="text-align:center;font-size:0.65rem;color:#555;margin-top:8px;">
+      📞 للتواصل: واتساب +96879977100 | انستقرام xnesto_store
+    </p>
   </div>
 </div>
-
-<!-- Checkout -->
 <div id="checkoutModal" class="checkout-modal">
   <div class="checkout-wrap">
+    <!-- LEFT: FORM -->
     <div class="checkout-left">
+
+      <!-- كوبون -->
       <div class="checkout-section">
         <h3><i class="fas fa-tag"></i> إضافة كوبون التخفيض</h3>
         <div class="coupon-row">
@@ -495,6 +1548,8 @@
         </div>
         <div id="couponMsg" style="font-size:0.75rem;color:#00cc88;text-align:right;display:none;"></div>
       </div>
+
+      <!-- تفاصيل الاتصال -->
       <div class="checkout-section">
         <h3><i class="fas fa-user"></i> تفاصيل الاتصال</h3>
         <input class="co-input" id="coName" placeholder="الاسم الكامل" type="text">
@@ -509,147 +1564,280 @@
             <option value="+967">🇾🇪 اليمن +967</option>
             <option value="+962">🇯🇴 الأردن +962</option>
             <option value="+961">🇱🇧 لبنان +961</option>
+            <option value="+963">🇸🇾 سوريا +963</option>
+            <option value="+964">🇮🇶 العراق +964</option>
             <option value="+20">🇪🇬 مصر +20</option>
+            <option value="+212">🇲🇦 المغرب +212</option>
+            <option value="+213">🇩🇿 الجزائر +213</option>
+            <option value="+216">🇹🇳 تونس +216</option>
+            <option value="+218">🇱🇾 ليبيا +218</option>
+            <option value="+249">🇸🇩 السودان +249</option>
+            <option value="+252">🇸🇴 الصومال +252</option>
+            <option value="+222">🇲🇷 موريتانيا +222</option>
             <option value="+1">🇺🇸 أمريكا +1</option>
             <option value="+44">🇬🇧 بريطانيا +44</option>
+            <option value="+33">🇫🇷 فرنسا +33</option>
+            <option value="+49">🇩🇪 ألمانيا +49</option>
+            <option value="+39">🇮🇹 إيطاليا +39</option>
+            <option value="+34">🇪🇸 إسبانيا +34</option>
+            <option value="+31">🇳🇱 هولندا +31</option>
+            <option value="+32">🇧🇪 بلجيكا +32</option>
+            <option value="+41">🇨🇭 سويسرا +41</option>
+            <option value="+43">🇦🇹 النمسا +43</option>
+            <option value="+46">🇸🇪 السويد +46</option>
+            <option value="+47">🇳🇴 النرويج +47</option>
+            <option value="+45">🇩🇰 الدنمارك +45</option>
+            <option value="+358">🇫🇮 فنلندا +358</option>
+            <option value="+48">🇵🇱 بولندا +48</option>
+            <option value="+7">🇷🇺 روسيا +7</option>
+            <option value="+380">🇺🇦 أوكرانيا +380</option>
+            <option value="+30">🇬🇷 اليونان +30</option>
+            <option value="+351">🇵🇹 البرتغال +351</option>
             <option value="+90">🇹🇷 تركيا +90</option>
+            <option value="+98">🇮🇷 إيران +98</option>
+            <option value="+92">🇵🇰 باكستان +92</option>
             <option value="+91">🇮🇳 الهند +91</option>
+            <option value="+880">🇧🇩 بنغلاديش +880</option>
+            <option value="+94">🇱🇰 سريلانكا +94</option>
+            <option value="+977">🇳🇵 نيبال +977</option>
+            <option value="+95">🇲🇲 ميانمار +95</option>
+            <option value="+66">🇹🇭 تايلاند +66</option>
+            <option value="+84">🇻🇳 فيتنام +84</option>
             <option value="+62">🇮🇩 إندونيسيا +62</option>
+            <option value="+63">🇵🇭 الفلبين +63</option>
+            <option value="+60">🇲🇾 ماليزيا +60</option>
+            <option value="+65">🇸🇬 سنغافورة +65</option>
             <option value="+86">🇨🇳 الصين +86</option>
             <option value="+81">🇯🇵 اليابان +81</option>
-            <option value="+82">🇰🇷 كوريا +82</option>
+            <option value="+82">🇰🇷 كوريا الجنوبية +82</option>
             <option value="+61">🇦🇺 أستراليا +61</option>
+            <option value="+64">🇳🇿 نيوزيلندا +64</option>
+            <option value="+27">🇿🇦 جنوب أفريقيا +27</option>
+            <option value="+234">🇳🇬 نيجيريا +234</option>
+            <option value="+254">🇰🇪 كينيا +254</option>
+            <option value="+233">🇬🇭 غانا +233</option>
             <option value="+55">🇧🇷 البرازيل +55</option>
+            <option value="+52">🇲🇽 المكسيك +52</option>
+            <option value="+54">🇦🇷 الأرجنتين +54</option>
+            <option value="+57">🇨🇴 كولومبيا +57</option>
+            <option value="+56">🇨🇱 تشيلي +56</option>
           </select>
           <input class="co-input" id="coPhone" placeholder="الهاتف" type="tel" style="margin-bottom:0;flex:1;">
         </div>
         <input class="co-input" id="coEmail" placeholder="البريد الإلكتروني (اختياري)" type="email">
       </div>
+
+      <!-- ملاحظة الطلب -->
       <div class="checkout-section">
         <h3><i class="fas fa-sticky-note"></i> ملاحظة الطلب</h3>
-        <textarea class="co-input" id="coNote" rows="3" placeholder="اكتب ملاحظة الطلب" style="border-radius:8px;resize:none;"></textarea>
+        <textarea class="co-input" id="coNote" rows="3" placeholder="اكتب ملاحظة الطلب - (الوقت - التاريخ)" style="border-radius:8px; resize:none;"></textarea>
       </div>
+
+      <!-- طريقة الدفع -->
       <div class="checkout-section">
         <h3><i class="fas fa-credit-card"></i> طريقة الدفع</h3>
         <div class="warning-box">⚠️ يرجى اختيار طريقة الدفع لإكمال طلبك</div>
-        <label class="payment-option selected">
-          <input type="radio" name="payMethod" value="whatsapp" checked>
-          <div class="payment-option-info"><strong>واتساب</strong><span>سيتم تحويلك إلى رقم واتس اب الخاص بالبائع.</span></div>
+        <label class="payment-option selected" id="payWa">
+          <input type="radio" name="payMethod" value="whatsapp" checked onchange="selectPay(this)">
+          <div class="payment-option-info">
+            <strong>واتساب</strong>
+            <span>سيتم تحويلك إلى رقم واتس اب الخاص بالبائع لتكملة عملية الشراء.</span>
+          </div>
           <div class="payment-icon">💬</div>
         </label>
       </div>
+
     </div>
+
+    <!-- RIGHT: ORDER SUMMARY -->
     <div class="checkout-right">
       <div class="order-summary">
-        <div class="order-summary-header"><span id="coStoreName">xnesto 🎮</span><span>ملخص الطلب</span></div>
+        <div class="order-summary-header">
+          <span id="coStoreName">xnesto 🎮</span>
+          <span>ملخص الطلب</span>
+        </div>
+
+        <!-- المنتج -->
         <div class="order-product-row">
           <div class="order-price" id="coProductPrice"></div>
-          <div style="flex:1;"><div class="order-qty"><button class="qty-btn" onclick="changeQty(-1)">−</button><span class="qty-num" id="coQty">1</span><button class="qty-btn" onclick="changeQty(1)">+</button></div></div>
-          <div class="order-product-info"><div class="pname" id="coProductName"></div><div class="pcat" id="coProductCat"></div></div>
+          <div style="flex:1;">
+            <div class="order-qty">
+              <button class="qty-btn" onclick="changeQty(-1)">−</button>
+              <span class="qty-num" id="coQty">1</span>
+              <button class="qty-btn" onclick="changeQty(1)">+</button>
+            </div>
+          </div>
+          <div class="order-product-info">
+            <div class="pname" id="coProductName"></div>
+            <div class="pcat" id="coProductCat"></div>
+          </div>
           <div class="order-product-img" id="coProductImg"></div>
         </div>
+
         <hr style="border-color:rgba(255,170,68,0.15);margin:10px 0;">
-        <div class="summary-line"><span id="coSubtotal"></span><span class="label">الاجمالي الفرعي</span></div>
-        <div class="summary-line" id="coSavingRow" style="display:none;"><span class="saved" id="coSaving"></span><span class="label">المبلغ الموفر</span></div>
-        <div class="summary-line"><span>0.00 ر.ع</span><span class="label">الضريبة</span></div>
-        <div class="summary-line"><span style="color:#ffaa44;">مجاني</span><span class="label">الشحن</span></div>
-        <div class="summary-line total"><span id="coTotal"></span><span>المجموع الكلي</span></div>
-        <button class="checkout-submit-btn" onclick="submitOrder()"><i class="fab fa-whatsapp"></i> إتمام الطلب عبر واتساب</button>
-        <button class="checkout-close-btn" onclick="closeCheckout()"><i class="fas fa-arrow-right"></i> العودة للمتجر</button>
+
+        <!-- الأسعار -->
+        <div class="summary-line">
+          <span id="coSubtotal"></span>
+          <span class="label">الاجمالي الفرعي</span>
+        </div>
+        <div class="summary-line" id="coSavingRow" style="display:none;">
+          <span class="saved" id="coSaving"></span>
+          <span class="label">المبلغ الموفر</span>
+        </div>
+        <div class="summary-line">
+          <span>0.00 ر.ع</span>
+          <span class="label">الضريبة</span>
+        </div>
+        <div class="summary-line">
+          <span style="color:#ffaa44;">مجاني</span>
+          <span class="label">الشحن</span>
+        </div>
+        <div class="summary-line total">
+          <span id="coTotal"></span>
+          <span>المجموع الكلي</span>
+        </div>
+
+        <button class="checkout-submit-btn" onclick="submitOrder()">
+          <i class="fab fa-whatsapp"></i> إتمام الطلب عبر واتساب
+        </button>
+        <button class="checkout-close-btn" onclick="closeCheckout()">
+          <i class="fas fa-arrow-right"></i> العودة للمتجر
+        </button>
       </div>
     </div>
   </div>
 </div>
 
+<div id="termsModal" class="terms-modal">
+  <div class="terms-box">
+    <h3><i class="fas fa-file-contract"></i> شروط وأحكام الشراء</h3>
+    <div id="termsContent">
+      <p>📌 <strong>شروط الشراء من xnesto:</strong></p>
+      <p>1. جميع المنتجات رقمية (ألعاب - بطاقات شحن) يتم تسليمها فور إتمام الدفع عبر واتساب.</p>
+      <p>2. المنتجات الرقمية غير قابلة للاسترجاع أو الاستبدال بعد التسليم.</p>
+      <p>3. يرجى التأكد من صحة حساب PlayStation الخاص بك قبل الطلب.</p>
+      <p>4. الأسعار المعلنة شاملة جميع الرسوم ولا تضاف أي رسوم إضافية.</p>
+      <p>5. في حال وجود أي مشكلة تقنية، يرجى التواصل معنا خلال 24 ساعة.</p>
+      <p>6. xnesto غير مسؤول عن أي حظر أو تعليق لحساب PlayStation بسبب مخالفة شروط سوني.</p>
+      <p>7. باستمرارك في الشراء، أنت توافق على جميع الشروط والأحكام المذكورة أعلاه.</p>
+      <p>📞 للتواصل: واتساب +96879977100 | انستقرام xnesto_store</p>
+    </div>
+    <div class="terms-buttons">
+      <button id="acceptTermsBtn" class="accept-btn">✅ أوافق على الشروط</button>
+      <button id="declineTermsBtn" class="decline-btn">❌ لا أوافق</button>
+    </div>
+  </div>
+</div>
+
 <script>
-  let products=[], categories=["games","giftcards","psplus"];
-  let categoryNames={ games:"🎮 ألعاب PS4/PS5", giftcards:"💳 بطاقات شحن", psplus:"🌟 اشتراك PS Plus" };
-  let nextId=1, currentUser={type:"guest",name:"زائر"}, currentLang="ar", currentCurrency="OMR";
-  let currentPage=1, currentCategory="games", searchQuery="", pendingOrder=null, currentImageData=null;
-  let checkoutProduct=null, checkoutQty=1, couponDiscount=0;
-  const ITEMS_PER_PAGE=6, ADMIN_PASSWORD="ssp1995", WA_NUMBER="96879977100", INSTA_USERNAME="xnesto_store";
-  const exchangeRates={OMR:1,USD:2.6,SAR:9.75,QAR:9.46,EUR:2.4,AED:9.55};
-  const currencySymbols={OMR:"ر.ع",USD:"$",SAR:"ر.س",QAR:"ر.ق",EUR:"€",AED:"د.إ"};
-  const categoryColors={games:"#2d4a6e",giftcards:"#1a3a5a",psplus:"#1a2a5a"};
-  const categoryIcons={games:"🎮",giftcards:"💳",psplus:"🌟"};
-
-  // ── صور التصنيفات ──
-  const catImages = {
-    all:       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Playstation_logo_colour.svg/800px-Playstation_logo_colour.svg.png",
-    games:     "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/PlayStation_5_logo_and_wordmark.svg/800px-PlayStation_5_logo_and_wordmark.svg.png",
-    giftcards: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/PSN_store_logo_2022.svg/800px-PSN_store_logo_2022.svg.png",
-    psplus:    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/PlayStation_Plus_logo.svg/800px-PlayStation_Plus_logo.svg.png",
-  };
-  const catGrads = {
-    all:       "linear-gradient(135deg,#0d1b3e,#1a3a7a)",
-    games:     "linear-gradient(135deg,#000428,#004e92)",
-    giftcards: "linear-gradient(135deg,#003a1a,#006a30)",
-    psplus:    "linear-gradient(135deg,#1a0050,#4a0090)",
-  };
-
+  let products = [];
+  let categories = ["games", "giftcards"];
+  let categoryNames = { games: "🎮 ألعاب PS4/PS5", giftcards: "💳 بطاقات شحن" };
+  let nextId = 1;
+  let currentUser = { type: "guest", name: "زائر" };
+  let currentLang = "ar";
+  let currentCurrency = "OMR";
+  let currentPage = 1;
+  let currentCategory = "games";
+  let searchQuery = "";
+  let pendingOrder = null;
+  let currentImageData = null;
+  const ITEMS_PER_PAGE = 6;
+  const ADMIN_PASSWORD = "ssp1995";
+  const WA_NUMBER = "96879977100";
+  const INSTA_USERNAME = "xnesto_store";
+  
+  const exchangeRates = { OMR: 1, USD: 2.6, SAR: 9.75, QAR: 9.46, EUR: 2.4, AED: 9.55 };
+  const currencySymbols = { OMR: "ر.ع", USD: "$", SAR: "ر.س", QAR: "ر.ق", EUR: "€", AED: "د.إ" };
+  const categoryColors = { games: "#2d4a6e", giftcards: "#1a3a5a" };
+  const categoryIcons = { games: "🎮", giftcards: "💳" };
+  
   const defaultGames = [
-    {id:1,nameAr:"Assassin's Creed Shadows",nameEn:"Assassin's Creed Shadows",category:"games",priceOMR:14,oldPrice:20,image:"https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/3159340/header.jpg",detailsAr:"🏷️ الحجم: 65GB | 🎮 عربية/إنجليزية",detailsEn:"📦 Size: 65GB",timer:null},
-    {id:2,nameAr:"Call of Duty: Black Ops 6",nameEn:"Call of Duty: Black Ops 6",category:"games",priceOMR:22,oldPrice:30,image:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2933620/header.jpg",detailsAr:"🏷️ الحجم: 120GB",detailsEn:"📦 Size: 120GB",timer:null},
-    {id:3,nameAr:"Grand Theft Auto VI PS5",nameEn:"Grand Theft Auto VI PS5",category:"games",priceOMR:6,oldPrice:10,image:"https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/downloads/gtavi/gtavi_cover_ps5.jpg",detailsAr:"🏷️ الحجم: 150GB | 🌍 عالم مفتوح",detailsEn:"📦 Size: 150GB",timer:null},
-    {id:4,nameAr:"Grand Theft Auto VI PS4",nameEn:"Grand Theft Auto VI PS4",category:"games",priceOMR:5,oldPrice:8,image:"https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/downloads/gtavi/gtavi_cover.jpg",detailsAr:"🏷️ الحجم: 120GB | نسخة PS4",detailsEn:"📦 Size: 120GB PS4",timer:null},
-    {id:5,nameAr:"Monster Hunter Wilds",nameEn:"Monster Hunter Wilds",category:"games",priceOMR:14,oldPrice:20,image:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2246340/header.jpg",detailsAr:"🏷️ الحجم: 75GB | 🐉 صيد الوحوش",detailsEn:"📦 Size: 75GB",timer:null},
-    {id:6,nameAr:"Ghost of Yōtei",nameEn:"Ghost of Yōtei",category:"games",priceOMR:14,oldPrice:20,image:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3138540/header.jpg",detailsAr:"🏷️ الحجم: 80GB | 🗡️ عالم مفتوح",detailsEn:"📦 Size: 80GB",timer:null},
-    {id:7,nameAr:"Death Stranding 2",nameEn:"Death Stranding 2",category:"games",priceOMR:24,oldPrice:30,image:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2859570/header.jpg",detailsAr:"🏷️ الحجم: 100GB | 🌊 مغامرة",detailsEn:"📦 Size: 100GB",timer:null},
-    {id:8,nameAr:"EA Sports FC 26",nameEn:"EA Sports FC 26",category:"games",priceOMR:13,oldPrice:18,image:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2668610/header.jpg",detailsAr:"🏷️ الحجم: 55GB | ⚽ كرة قدم",detailsEn:"📦 Size: 55GB",timer:null},
-    {id:9,nameAr:"Black Myth: Wukong",nameEn:"Black Myth: Wukong",category:"games",priceOMR:16,oldPrice:22,image:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2358720/header.jpg",detailsAr:"🏷️ الحجم: 90GB | 🐒 RPG أكشن",detailsEn:"📦 Size: 90GB",timer:null},
-    {id:10,nameAr:"Silent Hill 2 Remake",nameEn:"Silent Hill 2 Remake",category:"games",priceOMR:14,oldPrice:20,image:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2124490/header.jpg",detailsAr:"🏷️ الحجم: 50GB | 👻 رعب نفسي",detailsEn:"📦 Size: 50GB",timer:null},
-    {id:11,nameAr:"God of War Ragnarök",nameEn:"God of War Ragnarök",category:"games",priceOMR:10,oldPrice:15,image:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2322010/header.jpg",detailsAr:"🏷️ الحجم: 85GB | 🪓 ملحمة",detailsEn:"📦 Size: 85GB",timer:null},
-    {id:12,nameAr:"Marvel's Spider-Man 2",nameEn:"Marvel's Spider-Man 2",category:"games",priceOMR:16,oldPrice:22,image:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2651280/header.jpg",detailsAr:"🏷️ الحجم: 98GB | 🕷️ بيتر + مايلز",detailsEn:"📦 Size: 98GB",timer:null},
-    {id:13,nameAr:"Hogwarts Legacy",nameEn:"Hogwarts Legacy",category:"games",priceOMR:11,oldPrice:16,image:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/990080/header.jpg",detailsAr:"🏷️ الحجم: 85GB | 🧙 هاري بوتر",detailsEn:"📦 Size: 85GB",timer:null},
-    {id:14,nameAr:"Final Fantasy VII Rebirth",nameEn:"Final Fantasy VII Rebirth",category:"games",priceOMR:18,oldPrice:25,image:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2909400/header.jpg",detailsAr:"🏷️ الحجم: 145GB | 🗡️ RPG",detailsEn:"📦 Size: 145GB",timer:null},
-    {id:15,nameAr:"Tekken 8",nameEn:"Tekken 8",category:"games",priceOMR:12,oldPrice:18,image:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1778820/header.jpg",detailsAr:"🏷️ الحجم: 80GB | 🥊 قتال",detailsEn:"📦 Size: 80GB",timer:null},
-    {id:29,nameAr:"The Last of Us Part II",nameEn:"The Last of Us Part II",category:"games",priceOMR:8,oldPrice:14,image:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1888930/header.jpg",detailsAr:"🏷️ الحجم: 78GB | 🧟 بقاء ورعب",detailsEn:"📦 Size: 78GB",timer:null},
-    {id:30,nameAr:"Red Dead Redemption 2",nameEn:"Red Dead Redemption 2",category:"games",priceOMR:9,oldPrice:15,image:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1174180/header.jpg",detailsAr:"🏷️ الحجم: 150GB | 🤠 غرب",detailsEn:"📦 Size: 150GB",timer:null},
-    {id:31,nameAr:"Cyberpunk 2077",nameEn:"Cyberpunk 2077",category:"games",priceOMR:10,oldPrice:16,image:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/header.jpg",detailsAr:"🏷️ الحجم: 70GB | 🌆 مستقبل",detailsEn:"📦 Size: 70GB",timer:null},
-    {id:32,nameAr:"Elden Ring",nameEn:"Elden Ring",category:"games",priceOMR:12,oldPrice:18,image:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg",detailsAr:"🏷️ الحجم: 60GB | ⚔️ RPG",detailsEn:"📦 Size: 60GB",timer:null},
-    {id:33,nameAr:"Ghost of Tsushima",nameEn:"Ghost of Tsushima",category:"games",priceOMR:11,oldPrice:17,image:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2215430/header.jpg",detailsAr:"🏷️ الحجم: 50GB | 🗡️ ساموراي",detailsEn:"📦 Size: 50GB",timer:null},
-    {id:34,nameAr:"Mortal Kombat 1",nameEn:"Mortal Kombat 1",category:"games",priceOMR:12,oldPrice:18,image:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1971870/header.jpg",detailsAr:"🏷️ الحجم: 100GB | 🥊 قتال",detailsEn:"📦 Size: 100GB",timer:null},
-    {id:35,nameAr:"Resident Evil 4 Remake",nameEn:"Resident Evil 4 Remake",category:"games",priceOMR:11,oldPrice:17,image:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2050650/header.jpg",detailsAr:"🏷️ الحجم: 67GB | 🧟 رعب",detailsEn:"📦 Size: 67GB",timer:null},
-    {id:36,nameAr:"Gran Turismo 7",nameEn:"Gran Turismo 7",category:"games",priceOMR:11,oldPrice:17,image:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1281760/header.jpg",detailsAr:"🏷️ الحجم: 110GB | 🏎️ سباق",detailsEn:"📦 Size: 110GB",timer:null},
-    {id:37,nameAr:"Baldur's Gate 3",nameEn:"Baldur's Gate 3",category:"games",priceOMR:14,oldPrice:20,image:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1086940/header.jpg",detailsAr:"🏷️ الحجم: 150GB | 🧙 RPG",detailsEn:"📦 Size: 150GB",timer:null},
-    {id:38,nameAr:"Helldivers 2",nameEn:"Helldivers 2",category:"games",priceOMR:10,oldPrice:15,image:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/553850/header.jpg",detailsAr:"🏷️ الحجم: 100GB | 🪖 تعاوني",detailsEn:"📦 Size: 100GB",timer:null},
-    {id:39,nameAr:"Street Fighter 6",nameEn:"Street Fighter 6",category:"games",priceOMR:11,oldPrice:17,image:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1799460/header.jpg",detailsAr:"🏷️ الحجم: 60GB | 🥊 قتال",detailsEn:"📦 Size: 60GB",timer:null},
-    {id:40,nameAr:"Dragon's Dogma 2",nameEn:"Dragon's Dogma 2",category:"games",priceOMR:12,oldPrice:18,image:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2054970/header.jpg",detailsAr:"🏷️ الحجم: 60GB | 🐉 RPG",detailsEn:"📦 Size: 60GB",timer:null},
-    {id:41,nameAr:"Diablo IV",nameEn:"Diablo IV",category:"games",priceOMR:12,oldPrice:18,image:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2344520/header.jpg",detailsAr:"🏷️ الحجم: 90GB | 😈 مظلم",detailsEn:"📦 Size: 90GB",timer:null},
-    {id:42,nameAr:"Need for Speed Unbound",nameEn:"Need for Speed Unbound",category:"games",priceOMR:9,oldPrice:15,image:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1846350/header.jpg",detailsAr:"🏷️ الحجم: 50GB | 🚗 سباق",detailsEn:"📦 Size: 50GB",timer:null},
-    {id:43,nameAr:"It Takes Two",nameEn:"It Takes Two",category:"games",priceOMR:8,oldPrice:13,image:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1426210/header.jpg",detailsAr:"🏷️ الحجم: 50GB | 👫 ثنائي",detailsEn:"📦 Size: 50GB",timer:null},
-    {id:44,nameAr:"Star Wars Jedi: Survivor",nameEn:"Star Wars Jedi: Survivor",category:"games",priceOMR:12,oldPrice:18,image:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1775010/header.jpg",detailsAr:"🏷️ الحجم: 130GB | ⚡ Star Wars",detailsEn:"📦 Size: 130GB",timer:null},
-    {id:45,nameAr:"Sekiro: Shadows Die Twice",nameEn:"Sekiro: Shadows Die Twice",category:"games",priceOMR:10,oldPrice:16,image:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/814380/header.jpg",detailsAr:"🏷️ الحجم: 25GB | ⛩️ ساموراي",detailsEn:"📦 Size: 25GB",timer:null},
-    {id:46,nameAr:"Kena: Bridge of Spirits",nameEn:"Kena: Bridge of Spirits",category:"games",priceOMR:8,oldPrice:13,image:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1325200/header.jpg",detailsAr:"🏷️ الحجم: 30GB | 🌸 مغامرة",detailsEn:"📦 Size: 30GB",timer:null},
+    { id: 1, nameAr: "Assassin's Creed Shadows", nameEn: "Assassin's Creed Shadows", category: "games", priceOMR: 14, oldPrice: 20, image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/3159340/header.jpg", detailsAr: "🏷️ الحجم: 65GB | 🎮 اللغة: عربية/إنجليزية", detailsEn: "📦 Size: 65GB | 🎮 Language: Arabic/English", timer: null, msgAr: "أريد Assassin's Creed Shadows", msgEn: "I want Assassin's Creed Shadows" },
+    { id: 2, nameAr: "Call of Duty: Black Ops 6", nameEn: "Call of Duty: Black Ops 6", category: "games", priceOMR: 22, oldPrice: 30, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2933620/header.jpg", detailsAr: "🏷️ الحجم: 120GB | 🎮 اللغة: إنجليزية", detailsEn: "📦 Size: 120GB | 🎮 Language: English", timer: null, msgAr: "أريد Call of Duty Black Ops 6", msgEn: "I want Call of Duty Black Ops 6" },
+    { id: 3, nameAr: "Grand Theft Auto VI", nameEn: "Grand Theft Auto VI", category: "games", priceOMR: 6, oldPrice: 10, image: "https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/downloads/gtavi/gtavi_cover_ps5.jpg", detailsAr: "🏷️ الحجم: 150GB | 🌍 عالم مفتوح", detailsEn: "📦 Size: 150GB | 🌍 Open World", timer: null, msgAr: "أريد GTA VI PS5", msgEn: "I want GTA VI PS5" },
+    { id: 4, nameAr: "Grand Theft Auto VI", nameEn: "Grand Theft Auto VI", category: "games", priceOMR: 5, oldPrice: 8, image: "https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/downloads/gtavi/gtavi_cover.jpg", detailsAr: "🏷️ الحجم: 120GB | نسخة PS4", detailsEn: "📦 Size: 120GB | PS4 Version", timer: null, msgAr: "أريد GTA VI PS4", msgEn: "I want GTA VI PS4" },
+    { id: 5, nameAr: "Monster Hunter Wilds", nameEn: "Monster Hunter Wilds", category: "games", priceOMR: 14, oldPrice: 20, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2246340/header.jpg", detailsAr: "🏷️ الحجم: 75GB | 🐉 صيد الوحوش", detailsEn: "📦 Size: 75GB | 🐉 Monster Hunting", timer: null, msgAr: "أريد Monster Hunter Wilds", msgEn: "I want Monster Hunter Wilds" },
+    { id: 6, nameAr: "Ghost of Yōtei", nameEn: "Ghost of Yōtei", category: "games", priceOMR: 14, oldPrice: 20, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3138540/header.jpg", detailsAr: "🏷️ الحجم: 80GB | 🗡️ عالم مفتوح", detailsEn: "📦 Size: 80GB | 🗡️ Open World", timer: null, msgAr: "أريد Ghost of Yōtei", msgEn: "I want Ghost of Yōtei" },
+    { id: 7, nameAr: "Death Stranding 2", nameEn: "Death Stranding 2", category: "games", priceOMR: 24, oldPrice: 30, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2859570/header.jpg", detailsAr: "🏷️ الحجم: 100GB | 🌊 مغامرة فريدة", detailsEn: "📦 Size: 100GB | 🌊 Unique Adventure", timer: null, msgAr: "أريد Death Stranding 2", msgEn: "I want Death Stranding 2" },
+    { id: 8, nameAr: "EA Sports FC 26", nameEn: "EA Sports FC 26", category: "games", priceOMR: 13, oldPrice: 18, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2668610/header.jpg", detailsAr: "🏷️ الحجم: 55GB | ⚽ أندية محدثة", detailsEn: "📦 Size: 55GB | ⚽ Updated Clubs", timer: null, msgAr: "أريد EA Sports FC 26", msgEn: "I want EA Sports FC 26" },
+    { id: 9, nameAr: "Black Myth: Wukong", nameEn: "Black Myth: Wukong", category: "games", priceOMR: 16, oldPrice: 22, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2358720/header.jpg", detailsAr: "🏷️ الحجم: 90GB | 🐒 قصة المستهلك", detailsEn: "📦 Size: 90GB | 🐒 Epic Action RPG", timer: null, msgAr: "أريد Black Myth Wukong", msgEn: "I want Black Myth Wukong" },
+    { id: 10, nameAr: "Silent Hill 2 Remake", nameEn: "Silent Hill 2 Remake", category: "games", priceOMR: 14, oldPrice: 20, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2124490/header.jpg", detailsAr: "🏷️ الحجم: 50GB | 👻 رعب نفسي", detailsEn: "📦 Size: 50GB | 👻 Psychological Horror", timer: null, msgAr: "أريد Silent Hill 2 Remake", msgEn: "I want Silent Hill 2 Remake" },
+    { id: 11, nameAr: "God of War Ragnarök", nameEn: "God of War Ragnarök", category: "games", priceOMR: 10, oldPrice: 15, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2322010/header.jpg", detailsAr: "🏷️ الحجم: 85GB | 🪓 ملحمة إسكندنافية", detailsEn: "📦 Size: 85GB | 🪓 Norse Saga", timer: null, msgAr: "أريد God of War Ragnarök", msgEn: "I want God of War Ragnarök" },
+    { id: 12, nameAr: "Marvel's Spider-Man 2", nameEn: "Marvel's Spider-Man 2", category: "games", priceOMR: 16, oldPrice: 22, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2651280/header.jpg", detailsAr: "🏷️ الحجم: 98GB | 🕷️ بيتر + مايلز", detailsEn: "📦 Size: 98GB | 🕷️ Peter + Miles", timer: null, msgAr: "أريد Spider-Man 2", msgEn: "I want Spider-Man 2" },
+    { id: 13, nameAr: "Hogwarts Legacy", nameEn: "Hogwarts Legacy", category: "games", priceOMR: 11, oldPrice: 16, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/990080/header.jpg", detailsAr: "🏷️ الحجم: 85GB | 🧙 عالم هاري بوتر", detailsEn: "📦 Size: 85GB | 🧙 Harry Potter World", timer: null, msgAr: "أريد Hogwarts Legacy", msgEn: "I want Hogwarts Legacy" },
+    { id: 14, nameAr: "Final Fantasy VII Rebirth", nameEn: "Final Fantasy VII Rebirth", category: "games", priceOMR: 18, oldPrice: 25, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2909400/header.jpg", detailsAr: "🏷️ الحجم: 145GB | 🗡️ RPG خيالية", detailsEn: "📦 Size: 145GB | 🗡️ Fantasy RPG", timer: null, msgAr: "أريد Final Fantasy VII Rebirth", msgEn: "I want Final Fantasy VII Rebirth" },
+    { id: 15, nameAr: "Tekken 8", nameEn: "Tekken 8", category: "games", priceOMR: 12, oldPrice: 18, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1778820/header.jpg", detailsAr: "🏷️ الحجم: 80GB | 🥊 لعبة قتال", detailsEn: "📦 Size: 80GB | 🥊 Fighting Game", timer: null, msgAr: "أريد Tekken 8", msgEn: "I want Tekken 8" },
+    { id: 29, nameAr: "The Last of Us Part II", nameEn: "The Last of Us Part II", category: "games", priceOMR: 8, oldPrice: 14, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1888930/header.jpg", detailsAr: "🏷️ الحجم: 78GB | 🧟 بقاء ورعب", detailsEn: "📦 Size: 78GB | 🧟 Survival Horror", timer: null, msgAr: "أريد The Last of Us Part II", msgEn: "I want The Last of Us Part II" },
+    { id: 30, nameAr: "Red Dead Redemption 2", nameEn: "Red Dead Redemption 2", category: "games", priceOMR: 9, oldPrice: 15, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1174180/header.jpg", detailsAr: "🏷️ الحجم: 150GB | 🤠 مغامرة غرب", detailsEn: "📦 Size: 150GB | 🤠 Western Adventure", timer: null, msgAr: "أريد Red Dead Redemption 2", msgEn: "I want Red Dead Redemption 2" },
+    { id: 31, nameAr: "Cyberpunk 2077", nameEn: "Cyberpunk 2077", category: "games", priceOMR: 10, oldPrice: 16, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/header.jpg", detailsAr: "🏷️ الحجم: 70GB | 🌆 مستقبل مفتوح", detailsEn: "📦 Size: 70GB | 🌆 Open World Future", timer: null, msgAr: "أريد Cyberpunk 2077", msgEn: "I want Cyberpunk 2077" },
+    { id: 32, nameAr: "Elden Ring", nameEn: "Elden Ring", category: "games", priceOMR: 12, oldPrice: 18, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg", detailsAr: "🏷️ الحجم: 60GB | ⚔️ RPG خيالي", detailsEn: "📦 Size: 60GB | ⚔️ Fantasy RPG", timer: null, msgAr: "أريد Elden Ring", msgEn: "I want Elden Ring" },
+    { id: 33, nameAr: "Horizon Forbidden West", nameEn: "Horizon Forbidden West", category: "games", priceOMR: 11, oldPrice: 17, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1151640/header.jpg", detailsAr: "🏷️ الحجم: 96GB | 🦕 مغامرة مستقبلية", detailsEn: "📦 Size: 96GB | 🦕 Future Adventure", timer: null, msgAr: "أريد Horizon Forbidden West", msgEn: "I want Horizon Forbidden West" },
+    { id: 34, nameAr: "Ratchet & Clank: Rift Apart", nameEn: "Ratchet & Clank: Rift Apart", category: "games", priceOMR: 10, oldPrice: 16, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1895880/header.jpg", detailsAr: "🏷️ الحجم: 83GB | 🔧 مغامرة PS5", detailsEn: "📦 Size: 83GB | 🔧 PS5 Adventure", timer: null, msgAr: "أريد Ratchet & Clank Rift Apart", msgEn: "I want Ratchet & Clank Rift Apart" },
+    { id: 35, nameAr: "Returnal", nameEn: "Returnal", category: "games", priceOMR: 10, oldPrice: 15, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1649240/header.jpg", detailsAr: "🏷️ الحجم: 60GB | 👾 حصري PS5", detailsEn: "📦 Size: 60GB | 👾 PS5 Exclusive", timer: null, msgAr: "أريد Returnal", msgEn: "I want Returnal" },
+    { id: 36, nameAr: "Demon's Souls Remake", nameEn: "Demon's Souls Remake", category: "games", priceOMR: 9, oldPrice: 14, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1259420/header.jpg", detailsAr: "🏷️ الحجم: 66GB | ⚔️ حصري PS5", detailsEn: "📦 Size: 66GB | ⚔️ PS5 Exclusive", timer: null, msgAr: "أريد Demon's Souls Remake", msgEn: "I want Demon's Souls Remake" },
+    { id: 37, nameAr: "Mortal Kombat 1", nameEn: "Mortal Kombat 1", category: "games", priceOMR: 12, oldPrice: 18, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1971870/header.jpg", detailsAr: "🏷️ الحجم: 100GB | 🥊 قتال دموي", detailsEn: "📦 Size: 100GB | 🥊 Fighting", timer: null, msgAr: "أريد Mortal Kombat 1", msgEn: "I want Mortal Kombat 1" },
+    { id: 38, nameAr: "Street Fighter 6", nameEn: "Street Fighter 6", category: "games", priceOMR: 11, oldPrice: 17, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1799460/header.jpg", detailsAr: "🏷️ الحجم: 60GB | 🥊 قتال كلاسيكي", detailsEn: "📦 Size: 60GB | 🥊 Classic Fighting", timer: null, msgAr: "أريد Street Fighter 6", msgEn: "I want Street Fighter 6" },
+    { id: 39, nameAr: "WWE 2K24", nameEn: "WWE 2K24", category: "games", priceOMR: 12, oldPrice: 18, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2285550/header.jpg", detailsAr: "🏷️ الحجم: 55GB | 🤼 مصارعة", detailsEn: "📦 Size: 55GB | 🤼 Wrestling", timer: null, msgAr: "أريد WWE 2K24", msgEn: "I want WWE 2K24" },
+    { id: 40, nameAr: "NBA 2K24", nameEn: "NBA 2K24", category: "games", priceOMR: 10, oldPrice: 16, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2338770/header.jpg", detailsAr: "🏷️ الحجم: 150GB | 🏀 كرة سلة", detailsEn: "📦 Size: 150GB | 🏀 Basketball", timer: null, msgAr: "أريد NBA 2K24", msgEn: "I want NBA 2K24" },
+    { id: 41, nameAr: "FIFA 23", nameEn: "FIFA 23", category: "games", priceOMR: 8, oldPrice: 14, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1811260/header.jpg", detailsAr: "🏷️ الحجم: 100GB | ⚽ كرة قدم", detailsEn: "📦 Size: 100GB | ⚽ Football", timer: null, msgAr: "أريد FIFA 23", msgEn: "I want FIFA 23" },
+    { id: 42, nameAr: "UFC 5", nameEn: "UFC 5", category: "games", priceOMR: 12, oldPrice: 18, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2365960/header.jpg", detailsAr: "🏷️ الحجم: 60GB | 🥊 فنون قتالية", detailsEn: "📦 Size: 60GB | 🥊 MMA Fighting", timer: null, msgAr: "أريد UFC 5", msgEn: "I want UFC 5" },
+    { id: 43, nameAr: "It Takes Two", nameEn: "It Takes Two", category: "games", priceOMR: 8, oldPrice: 13, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1426210/header.jpg", detailsAr: "🏷️ الحجم: 50GB | 👫 لعب ثنائي", detailsEn: "📦 Size: 50GB | 👫 Co-op", timer: null, msgAr: "أريد It Takes Two", msgEn: "I want It Takes Two" },
+    { id: 44, nameAr: "A Plague Tale: Requiem", nameEn: "A Plague Tale: Requiem", category: "games", priceOMR: 10, oldPrice: 15, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1182480/header.jpg", detailsAr: "🏷️ الحجم: 55GB | 🐀 مغامرة تاريخية", detailsEn: "📦 Size: 55GB | 🐀 Historical Adventure", timer: null, msgAr: "أريد A Plague Tale Requiem", msgEn: "I want A Plague Tale Requiem" },
+    { id: 45, nameAr: "Star Wars Jedi: Survivor", nameEn: "Star Wars Jedi: Survivor", category: "games", priceOMR: 12, oldPrice: 18, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1775010/header.jpg", detailsAr: "🏷️ الحجم: 130GB | ⚡ حرب النجوم", detailsEn: "📦 Size: 130GB | ⚡ Star Wars", timer: null, msgAr: "أريد Star Wars Jedi Survivor", msgEn: "I want Star Wars Jedi Survivor" },
+    { id: 46, nameAr: "Resident Evil 4 Remake", nameEn: "Resident Evil 4 Remake", category: "games", priceOMR: 11, oldPrice: 17, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2050650/header.jpg", detailsAr: "🏷️ الحجم: 67GB | 🧟 رعب وأكشن", detailsEn: "📦 Size: 67GB | 🧟 Horror Action", timer: null, msgAr: "أريد Resident Evil 4 Remake", msgEn: "I want Resident Evil 4 Remake" },
+    { id: 47, nameAr: "Lies of P", nameEn: "Lies of P", category: "games", priceOMR: 10, oldPrice: 15, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1627720/header.jpg", detailsAr: "🏷️ الحجم: 30GB | 🪆 RPG أكشن", detailsEn: "📦 Size: 30GB | 🪆 Action RPG", timer: null, msgAr: "أريد Lies of P", msgEn: "I want Lies of P" },
+    { id: 48, nameAr: "Alan Wake 2", nameEn: "Alan Wake 2", category: "games", priceOMR: 11, oldPrice: 17, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1874189/header.jpg", detailsAr: "🏷️ الحجم: 90GB | 🔦 رعب نفسي", detailsEn: "📦 Size: 90GB | 🔦 Psychological Horror", timer: null, msgAr: "أريد Alan Wake 2", msgEn: "I want Alan Wake 2" },
+    { id: 49, nameAr: "Forspoken", nameEn: "Forspoken", category: "games", priceOMR: 7, oldPrice: 12, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1680880/header.jpg", detailsAr: "🏷️ الحجم: 60GB | ✨ سحر وخيال", detailsEn: "📦 Size: 60GB | ✨ Magic Fantasy", timer: null, msgAr: "أريد Forspoken", msgEn: "I want Forspoken" },
+    { id: 50, nameAr: "Gotham Knights", nameEn: "Gotham Knights", category: "games", priceOMR: 9, oldPrice: 15, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1496790/header.jpg", detailsAr: "🏷️ الحجم: 45GB | 🦇 باتمان", detailsEn: "📦 Size: 45GB | 🦇 Batman Universe", timer: null, msgAr: "أريد Gotham Knights", msgEn: "I want Gotham Knights" },
+    { id: 51, nameAr: "Suicide Squad: Kill the Justice League", nameEn: "Suicide Squad: Kill JL", category: "games", priceOMR: 8, oldPrice: 14, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/315210/header.jpg", detailsAr: "🏷️ الحجم: 65GB | 💥 أبطال خارقون", detailsEn: "📦 Size: 65GB | 💥 Superheroes", timer: null, msgAr: "أريد Suicide Squad", msgEn: "I want Suicide Squad" },
+    { id: 52, nameAr: "Ghost of Tsushima", nameEn: "Ghost of Tsushima", category: "games", priceOMR: 11, oldPrice: 17, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2215430/header.jpg", detailsAr: "🏷️ الحجم: 50GB | 🗡️ ساموراي", detailsEn: "📦 Size: 50GB | 🗡️ Samurai", timer: null, msgAr: "أريد Ghost of Tsushima", msgEn: "I want Ghost of Tsushima" },
+    { id: 53, nameAr: "Uncharted 4", nameEn: "Uncharted 4", category: "games", priceOMR: 7, oldPrice: 12, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1659420/header.jpg", detailsAr: "🏷️ الحجم: 50GB | 🏺 مغامرة", detailsEn: "📦 Size: 50GB | 🏺 Adventure", timer: null, msgAr: "أريد Uncharted 4", msgEn: "I want Uncharted 4" },
+    { id: 54, nameAr: "Bloodborne", nameEn: "Bloodborne", category: "games", priceOMR: 8, oldPrice: 13, image: "https://upload.wikimedia.org/wikipedia/en/6/6a/Bloodborne_Cover_Wallpaper.jpg", detailsAr: "🏷️ الحجم: 50GB | 🩸 رعب وأكشن", detailsEn: "📦 Size: 50GB | 🩸 Horror Action", timer: null, msgAr: "أريد Bloodborne", msgEn: "I want Bloodborne" },
+    { id: 55, nameAr: "Sekiro: Shadows Die Twice", nameEn: "Sekiro: Shadows Die Twice", category: "games", priceOMR: 10, oldPrice: 16, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/814380/header.jpg", detailsAr: "🏷️ الحجم: 25GB | ⛩️ ساموراي", detailsEn: "📦 Size: 25GB | ⛩️ Samurai Action", timer: null, msgAr: "أريد Sekiro Shadows Die Twice", msgEn: "I want Sekiro Shadows Die Twice" },
+    { id: 56, nameAr: "Dragon's Dogma 2", nameEn: "Dragon's Dogma 2", category: "games", priceOMR: 12, oldPrice: 18, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2054970/header.jpg", detailsAr: "🏷️ الحجم: 60GB | 🐉 RPG خيالي", detailsEn: "📦 Size: 60GB | 🐉 Fantasy RPG", timer: null, msgAr: "أريد Dragon's Dogma 2", msgEn: "I want Dragon's Dogma 2" },
+    { id: 57, nameAr: "Rise of the Ronin", nameEn: "Rise of the Ronin", category: "games", priceOMR: 13, oldPrice: 19, image: "https://image.api.playstation.com/vulcan/ap/rnd/202310/1000/c9e9fbf7d3c3a7ab02cf37df3bfca60fc4ae6d45.png", detailsAr: "🏷️ الحجم: 60GB | ⚔️ حصري PS5", detailsEn: "📦 Size: 60GB | ⚔️ PS5 Exclusive", timer: null, msgAr: "أريد Rise of the Ronin", msgEn: "I want Rise of the Ronin" },
+    { id: 58, nameAr: "Like a Dragon: Infinite Wealth", nameEn: "Like a Dragon: Infinite Wealth", category: "games", priceOMR: 13, oldPrice: 19, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2072450/header.jpg", detailsAr: "🏷️ الحجم: 58GB | 🐉 RPG ياباني", detailsEn: "📦 Size: 58GB | 🐉 Japanese RPG", timer: null, msgAr: "أريد Like a Dragon Infinite Wealth", msgEn: "I want Like a Dragon Infinite Wealth" },
+    { id: 59, nameAr: "Baldur's Gate 3", nameEn: "Baldur's Gate 3", category: "games", priceOMR: 14, oldPrice: 20, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1086940/header.jpg", detailsAr: "🏷️ الحجم: 150GB | 🧙 RPG خيالي", detailsEn: "📦 Size: 150GB | 🧙 Fantasy RPG", timer: null, msgAr: "أريد Baldur's Gate 3", msgEn: "I want Baldur's Gate 3" },
+    { id: 60, nameAr: "Starfield", nameEn: "Starfield", category: "games", priceOMR: 11, oldPrice: 17, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1716740/header.jpg", detailsAr: "🏷️ الحجم: 140GB | 🚀 فضاء مفتوح", detailsEn: "📦 Size: 140GB | 🚀 Space RPG", timer: null, msgAr: "أريد Starfield", msgEn: "I want Starfield" },
+    { id: 61, nameAr: "Armored Core VI", nameEn: "Armored Core VI: Fires of Rubicon", category: "games", priceOMR: 11, oldPrice: 16, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1888160/header.jpg", detailsAr: "🏷️ الحجم: 50GB | 🤖 روبوت أكشن", detailsEn: "📦 Size: 50GB | 🤖 Mech Action", timer: null, msgAr: "أريد Armored Core VI", msgEn: "I want Armored Core VI" },
+    { id: 62, nameAr: "Avatar: Frontiers of Pandora", nameEn: "Avatar: Frontiers of Pandora", category: "games", priceOMR: 12, oldPrice: 18, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1580380/header.jpg", detailsAr: "🏷️ الحجم: 90GB | 🌿 عالم مفتوح", detailsEn: "📦 Size: 90GB | 🌿 Open World", timer: null, msgAr: "أريد Avatar Frontiers of Pandora", msgEn: "I want Avatar Frontiers of Pandora" },
+    { id: 63, nameAr: "The Witcher 3: Wild Hunt", nameEn: "The Witcher 3: Wild Hunt", category: "games", priceOMR: 7, oldPrice: 12, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/292030/header.jpg", detailsAr: "🏷️ الحجم: 50GB | 🗡️ RPG خيالي", detailsEn: "📦 Size: 50GB | 🗡️ Fantasy RPG", timer: null, msgAr: "أريد The Witcher 3", msgEn: "I want The Witcher 3" },
+    { id: 64, nameAr: "Diablo IV", nameEn: "Diablo IV", category: "games", priceOMR: 12, oldPrice: 18, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2344520/header.jpg", detailsAr: "🏷️ الحجم: 90GB | 😈 RPG مظلم", detailsEn: "📦 Size: 90GB | 😈 Dark RPG", timer: null, msgAr: "أريد Diablo IV", msgEn: "I want Diablo IV" },
+    { id: 65, nameAr: "Fortnite", nameEn: "Fortnite", category: "games", priceOMR: 0, oldPrice: null, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1677740/header.jpg", detailsAr: "🏷️ مجاني | 🏗️ Battle Royale", detailsEn: "📦 Free | 🏗️ Battle Royale", timer: null, msgAr: "أريد V-Bucks Fortnite", msgEn: "I want Fortnite V-Bucks" },
+    { id: 66, nameAr: "Helldivers 2", nameEn: "Helldivers 2", category: "games", priceOMR: 10, oldPrice: 15, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/553850/header.jpg", detailsAr: "🏷️ الحجم: 100GB | 🪖 تعاوني", detailsEn: "📦 Size: 100GB | 🪖 Co-op Shooter", timer: null, msgAr: "أريد Helldivers 2", msgEn: "I want Helldivers 2" },
+    { id: 67, nameAr: "Prince of Persia: The Lost Crown", nameEn: "Prince of Persia: The Lost Crown", category: "games", priceOMR: 9, oldPrice: 14, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1951270/header.jpg", detailsAr: "🏷️ الحجم: 10GB | 👑 مغامرة", detailsEn: "📦 Size: 10GB | 👑 Adventure", timer: null, msgAr: "أريد Prince of Persia The Lost Crown", msgEn: "I want Prince of Persia The Lost Crown" },
+    { id: 68, nameAr: "Crash Bandicoot 4", nameEn: "Crash Bandicoot 4: It's About Time", category: "games", priceOMR: 8, oldPrice: 13, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1378990/header.jpg", detailsAr: "🏷️ الحجم: 50GB | 🐺 منصات", detailsEn: "📦 Size: 50GB | 🐺 Platformer", timer: null, msgAr: "أريد Crash Bandicoot 4", msgEn: "I want Crash Bandicoot 4" },
+    { id: 69, nameAr: "Spyro Reignited Trilogy", nameEn: "Spyro Reignited Trilogy", category: "games", priceOMR: 7, oldPrice: 12, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/996580/header.jpg", detailsAr: "🏷️ الحجم: 50GB | 🐉 3 ألعاب", detailsEn: "📦 Size: 50GB | 🐉 3 Games", timer: null, msgAr: "أريد Spyro Reignited Trilogy", msgEn: "I want Spyro Reignited Trilogy" },
+    { id: 70, nameAr: "Sackboy: A Big Adventure", nameEn: "Sackboy: A Big Adventure", category: "games", priceOMR: 8, oldPrice: 14, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1497790/header.jpg", detailsAr: "🏷️ الحجم: 12GB | 🧸 منصات عائلي", detailsEn: "📦 Size: 12GB | 🧸 Family Platformer", timer: null, msgAr: "أريد Sackboy A Big Adventure", msgEn: "I want Sackboy A Big Adventure" },
+    { id: 71, nameAr: "Kena: Bridge of Spirits", nameEn: "Kena: Bridge of Spirits", category: "games", priceOMR: 8, oldPrice: 13, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1325200/header.jpg", detailsAr: "🏷️ الحجم: 30GB | 🌸 مغامرة جميلة", detailsEn: "📦 Size: 30GB | 🌸 Beautiful Adventure", timer: null, msgAr: "أريد Kena Bridge of Spirits", msgEn: "I want Kena Bridge of Spirits" },
+    { id: 72, nameAr: "Gran Turismo 7", nameEn: "Gran Turismo 7", category: "games", priceOMR: 11, oldPrice: 17, image: "https://image.api.playstation.com/vulcan/ap/rnd/202109/1321/nBW6AOVBgTYGhhUEVwklGPgr.png", detailsAr: "🏷️ الحجم: 110GB | 🏎️ سباق سيارات", detailsEn: "📦 Size: 110GB | 🏎️ Racing", timer: null, msgAr: "أريد Gran Turismo 7", msgEn: "I want Gran Turismo 7" },
+    { id: 73, nameAr: "Need for Speed Unbound", nameEn: "Need for Speed Unbound", category: "games", priceOMR: 9, oldPrice: 15, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1846350/header.jpg", detailsAr: "🏷️ الحجم: 50GB | 🚗 سباق شوارع", detailsEn: "📦 Size: 50GB | 🚗 Street Racing", timer: null, msgAr: "أريد Need for Speed Unbound", msgEn: "I want Need for Speed Unbound" },
+    { id: 74, nameAr: "The Callisto Protocol", nameEn: "The Callisto Protocol", category: "games", priceOMR: 8, oldPrice: 14, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1272500/header.jpg", detailsAr: "🏷️ الحجم: 36GB | 👾 رعب فضائي", detailsEn: "📦 Size: 36GB | 👾 Space Horror", timer: null, msgAr: "أريد The Callisto Protocol", msgEn: "I want The Callisto Protocol" }
   ];
-
+  
   const defaultGiftcards = [
-    {id:16,nameAr:"بطاقة شحن أمريكي",nameEn:"US Gift Card",category:"giftcards",priceOMR:5,oldPrice:6,image:"",detailsAr:"الفئات: 10$ | 25$ | 50$ | 100$",detailsEn:"Values: 10$ | 25$ | 50$ | 100$",timer:null,icon:"🇺🇸"},
-    {id:17,nameAr:"بطاقة شحن بريطاني",nameEn:"UK Gift Card",category:"giftcards",priceOMR:6,oldPrice:7,image:"",detailsAr:"الفئات: 10£ | 25£ | 50£",detailsEn:"Values: 10£ | 25£ | 50£",timer:null,icon:"🇬🇧"},
-    {id:18,nameAr:"بطاقة شحن تركي",nameEn:"Turkey Gift Card",category:"giftcards",priceOMR:4,oldPrice:5,image:"",detailsAr:"الفئات: 100₺ | 250₺ | 500₺",detailsEn:"Values: 100₺ | 250₺ | 500₺",timer:null,icon:"🇹🇷"},
-    {id:19,nameAr:"بطاقة شحن هندي",nameEn:"India Gift Card",category:"giftcards",priceOMR:3.5,oldPrice:4.5,image:"",detailsAr:"الفئات: 500₹ | 1000₹ | 2000₹",detailsEn:"Values: 500₹ | 1000₹",timer:null,icon:"🇮🇳"},
-    {id:20,nameAr:"بطاقة شحن إندونيسي",nameEn:"Indonesia Gift Card",category:"giftcards",priceOMR:4,oldPrice:5,image:"",detailsAr:"الفئات: 50k | 100k | 200k",detailsEn:"Values: 50k | 100k | 200k",timer:null,icon:"🇮🇩"},
-    {id:21,nameAr:"بطاقة شحن سعودي",nameEn:"Saudi Gift Card",category:"giftcards",priceOMR:4.5,oldPrice:5.5,image:"",detailsAr:"الفئات: 50ر.س | 100ر.س | 200ر.س",detailsEn:"Values: 50 SAR | 100 SAR",timer:null,icon:"🇸🇦"},
-    {id:22,nameAr:"بطاقة شحن قطري",nameEn:"Qatar Gift Card",category:"giftcards",priceOMR:4.5,oldPrice:5.5,image:"",detailsAr:"الفئات: 50ر.ق | 100ر.ق | 200ر.ق",detailsEn:"Values: 50 QAR | 100 QAR",timer:null,icon:"🇶🇦"},
-    {id:23,nameAr:"بطاقة شحن إماراتي",nameEn:"UAE Gift Card",category:"giftcards",priceOMR:5,oldPrice:6,image:"",detailsAr:"الفئات: 50د.إ | 100د.إ | 200د.إ",detailsEn:"Values: 50 AED | 100 AED",timer:null,icon:"🇦🇪"},
-    {id:24,nameAr:"بطاقة شحن كويتي",nameEn:"Kuwait Gift Card",category:"giftcards",priceOMR:6,oldPrice:7,image:"",detailsAr:"الفئات: 5د.ك | 10د.ك | 20د.ك",detailsEn:"Values: 5 KWD | 10 KWD",timer:null,icon:"🇰🇼"},
-    {id:25,nameAr:"بطاقة شحن بحريني",nameEn:"Bahrain Gift Card",category:"giftcards",priceOMR:5.5,oldPrice:6.5,image:"",detailsAr:"الفئات: 5د.ب | 10د.ب | 20د.ب",detailsEn:"Values: 5 BHD | 10 BHD",timer:null,icon:"🇧🇭"},
-    {id:27,nameAr:"PSN 20$",nameEn:"PSN 20$",category:"giftcards",priceOMR:7.7,oldPrice:10,image:"",detailsAr:"بطاقة شحن أمريكي 20 دولار",detailsEn:"US Gift Card 20$",timer:null,icon:"💳"},
-    {id:28,nameAr:"بطاقة شحن عماني",nameEn:"Oman Gift Card",category:"giftcards",priceOMR:5,oldPrice:6,image:"",detailsAr:"الفئات: 5ر.ع | 10ر.ع | 20ر.ع",detailsEn:"Values: 5 OMR | 10 OMR",timer:null,icon:"🇴🇲"},
+    { id: 16, nameAr: "بطاقة شحن أمريكي", nameEn: "US Gift Card", category: "giftcards", priceOMR: 5, oldPrice: 6, image: "", detailsAr: "الفئات: 10$ | 25$ | 50$ | 100$", detailsEn: "Values: 10$ | 25$ | 50$ | 100$", timer: null, msgAr: "أريد بطاقة شحن أمريكي", msgEn: "I want US Gift Card", icon: "🇺🇸" },
+    { id: 17, nameAr: "بطاقة شحن بريطاني", nameEn: "UK Gift Card", category: "giftcards", priceOMR: 6, oldPrice: 7, image: "", detailsAr: "الفئات: 10£ | 25£ | 50£", detailsEn: "Values: 10£ | 25£ | 50£", timer: null, msgAr: "أريد بطاقة شحن بريطاني", msgEn: "I want UK Gift Card", icon: "🇬🇧" },
+    { id: 18, nameAr: "بطاقة شحن تركي", nameEn: "Turkey Gift Card", category: "giftcards", priceOMR: 4, oldPrice: 5, image: "", detailsAr: "الفئات: 100₺ | 250₺ | 500₺", detailsEn: "Values: 100₺ | 250₺ | 500₺", timer: null, msgAr: "أريد بطاقة شحن تركي", msgEn: "I want Turkey Gift Card", icon: "🇹🇷" },
+    { id: 19, nameAr: "بطاقة شحن هندي", nameEn: "India Gift Card", category: "giftcards", priceOMR: 3.5, oldPrice: 4.5, image: "", detailsAr: "الفئات: 500₹ | 1000₹ | 2000₹", detailsEn: "Values: 500₹ | 1000₹ | 2000₹", timer: null, msgAr: "أريد بطاقة شحن هندي", msgEn: "I want India Gift Card", icon: "🇮🇳" },
+    { id: 20, nameAr: "بطاقة شحن إندونيسي", nameEn: "Indonesia Gift Card", category: "giftcards", priceOMR: 4, oldPrice: 5, image: "", detailsAr: "الفئات: 50k | 100k | 200k", detailsEn: "Values: 50k | 100k | 200k", timer: null, msgAr: "أريد بطاقة شحن إندونيسي", msgEn: "I want Indonesia Gift Card", icon: "🇮🇩" },
+    { id: 21, nameAr: "بطاقة شحن سعودي", nameEn: "Saudi Gift Card", category: "giftcards", priceOMR: 4.5, oldPrice: 5.5, image: "", detailsAr: "الفئات: 50ر.س | 100ر.س | 200ر.س", detailsEn: "Values: 50 SAR | 100 SAR | 200 SAR", timer: null, msgAr: "أريد بطاقة شحن سعودي", msgEn: "I want Saudi Gift Card", icon: "🇸🇦" },
+    { id: 22, nameAr: "بطاقة شحن قطري", nameEn: "Qatar Gift Card", category: "giftcards", priceOMR: 4.5, oldPrice: 5.5, image: "", detailsAr: "الفئات: 50ر.ق | 100ر.ق | 200ر.ق", detailsEn: "Values: 50 QAR | 100 QAR | 200 QAR", timer: null, msgAr: "أريد بطاقة شحن قطري", msgEn: "I want Qatar Gift Card", icon: "🇶🇦" },
+    { id: 23, nameAr: "بطاقة شحن إماراتي", nameEn: "UAE Gift Card", category: "giftcards", priceOMR: 5, oldPrice: 6, image: "", detailsAr: "الفئات: 50د.إ | 100د.إ | 200د.إ", detailsEn: "Values: 50 AED | 100 AED | 200 AED", timer: null, msgAr: "أريد بطاقة شحن إماراتي", msgEn: "I want UAE Gift Card", icon: "🇦🇪" },
+    { id: 24, nameAr: "بطاقة شحن كويتي", nameEn: "Kuwait Gift Card", category: "giftcards", priceOMR: 6, oldPrice: 7, image: "", detailsAr: "الفئات: 5د.ك | 10د.ك | 20د.ك", detailsEn: "Values: 5 KWD | 10 KWD | 20 KWD", timer: null, msgAr: "أريد بطاقة شحن كويتي", msgEn: "I want Kuwait Gift Card", icon: "🇰🇼" },
+    { id: 25, nameAr: "بطاقة شحن بحريني", nameEn: "Bahrain Gift Card", category: "giftcards", priceOMR: 5.5, oldPrice: 6.5, image: "", detailsAr: "الفئات: 5د.ب | 10د.ب | 20د.ب", detailsEn: "Values: 5 BHD | 10 BHD | 20 BHD", timer: null, msgAr: "أريد بطاقة شحن بحريني", msgEn: "I want Bahrain Gift Card", icon: "🇧🇭" },
+    { id: 26, nameAr: "حساب Plus سنة", nameEn: "PS Plus Year", category: "giftcards", priceOMR: 23, oldPrice: 11.5, image: "", detailsAr: "اشتراك لمدة سنة | 12 Months Card", detailsEn: "12 Months Subscription", timer: null, msgAr: "أريد حساب Plus سنة", msgEn: "I want PS Plus Year", icon: "🎮" },
+    { id: 27, nameAr: "PSN 20$", nameEn: "PSN 20$", category: "giftcards", priceOMR: 7.7, oldPrice: 10, image: "", detailsAr: "بطاقة شحن أمريكي", detailsEn: "US Gift Card", timer: null, msgAr: "أريد PSN 20$", msgEn: "I want PSN 20$", icon: "💳" },
+    { id: 28, nameAr: "بطاقة شحن عماني", nameEn: "Oman Gift Card", category: "giftcards", priceOMR: 5, oldPrice: 6, image: "", detailsAr: "الفئات: 5ر.ع | 10ر.ع | 20ر.ع", detailsEn: "Values: 5 OMR | 10 OMR | 20 OMR", timer: null, msgAr: "أريد بطاقة شحن عماني", msgEn: "I want Oman Gift Card", icon: "🇴🇲" }
   ];
-
-  const defaultPsplus = [
-    {id:75,nameAr:"PS Plus Essential سنة",nameEn:"PS Plus Essential Year",category:"psplus",priceOMR:8,oldPrice:15,image:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/PlayStation_Plus_logo.svg/800px-PlayStation_Plus_logo.svg.png",detailsAr:"اشتراك Essential 12 شهر | ألعاب شهرية + خصومات",detailsEn:"Essential 12 Months | Monthly Games + Discounts",timer:null,icon:"🌟"},
-    {id:76,nameAr:"PS Plus Extra سنة",nameEn:"PS Plus Extra Year",category:"psplus",priceOMR:12,oldPrice:20,image:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/PlayStation_Plus_logo.svg/800px-PlayStation_Plus_logo.svg.png",detailsAr:"اشتراك Extra 12 شهر | مكتبة 400+ لعبة",detailsEn:"Extra 12 Months | 400+ Games Library",timer:null,icon:"⭐"},
-    {id:77,nameAr:"PS Plus Deluxe سنة",nameEn:"PS Plus Deluxe Year",category:"psplus",priceOMR:15,oldPrice:25,image:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/PlayStation_Plus_logo.svg/800px-PlayStation_Plus_logo.svg.png",detailsAr:"اشتراك Deluxe 12 شهر | مكتبة كاملة + كلاسيكيات",detailsEn:"Deluxe 12 Months | Full Library + Classics",timer:null,icon:"💎"},
-    {id:78,nameAr:"PS Plus Essential 3 أشهر",nameEn:"PS Plus Essential 3 Months",category:"psplus",priceOMR:3,oldPrice:5,image:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/PlayStation_Plus_logo.svg/800px-PlayStation_Plus_logo.svg.png",detailsAr:"اشتراك Essential 3 أشهر",detailsEn:"Essential 3 Months",timer:null,icon:"🌟"},
-    {id:26,nameAr:"حساب Plus سنة",nameEn:"PS Plus Year",category:"psplus",priceOMR:11.5,oldPrice:23,image:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/PlayStation_Plus_logo.svg/800px-PlayStation_Plus_logo.svg.png",detailsAr:"اشتراك لمدة سنة | 12 Months Card",detailsEn:"12 Months Subscription",timer:null,icon:"🎮"},
-  ];
-
-  const DATA_VERSION = "v5";
+  
+  const DATA_VERSION = "v3";
 
   function loadFromLocal() {
     const savedVersion = localStorage.getItem("xnesto_version");
+    // إذا تغيرت النسخة امسح البيانات القديمة وحمّل الجديدة
     if (savedVersion !== DATA_VERSION) {
       localStorage.removeItem("xnesto_products");
       localStorage.setItem("xnesto_version", DATA_VERSION);
@@ -657,342 +1845,674 @@
     const saved = localStorage.getItem("xnesto_products");
     if (saved) {
       products = JSON.parse(saved);
-      nextId = Math.max(...products.map(p=>p.id),0)+1;
+      nextId = Math.max(...products.map(p => p.id), 0) + 1;
     } else {
-      products = [...defaultGames,...defaultGiftcards,...defaultPsplus];
-      nextId = 100;
+      products = [...defaultGames, ...defaultGiftcards];
+      nextId = 75;
       saveToLocal();
     }
     const savedCats = localStorage.getItem("xnesto_categories");
-    if (savedCats) { const c=JSON.parse(savedCats); categories=c.categories; categoryNames=c.names; }
+    if (savedCats) {
+      const cats = JSON.parse(savedCats);
+      categories = cats.categories;
+      categoryNames = cats.names;
+    }
     updateCategorySelect();
   }
-  function saveToLocal(){ localStorage.setItem("xnesto_products",JSON.stringify(products)); }
-  function saveCategories(){ localStorage.setItem("xnesto_categories",JSON.stringify({categories,names:categoryNames})); }
-  function updateCategorySelect(){
-    const s=document.getElementById("newCategorySelect"); if(!s)return; s.innerHTML="";
-    categories.forEach(c=>{const o=document.createElement("option");o.value=c;o.textContent=categoryNames[c]||c;s.appendChild(o);});
+  function saveToLocal() { localStorage.setItem("xnesto_products", JSON.stringify(products)); }
+  function saveCategories() { localStorage.setItem("xnesto_categories", JSON.stringify({ categories, names: categoryNames })); }
+  
+  function updateCategorySelect() {
+    const select = document.getElementById("newCategorySelect");
+    if (!select) return;
+    select.innerHTML = "";
+    categories.forEach(cat => {
+      const option = document.createElement("option");
+      option.value = cat;
+      option.textContent = categoryNames[cat] || cat;
+      select.appendChild(option);
+    });
   }
+  
   loadFromLocal();
-
-  function convertPrice(p){ return(p*exchangeRates[currentCurrency]).toFixed(2); }
-  function calcDiscount(op,np){ if(!op||op<=np)return 0; return Math.round((1-np/op)*100); }
-  function getRemainingTime(timer){
-    if(!timer)return null;
-    const diff=new Date(timer)-new Date();
-    if(diff<=0)return"انتهى";
-    const days=Math.floor(diff/(1000*60*60*24));
-    const hours=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-    return days>0?`${days} يوم ${hours} ساعة`:`${hours} ساعة`;
+  
+  function convertPrice(price) { return (price * exchangeRates[currentCurrency]).toFixed(2); }
+  function calcDiscount(oldPrice, newPrice) { if (!oldPrice || oldPrice <= newPrice) return 0; return Math.round((1 - newPrice / oldPrice) * 100); }
+  function getRemainingTime(timer) {
+    if (!timer) return null;
+    const end = new Date(timer);
+    const now = new Date();
+    const diff = end - now;
+    if (diff <= 0) return "انتهى";
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    if (days > 0) return `${days} يوم ${hours} ساعة`;
+    return `${hours} ساعة`;
   }
-  function getFilteredProducts(){
-    let f=[...products];
-    const q=searchQuery.trim().toLowerCase();
-    if(q) f=f.filter(p=>p.nameAr.toLowerCase().includes(q)||p.nameEn.toLowerCase().includes(q));
-    if(currentCategory!=="all") f=f.filter(p=>p.category===currentCategory);
-    return f;
+  
+  function getFilteredProducts() {
+    let filtered = [...products];
+    const query = searchQuery.trim().toLowerCase();
+    if (query) filtered = filtered.filter(p => p.nameAr.toLowerCase().includes(query) || p.nameEn.toLowerCase().includes(query));
+    if (currentCategory !== "all") filtered = filtered.filter(p => p.category === currentCategory);
+    return filtered;
+  }
+  
+  function showTermsModal(productName, waLink) {
+    pendingOrder = { productName, waLink };
+    document.getElementById("termsModal").style.display = "flex";
   }
 
-  // ── التصنيفات مع صور ──
-  function renderTabs(){
-    const c=document.getElementById("tabsContainer"); if(!c)return;
-    const allCats=[{key:"all",name:"جميع المنتجات",sub:"كل المنتجات"},...categories.map(x=>({key:x,name:categoryNames[x]||x,sub:categoryNames[x]||x}))];
-    c.innerHTML=allCats.map(cat=>{
-      const grad=catGrads[cat.key]||"linear-gradient(135deg,#1a0a4e,#2d1a6e)";
-      const img=catImages[cat.key];
-      const isActive=currentCategory===cat.key;
-      const bgHtml=img
-        ?`<div class="tab-bg" style="background:${grad};"><img src="${img}" onerror="this.style.display='none';" alt="${cat.name}"></div>`
-        :`<div class="tab-bg" style="background:${grad};display:flex;align-items:center;justify-content:center;font-size:3rem;">${categoryIcons[cat.key]||"🏷️"}</div>`;
-      return`<div class="tab-btn ${isActive?"active":""}" onclick="setTab('${cat.key}')">${bgHtml}<div class="tab-overlay"></div><div class="tab-text"><span class="tab-title">${cat.name}</span><span class="tab-sub">${cat.sub}</span></div></div>`;
+  // ── CHECKOUT ──
+  let checkoutProduct = null;
+  let checkoutQty = 1;
+  let couponDiscount = 0;
+
+  function openCheckout(productId) {
+    const p = products.find(x => x.id === productId);
+    if (!p) return;
+    checkoutProduct = p;
+    // أظهر الشروط أولاً قبل الدفع
+    document.getElementById("termsCheck").checked = false;
+    document.getElementById("acceptTermsBtn").classList.remove("enabled");
+    document.getElementById("termsModal").style.display = "flex";
+  }
+
+  function updateCheckoutPrices() {
+    if (!checkoutProduct) return;
+    const p = checkoutProduct;
+    const sym = currencySymbols[currentCurrency];
+    const unitPrice = parseFloat(convertPrice(p.priceOMR));
+    const total = (unitPrice * checkoutQty * (1 - couponDiscount / 100)).toFixed(2);
+    const subtotal = (unitPrice * checkoutQty).toFixed(2);
+    const hasDisc = p.oldPrice && p.oldPrice > p.priceOMR;
+    const saving = hasDisc ? ((parseFloat(convertPrice(p.oldPrice)) - unitPrice) * checkoutQty + (unitPrice * checkoutQty * couponDiscount / 100)).toFixed(2) : (couponDiscount > 0 ? (unitPrice * checkoutQty * couponDiscount / 100).toFixed(2) : null);
+
+    document.getElementById("coProductPrice").textContent = `${(unitPrice * checkoutQty).toFixed(2)} ${sym}`;
+    document.getElementById("coSubtotal").textContent = `${subtotal} ${sym}`;
+    document.getElementById("coTotal").textContent = `${total} ${sym}`;
+
+    const savingRow = document.getElementById("coSavingRow");
+    if (saving && parseFloat(saving) > 0) {
+      savingRow.style.display = "flex";
+      document.getElementById("coSaving").textContent = `${saving} ${sym}`;
+    } else {
+      savingRow.style.display = "none";
+    }
+  }
+
+  function changeQty(delta) {
+    checkoutQty = Math.max(1, checkoutQty + delta);
+    document.getElementById("coQty").textContent = checkoutQty;
+    updateCheckoutPrices();
+  }
+
+  function applyCoupon() {
+    const code = document.getElementById("couponInput").value.trim().toUpperCase();
+    const msg = document.getElementById("couponMsg");
+    // كوبونات تجريبية
+    const coupons = { "XNESTO10": 10, "SAVE20": 20, "VIP15": 15 };
+    if (coupons[code]) {
+      couponDiscount = coupons[code];
+      msg.textContent = `✅ تم تطبيق كوبون خصم ${couponDiscount}%`;
+      msg.style.color = "#00cc88";
+      msg.style.display = "block";
+      updateCheckoutPrices();
+    } else {
+      msg.textContent = "❌ كوبون غير صحيح";
+      msg.style.color = "#ff6666";
+      msg.style.display = "block";
+      couponDiscount = 0;
+      updateCheckoutPrices();
+    }
+  }
+
+  function selectPay(radio) {
+    document.querySelectorAll(".payment-option").forEach(el => el.classList.remove("selected"));
+    radio.closest(".payment-option").classList.add("selected");
+  }
+
+  function submitOrder() {
+    const name = document.getElementById("coName").value.trim();
+    const phone = document.getElementById("coPhone").value.trim();
+    const countryCode = document.getElementById("coCountryCode").value;
+    if (!name) { alert("يرجى إدخال الاسم الكامل"); return; }
+    if (!phone) { alert("يرجى إدخال رقم الهاتف"); return; }
+
+    const p = checkoutProduct;
+    const sym = currencySymbols[currentCurrency];
+    const productName = currentLang === "ar" ? p.nameAr : p.nameEn;
+    const unitPrice = parseFloat(convertPrice(p.priceOMR));
+    const total = (unitPrice * checkoutQty * (1 - couponDiscount / 100)).toFixed(2);
+    const note = document.getElementById("coNote").value.trim();
+    const email = document.getElementById("coEmail").value.trim();
+
+    let msg = `🛒 *طلب جديد من xnesto*\n\n`;
+    msg += `━━━━━━━━━━━━━━━━━━━━\n`;
+    msg += `👤 *الاسم:* ${name}\n`;
+    msg += `📞 *الهاتف:* ${countryCode}${phone}\n`;
+    if (email) msg += `📧 *الإيميل:* ${email}\n`;
+    msg += `━━━━━━━━━━━━━━━━━━━━\n`;
+    msg += `🎮 *المنتج:* ${productName}\n`;
+    msg += `🔢 *الكمية:* ${checkoutQty}\n`;
+    msg += `💰 *السعر الكلي:* ${total} ${sym}\n`;
+    if (couponDiscount > 0) msg += `🏷️ *كوبون خصم:* ${couponDiscount}%\n`;
+    if (note) msg += `📝 *ملاحظة:* ${note}\n`;
+    msg += `━━━━━━━━━━━━━━━━━━━━\n`;
+    msg += `💳 *طريقة الدفع:* واتساب`;
+
+    const waLink = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+    window.open(waLink, "_blank");
+    closeCheckout();
+  }
+
+  function closeCheckout() {
+    document.getElementById("checkoutModal").classList.remove("active");
+    checkoutProduct = null;
+  }
+  function toggleTermsAccept() {
+    const cb = document.getElementById("termsCheck");
+    cb.checked = !cb.checked;
+    const btn = document.getElementById("acceptTermsBtn");
+    if (cb.checked) btn.classList.add("enabled");
+    else btn.classList.remove("enabled");
+  }
+
+  function closeTermsModal() {
+    document.getElementById("termsModal").style.display = "none";
+    checkoutProduct = null;
+  }
+
+  function acceptTerms() {
+    if (!document.getElementById("termsCheck").checked) return;
+    document.getElementById("termsModal").style.display = "none";
+    // افتح صفحة الطلب
+    const p = checkoutProduct;
+    if (!p) return;
+    checkoutQty = 1;
+    couponDiscount = 0;
+    const name = currentLang === "ar" ? p.nameAr : p.nameEn;
+    document.getElementById("coProductName").textContent = name;
+    document.getElementById("coProductCat").textContent = categoryNames[p.category] || p.category;
+    document.getElementById("coQty").textContent = 1;
+    const imgDiv = document.getElementById("coProductImg");
+    if (p.image && p.image.trim()) {
+      imgDiv.innerHTML = `<img src="${p.image}" onerror="this.style.display='none';">`;
+    } else {
+      imgDiv.innerHTML = p.icon || "🎮";
+    }
+    document.getElementById("couponInput").value = "";
+    document.getElementById("couponMsg").style.display = "none";
+    document.getElementById("coName").value = "";
+    document.getElementById("coPhone").value = "";
+    document.getElementById("coEmail").value = "";
+    document.getElementById("coNote").value = "";
+    updateCheckoutPrices();
+    document.getElementById("checkoutModal").classList.add("active");
+  }
+
+  // زر الاستفسار
+  const inquiryMsg = encodeURIComponent("مرحباً، أريد الاستفسار عن منتج في متجر xnesto 🎮");
+  document.getElementById("inquiryBtn").href = `https://wa.me/${WA_NUMBER}?text=${inquiryMsg}`;
+  
+  // صور وألوان التصنيفات
+  const categoryImages = {
+    all:       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Playstation_logo_colour.svg/512px-Playstation_logo_colour.svg.png",
+    games:     "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2358720/header.jpg",
+    giftcards: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/PSN_store_logo_2022.svg/512px-PSN_store_logo_2022.svg.png",
+  };
+
+  const categoryGradients = {
+    all:       "linear-gradient(135deg, #0d1b3e, #1a3a7a)",
+    games:     "linear-gradient(135deg, #000428, #004e92)",
+    giftcards: "linear-gradient(135deg, #003a1a, #006a30)",
+    psplus:    "linear-gradient(135deg, #1a0050, #4a0090)",
+  };
+
+  // صور حقيقية لكل تصنيف
+  const categoryBgImages = {
+    all:       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Playstation_logo_colour.svg/800px-Playstation_logo_colour.svg.png",
+    games:     "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/PlayStation_5_logo_and_wordmark.svg/800px-PlayStation_5_logo_and_wordmark.svg.png",
+    giftcards: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/PSN_store_logo_2022.svg/800px-PSN_store_logo_2022.svg.png",
+    psplus:    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/PlayStation_Plus_logo.svg/800px-PlayStation_Plus_logo.svg.png",
+  };
+
+  function renderTabs() {
+    const container = document.getElementById("tabsContainer");
+    if (!container) return;
+
+    const allCats = [
+      { key: "all",       name: "جميع المنتجات", sub: "كل المنتجات",    icon: "📦" },
+      ...categories.map(c => ({ key: c, name: categoryNames[c] || c, sub: categoryNames[c] || c, icon: c === "games" ? "🎮" : c === "giftcards" ? "💳" : c === "psplus" ? "🌟" : "🏷️" }))
+    ];
+
+    container.innerHTML = allCats.map(cat => {
+      const grad  = categoryGradients[cat.key] || "linear-gradient(135deg, #1a0a4e, #2d1a6e)";
+      const img   = categoryBgImages[cat.key];
+      const isActive = currentCategory === cat.key;
+
+      const bgHtml = img
+        ? `<div class="tab-btn-bg" style="background:${grad};">
+             <img src="${img}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:18%;opacity:0.85;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.6));" onerror="this.style.display='none';">
+           </div>`
+        : `<div class="tab-btn-bg" style="background:${grad};display:flex;align-items:center;justify-content:center;font-size:3rem;">${cat.icon}</div>`;
+
+      return `
+        <div class="tab-btn ${isActive ? "active" : ""}" onclick="setTab('${cat.key}')">
+          ${bgHtml}
+          <div class="tab-btn-overlay"></div>
+          <div class="tab-btn-text">
+            <span class="tab-btn-title">${cat.name}</span>
+            <span class="tab-btn-sub">${cat.sub}</span>
+          </div>
+        </div>`;
     }).join("");
   }
-
-  function setTab(cat){ currentCategory=cat; currentPage=1; renderTabs(); renderProducts(); }
-
-  function renderCategoriesList(){
-    const c=document.getElementById("categoriesList"); if(!c)return; c.innerHTML="";
-    categories.forEach(cat=>{ c.innerHTML+=`<div class="category-badge">${categoryNames[cat]||cat} <i class="fas fa-trash" onclick="deleteCategory('${cat}')"></i></div>`; });
+  
+  function renderCategoriesList() {
+    const container = document.getElementById("categoriesList");
+    if (!container) return;
+    container.innerHTML = "";
+    categories.forEach(cat => {
+      container.innerHTML += `<div class="category-badge">${categoryNames[cat] || cat} <i class="fas fa-trash" onclick="deleteCategory('${cat}')"></i></div>`;
+    });
   }
-  function deleteCategory(cat){
-    if(cat==="games"||cat==="giftcards"||cat==="psplus"){alert("لا يمكن حذف التصنيفات الأساسية");return;}
-    categories=categories.filter(c=>c!==cat); delete categoryNames[cat]; saveCategories(); updateCategorySelect(); renderCategoriesList(); renderTabs();
-    if(currentCategory===cat)currentCategory="all"; renderProducts();
+  
+  function deleteCategory(cat) {
+    if (cat === "games" || cat === "giftcards") { alert("لا يمكن حذف التصنيفات الأساسية"); return; }
+    categories = categories.filter(c => c !== cat);
+    delete categoryNames[cat];
+    saveCategories();
+    updateCategorySelect();
+    renderCategoriesList();
+    renderTabs();
+    if (currentCategory === cat) currentCategory = "all";
+    renderProducts();
   }
-  function addNewCategory(){
-    const name=document.getElementById("newCategoryName").value.trim(); if(!name)return;
-    const key=name.replace(/\s/g,"_").toLowerCase();
-    if(categories.includes(key)){alert("هذا التصنيف موجود مسبقاً");return;}
-    categories.push(key); categoryNames[key]=name; saveCategories(); updateCategorySelect(); renderCategoriesList(); renderTabs();
-    document.getElementById("newCategoryName").value="";
+  
+  function addNewCategory() {
+    const newCatName = document.getElementById("newCategoryName").value.trim();
+    if (!newCatName) return;
+    const catKey = newCatName.replace(/\s/g, "_").toLowerCase();
+    if (categories.includes(catKey)) { alert("هذا التصنيف موجود مسبقاً"); return; }
+    categories.push(catKey);
+    categoryNames[catKey] = newCatName;
+    saveCategories();
+    updateCategorySelect();
+    renderCategoriesList();
+    renderTabs();
+    document.getElementById("newCategoryName").value = "";
   }
-  function handleImageUpload(file,cb){ const r=new FileReader(); r.onload=e=>cb(e.target.result); r.readAsDataURL(file); }
-
-  function buildProductCard(p){
-    const card=document.createElement("div"); card.className="product-card";
-    const name=currentLang==="ar"?p.nameAr:p.nameEn;
-    const details=currentLang==="ar"?p.detailsAr:p.detailsEn;
-    const price=convertPrice(p.priceOMR);
-    const sym=currencySymbols[currentCurrency];
-    const hasDiscount=p.oldPrice&&p.oldPrice>p.priceOMR;
-    const oldPrice=hasDiscount?convertPrice(p.oldPrice):null;
-    const discountPercent=hasDiscount?calcDiscount(p.oldPrice,p.priceOMR):0;
-    const remaining=getRemainingTime(p.timer);
-    const catName=categoryNames[p.category]||p.category;
-    const bgColor=categoryColors[p.category]||"#2d4a6e";
-    const icon=p.icon||categoryIcons[p.category]||"🎮";
-    let imgHtml=p.image&&p.image.trim()
-      ?`<div class="product-image" style="background-image:url('${p.image}');"><div class="product-badge">${catName}</div></div>`
-      :`<div class="product-image" style="background:linear-gradient(135deg,${bgColor},${bgColor}cc);"><div style="font-size:2.5rem;">${icon}</div><div class="product-badge">${catName}</div></div>`;
-    let waMsg=`🛒 *طلب شراء من xnesto*\n\n━━━━━━━━━━━━━━━━━━━━\n🎮 *المنتج:* ${name}\n🏷️ *التصنيف:* ${catName}\n`;
-    if(hasDiscount) waMsg+=`💰 *السعر الأصلي:* ${oldPrice} ${sym}\n🔥 *السعر بعد الخصم:* ${price} ${sym} (خصم ${discountPercent}%)\n`;
-    else waMsg+=`💰 *السعر:* ${price} ${sym}\n`;
-    if(details) waMsg+=`📝 *المواصفات:* ${details}\n`;
-    if(remaining) waMsg+=`⏱️ *انتهاء العرض:* ${remaining}\n`;
-    waMsg+=`━━━━━━━━━━━━━━━━━━━━\n📦 يرجى تأكيد الطلب\n📞 xnesto_store`;
-    card.innerHTML=`
-      ${hasDiscount?`<div class="discount-badge">🔥 خصم ${discountPercent}%</div>`:''}
-      ${remaining?`<div class="timer-badge">⏱️ ${remaining}</div>`:''}
+  
+  function handleImageUpload(file, callback) {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) { callback(e.target.result); };
+    reader.readAsDataURL(file);
+  }
+  
+  function buildProductCard(p) {
+    const card = document.createElement("div");
+    card.className = "product-card";
+    const name = currentLang === "ar" ? p.nameAr : p.nameEn;
+    const details = currentLang === "ar" ? p.detailsAr : p.detailsEn;
+    const price = convertPrice(p.priceOMR);
+    const sym = currencySymbols[currentCurrency];
+    const hasDiscount = p.oldPrice && p.oldPrice > p.priceOMR;
+    const oldPrice = hasDiscount ? convertPrice(p.oldPrice) : null;
+    const discountPercent = hasDiscount ? calcDiscount(p.oldPrice, p.priceOMR) : 0;
+    const remaining = getRemainingTime(p.timer);
+    const categoryName = categoryNames[p.category] || p.category;
+    const bgColor = categoryColors[p.category] || "#2d4a6e";
+    const icon = p.icon || categoryIcons[p.category] || "🎮";
+    
+    let imgHtml = "";
+    if (p.image && p.image.trim()) {
+      imgHtml = `<div class="product-image" style="background-image: url('${p.image}');"><div class="product-badge">${categoryName}</div></div>`;
+    } else {
+      imgHtml = `<div class="product-image" style="background: linear-gradient(135deg, ${bgColor}, ${bgColor}cc);"><div style="font-size: 2.5rem;">${icon}</div><div class="product-badge">${categoryName}</div></div>`;
+    }
+    
+    let whatsappMsg = `🛒 *طلب شراء من xnesto*\n\n━━━━━━━━━━━━━━━━━━━━\n🎮 *المنتج:* ${name}\n🏷️ *التصنيف:* ${categoryName}\n`;
+    if (hasDiscount) whatsappMsg += `💰 *السعر الأصلي:* ${oldPrice} ${sym}\n🔥 *السعر بعد الخصم:* ${price} ${sym} (خصم ${discountPercent}%)\n`;
+    else whatsappMsg += `💰 *السعر:* ${price} ${sym}\n`;
+    if (details) whatsappMsg += `📝 *المواصفات:* ${details}\n`;
+    if (remaining) whatsappMsg += `⏱️ *انتهاء العرض:* ${remaining}\n`;
+    whatsappMsg += `━━━━━━━━━━━━━━━━━━━━\n📦 *يرجى تأكيد الطلب مع إرسال طريقة الدفع*\n📞 للتواصل: xnesto_store`;
+    const waLink = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(whatsappMsg)}`;
+    
+    card.innerHTML = `
+      ${hasDiscount ? `<div class="discount-badge">🔥 خصم ${discountPercent}%</div>` : ''}
+      ${remaining ? `<div class="timer-badge">⏱️ ${remaining}</div>` : ''}
       ${imgHtml}
       <div class="card-info">
         <div class="product-title">${name}</div>
-        <div class="product-category">${catName}</div>
-        ${details?`<div class="product-details"><i class="fas fa-info-circle"></i> ${details}</div>`:''}
+        <div class="product-category">${categoryName}</div>
+        ${details ? `<div class="product-details"><i class="fas fa-info-circle"></i> ${details}</div>` : ''}
         <div class="price-container">
-          ${hasDiscount?`<span class="old-price">${oldPrice} ${sym}</span>`:''}
+          ${hasDiscount ? `<span class="old-price">${oldPrice} ${sym}</span>` : ''}
           <span class="price">${price} ${sym}</span>
         </div>
-        <div class="btn-wa" onclick="openCheckout(${p.id})"><i class="fab fa-whatsapp"></i> ${currentLang==="ar"?"اطلب الآن":"Order Now"}</div>
-      </div>`;
-    if(currentUser.type==="admin"){
-      const es=document.createElement("div"); es.className="admin-edit-section";
-      es.innerHTML=`<h4><i class="fas fa-edit"></i> تعديل المنتج</h4>
-        <div class="edit-price-row"><span>💰 السعر:</span><input type="number" class="edit-price-input" value="${p.priceOMR}" step="0.5"><span>ر.ع</span></div>
-        <div class="edit-image-row"><span>🖼️ تغيير الصورة:</span><div class="edit-image-upload" style="cursor:pointer;"><i class="fas fa-cloud-upload-alt"></i> اختر صورة<input type="file" class="edit-image-file" accept="image/*" style="display:none;"></div></div>
+        <div class="btn-wa" onclick="openCheckout(${p.id})"><i class="fab fa-whatsapp"></i> ${currentLang === "ar" ? "اطلب الآن" : "Order Now"}</div>
+      </div>
+    `;
+    
+    if (currentUser.type === "admin") {
+      const editSection = document.createElement("div");
+      editSection.className = "admin-edit-section";
+      editSection.innerHTML = `
+        <h4><i class="fas fa-edit"></i> تعديل المنتج</h4>
+        <div class="edit-price-row">
+          <span>💰 السعر:</span>
+          <input type="number" class="edit-price-input" value="${p.priceOMR}" step="0.5">
+          <span>ر.ع</span>
+        </div>
+        <div class="edit-image-row">
+          <span>🖼️ تغيير الصورة:</span>
+          <div class="edit-image-upload" style="cursor:pointer;">
+            <i class="fas fa-cloud-upload-alt"></i> اختر صورة
+            <input type="file" class="edit-image-file" accept="image/*" style="display:none;">
+          </div>
+        </div>
         <img class="edit-image-preview" alt="معاينة">
-        <div class="discount-buttons"><button data-discount="30">30%</button><button data-discount="20">20%</button><button data-discount="10">10%</button><button data-discount="0">0%</button></div>
-        <div class="custom-discount-row"><span>🏷️ نسبة مخصصة:</span><input type="number" class="custom-discount-input" step="1" min="0" max="100" placeholder="%"><button class="apply-discount-btn">تطبيق</button></div>
-        <div class="timer-row"><span>⏱️ عداد تنازلي:</span><input type="datetime-local" class="edit-timer-input" value="${p.timer?p.timer.slice(0,16):''}"></div>
+        <div class="discount-buttons">
+          <button data-discount="30">30%</button>
+          <button data-discount="20">20%</button>
+          <button data-discount="10">10%</button>
+          <button data-discount="0">0%</button>
+        </div>
+        <div class="custom-discount-row">
+          <span>🏷️ نسبة مخصصة:</span>
+          <input type="number" class="custom-discount-input" step="1" min="0" max="100" placeholder="%">
+          <button class="apply-discount-btn">تطبيق</button>
+        </div>
+        <div class="timer-row">
+          <span>⏱️ عداد تنازلي:</span>
+          <input type="datetime-local" class="edit-timer-input" value="${p.timer ? p.timer.slice(0, 16) : ''}">
+        </div>
         <button class="save-edit-btn"><i class="fas fa-save"></i> حفظ التعديلات</button>
-        <button class="delete-product-btn"><i class="fas fa-trash"></i> حذف المنتج</button>`;
-      card.appendChild(es);
-      const ud=es.querySelector(".edit-image-upload"),fi=es.querySelector(".edit-image-file"),pi=es.querySelector(".edit-image-preview");
-      const prInput=es.querySelector(".edit-price-input"),tiInput=es.querySelector(".edit-timer-input"),diInput=es.querySelector(".custom-discount-input");
-      ud.addEventListener("click",()=>fi.click());
-      fi.addEventListener("change",e=>{const f=e.target.files[0];if(f)handleImageUpload(f,d=>{p.tempImage=d;pi.src=d;pi.style.display="block";});});
-      es.querySelectorAll(".discount-buttons button").forEach(b=>b.addEventListener("click",()=>diInput.value=b.getAttribute("data-discount")));
-      es.querySelector(".apply-discount-btn").addEventListener("click",()=>{
-        const d=parseFloat(diInput.value),cp=parseFloat(prInput.value);
-        if(!isNaN(d)&&!isNaN(cp)&&cp>0) alert(`خصم ${d}%، السعر القديم: ${(cp/(1-d/100)).toFixed(2)} ر.ع`);
+        <button class="delete-product-btn"><i class="fas fa-trash"></i> حذف المنتج</button>
+      `;
+      card.appendChild(editSection);
+
+      // ✅ الإصلاح: استخدام querySelector داخل editSection بدلاً من document.getElementById
+      const uploadDiv   = editSection.querySelector(".edit-image-upload");
+      const fileInput   = editSection.querySelector(".edit-image-file");
+      const previewImg  = editSection.querySelector(".edit-image-preview");
+      const priceInput  = editSection.querySelector(".edit-price-input");
+      const timerInput  = editSection.querySelector(".edit-timer-input");
+      const discInput   = editSection.querySelector(".custom-discount-input");
+
+      uploadDiv.addEventListener("click", () => fileInput.click());
+
+      fileInput.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          handleImageUpload(file, (imageData) => {
+            p.tempImage = imageData;
+            previewImg.src = imageData;
+            previewImg.style.display = "block";
+          });
+        }
       });
-      es.querySelector(".save-edit-btn").addEventListener("click",()=>{
-        const np=parseFloat(prInput.value),cd=parseFloat(diInput.value),nt=tiInput.value||null;
-        if(!isNaN(np)){p.priceOMR=np;if(p.tempImage){p.image=p.tempImage;delete p.tempImage;}
-          if(!isNaN(cd)&&cd>0)p.oldPrice=np/(1-cd/100);else if(cd===0)p.oldPrice=null;
-          p.timer=nt;saveToLocal();renderProducts();}
+
+      editSection.querySelectorAll(".discount-buttons button").forEach(btn => {
+        btn.addEventListener("click", () => {
+          discInput.value = btn.getAttribute("data-discount");
+        });
       });
-      es.querySelector(".delete-product-btn").addEventListener("click",()=>{
-        if(confirm("هل أنت متأكد من حذف هذا المنتج؟")){products=products.filter(x=>x.id!==p.id);saveToLocal();renderProducts();}
+
+      editSection.querySelector(".apply-discount-btn").addEventListener("click", () => {
+        const discount = parseFloat(discInput.value);
+        const currentPrice = parseFloat(priceInput.value);
+        if (!isNaN(discount) && !isNaN(currentPrice) && currentPrice > 0) {
+          const newOldPrice = currentPrice / (1 - discount / 100);
+          alert(`سيتم تطبيق خصم ${discount}%، السعر القديم سيكون ${newOldPrice.toFixed(2)} ر.ع`);
+        }
+      });
+
+      editSection.querySelector(".save-edit-btn").addEventListener("click", () => {
+        const newPrice     = parseFloat(priceInput.value);
+        const customDisc   = parseFloat(discInput.value);
+        const newTimer     = timerInput.value || null;
+        if (!isNaN(newPrice)) {
+          p.priceOMR = newPrice;
+          if (p.tempImage) { p.image = p.tempImage; delete p.tempImage; }
+          if (!isNaN(customDisc) && customDisc > 0) p.oldPrice = newPrice / (1 - customDisc / 100);
+          else if (customDisc === 0) p.oldPrice = null;
+          p.timer = newTimer;
+          saveToLocal();
+          renderProducts();
+        }
+      });
+
+      editSection.querySelector(".delete-product-btn").addEventListener("click", () => {
+        if (confirm("هل أنت متأكد من حذف هذا المنتج؟")) {
+          products = products.filter(x => x.id !== p.id);
+          saveToLocal();
+          renderProducts();
+        }
       });
     }
     return card;
   }
-
-  function renderProducts(){
-    const c=document.getElementById("productsContainer"); if(!c)return; c.innerHTML="";
-    const f=getFilteredProducts(),total=Math.ceil(f.length/ITEMS_PER_PAGE);
-    if(currentPage>total)currentPage=1;
-    const start=(currentPage-1)*ITEMS_PER_PAGE;
-    f.slice(start,start+ITEMS_PER_PAGE).forEach(p=>c.appendChild(buildProductCard(p)));
-    const pc=document.getElementById("paginationContainer");
-    if(pc){pc.innerHTML="";if(total>1){for(let i=1;i<=total;i++){const b=document.createElement("button");b.className="page-btn"+(i===currentPage?" active":"");b.textContent=i;b.onclick=()=>{currentPage=i;renderProducts();};pc.appendChild(b);}}}
-    document.getElementById("searchCount").innerHTML=f.length;
+  
+  function renderProducts() {
+    const container = document.getElementById("productsContainer");
+    if (!container) return;
+    container.innerHTML = "";
+    const filtered = getFilteredProducts();
+    const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+    if (currentPage > totalPages) currentPage = 1;
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    filtered.slice(start, start + ITEMS_PER_PAGE).forEach(p => container.appendChild(buildProductCard(p)));
+    const pagContainer = document.getElementById("paginationContainer");
+    if (pagContainer) {
+      pagContainer.innerHTML = "";
+      if (totalPages > 1) {
+        for (let i = 1; i <= totalPages; i++) {
+          const btn = document.createElement("button");
+          btn.className = "page-btn" + (i === currentPage ? " active" : "");
+          btn.textContent = i;
+          btn.onclick = () => { currentPage = i; renderProducts(); };
+          pagContainer.appendChild(btn);
+        }
+      }
+    }
+    document.getElementById("searchCount").innerHTML = filtered.length;
   }
-
-  function addNewProduct(){
-    const nameAr=document.getElementById("newNameAr").value,nameEn=document.getElementById("newNameEn").value;
-    const category=document.getElementById("newCategorySelect").value,price=parseFloat(document.getElementById("newPrice").value);
-    const details=document.getElementById("newDetails").value,discount=parseFloat(document.getElementById("newDiscount").value);
-    const timer=document.getElementById("newTimer").value||null,image=currentImageData||"";
-    if(!nameAr||!nameEn||isNaN(price)){alert("يرجى ملء الحقول الأساسية");return;}
-    const np={id:nextId++,nameAr,nameEn,category,priceOMR:price,oldPrice:(!isNaN(discount)&&discount>0)?price/(1-discount/100):null,image,detailsAr:details,detailsEn:details,timer,icon:category==="giftcards"?"💳":category==="psplus"?"🌟":"🎮"};
-    products.push(np);saveToLocal();renderProducts();
-    ["newNameAr","newNameEn","newPrice","newDetails","newDiscount","newTimer"].forEach(id=>document.getElementById(id).value="");
-    currentImageData=null;document.getElementById("newImagePreview").style.display="none";document.getElementById("newImagePreview").src="";
+  
+  function addNewProduct() {
+    const nameAr = document.getElementById("newNameAr").value;
+    const nameEn = document.getElementById("newNameEn").value;
+    const category = document.getElementById("newCategorySelect").value;
+    const price = parseFloat(document.getElementById("newPrice").value);
+    const details = document.getElementById("newDetails").value;
+    const discount = parseFloat(document.getElementById("newDiscount").value);
+    const timer = document.getElementById("newTimer").value || null;
+    const image = currentImageData || "";
+    if (!nameAr || !nameEn || isNaN(price)) { alert("يرجى ملء الحقول الأساسية"); return; }
+    const newProduct = {
+      id: nextId++, nameAr, nameEn, category, priceOMR: price,
+      oldPrice: (!isNaN(discount) && discount > 0) ? price / (1 - discount / 100) : null,
+      image, detailsAr: details, detailsEn: details, timer,
+      msgAr: `أريد ${nameAr}`, msgEn: `I want ${nameEn}`,
+      icon: category === "giftcards" ? "💳" : "🎮"
+    };
+    products.push(newProduct);
+    saveToLocal();
+    renderProducts();
+    document.getElementById("newNameAr").value = "";
+    document.getElementById("newNameEn").value = "";
+    document.getElementById("newPrice").value = "";
+    document.getElementById("newDetails").value = "";
+    document.getElementById("newDiscount").value = "";
+    document.getElementById("newTimer").value = "";
+    currentImageData = null;
+    document.getElementById("newImagePreview").style.display = "none";
+    document.getElementById("newImagePreview").src = "";
   }
-
-  function updateUIForUser(){
-    const authDiv=document.getElementById("authButtons"),adminAdd=document.getElementById("adminAddSection"),catMgmt=document.getElementById("categoryManagement");
-    if(currentUser.type==="admin"){
-      authDiv.innerHTML=`<div class="user-badge"><i class="fas fa-crown"></i> مرحباً Admin</div><button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> خروج</button>`;
-      adminAdd.classList.add("active");catMgmt.classList.add("active");
-      document.getElementById("logoutBtn")?.addEventListener("click",logout);renderCategoriesList();
+  
+  function updateUIForUser() {
+    const authDiv = document.getElementById("authButtons");
+    const adminAdd = document.getElementById("adminAddSection");
+    const categoryMgmt = document.getElementById("categoryManagement");
+    if (currentUser.type === "admin") {
+      authDiv.innerHTML = `<div class="user-badge"><i class="fas fa-crown"></i> مرحباً Admin - وضع التعديل نشط</div><button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> خروج</button>`;
+      adminAdd.classList.add("active");
+      categoryMgmt.classList.add("active");
+      document.getElementById("logoutBtn")?.addEventListener("click", logout);
+      renderCategoriesList();
     } else {
-      authDiv.innerHTML=`<button class="login-btn" id="showLoginBtn"><i class="fas fa-user-shield"></i> <span id="loginBtnText">تسجيل دخول</span></button>`;
-      adminAdd.classList.remove("active");catMgmt.classList.remove("active");
-      document.getElementById("showLoginBtn")?.addEventListener("click",showLoginModal);
+      authDiv.innerHTML = `<button class="login-btn" id="showLoginBtn"><i class="fas fa-user-shield"></i> <span id="loginBtnText">تسجيل دخول</span></button>`;
+      adminAdd.classList.remove("active");
+      categoryMgmt.classList.remove("active");
+      document.getElementById("showLoginBtn")?.addEventListener("click", showLoginModal);
     }
     renderProducts();
   }
+  
+  function logout() { 
+    currentUser = { type: "guest", name: "زائر" }; 
+    localStorage.removeItem("xnesto_user");
+    updateUIForUser(); 
+  }
+  function showLoginModal() { document.getElementById("loginModal").style.display = "flex"; }
+  function closeLoginModal() { document.getElementById("loginModal").style.display = "none"; document.getElementById("loginError").innerHTML = ""; }
+  function handleLogin() {
+    const type = document.getElementById("loginUserType").value;
+    if (type === "admin") {
+      const pwd = document.getElementById("adminPasswordInput").value;
+      if (pwd === ADMIN_PASSWORD) { 
+        currentUser = { type: "admin", name: "Admin" }; 
+        localStorage.setItem("xnesto_user", "admin");
+        updateUIForUser(); closeLoginModal(); 
+      }
+      else document.getElementById("loginError").innerHTML = "❌ كلمة السر غير صحيحة";
+    } else { 
+      currentUser = { type: "user", name: "User" }; 
+      localStorage.setItem("xnesto_user", "user");
+      updateUIForUser(); closeLoginModal(); 
+    }
+  }
+  
+  function initEvents() {
+    document.querySelectorAll(".lang-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        currentLang = btn.getAttribute("data-lang");
+        document.querySelectorAll(".lang-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        document.body.dir = currentLang === "ar" ? "rtl" : "ltr";
+        updateUIForUser();
+        const currLabel = document.getElementById("currencyLabel");
+        if (currLabel) currLabel.innerText = currentLang === "ar" ? "العملة:" : "Currency:";
+      });
+    });
+    document.getElementById("currencySelect")?.addEventListener("change", (e) => { currentCurrency = e.target.value; renderProducts(); });
+    document.getElementById("searchInput")?.addEventListener("input", (e) => { searchQuery = e.target.value; currentPage = 1; renderProducts(); });
+    document.getElementById("addProductBtn")?.addEventListener("click", addNewProduct);
+    document.getElementById("addCategoryBtn")?.addEventListener("click", addNewCategory);
+    document.getElementById("acceptTermsBtn")?.addEventListener("click", acceptTerms);
+    document.getElementById("declineTermsBtn")?.addEventListener("click", closeTermsModal);
 
-  function logout(){currentUser={type:"guest",name:"زائر"};localStorage.removeItem("xnesto_user");updateUIForUser();}
-  function showLoginModal(){document.getElementById("loginModal").style.display="flex";}
-  function closeLoginModal(){document.getElementById("loginModal").style.display="none";document.getElementById("loginError").innerHTML="";}
-  function handleLogin(){
-    const type=document.getElementById("loginUserType").value;
-    if(type==="admin"){
-      const pwd=document.getElementById("adminPasswordInput").value;
-      if(pwd===ADMIN_PASSWORD){currentUser={type:"admin",name:"Admin"};localStorage.setItem("xnesto_user","admin");updateUIForUser();closeLoginModal();}
-      else document.getElementById("loginError").innerHTML="❌ كلمة السر غير صحيحة";
-    } else {currentUser={type:"user",name:"User"};localStorage.setItem("xnesto_user","user");updateUIForUser();closeLoginModal();}
+    const uploadArea = document.getElementById("imageUploadArea");
+    const fileInput  = document.getElementById("newImageFile");
+    const preview    = document.getElementById("newImagePreview");
+    if (uploadArea) uploadArea.addEventListener("click", () => fileInput.click());
+    if (fileInput) {
+      fileInput.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          handleImageUpload(file, (imageData) => {
+            currentImageData = imageData;
+            preview.src = imageData;
+            preview.style.display = "block";
+          });
+        }
+      });
+    }
   }
-
-  // Checkout
-  function openCheckout(productId){
-    const p=products.find(x=>x.id===productId); if(!p)return;
-    checkoutProduct=p;
-    document.getElementById("termsCheck").checked=false;
-    document.getElementById("acceptTermsBtn").classList.remove("enabled");
-    document.getElementById("termsModal").style.display="flex";
-  }
-  function toggleTermsAccept(){
-    const cb=document.getElementById("termsCheck");cb.checked=!cb.checked;
-    const btn=document.getElementById("acceptTermsBtn");
-    if(cb.checked)btn.classList.add("enabled");else btn.classList.remove("enabled");
-  }
-  function closeTermsModal(){document.getElementById("termsModal").style.display="none";checkoutProduct=null;}
-  function acceptTerms(){
-    if(!document.getElementById("termsCheck").checked)return;
-    document.getElementById("termsModal").style.display="none";
-    const p=checkoutProduct; if(!p)return;
-    checkoutQty=1;couponDiscount=0;
-    const name=currentLang==="ar"?p.nameAr:p.nameEn;
-    document.getElementById("coProductName").textContent=name;
-    document.getElementById("coProductCat").textContent=categoryNames[p.category]||p.category;
-    document.getElementById("coQty").textContent=1;
-    const imgDiv=document.getElementById("coProductImg");
-    imgDiv.innerHTML=p.image&&p.image.trim()?`<img src="${p.image}" onerror="this.style.display='none';">`:(p.icon||"🎮");
-    ["couponInput","coName","coPhone","coEmail","coNote"].forEach(id=>document.getElementById(id).value="");
-    document.getElementById("couponMsg").style.display="none";
-    updateCheckoutPrices();document.getElementById("checkoutModal").classList.add("active");
-  }
-  function updateCheckoutPrices(){
-    if(!checkoutProduct)return;
-    const p=checkoutProduct,sym=currencySymbols[currentCurrency];
-    const unitPrice=parseFloat(convertPrice(p.priceOMR));
-    const total=(unitPrice*checkoutQty*(1-couponDiscount/100)).toFixed(2);
-    const subtotal=(unitPrice*checkoutQty).toFixed(2);
-    const hasDisc=p.oldPrice&&p.oldPrice>p.priceOMR;
-    const saving=hasDisc?((parseFloat(convertPrice(p.oldPrice))-unitPrice)*checkoutQty+(unitPrice*checkoutQty*couponDiscount/100)).toFixed(2):(couponDiscount>0?(unitPrice*checkoutQty*couponDiscount/100).toFixed(2):null);
-    document.getElementById("coProductPrice").textContent=`${(unitPrice*checkoutQty).toFixed(2)} ${sym}`;
-    document.getElementById("coSubtotal").textContent=`${subtotal} ${sym}`;
-    document.getElementById("coTotal").textContent=`${total} ${sym}`;
-    const sr=document.getElementById("coSavingRow");
-    if(saving&&parseFloat(saving)>0){sr.style.display="flex";document.getElementById("coSaving").textContent=`${saving} ${sym}`;}else sr.style.display="none";
-  }
-  function changeQty(d){checkoutQty=Math.max(1,checkoutQty+d);document.getElementById("coQty").textContent=checkoutQty;updateCheckoutPrices();}
-  function applyCoupon(){
-    const code=document.getElementById("couponInput").value.trim().toUpperCase();
-    const msg=document.getElementById("couponMsg");
-    const coupons={"XNESTO10":10,"SAVE20":20,"VIP15":15};
-    if(coupons[code]){couponDiscount=coupons[code];msg.textContent=`✅ تم تطبيق كوبون خصم ${couponDiscount}%`;msg.style.color="#00cc88";msg.style.display="block";updateCheckoutPrices();}
-    else{msg.textContent="❌ كوبون غير صحيح";msg.style.color="#ff6666";msg.style.display="block";couponDiscount=0;updateCheckoutPrices();}
-  }
-  function submitOrder(){
-    const name=document.getElementById("coName").value.trim(),phone=document.getElementById("coPhone").value.trim();
-    const countryCode=document.getElementById("coCountryCode").value;
-    if(!name){alert("يرجى إدخال الاسم الكامل");return;}if(!phone){alert("يرجى إدخال رقم الهاتف");return;}
-    const p=checkoutProduct,sym=currencySymbols[currentCurrency];
-    const productName=currentLang==="ar"?p.nameAr:p.nameEn;
-    const unitPrice=parseFloat(convertPrice(p.priceOMR));
-    const total=(unitPrice*checkoutQty*(1-couponDiscount/100)).toFixed(2);
-    const note=document.getElementById("coNote").value.trim(),email=document.getElementById("coEmail").value.trim();
-    let msg=`🛒 *طلب جديد من xnesto*\n\n━━━━━━━━━━━━━━━━━━━━\n👤 *الاسم:* ${name}\n📞 *الهاتف:* ${countryCode}${phone}\n`;
-    if(email)msg+=`📧 *الإيميل:* ${email}\n`;
-    msg+=`━━━━━━━━━━━━━━━━━━━━\n🎮 *المنتج:* ${productName}\n🔢 *الكمية:* ${checkoutQty}\n💰 *السعر الكلي:* ${total} ${sym}\n`;
-    if(couponDiscount>0)msg+=`🏷️ *كوبون خصم:* ${couponDiscount}%\n`;
-    if(note)msg+=`📝 *ملاحظة:* ${note}\n`;
-    msg+=`━━━━━━━━━━━━━━━━━━━━\n💳 *طريقة الدفع:* واتساب`;
-    window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`,"_blank");
-    closeCheckout();
-  }
-  function closeCheckout(){document.getElementById("checkoutModal").classList.remove("active");checkoutProduct=null;}
-
-  // زر الاستفسار
-  document.getElementById("inquiryBtn").href=`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent("مرحباً، أريد الاستفسار عن منتج في متجر xnesto 🎮")}`;
-
-  // وضع ليلي/نهاري
-  function toggleMode(){
-    const isLight=document.body.classList.toggle("light-mode");
-    document.getElementById("modeToggleBtn").innerHTML=isLight?"☀️ نهاري":"🌙 ليلي";
-    localStorage.setItem("xnesto_mode",isLight?"light":"dark");
-  }
-  if(localStorage.getItem("xnesto_mode")==="light"){document.body.classList.add("light-mode");document.getElementById("modeToggleBtn").innerHTML="☀️ نهاري";}
-
-  // حجم العرض
-  function setView(view){
-    document.body.classList.remove("view-mobile","view-desktop");
-    document.body.classList.add("view-"+view);
-    document.querySelectorAll(".device-btn").forEach(b=>b.classList.remove("active"));
-    const btn=document.getElementById("btn"+view.charAt(0).toUpperCase()+view.slice(1));
-    if(btn)btn.classList.add("active");
-    localStorage.setItem("xnesto_view",view);
-  }
-  setView(localStorage.getItem("xnesto_view")||"mobile");
-
-  function initEvents(){
-    document.querySelectorAll(".lang-btn").forEach(btn=>btn.addEventListener("click",()=>{
-      currentLang=btn.getAttribute("data-lang");
-      document.querySelectorAll(".lang-btn").forEach(b=>b.classList.remove("active"));btn.classList.add("active");
-      document.body.dir=currentLang==="ar"?"rtl":"ltr";updateUIForUser();
-      const cl=document.getElementById("currencyLabel");if(cl)cl.innerText=currentLang==="ar"?"العملة:":"Currency:";
-    }));
-    document.getElementById("currencySelect")?.addEventListener("change",e=>{currentCurrency=e.target.value;renderProducts();});
-    document.getElementById("searchInput")?.addEventListener("input",e=>{searchQuery=e.target.value;currentPage=1;renderProducts();});
-    document.getElementById("addProductBtn")?.addEventListener("click",addNewProduct);
-    document.getElementById("addCategoryBtn")?.addEventListener("click",addNewCategory);
-    const ua=document.getElementById("imageUploadArea"),fi=document.getElementById("newImageFile"),pv=document.getElementById("newImagePreview");
-    if(ua)ua.addEventListener("click",()=>fi.click());
-    if(fi)fi.addEventListener("change",e=>{const f=e.target.files[0];if(f)handleImageUpload(f,d=>{currentImageData=d;pv.src=d;pv.style.display="block";});});
-  }
-
-  const loginModalHtml=`<div id="loginModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);backdrop-filter:blur(12px);align-items:center;justify-content:center;z-index:5000;">
-    <div style="background:#11152b;border-radius:1.5rem;padding:2rem;text-align:center;border:2px solid #ffaa44;width:320px;">
-      <i class="fas fa-user-shield" style="font-size:3rem;color:#ffaa44;"></i>
-      <h3 style="color:#ffaa44;margin:1rem 0;">تسجيل الدخول</h3>
-      <select id="loginUserType" style="width:100%;padding:10px;margin:10px 0;border-radius:40px;background:#1e1e3a;color:white;border:1px solid #ffaa44;">
+  
+  const loginModalHtml = `
+  <div id="loginModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); backdrop-filter:blur(12px); align-items:center; justify-content:center; z-index:2000;">
+    <div style="background:#11152b; border-radius:1.5rem; padding:2rem; text-align:center; border:2px solid #ffaa44; width:320px;">
+      <i class="fas fa-user-shield" style="font-size:3rem; color:#ffaa44;"></i>
+      <h3 style="color:#ffaa44; margin:1rem 0;">تسجيل الدخول</h3>
+      <select id="loginUserType" style="width:100%; padding:10px; margin:10px 0; border-radius:40px; background:#1e1e3a; color:white; border:1px solid #ffaa44;">
         <option value="user">👤 عميل / زائر</option>
         <option value="admin">👑 أدمن (مدير)</option>
       </select>
       <div id="adminPasswordDiv" style="display:none;">
-        <input type="password" id="adminPasswordInput" placeholder="كلمة السر" style="width:100%;padding:10px;margin:10px 0;border-radius:40px;background:#1e1e3a;color:white;border:1px solid #ffaa44;">
+        <input type="password" id="adminPasswordInput" placeholder="كلمة السر" style="width:100%; padding:10px; margin:10px 0; border-radius:40px; background:#1e1e3a; color:white; border:1px solid #ffaa44;">
       </div>
-      <button id="loginSubmit" style="background:#ffaa44;border:none;padding:10px;border-radius:40px;width:100%;margin-top:10px;cursor:pointer;font-weight:bold;">دخول</button>
-      <div id="loginError" style="color:#ff6666;margin-top:10px;"></div>
-      <button id="closeLoginModal" style="background:#444;border:none;padding:8px;border-radius:40px;width:100%;margin-top:10px;cursor:pointer;color:white;">إغلاق</button>
+      <button id="loginSubmit" style="background:#ffaa44; border:none; padding:10px; border-radius:40px; width:100%; margin-top:10px; cursor:pointer; font-weight:bold;">دخول</button>
+      <div id="loginError" style="color:#ff6666; margin-top:10px;"></div>
+      <button id="closeLoginModal" style="background:#444; border:none; padding:8px; border-radius:40px; width:100%; margin-top:10px; cursor:pointer; color:white;">إغلاق</button>
     </div>
   </div>`;
-  document.body.insertAdjacentHTML("beforeend",loginModalHtml);
-  document.getElementById("closeLoginModal")?.addEventListener("click",closeLoginModal);
-  document.getElementById("loginSubmit")?.addEventListener("click",handleLogin);
-  document.getElementById("loginUserType")?.addEventListener("change",e=>{document.getElementById("adminPasswordDiv").style.display=e.target.value==="admin"?"block":"none";});
-
+  document.body.insertAdjacentHTML("beforeend", loginModalHtml);
+  
+  document.getElementById("closeLoginModal")?.addEventListener("click", closeLoginModal);
+  document.getElementById("loginSubmit")?.addEventListener("click", handleLogin);
+  document.getElementById("loginUserType")?.addEventListener("change", (e) => {
+    document.getElementById("adminPasswordDiv").style.display = e.target.value === "admin" ? "block" : "none";
+  });
+  
   initEvents();
   renderTabs();
-  const savedUser=localStorage.getItem("xnesto_user");
-  if(savedUser==="admin")currentUser={type:"admin",name:"Admin"};
-  else if(savedUser==="user")currentUser={type:"user",name:"User"};
+
+  // ✅ استعادة تسجيل الدخول بعد التحديث
+  const savedUser = localStorage.getItem("xnesto_user");
+  if (savedUser === "admin") currentUser = { type: "admin", name: "Admin" };
+  else if (savedUser === "user") currentUser = { type: "user", name: "User" };
+
   updateUIForUser();
   renderProducts();
-  document.getElementById("instagramText").innerHTML=`<a href="https://instagram.com/${INSTA_USERNAME}" target="_blank" style="color:#ffaa66;text-decoration:none;">${INSTA_USERNAME}</a>`;
-  document.getElementById("whatsappText").innerHTML=`<a href="https://wa.me/${WA_NUMBER}" target="_blank" style="color:#ffaa66;text-decoration:none;">+${WA_NUMBER}</a>`;
+  document.getElementById("instagramText").innerHTML = `<a href="https://instagram.com/${INSTA_USERNAME}" target="_blank" style="color:#ffaa66;text-decoration:none;">${INSTA_USERNAME}</a>`;
+  document.getElementById("whatsappText").innerHTML = `<a href="https://wa.me/${WA_NUMBER}" target="_blank" style="color:#ffaa66;text-decoration:none;">+${WA_NUMBER}</a>`;
+  function setTab(cat) {
+    currentCategory = cat;
+    currentPage = 1;
+    renderTabs();
+    renderProducts();
+  }
+  window.setTab = setTab;
+  window.deleteCategory = deleteCategory;
+  window.openCheckout = openCheckout;
+  window.toggleTermsAccept = toggleTermsAccept;
+  window.acceptTerms = acceptTerms;
+  window.closeTermsModal = closeTermsModal;
+  window.closeCheckout = closeCheckout;
 
-  window.setTab=setTab;window.deleteCategory=deleteCategory;window.openCheckout=openCheckout;
-  window.toggleTermsAccept=toggleTermsAccept;window.acceptTerms=acceptTerms;
-  window.closeTermsModal=closeTermsModal;window.closeCheckout=closeCheckout;
-  window.toggleMode=toggleMode;window.setView=setView;window.changeQty=changeQty;
-  window.applyCoupon=applyCoupon;window.submitOrder=submitOrder;
+  // ── وضع ليلي / نهاري ──
+  function toggleMode() {
+    const isLight = document.body.classList.toggle("light-mode");
+    const btn = document.getElementById("modeToggleBtn");
+    if (isLight) {
+      btn.innerHTML = "☀️ نهاري";
+    } else {
+      btn.innerHTML = "🌙 ليلي";
+    }
+    localStorage.setItem("xnesto_mode", isLight ? "light" : "dark");
+  }
+  // استعادة الوضع المحفوظ
+  const savedMode = localStorage.getItem("xnesto_mode");
+  if (savedMode === "light") {
+    document.body.classList.add("light-mode");
+    document.getElementById("modeToggleBtn").innerHTML = "☀️ نهاري";
+  }
+  window.toggleMode = toggleMode;
+  function setView(view) {
+    document.body.classList.remove("view-mobile", "view-tablet", "view-desktop");
+    document.body.classList.add("view-" + view);
+    document.querySelectorAll(".device-btn").forEach(b => b.classList.remove("active"));
+    const btnId = "btn" + view.charAt(0).toUpperCase() + view.slice(1);
+    const btn = document.getElementById(btnId);
+    if (btn) btn.classList.add("active");
+    localStorage.setItem("xnesto_view", view);
+  }
+  const savedView = localStorage.getItem("xnesto_view") || "mobile";
+  setView(savedView);
 </script>
 </body>
 </html>
-
