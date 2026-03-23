@@ -2012,35 +2012,60 @@
   
   // صور وألوان التصنيفات
   const categoryImages = {
-    games: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1r76.jpg",
+    all:       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Playstation_logo_colour.svg/512px-Playstation_logo_colour.svg.png",
+    games:     "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2358720/header.jpg",
     giftcards: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/PSN_store_logo_2022.svg/512px-PSN_store_logo_2022.svg.png",
-    all: ""
   };
+
   const categoryGradients = {
-    all:       "linear-gradient(135deg, #1a1a4e, #2d2f6e)",
-    games:     "linear-gradient(135deg, #1a3a6e, #0a1f4e)",
-    giftcards: "linear-gradient(135deg, #1a4e2a, #0a2e1a)",
+    all:       "linear-gradient(135deg, #0d1b3e, #1a3a7a)",
+    games:     "linear-gradient(135deg, #0a0a2e, #1a1a6e)",
+    giftcards: "linear-gradient(135deg, #003a1a, #006a30)",
   };
+
   const categoryEmojiBg = {
-    all: "📦",
-    games: "🎮",
-    giftcards: "💳",
+    all:       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Playstation_logo_colour.svg/512px-Playstation_logo_colour.svg.png",
+    games:     "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/PlayStation_5_logo_and_wordmark.svg/512px-PlayStation_5_logo_and_wordmark.svg.png",
+    giftcards: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/PSN_store_logo_2022.svg/512px-PSN_store_logo_2022.svg.png",
   };
 
   function renderTabs() {
     const container = document.getElementById("tabsContainer");
     if (!container) return;
 
-    const allCats = [{ key: "all", name: "جميع المنتجات", sub: "كل المنتجات" }, ...categories.map(c => ({ key: c, name: categoryNames[c] || c, sub: categoryNames[c] || c }))];
+    const allCats = [
+      { key: "all",       name: "جميع المنتجات", sub: "كل المنتجات" },
+      ...categories.map(c => ({ key: c, name: categoryNames[c] || c, sub: categoryNames[c] || c }))
+    ];
+
+    // صور PS جاهزة لكل تصنيف
+    const catBgImages = {
+      all:       "https://images.unsplash.com/photo-1580327344181-c1163234e5a0?w=400&q=80",
+      games:     "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=400&q=80",
+      giftcards: "https://images.unsplash.com/photo-1607853202273-797f1c22a38e?w=400&q=80",
+    };
+    const catIcons = {
+      all:       "🎮",
+      games:     "🕹️",
+      giftcards: "💳",
+    };
 
     container.innerHTML = allCats.map(cat => {
-      const grad = categoryGradients[cat.key] || "linear-gradient(135deg, #2d1a6e, #1a0a4e)";
-      const emoji = categoryEmojiBg[cat.key] || "🏷️";
+      const grad = categoryGradients[cat.key] || "linear-gradient(135deg, #1a0a4e, #2d1a6e)";
+      const bgImg = catBgImages[cat.key];
+      const icon = catIcons[cat.key] || "🏷️";
       const isActive = currentCategory === cat.key;
+
+      const bgStyle = bgImg
+        ? `background-image:url('${bgImg}'); background-size:cover; background-position:center;`
+        : `background:${grad};`;
+
       return `
         <div class="tab-btn ${isActive ? "active" : ""}" onclick="setTab('${cat.key}')">
-          <div class="tab-btn-bg" style="background:${grad}; display:flex; align-items:center; justify-content:center; font-size:3rem;">${emoji}</div>
+          <div class="tab-btn-bg" style="${bgStyle}"></div>
+          <div style="position:absolute;inset:0;background:${grad};opacity:0.55;"></div>
           <div class="tab-btn-overlay"></div>
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);font-size:2.5rem;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.8));">${icon}</div>
           <div class="tab-btn-text">
             <span class="tab-btn-title">${cat.name}</span>
             <span class="tab-btn-sub">${cat.sub}</span>
