@@ -2,247 +2,164 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>xnesto – متجر الألعاب وبطاقات الشحن</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', 'Segoe UI', sans-serif; }
-        body { background: #0a0f1e; color: #eef5ff; line-height: 1.6; }
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',Tahoma,sans-serif; }
+        body { background:#0a0f1e; color:#eef5ff; line-height:1.6; }
 
-        /* Header مع الأيقونة الجديدة */
         .main-header {
-            background: rgba(10, 15, 30, 0.95);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(0, 191, 255, 0.2);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            background:rgba(10,15,30,0.95); backdrop-filter:blur(12px);
+            border-bottom:1px solid rgba(0,191,255,0.2); padding:1rem 0; position:sticky; top:0; z-index:1000;
         }
-
-        .header-flex {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .logo-icon { font-size: 3.2rem; color: #00b4ff; }
-        .logo h1 {
-            font-size: 2rem;
-            background: linear-gradient(135deg, #fff, #00b4ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        .logo p { font-size: 0.8rem; opacity: 0.75; }
-
-        /* التبويبات */
-        .tabs-container {
-            max-width: 1400px;
-            margin: 1.5rem auto;
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .tab-btn {
-            background: #1e2538;
-            border: none;
-            padding: 12px 28px;
-            border-radius: 50px;
-            color: #eef5ff;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .tab-btn.active {
-            background: #00b4ff;
-            color: #0a0f1e;
-        }
+        .header-flex { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:15px; max-width:1400px; margin:auto; padding:0 20px; }
+        .logo { display:flex; align-items:center; gap:12px; }
+        .logo-icon { font-size:3.5rem; color:#00b4ff; }
+        .logo h1 { font-size:2.2rem; background:linear-gradient(135deg,#fff,#00b4ff); -webkit-background-clip:text; color:transparent; }
 
         /* شريط البحث */
-        .search-bar {
-            max-width: 1400px;
-            margin: 1rem auto 2rem;
-            background: #1e2538;
-            padding: 12px 20px;
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .search-bar input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            color: white;
-            outline: none;
-            font-size: 1rem;
-        }
+        .search-bar { max-width:1400px; margin:20px auto; background:#1e2538; padding:12px 20px; border-radius:50px; display:flex; align-items:center; gap:12px; }
+        #searchInput { flex:1; background:transparent; border:none; color:white; outline:none; font-size:1.05rem; }
 
-        /* باقي الستايل الخاص بك (المنتجات، الكروت، الإدارة...) */
+        /* التبويبات */
+        .tabs { max-width:1400px; margin:10px auto; display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
+        .tab-btn { background:#1e2538; border:none; padding:12px 26px; border-radius:50px; color:#eef5ff; font-weight:600; cursor:pointer; }
+        .tab-btn.active { background:#00b4ff; color:#0a0f1e; }
+
         .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 28px;
-            margin: 2rem 0;
+            max-width:1400px; margin:30px auto; display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:25px; padding:0 20px;
         }
         .product-card {
-            background: #111827;
-            border-radius: 28px;
-            overflow: hidden;
-            transition: 0.2s;
-            border: 1px solid #1e2a44;
-            padding: 1rem;
+            background:#111827; border-radius:24px; overflow:hidden; border:1px solid #1e2a44; transition:0.3s;
         }
-        .product-img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 20px;
-            background: #1a1f2e;
-        }
-        .product-badge {
-            display: inline-block;
-            background: #ff5e5e;
-            font-size: 0.7rem;
-            padding: 3px 8px;
-            border-radius: 40px;
-            margin: 8px 0;
-        }
-        .price {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: #00e0ff;
-            margin: 10px 0;
-        }
-        .old-price {
-            text-decoration: line-through;
-            font-size: 0.9rem;
-            opacity: 0.6;
-            margin-right: 8px;
-        }
+        .product-card:hover { transform:translateY(-8px); border-color:#00b4ff; }
+        .product-img { width:100%; height:190px; object-fit:cover; }
+        .product-info { padding:15px; text-align:center; }
+        .product-badge { background:#ff5e5e; padding:4px 12px; border-radius:30px; font-size:0.75rem; display:inline-block; margin:8px 0; }
+        .price { font-size:1.45rem; font-weight:bold; color:#00e0ff; margin:10px 0; }
+        .old-price { text-decoration:line-through; opacity:0.6; font-size:0.95rem; }
         .btn-buy {
-            background: #00b4ff;
-            border: none;
-            width: 100%;
-            padding: 10px;
-            border-radius: 40px;
-            font-weight: bold;
-            color: #0a0f1e;
-            cursor: pointer;
-            margin-top: 10px;
+            background:#00b4ff; color:#0a0f1e; border:none; width:100%; padding:12px; border-radius:40px;
+            font-weight:bold; cursor:pointer; margin-top:10px;
         }
 
-        .footer {
-            background: #050a15;
-            padding: 2rem 0;
-            margin-top: 3rem;
-            border-top: 1px solid #1e2a44;
-            font-size: 0.85rem;
-            text-align: center;
-        }
+        .footer { text-align:center; padding:2rem; background:#050a15; margin-top:3rem; font-size:0.9rem; }
     </style>
 </head>
 <body>
 
 <div class="main-header">
-    <div class="container header-flex">
+    <div class="header-flex">
         <div class="logo">
             <div class="logo-icon"><i class="fas fa-gamepad"></i></div>
             <div>
                 <h1>xnesto</h1>
-                <p>متجر الألعاب وبطاقات الشحن</p>
+                <p>أرخص ألعاب PS4/PS5 وبطاقات شحن في عمان</p>
             </div>
         </div>
-        <div class="header-actions">
-            <button class="btn-outline-light" id="cartBtn">🛒 السلة (0)</button>
+        <div>
             <button class="btn-outline-light" id="adminModeBtn">🔐 إدارة</button>
         </div>
     </div>
 </div>
 
 <!-- شريط البحث -->
-<div class="container">
-    <div class="search-bar">
-        <i class="fas fa-search"></i>
-        <input type="text" id="searchInput" placeholder="🔍 ابحث عن لعبة أو بطاقة شحن...">
-    </div>
+<div class="search-bar">
+    <i class="fas fa-search"></i>
+    <input type="text" id="searchInput" placeholder="ابحث عن لعبة أو بطاقة شحن...">
 </div>
 
 <!-- التبويبات -->
-<div class="tabs-container">
+<div class="tabs">
     <button class="tab-btn active" data-tab="all">الكل</button>
     <button class="tab-btn" data-tab="games">🎮 ألعاب PS4/PS5</button>
     <button class="tab-btn" data-tab="cards">💳 بطاقات شحن</button>
     <button class="tab-btn" data-tab="offers">🔥 عروض وتخفيضات</button>
 </div>
 
-<div class="container">
-    <div id="productsContainer" class="products-grid">
-        <!-- يتم ملؤها بواسطة JavaScript -->
-    </div>
-</div>
+<div class="products-grid" id="productsContainer"></div>
 
 <div class="footer">
-    <p>© 2025 xnesto – جميع الحقوق محفوظة | ألعاب رقمية | شحن فوري</p>
-    <p>📞 واتساب: +968 7997 7100</p>
+    © 2026 xnesto • واتساب: +968 7997 7100 • شحن فوري • دعم 24/7
 </div>
 
 <script>
-    // قاعدة المنتجات (يمكنك تعديلها)
     let products = [
-        { id: 1, name: "Assassin's Creed Shadows", img: "https://images.unsplash.com/photo-1611996575749-79a3a250f948?w=300", desc: "🏷️ الحجم: 65GB | 🎮 عربي/إنجليزي", price: 14, oldPrice: 20, category: "games", badge: "🔥 خصم 30%" },
-        { id: 2, name: "Call of Duty: Black Ops 6", img: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=300", desc: "🏷️ الحجم: 120GB | 🎮 إنجليزي", price: 22, oldPrice: 30, category: "games", badge: "🔥 خصم 27%" },
-        { id: 3, name: "Grand Theft Auto VI", img: "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?w=300", desc: "🏷️ الحجم: 150GB | 🌍 عالم مفتوح", price: 6, oldPrice: 10, category: "games", badge: "🔥 خصم 40%" },
-        // أضف باقي المنتجات هنا...
+        { id:1, name:"Assassin's Creed Shadows", img:"https://images.igdb.com/igdb/image/upload/t_cover_big/co4j5k.jpg", desc:"PS5 • حجم كبير • عربي", price:14, oldPrice:20, category:"games", badge:"🔥 خصم 30%" },
+        { id:2, name:"Call of Duty: Black Ops 6", img:"https://images.igdb.com/igdb/image/upload/t_cover_big/co7x1q.jpg", desc:"PS5 • 120GB", price:22, oldPrice:30, category:"games", badge:"🔥 جديد" },
+        { id:3, name:"Grand Theft Auto VI", img:"https://images.igdb.com/igdb/image/upload/t_cover_big/co8y0n.jpg", desc:"PS5 • عالم مفتوح", price:6, oldPrice:10, category:"games", badge:"🔥 خصم 40%" },
+        { id:4, name:"Monster Hunter Wilds", img:"https://images.igdb.com/igdb/image/upload/t_cover_big/co9abc.jpg", desc:"PS5 • صيد الوحوش", price:14, oldPrice:20, category:"games", badge:"🔥 خصم 30%" },
+        { id:5, name:"Ghost of Yōtei", img:"https://images.igdb.com/igdb/image/upload/t_cover_big/co9def.jpg", desc:"PS5 • مغامرات", price:14, oldPrice:20, category:"games", badge:"🔥 خصم 30%" },
+        // أضف المزيد من المنتجات هنا...
     ];
 
-    let currentFilter = "all";
+    let currentTab = "all";
 
-    function renderProducts() {
+    function renderProducts(filteredProducts) {
         const container = document.getElementById("productsContainer");
         container.innerHTML = "";
 
-        let filtered = products.filter(p => currentFilter === "all" ? true : p.category === currentFilter);
+        if (filteredProducts.length === 0) {
+            container.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;">لا توجد نتائج 🕹️</div>`;
+            return;
+        }
 
-        filtered.forEach(p => {
+        filteredProducts.forEach(p => {
             const card = document.createElement("div");
             card.className = "product-card";
             card.innerHTML = `
-                <img class="product-img" src="\( {p.img}" alt=" \){p.name}">
+                <img class="product-img" src="\( {p.img}" alt=" \){p.name}" onerror="this.src='https://via.placeholder.com/300x190/1e2538/00b4ff?text=${encodeURIComponent(p.name)}'">
                 \( {p.badge ? `<div class="product-badge"> \){p.badge}</div>` : ''}
-                <h3>${p.name}</h3>
-                <p>${p.desc}</p>
-                <div class="price">
-                    ${p.price} ر.ع
-                    \( {p.oldPrice ? `<span class="old-price"> \){p.oldPrice} ر.ع</span>` : ''}
+                <div class="product-info">
+                    <h3>${p.name}</h3>
+                    <p style="font-size:0.85rem;opacity:0.8;margin:8px 0;">${p.desc}</p>
+                    <div class="price">
+                        ${p.price} ر.ع
+                        \( {p.oldPrice ? `<span class="old-price"> \){p.oldPrice} ر.ع</span>` : ''}
+                    </div>
+                    <button class="btn-buy" onclick="orderNow('${p.name}', ${p.price})">📲 اطلب الآن عبر واتساب</button>
                 </div>
-                <button class="btn-buy">📲 اطلب الآن</button>
             `;
             container.appendChild(card);
         });
     }
 
-    // تبديل التبويبات
+    function orderNow(name, price) {
+        const msg = `مرحبا، أريد شراء: ${name}\nالسعر: ${price} ريال عماني\nالرجاء التأكيد وإرسال الرابط أو الباركود`;
+        window.open(`https://wa.me/96879977100?text=${encodeURIComponent(msg)}`, "_blank");
+    }
+
+    // فلترة حسب التبويب
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            currentFilter = btn.getAttribute('data-tab');
-            renderProducts();
+            currentTab = btn.getAttribute('data-tab');
+
+            let filtered = products;
+            if (currentTab !== "all") {
+                filtered = products.filter(p => p.category === currentTab);
+            }
+            renderProducts(filtered);
         });
     });
 
-    // تهيئة الصفحة
-    renderProducts();
+    // البحث
+    document.getElementById("searchInput").addEventListener("input", (e) => {
+        const term = e.target.value.toLowerCase().trim();
+        let filtered = products.filter(p => 
+            p.name.toLowerCase().includes(term) || 
+            (p.desc && p.desc.toLowerCase().includes(term))
+        );
+        if (currentTab !== "all") {
+            filtered = filtered.filter(p => p.category === currentTab);
+        }
+        renderProducts(filtered);
+    });
+
+    // تهيئة
+    renderProducts(products);
 </script>
 
 </body>
