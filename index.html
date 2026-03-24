@@ -1,165 +1,113 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <script src="admin.js"></script>
-  <title>xnesto – متجر الألعاب وبطاقات الشحن | PS4/PS5</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <style>
-    /* كود التصميم الأصلي */
-    html { font-size: 14px; }
-    @media (min-width: 768px) { html { font-size: 15px; } }
-    @media (min-width: 1200px) { html { font-size: 16px; } }
-    .device-bar { background: #07071a; border-bottom: 1px solid rgba(255,170,68,0.2); padding: 6px 16px; display: flex; justify-content: center; gap: 6px; position: sticky; top: 0; z-index: 9999; }
-    .device-btn { background: #1e1e3a; border: 1px solid rgba(255,170,68,0.2); color: #888; padding: 5px 14px; border-radius: 20px; cursor: pointer; font-size: 0.75rem; font-family: 'Cairo', sans-serif; display: flex; align-items: center; gap: 5px; transition: 0.2s; }
-    .device-btn.active { background: #ffaa44; color: #0a0a1a; border-color: #ffaa44; font-weight: 700; }
-    body { background: #0a0a1a; font-family: 'Cairo', sans-serif; color: #f0f0ff; margin: 0; min-height: 100vh; }
-    .header { text-align: center; background: linear-gradient(135deg, #0f0f2a, #0a0a1f); padding: 2rem 1rem; border-radius: 0 0 2rem 2rem; border-bottom: 2px solid #ffaa44; }
-    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; padding: 2rem; max-width: 1400px; margin: 0 auto; }
-    .product-card { background: #1e1e3a; border-radius: 1.5rem; overflow: hidden; border: 1px solid rgba(255,170,68,0.2); transition: 0.3s; position: relative; }
-    .product-card:hover { transform: translateY(-5px); border-color: #ffaa44; }
-    .product-image { width: 100%; height: 180px; object-fit: cover; background: #0a0a1a; }
-    .product-info { padding: 1.2rem; }
-    .product-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff; }
-    .price-tag { color: #ffaa44; font-size: 1.3rem; font-weight: 800; }
-    .old-price { text-decoration: line-through; color: #888; font-size: 0.9rem; margin-right: 0.5rem; }
-    .btn-buy { background: #ffaa44; color: #0a0a1a; border: none; padding: 0.8rem; width: 100%; border-radius: 1rem; font-weight: 700; cursor: pointer; margin-top: 1rem; transition: 0.2s; }
-    .btn-buy:hover { background: #ffcc88; }
-    
-    /* لوحة الإدارة */
-    .admin-panel { background: rgba(255,170,68,0.1); border: 1px dashed #ffaa44; padding: 1.5rem; margin: 1rem; border-radius: 1rem; display: none; text-align: center; }
-    body.admin-active .admin-panel { display: block; }
-    .edit-controls { display: none; margin-top: 10px; padding: 10px; background: rgba(0,0,0,0.3); border-radius: 10px; }
-    body.admin-active .edit-controls { display: block; }
-    input { background: #2a2a4a; border: 1px solid #444; color: white; padding: 8px; border-radius: 5px; width: 100%; margin-bottom: 5px; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xnesto - لوحة التحكم الذكية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* كود التصميم المطور */
+        body { background: #0a0a1a; font-family: 'Cairo', sans-serif; color: #f0f0ff; margin: 0; padding: 20px; }
+        .header { text-align: center; padding: 20px; border-bottom: 2px solid #ffaa44; margin-bottom: 20px; }
+        .admin-btn { background: #ffaa44; color: #0a0a1a; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: bold; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .card { background: #1e1e3a; border-radius: 15px; padding: 15px; border: 1px solid #333; }
+        .admin-controls { display: none; margin-top: 15px; border-top: 1px solid #444; padding-top: 10px; }
+        body.admin-mode .admin-controls { display: block; }
+        input { width: 100%; background: #2a2a4a; border: 1px solid #444; color: white; padding: 8px; margin-bottom: 5px; border-radius: 5px; box-sizing: border-box; }
+        .save-all-btn { display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #28a745; color: white; padding: 15px 30px; border-radius: 30px; border: none; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.5); z-index: 1000; }
+        body.admin-mode .save-all-btn { display: block; }
+    </style>
 </head>
-<body class="view-mobile">
-  <div class="device-bar">
-    <button class="device-btn active" onclick="setView('mobile')"><i class="fas fa-mobile-alt"></i> جوال</button>
-    <button class="device-btn" onclick="setView('desktop')"><i class="fas fa-desktop"></i> كمبيوتر</button>
-  </div>
-
-  <header class="header">
-    <h1>xnesto 🎮</h1>
-    <p>متجر الألعاب وبطاقات الشحن الأسرع والأرخص 🚀</p>
-    <div id="loginSection">
-        <button id="loginBtn" onclick="loginAdmin()" style="background:transparent; border:1px solid #444; color:#666; padding:5px 15px; border-radius:10px; margin-top:10px; cursor:pointer;">دخول الإدارة</button>
+<body>
+    <div class="header">
+        <h1>xnesto 🎮</h1>
+        <button id="loginBtn" class="admin-btn" onclick="toggleAdmin()">دخول الإدارة</button>
     </div>
-  </header>
 
-  <div id="adminPanel" class="admin-panel">
-    <h3>لوحة تحكم المسؤول 🛠️</h3>
-    <p style="color:#ffaa44; font-size:0.9rem; margin-bottom:15px;">أي تعديل تقوم به هنا سيتم رفعه فوراً لـ GitHub ليراه العملاء</p>
-    <button onclick="saveChangesToGitHub()" style="padding:12px 25px; background:#28a745; color:white; border:none; border-radius:10px; cursor:pointer; font-weight:bold; font-size:1rem; margin-bottom:10px;"><i class="fas fa-cloud-upload-alt"></i> حفظ التغييرات لجميع العملاء ✅</button>
-    <br>
-    <button onclick="logoutAdmin()" style="padding:5px 15px; background:#ff4444; color:white; border:none; border-radius:10px; cursor:pointer; font-size:0.8rem;">تسجيل خروج</button>
-  </div>
+    <button id="saveAllBtn" class="save-all-btn" onclick="saveToGitHub()">✅ حفظ التغييرات للجميع</button>
 
-  <div id="productsContainer" class="products-grid">
-    <!-- المنتجات تظهر هنا -->
-  </div>
+    <div id="productsGrid" class="products-grid">جاري تحميل المنتجات...</div>
 
-  <script>
-    let products = [];
-    let isAdmin = false;
+    <script>
+        const GITHUB_TOKEN = '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';
+        const REPO_OWNER = 'omarssp95';
+        const REPO_NAME = 'xnesto-site';
+        let products = [];
 
-    // جلب البيانات من GitHub
-    async function loadProducts() {
-      const url = `products.json?t=${new Date().getTime()}`;
-      try {
-        const response = await fetch(url);
-        if (response.ok) {
-          const data = await response.json();
-          products = [...data.games, ...data.giftcards];
-          renderProducts();
+        // جلب البيانات
+        async function loadData() {
+            try {
+                const res = await fetch(`products.json?t=${Date.now()}`);
+                const data = await res.json();
+                products = [...data.games, ...data.giftcards];
+                render();
+            } catch (e) { document.getElementById('productsGrid').innerHTML = "خطأ في تحميل البيانات. تأكد من وجود ملف products.json"; }
         }
-      } catch (e) {
-        console.error("خطأ في جلب البيانات:", e);
-      }
-    }
 
-    function renderProducts() {
-      const container = document.getElementById('productsContainer');
-      container.innerHTML = products.map((p, index) => `
-        <div class="product-card">
-          <img src="${p.image || 'https://via.placeholder.com/300x180'}" class="product-image">
-          <div class="product-info">
-            <div class="product-title">${p.nameAr}</div>
-            <div class="price-section">
-              <span class="price-tag">${p.priceOMR} ر.ع</span>
-              ${p.oldPrice ? `<span class="old-price">${p.oldPrice} ر.ع</span>` : ''}
-            </div>
-            <button class="btn-buy" onclick="orderProduct(${p.id})">اطلب الآن 🛒</button>
-            
-            <!-- أدوات التعديل للمسؤول -->
-            <div class="edit-controls">
-                <input type="text" value="${p.nameAr}" onchange="updateProduct(${index}, 'nameAr', this.value)" placeholder="اسم المنتج">
-                <input type="number" value="${p.priceOMR}" onchange="updateProduct(${index}, 'priceOMR', this.value)" placeholder="السعر">
-                <input type="text" value="${p.image}" onchange="updateProduct(${index}, 'image', this.value)" placeholder="رابط الصورة">
-                <p style="font-size:0.7rem; color:#888;">سيتم الحفظ عند الضغط على زر الحفظ العلوي</p>
-            </div>
-          </div>
-        </div>
-      `).join('');
-    }
+        function render() {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = products.map((p, i) => `
+                <div class="card">
+                    <img src="${p.image}" style="width:100%; border-radius:10px;">
+                    <h3>${p.nameAr}</h3>
+                    <p>السعر: ${p.priceOMR} ر.ع</p>
+                    <div class="admin-controls">
+                        <input type="text" value="${p.nameAr}" onchange="update(${i}, 'nameAr', this.value)" placeholder="الاسم">
+                        <input type="number" value="${p.priceOMR}" onchange="update(${i}, 'priceOMR', this.value)" placeholder="السعر">
+                        <input type="text" value="${p.image}" onchange="update(${i}, 'image', this.value)" placeholder="رابط الصورة">
+                    </div>
+                </div>
+            `).join('');
+        }
 
-    function updateProduct(index, field, value) {
-        if (field === 'priceOMR') value = parseFloat(value);
-        products[index][field] = value;
-        console.log("Updated product locally:", products[index]);
-    }
+        function update(i, field, val) {
+            products[i][field] = (field === 'priceOMR') ? parseFloat(val) : val;
+        }
 
-    async function saveChangesToGitHub() {
-        if (typeof updateGitHubProducts === "function") {
-            const btn = event.currentTarget;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الرفع...';
+        function toggleAdmin() {
+            const pass = prompt("كلمة السر:");
+            if (pass === "ssp1995") {
+                document.body.classList.add('admin-mode');
+                document.getElementById('loginBtn').style.display = 'none';
+                alert("أنت الآن في وضع الإدارة. عدل البيانات ثم اضغط الزر الأخضر في الأسفل.");
+            }
+        }
+
+        async function saveToGitHub() {
+            const btn = document.getElementById('saveAllBtn');
+            btn.innerHTML = "جاري الحفظ... انتظر";
             btn.disabled = true;
-            
-            await updateGitHubProducts(products);
-            
-            btn.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> حفظ التغييرات لجميع العملاء ✅';
+
+            try {
+                const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/products.json`;
+                const fileRes = await fetch(url, { headers: { 'Authorization': `token ${GITHUB_TOKEN}` } });
+                const fileData = await fileRes.json();
+
+                const newContent = {
+                    version: "v_" + Date.now(),
+                    games: products.filter(p => p.category === 'games'),
+                    giftcards: products.filter(p => p.category === 'giftcards')
+                };
+
+                const updateRes = await fetch(url, {
+                    method: 'PUT',
+                    headers: { 'Authorization': `token ${GITHUB_TOKEN}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: "تحديث من لوحة التحكم",
+                        content: btoa(unescape(encodeURIComponent(JSON.stringify(newContent, null, 2)))),
+                        sha: fileData.sha
+                    })
+                });
+
+                if (updateRes.ok) alert("✅ مبروك! تم التحديث بنجاح وستظهر التعديلات للجميع خلال دقيقة.");
+                else alert("❌ فشل التحديث. تأكد من إعدادات GitHub.");
+            } catch (e) { alert("خطأ: " + e.message); }
+            btn.innerHTML = "✅ حفظ التغييرات للجميع";
             btn.disabled = false;
-        } else {
-            alert("خطأ: ملف admin.js غير موجود! تأكد من رفعه لـ GitHub.");
         }
-    }
 
-    function loginAdmin() {
-      const pass = prompt("أدخل كلمة سر المسؤول:");
-      if (pass === "ssp1995") {
-        isAdmin = true;
-        document.body.classList.add('admin-active');
-        document.getElementById('loginSection').style.display = 'none';
-        renderProducts();
-        alert("مرحباً بك أيها المسؤول! يمكنك الآن تعديل المنتجات مباشرة من البطاقات ثم الضغط على زر الحفظ الأخضر.");
-      } else {
-        alert("كلمة سر خاطئة!");
-      }
-    }
-
-    function logoutAdmin() {
-      isAdmin = false;
-      document.body.classList.remove('admin-active');
-      document.getElementById('loginSection').style.display = 'block';
-      renderProducts();
-    }
-
-    function setView(view) {
-      document.body.className = view === 'mobile' ? 'view-mobile' : 'view-desktop';
-      if (isAdmin) document.body.classList.add('admin-active');
-      document.querySelectorAll('.device-btn').forEach(btn => btn.classList.remove('active'));
-      event.currentTarget.classList.add('active');
-    }
-
-    function orderProduct(id) {
-      const p = products.find(x => x.id === id);
-      const msg = encodeURIComponent(`مرحباً xnesto، أريد طلب: ${p.nameAr}`);
-      window.open(`https://wa.me/96879977100?text=${msg}`, '_blank');
-    }
-
-    window.onload = loadProducts;
-  </script>
+        loadData();
+    </script>
 </body>
 </html>
