@@ -1,1 +1,92 @@
-{"products": []}
+{
+  "products": [
+    {
+      "id": 1,
+      "nameAr": "Assassin's Creed Shadows",
+      "nameEn": "Assassin's Creed Shadows",
+      "category": "games",
+      "price": 56,
+      "oldPrice": 20,
+      "image": "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/3159340/header.jpg",
+      "descAr": "🏷️ الحجم: 65GB | 🎮 اللغة: عربية/إنجليزية",
+      "descEn": "📦 Size: 65GB | 🎮 Language: Arabic/English"
+    },
+    {
+      "id": 2,
+      "nameAr": "Call of Duty: Black Ops 6",
+      "nameEn": "Call of Duty: Black Ops 6",
+      "category": "games",
+      "price": 22,
+      "oldPrice": 30,
+      "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2933620/header.jpg",
+      "descAr": "🏷️ الحجم: 120GB | 🎮 اللغة: إنجليزية",
+      "descEn": "📦 Size: 120GB | 🎮 Language: English"
+    },
+    {
+      "id": 3,
+      "nameAr": "Grand Theft Auto VI",
+      "nameEn": "Grand Theft Auto VI",
+      "category": "games",
+      "price": 6,
+      "oldPrice": 10,
+      "image": "https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/downloads/gtavi/gtavi_cover_ps5.jpg",
+      "descAr": "🏷️ الحجم: 150GB | 🌍 عالم مفتوح",
+      "descEn": "📦 Size: 150GB | 🌍 Open World"
+    },
+    {
+      "id": 4,
+      "nameAr": "God of War Ragnarök",
+      "nameEn": "God of War Ragnarök",
+      "category": "games",
+      "price": 10,
+      "oldPrice": 15,
+      "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2322010/header.jpg",
+      "descAr": "🏷️ الحجم: 85GB | 🪓 ملحمة إسكندنافية",
+      "descEn": "📦 Size: 85GB | 🪓 Norse Saga"
+    },
+    {
+      "id": 5,
+      "nameAr": "Spider-Man 2",
+      "nameEn": "Spider-Man 2",
+      "category": "games",
+      "price": 16,
+      "oldPrice": 22,
+      "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2651280/header.jpg",
+      "descAr": "🏷️ الحجم: 98GB | 🕷️ بيتر + مايلز",
+      "descEn": "📦 Size: 98GB | 🕷️ Peter + Miles"
+    },
+    {
+      "id": 6,
+      "nameAr": "بطاقة شحن أمريكي",
+      "nameEn": "US Gift Card",
+      "category": "giftcards",
+      "price": 5,
+      "oldPrice": 6,
+      "image": "",
+      "descAr": "الفئات: 10$ | 25$ | 50$ | 100$",
+      "descEn": "Values: 10$ | 25$ | 50$ | 100$"
+    },
+    {
+      "id": 7,
+      "nameAr": "بطاقة شحن سعودي",
+      "nameEn": "Saudi Gift Card",
+      "category": "giftcards",
+      "price": 4.5,
+      "oldPrice": 5.5,
+      "image": "",
+      "descAr": "الفئات: 50ر.س | 100ر.س | 200ر.س",
+      "descEn": "Values: 50 SAR | 100 SAR | 200 SAR"
+    },
+    {
+      "id": 8,
+      "nameAr": "بطاقة شحن عماني",
+      "nameEn": "Oman Gift Card",
+      "category": "giftcards",
+      "price": 5,
+      "oldPrice": 6,
+      "image": "",
+      "descAr": "الفئات: 5ر.ع | 10ر.ع | 20ر.ع",
+      "descEn": "Values: 5 OMR | 10 OMR | 20 OMR"
+    }
+  ]
+}
