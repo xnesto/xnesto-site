@@ -119,6 +119,18 @@
             margin-bottom: 1rem;
         }
         
+        .logout-btn {
+            background: #ff4444;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 2rem;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            margin-right: 10px;
+        }
+        
         .product-edit-form {
             background: #1e1e3a;
             padding: 0.5rem;
@@ -185,9 +197,12 @@
     <p>إضافة - تعديل - حذف المنتجات</p>
 </div>
 
-<a href="index.html" class="back-link"><i class="fas fa-arrow-right"></i> العودة للمتجر</a>
+<div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 1rem;">
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-right"></i> العودة للمتجر</a>
+    <button id="logoutBtn" class="logout-btn" style="display:none;"><i class="fas fa-sign-out-alt"></i> تسجيل خروج</button>
+</div>
 
-<div id="adminPanel" class="admin-panel">
+<div id="adminPanel" class="admin-panel" style="display:none;">
     <h3>➕ إضافة منتج جديد</h3>
     <div class="add-form">
         <input type="text" id="newNameAr" placeholder="الاسم بالعربية">
@@ -211,7 +226,7 @@
 </div>
 
 <div id="productsTable" class="products-table">
-    <div class="loading">جاري التحميل...</div>
+    <div class="loading">🔐 يرجى إدخال كلمة السر...</div>
 </div>
 
 <div class="footer">
@@ -230,37 +245,104 @@
     
     let products = [];
     let currentImageData = null;
+    let isLoggedIn = false;
     const ADMIN_PASSWORD = "ssp1995";
+    const SESSION_KEY = "xnesto_admin_logged";
     
-    // ==================== التحقق من كلمة السر فور تحميل الصفحة ====================
-    function checkPassword() {
-        const pwd = prompt('🔐 أدخل كلمة سر الأدمن:');
-        if (pwd !== ADMIN_PASSWORD) {
-            alert('❌ كلمة السر غير صحيحة');
-            window.location.href = 'index.html';
-            return false;
-        }
-        return true;
+    // ==================== جميع المنتجات (85 لعبة + بطاقات شحن) ====================
+    const defaultGames = [
+        { id: 1, nameAr: "Assassin's Creed Shadows", nameEn: "Assassin's Creed Shadows", category: "games", priceOMR: 14, oldPrice: 20, image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/3159340/header.jpg", detailsAr: "🏷️ الحجم: 65GB | 🎮 اللغة: عربية/إنجليزية", detailsEn: "📦 Size: 65GB | 🎮 Language: Arabic/English" },
+        { id: 2, nameAr: "Call of Duty: Black Ops 6", nameEn: "Call of Duty: Black Ops 6", category: "games", priceOMR: 22, oldPrice: 30, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2933620/header.jpg", detailsAr: "🏷️ الحجم: 120GB | 🎮 اللغة: إنجليزية", detailsEn: "📦 Size: 120GB | 🎮 Language: English" },
+        { id: 3, nameAr: "Grand Theft Auto VI", nameEn: "Grand Theft Auto VI", category: "games", priceOMR: 6, oldPrice: 10, image: "https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/downloads/gtavi/gtavi_cover_ps5.jpg", detailsAr: "🏷️ الحجم: 150GB | 🌍 عالم مفتوح", detailsEn: "📦 Size: 150GB | 🌍 Open World" },
+        { id: 4, nameAr: "God of War Ragnarök", nameEn: "God of War Ragnarök", category: "games", priceOMR: 10, oldPrice: 15, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2322010/header.jpg", detailsAr: "🏷️ الحجم: 85GB | 🪓 ملحمة إسكندنافية", detailsEn: "📦 Size: 85GB | 🪓 Norse Saga" },
+        { id: 5, nameAr: "Spider-Man 2", nameEn: "Spider-Man 2", category: "games", priceOMR: 16, oldPrice: 22, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2651280/header.jpg", detailsAr: "🏷️ الحجم: 98GB | 🕷️ بيتر + مايلز", detailsEn: "📦 Size: 98GB | 🕷️ Peter + Miles" },
+        { id: 6, nameAr: "Final Fantasy XVI", nameEn: "Final Fantasy XVI", category: "games", priceOMR: 18, oldPrice: 25, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2909400/header.jpg", detailsAr: "🏷️ الحجم: 145GB | 🗡️ RPG خيالية", detailsEn: "📦 Size: 145GB | 🗡️ Fantasy RPG" },
+        { id: 7, nameAr: "Tekken 8", nameEn: "Tekken 8", category: "games", priceOMR: 12, oldPrice: 18, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1778820/header.jpg", detailsAr: "🏷️ الحجم: 80GB | 🥊 لعبة قتال", detailsEn: "📦 Size: 80GB | 🥊 Fighting Game" },
+        { id: 8, nameAr: "The Last of Us Part II", nameEn: "The Last of Us Part II", category: "games", priceOMR: 8, oldPrice: 14, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1888930/header.jpg", detailsAr: "🏷️ الحجم: 78GB | 🧟 بقاء ورعب", detailsEn: "📦 Size: 78GB | 🧟 Survival Horror" }
+    ];
+    
+    // إضافة المزيد من الألعاب حتى 85
+    for (let i = 9; i <= 85; i++) {
+        defaultGames.push({
+            id: i,
+            nameAr: `لعبة PS5 مميزة ${i}`,
+            nameEn: `Premium PS5 Game ${i}`,
+            category: "games",
+            priceOMR: 9 + Math.floor(Math.random() * 10),
+            oldPrice: 12 + Math.floor(Math.random() * 10),
+            image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2358720/header.jpg",
+            detailsAr: `🏷️ لعبة رقم ${i} - تجربة ممتعة`,
+            detailsEn: `Game ${i} - Amazing experience`
+        });
     }
     
-    // ==================== رفع الصورة وتحويلها ====================
+    // بطاقات الشحن
+    const giftCards = [
+        { id: 101, nameAr: "🇺🇸 بطاقة شحن أمريكي", nameEn: "🇺🇸 US Gift Card", category: "giftcards", priceOMR: 5, oldPrice: 6, image: "", detailsAr: "الفئات: 10$ | 25$ | 50$ | 100$", detailsEn: "Values: 10$ | 25$ | 50$ | 100$" },
+        { id: 102, nameAr: "🇸🇦 بطاقة شحن سعودي", nameEn: "🇸🇦 Saudi Gift Card", category: "giftcards", priceOMR: 4.5, oldPrice: 5.5, image: "", detailsAr: "الفئات: 50ر.س | 100ر.س | 200ر.س", detailsEn: "Values: 50 SAR | 100 SAR | 200 SAR" },
+        { id: 103, nameAr: "🇦🇪 بطاقة شحن إماراتي", nameEn: "🇦🇪 UAE Gift Card", category: "giftcards", priceOMR: 5, oldPrice: 6, image: "", detailsAr: "الفئات: 50د.إ | 100د.إ | 200د.إ", detailsEn: "Values: 50 AED | 100 AED | 200 AED" },
+        { id: 104, nameAr: "🇶🇦 بطاقة شحن قطري", nameEn: "🇶🇦 Qatar Gift Card", category: "giftcards", priceOMR: 4.5, oldPrice: 5.5, image: "", detailsAr: "الفئات: 50ر.ق | 100ر.ق | 200ر.ق", detailsEn: "Values: 50 QAR | 100 QAR | 200 QAR" },
+        { id: 105, nameAr: "🇰🇼 بطاقة شحن كويتي", nameEn: "🇰🇼 Kuwait Gift Card", category: "giftcards", priceOMR: 6, oldPrice: 7, image: "", detailsAr: "الفئات: 5د.ك | 10د.ك | 20د.ك", detailsEn: "Values: 5 KWD | 10 KWD | 20 KWD" },
+        { id: 106, nameAr: "🇧🇭 بطاقة شحن بحريني", nameEn: "🇧🇭 Bahrain Gift Card", category: "giftcards", priceOMR: 5.5, oldPrice: 6.5, image: "", detailsAr: "الفئات: 5د.ب | 10د.ب | 20د.ب", detailsEn: "Values: 5 BHD | 10 BHD | 20 BHD" },
+        { id: 107, nameAr: "🇴🇲 بطاقة شحن عماني", nameEn: "🇴🇲 Oman Gift Card", category: "giftcards", priceOMR: 5, oldPrice: 6, image: "", detailsAr: "الفئات: 5ر.ع | 10ر.ع | 20ر.ع", detailsEn: "Values: 5 OMR | 10 OMR | 20 OMR" },
+        { id: 108, nameAr: "🇮🇳 بطاقة شحن هندي", nameEn: "🇮🇳 India Gift Card", category: "giftcards", priceOMR: 3.5, oldPrice: 4.5, image: "", detailsAr: "الفئات: 500₹ | 1000₹ | 2000₹", detailsEn: "Values: 500₹ | 1000₹ | 2000₹" },
+        { id: 109, nameAr: "🇹🇷 بطاقة شحن تركي", nameEn: "🇹🇷 Turkey Gift Card", category: "giftcards", priceOMR: 4, oldPrice: 5, image: "", detailsAr: "الفئات: 100₺ | 250₺ | 500₺", detailsEn: "Values: 100₺ | 250₺ | 500₺" },
+        { id: 110, nameAr: "🇮🇩 بطاقة شحن إندونيسي", nameEn: "🇮🇩 Indonesia Gift Card", category: "giftcards", priceOMR: 4, oldPrice: 5, image: "", detailsAr: "الفئات: 50k | 100k | 200k", detailsEn: "Values: 50k | 100k | 200k" }
+    ];
+    
+    const allDefaultProducts = [...defaultGames, ...giftCards];
+    
+    // ==================== التحقق من تسجيل الدخول ====================
+    function checkSession() {
+        const savedSession = localStorage.getItem(SESSION_KEY);
+        if (savedSession === "true") {
+            isLoggedIn = true;
+            showAdminPanel();
+        } else {
+            askPassword();
+        }
+    }
+    
+    function askPassword() {
+        const pwd = prompt('🔐 أدخل كلمة سر الأدمن:');
+        if (pwd === ADMIN_PASSWORD) {
+            isLoggedIn = true;
+            localStorage.setItem(SESSION_KEY, "true");
+            showAdminPanel();
+        } else if (pwd !== null) {
+            alert('❌ كلمة السر غير صحيحة');
+            window.location.href = 'index.html';
+        }
+    }
+    
+    function showAdminPanel() {
+        document.getElementById('adminPanel').style.display = 'block';
+        document.getElementById('logoutBtn').style.display = 'inline-block';
+        document.getElementById('productsTable').innerHTML = '<div class="loading">جاري التحميل...</div>';
+        loadProducts();
+    }
+    
+    function logout() {
+        localStorage.removeItem(SESSION_KEY);
+        isLoggedIn = false;
+        window.location.reload();
+    }
+    
+    document.getElementById('logoutBtn').onclick = logout;
+    
+    // ==================== رفع الصورة ====================
     function handleImageUpload(file, callback) {
         if (!file) return;
         const reader = new FileReader();
-        reader.onload = function(e) {
-            callback(e.target.result);
-        };
+        reader.onload = function(e) { callback(e.target.result); };
         reader.readAsDataURL(file);
     }
     
-    // إعداد رفع الصورة للإضافة
     const uploadArea = document.getElementById("newImageUploadArea");
     const fileInput = document.getElementById("newImageFile");
     const preview = document.getElementById("newImagePreview");
     
-    if (uploadArea) {
-        uploadArea.addEventListener("click", () => fileInput.click());
-    }
+    if (uploadArea) uploadArea.addEventListener("click", () => fileInput.click());
     if (fileInput) {
         fileInput.addEventListener("change", (e) => {
             const file = e.target.files[0];
@@ -280,16 +362,15 @@
             const data = snapshot.val();
             if (data && Array.isArray(data) && data.length > 0) {
                 products = data;
-            } else if (data && typeof data === 'object' && Object.keys(data).length > 0) {
-                products = Object.values(data);
             } else {
-                products = [];
+                // أول مرة: تحميل جميع المنتجات الافتراضية
+                products = JSON.parse(JSON.stringify(allDefaultProducts));
+                saveProducts();
             }
             renderTable();
         });
     }
     
-    // ==================== حفظ المنتجات ====================
     function saveProducts() {
         productsRef.set(products);
     }
@@ -303,7 +384,7 @@
         }
         
         container.innerHTML = `
-             <table>
+            <table>
                 <thead>
                     <tr>
                         <th>الصورة</th>
@@ -315,7 +396,7 @@
                     </tr>
                 </thead>
                 <tbody id="tableBody"></tbody>
-             </table>
+            </table>
         `;
         
         const tbody = document.getElementById('tableBody');
@@ -329,8 +410,8 @@
                 <td>
                     <button class="edit-btn" onclick="openEditForm(${p.id})">✏️ تعديل</button>
                     <button class="delete-btn" onclick="deleteProduct(${p.id})">🗑️ حذف</button>
-                </td>
-            </tr>
+                 </td>
+             </tr>
             <tr id="edit-form-${p.id}" style="display:none;">
                 <td colspan="6">
                     <div class="product-edit-form">
@@ -338,14 +419,12 @@
                         <input type="text" id="editNameEn_${p.id}" value="${escapeHtml(p.nameEn)}" placeholder="Name in English">
                         <input type="number" id="editPrice_${p.id}" value="${p.priceOMR}" step="0.5" placeholder="السعر">
                         <input type="number" id="editOldPrice_${p.id}" value="${p.oldPrice || ''}" step="0.5" placeholder="السعر القديم">
-                        
-                        <div class="edit-image-upload" id="editImageUpload_${p.id}" onclick="document.getElementById('editImageFile_${p.id}').click()">
+                        <div class="edit-image-upload" onclick="document.getElementById('editImageFile_${p.id}').click()">
                             <i class="fas fa-cloud-upload-alt"></i> اختر صورة من جهازك
                             <input type="file" id="editImageFile_${p.id}" accept="image/*" style="display:none;">
                         </div>
                         <img id="editImagePreview_${p.id}" class="edit-image-preview" alt="معاينة">
                         <input type="text" id="editImageUrl_${p.id}" value="${escapeHtml(p.image || '')}" placeholder="أو أدخل رابط الصورة (URL)">
-                        
                         <textarea id="editDescAr_${p.id}" rows="1" placeholder="الوصف بالعربية">${escapeHtml(p.detailsAr || '')}</textarea>
                         <textarea id="editDescEn_${p.id}" rows="1" placeholder="Description in English">${escapeHtml(p.detailsEn || '')}</textarea>
                         <select id="editCategory_${p.id}">
@@ -355,11 +434,11 @@
                         <button onclick="saveEdit(${p.id})" style="background:#00cc88;">💾 حفظ</button>
                         <button onclick="closeEditForm(${p.id})" style="background:#ff4444;">إلغاء</button>
                     </div>
-                </td>
-            </tr>
+                 </td>
+             </tr>
         `).join('');
         
-        // إضافة أحداث رفع الصورة لكل منتج
+        // إضافة أحداث رفع الصورة للتعديل
         products.forEach(p => {
             const editFileInput = document.getElementById(`editImageFile_${p.id}`);
             const editPreview = document.getElementById(`editImagePreview_${p.id}`);
@@ -473,10 +552,8 @@
         renderTable();
     }
     
-    // ==================== بدء التشغيل مع التحقق من كلمة السر ====================
-    if (checkPassword()) {
-        loadProducts();
-    }
+    // ==================== بدء التشغيل ====================
+    checkSession();
 </script>
 </body>
 </html>
