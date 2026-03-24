@@ -509,10 +509,12 @@
 </a>
 
 <script>
-  // ==================== GitHub Raw JSON URL ====================
-  const PRODUCTS_JSON_URL = "https://raw.githubusercontent.com/omarssp95/xnesto-site/refs/heads/main/products.json";
-  const GITHUB_API_URL = "https://api.github.com/repos/omarssp95/xnesto-site/contents/products.json";
-  const GITHUB_TOKEN = ""; // سيطلب منك في أول تعديل
+  // ==================== GitHub Configuration (بدون توكن) ====================
+  const REPO_OWNER = "omarssp95";
+  const REPO_NAME = "xnesto-site";
+  const FILE_PATH = "products.json";
+  const RAW_URL = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/refs/heads/main/${FILE_PATH}`;
+  const API_URL = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
 
   let products = [];
   let currentLang = "ar";
@@ -528,84 +530,72 @@
   const exchangeRates = { OMR: 1, USD: 2.6, SAR: 9.75, AED: 9.55 };
   const currencySymbols = { OMR: "ر.ع", USD: "$", SAR: "ر.س", AED: "د.إ" };
   
-  // جميع الألعاب الافتراضية (أكثر من 25 لعبة)
-  const allGames = [
+  // المنتجات الافتراضية
+  const defaultProducts = [
     { id: 1, nameAr: "Assassin's Creed Shadows", nameEn: "Assassin's Creed Shadows", category: "games", price: 14, oldPrice: 20, image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/3159340/header.jpg", descAr: "🏷️ الحجم: 65GB | 🎮 اللغة: عربية/إنجليزية", descEn: "📦 Size: 65GB | 🎮 Language: Arabic/English" },
     { id: 2, nameAr: "Call of Duty: Black Ops 6", nameEn: "Call of Duty: Black Ops 6", category: "games", price: 22, oldPrice: 30, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2933620/header.jpg", descAr: "🏷️ الحجم: 120GB | 🎮 اللغة: إنجليزية", descEn: "📦 Size: 120GB | 🎮 Language: English" },
     { id: 3, nameAr: "Grand Theft Auto VI", nameEn: "Grand Theft Auto VI", category: "games", price: 6, oldPrice: 10, image: "https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/downloads/gtavi/gtavi_cover_ps5.jpg", descAr: "🏷️ الحجم: 150GB | 🌍 عالم مفتوح", descEn: "📦 Size: 150GB | 🌍 Open World" },
     { id: 4, nameAr: "God of War Ragnarök", nameEn: "God of War Ragnarök", category: "games", price: 10, oldPrice: 15, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2322010/header.jpg", descAr: "🏷️ الحجم: 85GB | 🪓 ملحمة إسكندنافية", descEn: "📦 Size: 85GB | 🪓 Norse Saga" },
     { id: 5, nameAr: "Spider-Man 2", nameEn: "Spider-Man 2", category: "games", price: 16, oldPrice: 22, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2651280/header.jpg", descAr: "🏷️ الحجم: 98GB | 🕷️ بيتر + مايلز", descEn: "📦 Size: 98GB | 🕷️ Peter + Miles" },
-    { id: 6, nameAr: "Final Fantasy XVI", nameEn: "Final Fantasy XVI", category: "games", price: 18, oldPrice: 25, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2909400/header.jpg", descAr: "🏷️ الحجم: 145GB | 🗡️ RPG خيالية", descEn: "📦 Size: 145GB | 🗡️ Fantasy RPG" },
-    { id: 7, nameAr: "Tekken 8", nameEn: "Tekken 8", category: "games", price: 12, oldPrice: 18, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1778820/header.jpg", descAr: "🏷️ الحجم: 80GB | 🥊 لعبة قتال", descEn: "📦 Size: 80GB | 🥊 Fighting Game" },
-    { id: 8, nameAr: "The Last of Us Part II", nameEn: "The Last of Us Part II", category: "games", price: 8, oldPrice: 14, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1888930/header.jpg", descAr: "🏷️ الحجم: 78GB | 🧟 بقاء ورعب", descEn: "📦 Size: 78GB | 🧟 Survival Horror" },
-    { id: 9, nameAr: "Red Dead Redemption 2", nameEn: "Red Dead Redemption 2", category: "games", price: 9, oldPrice: 15, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1174180/header.jpg", descAr: "🏷️ الحجم: 150GB | 🤠 مغامرة غرب", descEn: "📦 Size: 150GB | 🤠 Western Adventure" },
-    { id: 10, nameAr: "Cyberpunk 2077", nameEn: "Cyberpunk 2077", category: "games", price: 10, oldPrice: 16, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/header.jpg", descAr: "🏷️ الحجم: 70GB | 🌆 مستقبل مفتوح", descEn: "📦 Size: 70GB | 🌆 Open World Future" },
-    { id: 11, nameAr: "Elden Ring", nameEn: "Elden Ring", category: "games", price: 12, oldPrice: 18, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg", descAr: "🏷️ الحجم: 60GB | ⚔️ RPG خيالي", descEn: "📦 Size: 60GB | ⚔️ Fantasy RPG" },
-    { id: 12, nameAr: "Horizon Forbidden West", nameEn: "Horizon Forbidden West", category: "games", price: 11, oldPrice: 17, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1151640/header.jpg", descAr: "🏷️ الحجم: 96GB | 🦕 مغامرة مستقبلية", descEn: "📦 Size: 96GB | 🦕 Future Adventure" }
+    { id: 6, nameAr: "بطاقة شحن أمريكي", nameEn: "US Gift Card", category: "giftcards", price: 5, oldPrice: 6, image: "", descAr: "الفئات: 10$ | 25$ | 50$ | 100$", descEn: "Values: 10$ | 25$ | 50$ | 100$" },
+    { id: 7, nameAr: "بطاقة شحن سعودي", nameEn: "Saudi Gift Card", category: "giftcards", price: 4.5, oldPrice: 5.5, image: "", descAr: "الفئات: 50ر.س | 100ر.س | 200ر.س", descEn: "Values: 50 SAR | 100 SAR | 200 SAR" },
+    { id: 8, nameAr: "بطاقة شحن عماني", nameEn: "Oman Gift Card", category: "giftcards", price: 5, oldPrice: 6, image: "", descAr: "الفئات: 5ر.ع | 10ر.ع | 20ر.ع", descEn: "Values: 5 OMR | 10 OMR | 20 OMR" }
   ];
   
-  const giftCards = [
-    { id: 101, nameAr: "بطاقة شحن أمريكي", nameEn: "US Gift Card", category: "giftcards", price: 5, oldPrice: 6, image: "", descAr: "الفئات: 10$ | 25$ | 50$ | 100$", descEn: "Values: 10$ | 25$ | 50$ | 100$" },
-    { id: 102, nameAr: "بطاقة شحن سعودي", nameEn: "Saudi Gift Card", category: "giftcards", price: 4.5, oldPrice: 5.5, image: "", descAr: "الفئات: 50ر.س | 100ر.س | 200ر.س", descEn: "Values: 50 SAR | 100 SAR | 200 SAR" },
-    { id: 103, nameAr: "بطاقة شحن إماراتي", nameEn: "UAE Gift Card", category: "giftcards", price: 5, oldPrice: 6, image: "", descAr: "الفئات: 50د.إ | 100د.إ | 200د.إ", descEn: "Values: 50 AED | 100 AED | 200 AED" },
-    { id: 104, nameAr: "بطاقة شحن عماني", nameEn: "Oman Gift Card", category: "giftcards", price: 5, oldPrice: 6, image: "", descAr: "الفئات: 5ر.ع | 10ر.ع | 20ر.ع", descEn: "Values: 5 OMR | 10 OMR | 20 OMR" }
-  ];
+  // الحصول على التوكن من localStorage (سيطلب مرة واحدة فقط)
+  function getToken() {
+    let token = localStorage.getItem("github_token");
+    if (!token && adminMode) {
+      token = prompt("🔐 أدخل GitHub Personal Access Token:\n\n(لن تحتاج لإدخاله مرة أخرى بعد اليوم)\n\nكيف تحصل عليه؟\n1. github.com/settings/tokens\n2. Generate new token (classic)\n3. اختر 'repo' فقط\n4. انسخ التوكن والصقه هنا");
+      if (token) {
+        localStorage.setItem("github_token", token);
+      }
+    }
+    return token;
+  }
   
-  const allProducts = [...allGames, ...giftCards];
-  
-  // ==================== تحميل المنتجات من GitHub ====================
+  // تحميل المنتجات
   async function loadProducts() {
     try {
-      const response = await fetch(PRODUCTS_JSON_URL + "?t=" + Date.now());
+      const response = await fetch(RAW_URL + "?t=" + Date.now());
       if (response.ok) {
         const data = await response.json();
         if (data.products && data.products.length > 0) {
           products = data.products;
         } else {
-          products = JSON.parse(JSON.stringify(allProducts));
-          await saveProductsToGitHub();
+          products = JSON.parse(JSON.stringify(defaultProducts));
         }
       } else {
-        products = JSON.parse(JSON.stringify(allProducts));
+        products = JSON.parse(JSON.stringify(defaultProducts));
       }
     } catch (error) {
-      console.error("Error loading products:", error);
-      products = JSON.parse(JSON.stringify(allProducts));
+      products = JSON.parse(JSON.stringify(defaultProducts));
     }
     renderProducts();
   }
   
-  // ==================== حفظ المنتجات إلى GitHub ====================
+  // حفظ المنتجات
   async function saveProductsToGitHub() {
-    // نطلب من المستخدم إدخال GitHub Token
-    let token = localStorage.getItem("github_token");
+    const token = getToken();
     if (!token) {
-      token = prompt("🔐 لإضافة/تعديل المنتجات، أدخل GitHub Personal Access Token:\n\nكيف تحصل عليه؟\n1. اذهب إلى github.com/settings/tokens\n2. اضغط Generate new token (classic)\n3. اختر 'repo' فقط\n4. انسخ التوكن والصقه هنا");
-      if (token) {
-        localStorage.setItem("github_token", token);
-      } else {
-        alert("❌ لا يمكن حفظ التعديلات بدون توكن. المنتجات محفوظة مؤقتاً فقط.");
-        return false;
-      }
+      alert("❌ لا يمكن حفظ التعديلات بدون توكن. الرجاء إدخال التوكن.");
+      return false;
     }
     
     try {
-      // أولاً نحصل على SHA للملف الحالي
-      const getFileResponse = await fetch(GITHUB_API_URL, {
+      let sha = null;
+      const getFileResponse = await fetch(API_URL, {
         headers: { "Authorization": `token ${token}` }
       });
-      let sha = null;
       if (getFileResponse.ok) {
         const fileData = await getFileResponse.json();
         sha = fileData.sha;
       }
       
-      // نجهز المحتوى الجديد
       const content = JSON.stringify({ products: products }, null, 2);
       const encodedContent = btoa(unescape(encodeURIComponent(content)));
       
-      // نرسل التحديث
-      const updateResponse = await fetch(GITHUB_API_URL, {
+      const updateResponse = await fetch(API_URL, {
         method: "PUT",
         headers: {
           "Authorization": `token ${token}`,
@@ -619,26 +609,21 @@
       });
       
       if (updateResponse.ok) {
-        alert("✅ تم حفظ المنتجات بنجاح! (سيظهر للجميع فوراً)");
         return true;
       } else {
         const error = await updateResponse.json();
         if (error.message === "Bad credentials") {
           localStorage.removeItem("github_token");
           alert("❌ التوكن غير صحيح. حاول مرة أخرى.");
-        } else {
-          alert("❌ حدث خطأ: " + (error.message || "غير معروف"));
         }
         return false;
       }
     } catch (error) {
-      console.error("Error saving to GitHub:", error);
-      alert("❌ خطأ في الاتصال. تأكد من اتصال الإنترنت.");
       return false;
     }
   }
   
-  // ==================== وظائف العرض ====================
+  // ==================== باقي الوظائف ====================
   function formatPrice(price) {
     return `${currencySymbols[currentCurrency]} ${(price * exchangeRates[currentCurrency]).toFixed(2)}`;
   }
@@ -749,7 +734,7 @@
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
   }
   
-  // ==================== وظائف الأدمن ====================
+  // وظائف الأدمن
   function toggleAdmin() {
     const pwd = prompt('🔐 أدخل كلمة سر الأدمن:');
     if (pwd === ADMIN_PASSWORD) {
@@ -770,15 +755,12 @@
     const newPrice = parseFloat(card.querySelector('.edit-price-input').value);
     const newImageUrl = card.querySelector('.edit-image-url').value.trim();
     
-    if (!isNaN(newPrice)) {
-      product.price = newPrice;
-    }
-    if (newImageUrl !== undefined) {
-      product.image = newImageUrl;
-    }
+    if (!isNaN(newPrice)) product.price = newPrice;
+    if (newImageUrl !== undefined) product.image = newImageUrl;
     
     const saved = await saveProductsToGitHub();
     if (saved) {
+      alert('✅ تم تحديث المنتج بنجاح! (سيظهر للجميع فوراً)');
       renderProducts();
     }
   }
@@ -788,6 +770,7 @@
       products = products.filter(p => p.id !== id);
       const saved = await saveProductsToGitHub();
       if (saved) {
+        alert('✅ تم حذف المنتج بنجاح!');
         renderProducts();
       }
     }
@@ -809,12 +792,9 @@
     
     const newId = Date.now();
     const newProduct = {
-      id: newId,
-      nameAr, nameEn, category,
-      price,
+      id: newId, nameAr, nameEn, category, price,
       oldPrice: (!isNaN(discount) && discount > 0) ? price / (1 - discount / 100) : null,
-      image,
-      descAr: details, descEn: details
+      image, descAr: details, descEn: details
     };
     
     products.push(newProduct);
@@ -826,11 +806,12 @@
       document.getElementById('newImageUrl').value = '';
       document.getElementById('newDetails').value = '';
       document.getElementById('newDiscount').value = '';
+      alert('✅ تم إضافة المنتج بنجاح!');
       renderProducts();
     }
   }
   
-  // ==================== وظائف الواجهة ====================
+  // وظائف الواجهة
   function setLang(lang) {
     currentLang = lang;
     document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
@@ -856,7 +837,7 @@
     localStorage.setItem('xnesto_view', view);
   }
   
-  // ==================== Event Listeners ====================
+  // Event Listeners
   document.getElementById('searchInput').addEventListener('input', (e) => {
     searchQuery = e.target.value;
     currentPage = 1;
@@ -873,7 +854,7 @@
   const savedView = localStorage.getItem('xnesto_view') || 'mobile';
   setView(savedView);
   
-  // Initialize
+  // Start
   loadProducts();
 </script>
 </body>
