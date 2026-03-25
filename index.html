@@ -413,7 +413,7 @@
 </div>
 
 <script>
-    // ==================== دوال الشروط والطلب (المضافة لحل المشكلة) ====================
+    // ==================== دوال الشروط والطلب ====================
     let pendingOrderProduct = null;
     const WA_NUMBER = "96879977100";
     
@@ -511,15 +511,13 @@
         }
     });
     
-    // ==================== باقي كود المتجر الأصلي ====================
+    // ==================== Firebase والإعدادات ====================
     const firebaseConfig = { databaseURL: "https://xnesto-645bf-default-rtdb.asia-southeast1.firebasedatabase.app/" };
     firebase.initializeApp(firebaseConfig);
     const database = firebase.database();
     const productsRef = database.ref('products');
     const customersRef = database.ref('customers');
     const categoriesRef = database.ref('categories');
-    const ratingsRef = database.ref('ratings');
-    const ordersRef = database.ref('orders');
     
     let products = [];
     let categories = [];
@@ -530,13 +528,12 @@
     let currentPage = 1;
     let currentCategory = "all";
     let searchQuery = "";
-    let isAdmin = false;
     const ITEMS_PER_PAGE = 12;
-    const ADMIN_PASSWORD = "ssp1995";
     
     const exchangeRates = { OMR: 1, USD: 2.6, SAR: 9.75, AED: 9.55 };
     const currencySymbols = { OMR: "ر.ع", USD: "$", SAR: "ر.س", AED: "د.إ" };
     
+    // المنتجات الافتراضية
     const allGames = [
         { id: 1, nameAr: "Assassin's Creed Shadows", nameEn: "Assassin's Creed Shadows", priceOMR: 14, oldPrice: 20, image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/3159340/header.jpg", detailsAr: "🏷️ 65GB | 🎮 عربي/إنجليزي", detailsEn: "📦 65GB | 🎮 Arabic/English", sales: 564, category: "games" },
         { id: 2, nameAr: "Call of Duty Black Ops 6", nameEn: "Call of Duty Black Ops 6", priceOMR: 22, oldPrice: 30, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2933620/header.jpg", detailsAr: "🏷️ 120GB | 🎮 إنجليزي", detailsEn: "📦 120GB | 🎮 English", sales: 464, category: "games" },
@@ -566,6 +563,7 @@
     for (let i = 0; i < giftCards.length; i++) giftCards[i].category = "giftcards";
     const allDefaultProducts = [...allGames, ...giftCards];
     
+    // ==================== دوال المتجر ====================
     function loadCategories() {
         categoriesRef.on('value', (snapshot) => {
             const data = snapshot.val();
@@ -582,22 +580,14 @@
         container.innerHTML = allCats.map(cat => `<button class="tab-btn ${currentCategory === cat.key ? 'active' : ''}" onclick="setCategory('${cat.key}')">${cat.name}</button>`).join('');
     }
     
-    function validateEmail(email) { return /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/.test(email); }
-    function showLoginModal() { document.getElementById('loginModal').style.display = 'flex'; document.getElementById('loginError').innerHTML = ''; }
+    function showLoginModal() { document.getElementById('loginModal').style.display = 'flex'; }
     function closeLoginModal() { document.getElementById('loginModal').style.display = 'none'; }
     
     async function loginCustomer() {
         const email = document.getElementById('loginEmail').value.trim();
         const name = document.getElementById('loginName').value.trim();
-        const errorDiv = document.getElementById('loginError');
-        if (!email || !name) { errorDiv.innerHTML = '⚠️ الرجاء إدخال البريد والاسم'; return; }
-        if (!validateEmail(email)) { errorDiv.innerHTML = '⚠️ البريد غير صحيح'; return; }
-        const snapshot = await customersRef.orderByChild('email').equalTo(email).once('value');
-        if (snapshot.exists()) {
-            const customer = Object.values(snapshot.val())[0];
-            if (customer.name !== name) { errorDiv.innerHTML = '⚠️ الاسم غير مطابق'; return; }
-            currentUser = { email, name };
-        } else { currentUser = { email, name }; await customersRef.push({ email, name, joinedAt: Date.now() }); }
+        if (!email || !name) { alert('⚠️ الرجاء إدخال البريد والاسم'); return; }
+        currentUser = { email, name };
         localStorage.setItem('xnesto_customer', JSON.stringify({ email, name }));
         updateUserUI();
         closeLoginModal();
@@ -607,9 +597,9 @@
     function logoutCustomer() { currentUser = null; localStorage.removeItem('xnesto_customer'); updateUserUI(); alert('تم تسجيل الخروج'); }
     function updateUserUI() {
         const authDiv = document.getElementById('authButtons');
-        if (currentUser) {
+        if (currentUser && authDiv) {
             authDiv.innerHTML = `<div class="user-info"><i class="fas fa-user-circle"></i> ${currentUser.name.split(' ')[0]}<button class="logout-btn-small" onclick="logoutCustomer()"><i class="fas fa-sign-out-alt"></i></button></div>`;
-        } else {
+        } else if (authDiv) {
             authDiv.innerHTML = `<button class="customer-btn" onclick="showLoginModal()"><i class="fas fa-user"></i> <span>تسجيل</span></button>`;
         }
     }
@@ -723,119 +713,11 @@
         if (element) element.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
     
+    // تحميل البيانات
     loadCategories();
     loadProducts();
     const savedCustomer = localStorage.getItem('xnesto_customer');
     if (savedCustomer) { try { currentUser = JSON.parse(savedCustomer); updateUserUI(); } catch(e) {} }
-<script>
-    // ==================== إصلاح مشكلة الطلب والواتساب ====================
-    // التأكد من وجود المتغيرات
-    if (typeof WA_NUMBER === 'undefined') var WA_NUMBER = "96879977100";
-    if (typeof pendingOrderProduct === 'undefined') var pendingOrderProduct = null;
-    
-    // دالة عرض الشروط
-    function showTermsForProduct(productId, productName, productPrice) {
-        pendingOrderProduct = { 
-            id: productId, 
-            name: productName, 
-            price: productPrice, 
-            url: window.location.href 
-        };
-        var termsModal = document.getElementById('termsModal');
-        if (termsModal) {
-            termsModal.style.display = 'flex';
-            var termsCheck = document.getElementById('termsCheck');
-            var acceptBtn = document.getElementById('acceptTermsBtn');
-            if (termsCheck) termsCheck.checked = false;
-            if (acceptBtn) acceptBtn.classList.remove('enabled');
-        } else {
-            redirectToWhatsApp(pendingOrderProduct);
-        }
-    }
-    
-    // دالة التحويل للواتساب
-    function redirectToWhatsApp(product) {
-        var whatsappNumber = WA_NUMBER || "96879977100";
-        var message = "مرحباً، أرغب في شراء المنتج التالي:\n\n📦 المنتج: " + product.name + "\n💰 السعر: " + product.price + " ر.ع\n🔗 رابط المنتج: " + product.url + "\n\nأرجو تأكيد الطلب.";
-        var encodedMessage = encodeURIComponent(message);
-        var whatsappUrl = "https://wa.me/" + whatsappNumber + "?text=" + encodedMessage;
-        window.open(whatsappUrl, '_blank');
-    }
-    
-    // دالة إغلاق نافذة الشروط
-    function closeTermsModal() {
-        var termsModal = document.getElementById('termsModal');
-        if (termsModal) termsModal.style.display = 'none';
-        pendingOrderProduct = null;
-    }
-    
-    // دالة تفعيل زر الموافقة
-    function toggleTermsAccept() {
-        var check = document.getElementById('termsCheck');
-        var acceptBtn = document.getElementById('acceptTermsBtn');
-        if (check && acceptBtn) {
-            if (check.checked) {
-                acceptBtn.classList.add('enabled');
-            } else {
-                acceptBtn.classList.remove('enabled');
-            }
-        }
-    }
-    
-    // دالة الموافقة على الشروط
-    window.acceptTerms = function() {
-        var termsCheck = document.getElementById('termsCheck');
-        if (!termsCheck || !termsCheck.checked) {
-            alert('⚠️ يرجى الموافقة على الشروط أولاً');
-            return;
-        }
-        closeTermsModal();
-        if (pendingOrderProduct) {
-            redirectToWhatsApp(pendingOrderProduct);
-            pendingOrderProduct = null;
-        }
-    };
-    
-    // دالة الطلب الرئيسية
-    window.requestProduct = function(productId, productName, productPrice) {
-        showTermsForProduct(productId, productName, productPrice);
-    };
-    
-    // ربط الأزرار بعد تحميل الصفحة
-    document.addEventListener('DOMContentLoaded', function() {
-        var acceptBtn = document.getElementById('acceptTermsBtn');
-        var declineBtn = document.getElementById('declineTermsBtn');
-        var termsCheck = document.getElementById('termsCheck');
-        var checkboxRow = document.getElementById('termsCheckboxRow');
-        
-        if (acceptBtn) {
-            acceptBtn.onclick = function(e) {
-                e.preventDefault();
-                window.acceptTerms();
-            };
-        }
-        if (declineBtn) {
-            declineBtn.onclick = function(e) {
-                e.preventDefault();
-                closeTermsModal();
-            };
-        }
-        if (termsCheck) {
-            termsCheck.onchange = function() { toggleTermsAccept(); };
-        }
-        if (checkboxRow) {
-            checkboxRow.onclick = function(e) {
-                if (e.target !== termsCheck && e.target !== checkboxRow.querySelector('label')) {
-                    if (termsCheck) {
-                        termsCheck.checked = !termsCheck.checked;
-                        toggleTermsAccept();
-                    }
-                }
-            };
-        }
-    });
-    
-    console.log('✅ تم تفعيل نظام الطلب مع الشروط بنجاح');
 </script>
 </body>
 </html>
