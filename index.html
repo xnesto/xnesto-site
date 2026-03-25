@@ -26,23 +26,15 @@
             .quote-badge { font-size: 0.6rem; padding: 4px 10px; }
             .stats-badge { gap: 10px; padding: 4px 12px; }
             .stat-item { font-size: 0.6rem; }
-            
-            /* تحسين شريط التحكم */
             .control-bar { padding: 8px 12px; border-radius: 40px; gap: 8px; }
             .lang-btn { padding: 4px 12px; font-size: 0.7rem; }
             #currencySelect { padding: 4px 8px; font-size: 0.7rem; }
             .customer-btn, .user-info { padding: 4px 10px; font-size: 0.7rem; }
-            
-            /* تحسين البحث */
             .search-bar-container { padding: 6px 12px; margin-bottom: 12px; }
             .search-box { padding: 4px 12px; }
             #searchInput { font-size: 0.8rem; padding: 8px 0; }
-            
-            /* تحسين أزرار التصنيفات */
             .tabs-container { gap: 8px; margin-bottom: 16px; }
             .tab-btn { padding: 6px 16px; font-size: 0.75rem; }
-            
-            /* تحسين المنتجات */
             .products-grid { gap: 10px; }
             .product-card { border-radius: 12px; }
             .product-image { height: 140px; }
@@ -52,18 +44,12 @@
             .price { font-size: 1rem; }
             .old-price { font-size: 0.65rem; }
             .btn-wa { padding: 6px; font-size: 0.7rem; }
-            
-            /* تحسين التقييمات */
             .rating-stars .star { font-size: 0.65rem; }
             .rating-count { font-size: 0.55rem; }
             .rating-btn { padding: 2px 5px; font-size: 0.55rem; }
-            
-            /* تحسين الفواصل */
             .section-divider { margin: 16px 0; }
             .divider-line { height: 1px; }
             .divider-badge { padding: 3px 12px; font-size: 0.7rem; }
-            
-            /* تحسين الأكثر مبيعاً */
             .best-sellers { padding: 12px; margin-bottom: 16px; border-radius: 1rem; }
             .best-sellers-title { font-size: 1.1rem; margin-bottom: 12px; }
             .best-sellers-grid { gap: 8px; grid-template-columns: repeat(2, 1fr); }
@@ -72,12 +58,8 @@
             .best-seller-card .name { font-size: 0.7rem; }
             .best-seller-card .sales { font-size: 0.6rem; }
             .best-seller-rank { width: 22px; height: 22px; font-size: 0.65rem; top: -6px; right: -6px; }
-            
-            /* تحسين الترقيم */
             .pagination { gap: 6px; margin-top: 16px; }
             .page-btn { padding: 4px 10px; font-size: 0.7rem; }
-            
-            /* تحسين الفوتر */
             .footer { padding: 12px; margin-top: 16px; font-size: 0.65rem; }
             .whatsapp-float { width: 45px; height: 45px; font-size: 1.5rem; line-height: 45px; bottom: 15px; left: 15px; }
         }
@@ -112,7 +94,6 @@
         .controller-icon { font-size: 2rem; display: inline-block; animation: controllerFloat 3s ease-in-out infinite; filter: drop-shadow(0 0 10px rgba(0,100,255,0.5)); margin: 0 5px; }
         @keyframes controllerFloat { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-5px) rotate(3deg); } }
         
-        /* جزيئات متوهجة */
         .sparkles-container { position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; overflow: hidden; }
         .sparkle { position: absolute; width: 3px; height: 3px; background: radial-gradient(circle, #ffaa44, #ff8844); border-radius: 50%; opacity: 0; animation: sparkleFloat 3s linear infinite; box-shadow: 0 0 6px #ffaa44; }
         @keyframes sparkleFloat { 0% { transform: translateY(100%) scale(0); opacity: 0; } 20% { opacity: 0.8; transform: translateY(50%) scale(1); } 80% { opacity: 0.6; transform: translateY(-50%) scale(0.8); } 100% { transform: translateY(-100%) scale(0); opacity: 0; } }
@@ -281,7 +262,7 @@
         
         /* مودالات */
         .login-modal, .terms-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(12px); align-items: center; justify-content: center; z-index: 5000; padding: 1rem; }
-        .login-box, .terms-box { background: #11152b; border-radius: 1.2rem; padding: 1.2rem; border: 2px solid #ffaa44; width: 100%; max-width: 350px; text-align: center; }
+        .login-box, .terms-box { background: #11152b; border-radius: 1.2rem; padding: 1.2rem; border: 2px solid #ffaa44; width: 100%; max-width: 400px; text-align: center; max-height: 90vh; overflow-y: auto; }
         .login-box h2, .terms-box h3 { color: #ffaa44; margin-bottom: 0.8rem; font-size: 1.1rem; }
         .login-box input { width: 100%; padding: 0.6rem; margin: 0.4rem 0; border-radius: 2rem; background: #1e1e3a; border: 1px solid #ffaa44; color: white; font-size: 0.8rem; }
         .login-box button, .terms-buttons button { width: 100%; padding: 0.6rem; margin-top: 0.5rem; border-radius: 2rem; background: #ffaa44; color: #0a0a1a; font-weight: bold; border: none; cursor: pointer; font-size: 0.8rem; }
@@ -447,16 +428,47 @@
     </div>
 </div>
 
+<!-- نافذة الشروط الجديدة -->
 <div id="termsModal" class="terms-modal">
     <div class="terms-box">
         <h3><i class="fas fa-file-contract"></i> شروط الشراء</h3>
-        <div class="terms-item-row"><div class="t-num">1</div><p>جميع المنتجات رقمية يتم تسليمها فور إتمام الدفع عبر واتساب.</p></div>
-        <div class="terms-item-row"><div class="t-num">2</div><p>المنتجات الرقمية غير قابلة للاسترجاع أو الاستبدال بعد التسليم.</p></div>
-        <div class="terms-item-row"><div class="t-num">3</div><p>يرجى التأكد من صحة حساب PlayStation الخاص بك قبل الطلب.</p></div>
-        <div class="terms-item-row"><div class="t-num">4</div><p>الأسعار المعلنة شاملة جميع الرسوم.</p></div>
-        <div class="terms-item-row"><div class="t-num">5</div><p>في حال وجود أي مشكلة تقنية، يرجى التواصل معنا خلال 24 ساعة.</p></div>
-        <div class="terms-checkbox-row" onclick="toggleTermsAccept()"><input type="checkbox" id="termsCheck"><label>أقر بأنني قرأت وأوافق على جميع الشروط</label></div>
-        <div class="terms-buttons"><button id="acceptTermsBtn" class="accept-btn" onclick="acceptTerms()">✅ أوافق وأكمل</button><button id="declineTermsBtn" class="decline-btn" onclick="closeTermsModal()">❌ إغلاق</button></div>
+        
+        <!-- شروط عامة -->
+        <div style="background: rgba(255,170,68,0.1); border-radius: 8px; padding: 6px 8px; margin-bottom: 8px;">
+            <div style="color: #ffaa44; font-size: 0.7rem; font-weight: bold; margin-bottom: 4px;">📌 شروط عامة</div>
+            <div class="terms-item-row"><div class="t-num">1</div><p>جميع المنتجات رقمية يتم تسليمها فور إتمام الدفع عبر واتساب.</p></div>
+            <div class="terms-item-row"><div class="t-num">2</div><p>المنتجات الرقمية غير قابلة للاسترجاع أو الاستبدال بعد التسليم.</p></div>
+            <div class="terms-item-row"><div class="t-num">3</div><p>الأسعار المعلنة شاملة جميع الرسوم.</p></div>
+            <div class="terms-item-row"><div class="t-num">4</div><p>في حال وجود أي مشكلة تقنية، يرجى التواصل معنا خلال 24 ساعة.</p></div>
+        </div>
+        
+        <!-- شروط خاصة بالحسابات (الألعاب) -->
+        <div style="background: rgba(0,204,136,0.08); border-radius: 8px; padding: 6px 8px; margin-bottom: 8px;">
+            <div style="color: #00cc88; font-size: 0.7rem; font-weight: bold; margin-bottom: 4px;">🎮 شروط خاصة بالحسابات (الألعاب)</div>
+            <div class="terms-item-row"><div class="t-num">5</div><p>الحساب المقدم هو حساب PlayStation يحتوي على اللعبة المطلوبة.</p></div>
+            <div class="terms-item-row"><div class="t-num">6</div><p>يتم تسليم بيانات الحساب (إيميل + كلمة سر) عبر واتساب.</p></div>
+            <div class="terms-item-row"><div class="t-num">7</div><p>يرجى التأكد من أن جهاز PS5/PS4 الخاص بك متصل بالإنترنت قبل التحميل.</p></div>
+            <div class="terms-item-row"><div class="t-num">8</div><p>بعد تحميل اللعبة، يمكنك اللعب بحسابك الأساسي أو داخل الحساب المقدم.</p></div>
+            <div class="terms-item-row"><div class="t-num">9</div><p>الحساب المقدم هو حساب مشترك (Shared Account) وليس ملكية خاصة.</p></div>
+            <div class="terms-item-row"><div class="t-num">10</div><p>إذا واجهت مشكلة في الدخول أو التحميل، راسلنا فورًا خلال 24 ساعة من الشراء.</p></div>
+        </div>
+        
+        <!-- شروط خاصة ببطاقات الشحن -->
+        <div style="background: rgba(255,100,0,0.08); border-radius: 8px; padding: 6px 8px; margin-bottom: 8px;">
+            <div style="color: #ff8844; font-size: 0.7rem; font-weight: bold; margin-bottom: 4px;">💳 شروط خاصة ببطاقات الشحن</div>
+            <div class="terms-item-row"><div class="t-num">11</div><p>بطاقات الشحن يتم إرسال الكود مباشرة عبر واتساب.</p></div>
+            <div class="terms-item-row"><div class="t-num">12</div><p>تأكد من أن منطقة حسابك تطابق منطقة البطاقة (أمريكي، سعودي، إماراتي، عماني).</p></div>
+            <div class="terms-item-row"><div class="t-num">13</div><p>بطاقات الشحن غير قابلة للاسترجاع بعد إرسال الكود.</p></div>
+        </div>
+        
+        <div class="terms-checkbox-row" onclick="toggleTermsAccept()">
+            <input type="checkbox" id="termsCheck">
+            <label>أقر بأنني قرأت وأوافق على جميع الشروط</label>
+        </div>
+        <div class="terms-buttons">
+            <button id="acceptTermsBtn" class="accept-btn" onclick="acceptTerms()">✅ أوافق وأكمل</button>
+            <button id="declineTermsBtn" class="decline-btn" onclick="closeTermsModal()">❌ إغلاق</button>
+        </div>
     </div>
 </div>
 
@@ -479,7 +491,7 @@
     let currentPage = 1;
     let currentCategory = "all";
     let searchQuery = "";
-    let pendingProductData = null;
+    let pendingOrderProduct = null;
     let isAdmin = false;
     const ITEMS_PER_PAGE = 12;
     const WA_NUMBER = "96879977100";
@@ -723,8 +735,6 @@
     function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, function(m) { if (m === '&') return '&amp;'; if (m === '<') return '&lt;'; if (m === '>') return '&gt;'; return m; }); }
     
     // ==================== نظام الطلب مع الشروط ====================
-    let pendingOrderProduct = null;
-    
     function showTermsForProduct(productId, productName, productPrice) {
         pendingOrderProduct = { id: productId, name: productName, price: productPrice, url: window.location.href };
         const termsModal = document.getElementById('termsModal');
