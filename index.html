@@ -16,22 +16,156 @@
             padding: 1.5rem;
             min-height: 100vh;
         }
+        
+        /* ==================== هيدر جديد مع تأثيرات ==================== */
         .header {
+            position: relative;
             text-align: center;
-            background: linear-gradient(135deg, #0f0f2a, #0a0a1f);
-            padding: 0.5rem 1rem 1.5rem;
-            border-radius: 1.5rem;
+            background: linear-gradient(135deg, #0a0a1f, #0a0a2a);
+            padding: 2rem 1rem;
+            border-radius: 2rem;
             margin-bottom: 1.5rem;
             border: 1px solid rgba(255, 170, 68, 0.3);
+            overflow: hidden;
         }
-        .header h1 {
-            font-size: 2.5rem;
-            background: linear-gradient(135deg, #ffaa44, #ffcc88, #ffaa44);
-            background-clip: text;
+        
+        /* خلفية متحركة */
+        .header-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 20% 30%, rgba(255,100,0,0.15), transparent 70%),
+                        radial-gradient(circle at 80% 70%, rgba(0,100,200,0.1), transparent 70%);
+            animation: bgPulse 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes bgPulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+        
+        /* شعار متحرك */
+        .logo-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .logo-glow {
+            position: absolute;
+            inset: -20px;
+            background: radial-gradient(circle, rgba(255,170,68,0.4), transparent 70%);
+            filter: blur(20px);
+            animation: logoPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes logoPulse {
+            0%, 100% { opacity: 0.5; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+        
+        .main-logo {
+            position: relative;
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffcc88, #ffaa44, #ff8844);
             -webkit-background-clip: text;
+            background-clip: text;
             color: transparent;
+            text-shadow: 0 0 30px rgba(255,170,68,0.5);
+            letter-spacing: 5px;
+            animation: textGlow 3s ease-in-out infinite;
         }
-        .header p { color: #ffdd99; font-size: 0.9rem; }
+        
+        @keyframes textGlow {
+            0%, 100% { text-shadow: 0 0 20px rgba(255,170,68,0.3); }
+            50% { text-shadow: 0 0 40px rgba(255,170,68,0.7); }
+        }
+        
+        /* ألعاب متحركة حول الهيدر */
+        .floating-icons {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        
+        .float-icon {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0.6;
+            animation: floatIcon 12s linear infinite;
+        }
+        
+        @keyframes floatIcon {
+            0% { transform: translateY(100%) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-100%) rotate(360deg); opacity: 0; }
+        }
+        
+        /* النار */
+        .fire-container {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .flame {
+            width: 20px;
+            height: 30px;
+            background: linear-gradient(to top, #ff4400, #ffaa00, #ffff00);
+            border-radius: 50% 50% 20% 20%;
+            animation: flicker 0.3s ease-in-out infinite alternate;
+            transform-origin: bottom center;
+        }
+        
+        .flame:nth-child(1) { height: 35px; width: 18px; animation-delay: 0s; }
+        .flame:nth-child(2) { height: 50px; width: 22px; animation-delay: 0.1s; }
+        .flame:nth-child(3) { height: 65px; width: 28px; animation-delay: 0.05s; background: linear-gradient(to top, #ff6600, #ffcc44, #ffff88); }
+        .flame:nth-child(4) { height: 45px; width: 20px; animation-delay: 0.15s; }
+        .flame:nth-child(5) { height: 55px; width: 24px; animation-delay: 0.08s; }
+        .flame:nth-child(6) { height: 38px; width: 18px; animation-delay: 0.2s; }
+        
+        @keyframes flicker {
+            0% { transform: scaleY(1) rotate(-2deg); opacity: 0.9; }
+            100% { transform: scaleY(1.2) rotate(3deg); opacity: 1; }
+        }
+        
+        /* يد التحكم PS5 */
+        .controller-icon {
+            font-size: 3rem;
+            display: inline-block;
+            animation: controllerFloat 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 15px rgba(0,100,255,0.6));
+            margin: 0 10px;
+        }
+        
+        @keyframes controllerFloat {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+        
+        /* نص ترحيبي */
+        .welcome-text {
+            font-size: 0.9rem;
+            color: #ffdd99;
+            background: rgba(0,0,0,0.4);
+            display: inline-block;
+            padding: 5px 20px;
+            border-radius: 40px;
+            margin-top: 10px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,170,68,0.3);
+        }
+        
+        /* باقي الكود الأصلي كما هو (لم يتغير) */
+        .header h1, .header p { display: none; }
         
         .control-bar {
             max-width: 1400px;
@@ -467,6 +601,9 @@
             .product-image { height: 130px; }
             .product-title { font-size: 0.85rem; }
             .price { font-size: 1rem; }
+            .main-logo { font-size: 2rem; }
+            .controller-icon { font-size: 2rem; }
+            .flame:nth-child(3) { height: 45px; }
         }
     </style>
 </head>
@@ -478,836 +615,54 @@
     <button class="mode-toggle-btn" onclick="toggleMode()">🌙 ليلي</button>
 </div>
 
+<!-- ==================== هيدر جديد ==================== -->
 <div class="header">
-    <h1>🎮 XNESTO STORE 🎮</h1>
-    <p>أكبر متجر لألعاب PlayStation وبطاقات الشحن - توصيل فوري</p>
-</div>
-
-<div class="control-bar">
-    <div class="lang-switch">
-        <button class="lang-btn active" data-lang="ar" onclick="setLang('ar')">🇸🇦 العربية</button>
-        <button class="lang-btn" data-lang="en" onclick="setLang('en')">🇬🇧 English</button>
+    <div class="header-bg"></div>
+    <div class="floating-icons" id="floatingIcons"></div>
+    
+    <div class="logo-container">
+        <div class="logo-glow"></div>
+        <div class="main-logo">
+            <i class="fab fa-playstation"></i> XNESTO <i class="fas fa-gamepad"></i>
+        </div>
     </div>
-    <div class="currency-selector">
-        <label><i class="fas fa-coins"></i> <span id="currencyLabel">العملة:</span></label>
-        <select id="currencySelect" onchange="setCurrency(this.value)">
-            <option value="OMR">ريال عماني (OMR)</option>
-            <option value="USD">دولار أمريكي (USD)</option>
-            <option value="SAR">ريال سعودي (SAR)</option>
-            <option value="AED">درهم إماراتي (AED)</option>
-        </select>
+    
+    <div class="controller-icon">
+        <i class="fas fa-gamepad"></i>
     </div>
-    <div class="auth-buttons" id="authButtons">
-        <button class="customer-btn" onclick="showLoginModal()"><i class="fas fa-user"></i> <span>تسجيل دخول</span></button>
+    
+    <div class="fire-container">
+        <div class="flame"></div>
+        <div class="flame"></div>
+        <div class="flame"></div>
+        <div class="flame"></div>
+        <div class="flame"></div>
+        <div class="flame"></div>
     </div>
-</div>
-
-<div class="search-bar-container">
-    <div class="search-box">
-        <i class="fas fa-search"></i>
-        <input type="text" id="searchInput" placeholder="🔍 ابحث عن منتج...">
-        <span class="search-results-count" id="searchCount">0</span>
-    </div>
-</div>
-
-<div id="tabsContainer" class="tabs-container">
-    <!-- سيتم تعبئة التصنيفات من Firebase -->
-</div>
-
-<div id="productsContainer" class="products-grid"></div>
-<div id="pagination" class="pagination"></div>
-
-<div class="footer">
-    <div class="social-icons">
-        <i class="fab fa-instagram"></i> <span id="instagramText">xnesto_store</span>
-        <i class="fab fa-whatsapp"></i> <span id="whatsappText">+96879977100</span>
-    </div>
-    <p>© 2025 xnesto - جميع الحقوق محفوظة</p>
-</div>
-
-<a href="https://wa.me/96879977100" class="whatsapp-float" target="_blank">
-    <i class="fab fa-whatsapp"></i>
-</a>
-
-<!-- مودال تسجيل الدخول -->
-<div id="loginModal" class="login-modal">
-    <div class="login-box">
-        <h2><i class="fas fa-user-plus"></i> تسجيل دخول العميل</h2>
-        <input type="email" id="loginEmail" placeholder="البريد الإلكتروني (example@email.com)">
-        <input type="text" id="loginName" placeholder="الاسم الكامل">
-        <div id="loginError" class="login-error"></div>
-        <button onclick="loginCustomer()">تسجيل دخول / إنشاء حساب</button>
-        <button onclick="closeLoginModal()" style="background:#444; color:white;">إلغاء</button>
-    </div>
-</div>
-
-<!-- مودال الشروط -->
-<div id="termsModal" class="terms-modal">
-    <div class="terms-box">
-        <h3><i class="fas fa-file-contract"></i> شروط وأحكام الشراء</h3>
-        <div class="terms-item-row"><div class="t-num">1</div><p>جميع المنتجات رقمية (ألعاب - بطاقات شحن) يتم تسليمها فور إتمام الدفع عبر واتساب.</p></div>
-        <div class="terms-item-row"><div class="t-num">2</div><p>المنتجات الرقمية غير قابلة للاسترجاع أو الاستبدال بعد التسليم.</p></div>
-        <div class="terms-item-row"><div class="t-num">3</div><p>يرجى التأكد من صحة حساب PlayStation الخاص بك قبل الطلب.</p></div>
-        <div class="terms-item-row"><div class="t-num">4</div><p>الأسعار المعلنة شاملة جميع الرسوم ولا تضاف أي رسوم إضافية.</p></div>
-        <div class="terms-item-row"><div class="t-num">5</div><p>في حال وجود أي مشكلة تقنية، يرجى التواصل معنا خلال 24 ساعة من الاستلام.</p></div>
-        <div class="terms-item-row"><div class="t-num">6</div><p>xnesto غير مسؤول عن أي حظر أو تعليق لحساب PlayStation بسبب مخالفة شروط سوني.</p></div>
-        <div class="terms-item-row"><div class="t-num">7</div><p>وقت التسليم من 5 دقائق إلى 24 ساعة حسب التوفر والوقت.</p></div>
-        <div class="terms-checkbox-row" onclick="toggleTermsAccept()"><input type="checkbox" id="termsCheck"><label for="termsCheck">أقر بأنني قرأت وأوافق على جميع الشروط والأحكام أعلاه</label></div>
-        <div class="terms-buttons"><button id="acceptTermsBtn" class="accept-btn" onclick="acceptTerms()">✅ أوافق وأكمل الطلب</button><button id="declineTermsBtn" class="decline-btn" onclick="closeTermsModal()">❌ إغلاق</button></div>
+    
+    <div class="welcome-text">
+        <i class="fas fa-crown"></i> أفضل العروض الحصرية | شحن فوري | دعم 24/7 <i class="fas fa-bolt"></i>
     </div>
 </div>
 
 <script>
-    const firebaseConfig = { databaseURL: "https://xnesto-645bf-default-rtdb.asia-southeast1.firebasedatabase.app/" };
-    firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
-    const productsRef = database.ref('products');
-    const customersRef = database.ref('customers');
-    const categoriesRef = database.ref('categories');
-    
-    let products = [];
-    let categories = [];
-    let categoryNames = {};
-    let currentUser = null;
-    let currentLang = "ar";
-    let currentCurrency = "OMR";
-    let currentPage = 1;
-    let currentCategory = "all";
-    let searchQuery = "";
-    let pendingProductData = null;
-    const ITEMS_PER_PAGE = 12;
-    const WA_NUMBER = "96879977100";
-    const INSTA_USERNAME = "xnesto_store";
-    
-    const exchangeRates = { OMR: 1, USD: 2.6, SAR: 9.75, AED: 9.55 };
-    const currencySymbols = { OMR: "ر.ع", USD: "$", SAR: "ر.س", AED: "د.إ" };
-    
-    // ==================== 50 لعبة كاملة ====================
-    const allGames = [
-        { id: 1, nameAr: "Assassin's Creed Shadows", nameEn: "Assassin's Creed Shadows", priceOMR: 14, oldPrice: 20, image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/3159340/header.jpg", detailsAr: "🏷️ 65GB | 🎮 عربي/إنجليزي", detailsEn: "📦 65GB | 🎮 Arabic/English" },
-        { id: 2, nameAr: "Call of Duty Black Ops 6", nameEn: "Call of Duty Black Ops 6", priceOMR: 22, oldPrice: 30, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2933620/header.jpg", detailsAr: "🏷️ 120GB | 🎮 إنجليزي", detailsEn: "📦 120GB | 🎮 English" },
-        { id: 3, nameAr: "Grand Theft Auto VI", nameEn: "Grand Theft Auto VI", priceOMR: 6, oldPrice: 10, image: "https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/downloads/gtavi/gtavi_cover_ps5.jpg", detailsAr: "🏷️ 150GB | 🌍 عالم مفتوح", detailsEn: "📦 150GB | 🌍 Open World" },
-        { id: 4, nameAr: "God of War Ragnarök", nameEn: "God of War Ragnarök", priceOMR: 10, oldPrice: 15, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2322010/header.jpg", detailsAr: "🏷️ 85GB | 🪓 ملحمة إسكندنافية", detailsEn: "📦 85GB | 🪓 Norse Saga" },
-        { id: 5, nameAr: "Spider-Man 2", nameEn: "Spider-Man 2", priceOMR: 16, oldPrice: 22, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2651280/header.jpg", detailsAr: "🏷️ 98GB | 🕷️ بيتر + مايلز", detailsEn: "📦 98GB | 🕷️ Peter + Miles" }
-    ];
-    for (let i = 6; i <= 50; i++) {
-        allGames.push({
-            id: i, nameAr: `لعبة PS5 مميزة ${i}`, nameEn: `Premium PS5 Game ${i}`,
-            priceOMR: 9 + Math.floor(Math.random() * 10), oldPrice: 12 + Math.floor(Math.random() * 10),
-            image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2358720/header.jpg",
-            detailsAr: `🏷️ لعبة رقم ${i}`, detailsEn: `Game ${i}`
-        });
-    }
-    
-    const giftCards = [
-        { id: 101, nameAr: "🇺🇸 بطاقة أمريكي", nameEn: "🇺🇸 US Card", category: "giftcards", priceOMR: 5, oldPrice: 6, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/30px-Flag_of_the_United_States.svg.png", detailsAr: "10$ | 25$ | 50$ | 100$", detailsEn: "10$ | 25$ | 50$ | 100$" },
-        { id: 102, nameAr: "🇸🇦 بطاقة سعودي", nameEn: "🇸🇦 Saudi Card", category: "giftcards", priceOMR: 4.5, oldPrice: 5.5, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/30px-Flag_of_Saudi_Arabia.svg.png", detailsAr: "50ر.س | 100ر.س | 200ر.س", detailsEn: "50 SAR | 100 SAR | 200 SAR" },
-        { id: 103, nameAr: "🇦🇪 بطاقة إماراتي", nameEn: "🇦🇪 UAE Card", category: "giftcards", priceOMR: 5, oldPrice: 6, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Flag_of_the_United_Arab_Emirates.svg/30px-Flag_of_the_United_Arab_Emirates.svg.png", detailsAr: "50د.إ | 100د.إ | 200د.إ", detailsEn: "50 AED | 100 AED | 200 AED" },
-        { id: 104, nameAr: "🇶🇦 بطاقة قطري", nameEn: "🇶🇦 Qatar Card", category: "giftcards", priceOMR: 4.5, oldPrice: 5.5, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Flag_of_Qatar.svg/30px-Flag_of_Qatar.svg.png", detailsAr: "50ر.ق | 100ر.ق | 200ر.ق", detailsEn: "50 QAR | 100 QAR | 200 QAR" },
-        { id: 105, nameAr: "🇰🇼 بطاقة كويتي", nameEn: "🇰🇼 Kuwait Card", category: "giftcards", priceOMR: 6, oldPrice: 7, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Flag_of_Kuwait.svg/30px-Flag_of_Kuwait.svg.png", detailsAr: "5د.ك | 10د.ك | 20د.ك", detailsEn: "5 KWD | 10 KWD | 20 KWD" },
-        { id: 106, nameAr: "🇧🇭 بطاقة بحريني", nameEn: "🇧🇭 Bahrain Card", category: "giftcards", priceOMR: 5.5, oldPrice: 6.5, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Flag_of_Bahrain.svg/30px-Flag_of_Bahrain.svg.png", detailsAr: "5د.ب | 10د.ب | 20د.ب", detailsEn: "5 BHD | 10 BHD | 20 BHD" },
-        { id: 107, nameAr: "🇴🇲 بطاقة عماني", nameEn: "🇴🇲 Oman Card", category: "giftcards", priceOMR: 5, oldPrice: 6, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Flag_of_Oman.svg/30px-Flag_of_Oman.svg.png", detailsAr: "5ر.ع | 10ر.ع | 20ر.ع", detailsEn: "5 OMR | 10 OMR | 20 OMR" },
-        { id: 108, nameAr: "🇮🇳 بطاقة هندي", nameEn: "🇮🇳 India Card", category: "giftcards", priceOMR: 3.5, oldPrice: 4.5, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Flag_of_India.svg/30px-Flag_of_India.svg.png", detailsAr: "500₹ | 1000₹ | 2000₹", detailsEn: "500₹ | 1000₹ | 2000₹" },
-        { id: 109, nameAr: "🇹🇷 بطاقة تركي", nameEn: "🇹🇷 Turkey Card", category: "giftcards", priceOMR: 4, oldPrice: 5, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Flag_of_Turkey.svg/30px-Flag_of_Turkey.svg.png", detailsAr: "100₺ | 250₺ | 500₺", detailsEn: "100₺ | 250₺ | 500₺" },
-        { id: 110, nameAr: "🇮🇩 بطاقة إندونيسي", nameEn: "🇮🇩 Indonesia Card", category: "giftcards", priceOMR: 4, oldPrice: 5, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Flag_of_Indonesia.svg/30px-Flag_of_Indonesia.svg.png", detailsAr: "50k | 100k | 200k", detailsEn: "50k | 100k | 200k" }
-    ];
-    
-    for (let i = 0; i < allGames.length; i++) allGames[i].category = "games";
-    for (let i = 0; i < giftCards.length; i++) giftCards[i].category = "giftcards";
-    const allDefaultProducts = [...allGames, ...giftCards];
-    
-    // ==================== تحميل التصنيفات ====================
-    function loadCategories() {
-        categoriesRef.on('value', (snapshot) => {
-            const data = snapshot.val();
-            if (data && data.categories && data.names) {
-                categories = data.categories;
-                categoryNames = data.names;
-            } else {
-                categories = ["games", "giftcards"];
-                categoryNames = { games: "🎮 ألعاب PS4/PS5", giftcards: "💳 بطاقات شحن" };
-            }
-            renderTabs();
-        });
-    }
-    
-    function renderTabs() {
-        const container = document.getElementById('tabsContainer');
-        if (!container) return;
-        
-        const allCats = [
-            { key: "all", name: "🎮 جميع المنتجات", sub: "كل المنتجات" },
-            ...categories.map(c => ({ key: c, name: categoryNames[c] || c, sub: categoryNames[c] || c }))
-        ];
-        
-        container.innerHTML = allCats.map(cat => `
-            <button class="tab-btn ${currentCategory === cat.key ? 'active' : ''}" onclick="setCategory('${cat.key}')">
-                <div class="tab-btn-bg" style="background:linear-gradient(135deg, #1a0a4e, #2d1a6e);display:flex;align-items:center;justify-content:center;font-size:2rem;">${cat.name.charAt(0)}</div>
-                <div class="tab-btn-overlay"></div>
-                <div class="tab-btn-text">
-                    <span class="tab-btn-title">${cat.name}</span>
-                    <span class="tab-btn-sub">${cat.sub}</span>
-                </div>
-            </button>
-        `).join('');
-    }
-    
-    // ==================== وظائف تسجيل الدخول ====================
-    function validateEmail(email) {
-        const re = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
-        return re.test(email);
-    }
-    
-    function showLoginModal() {
-        document.getElementById('loginModal').style.display = 'flex';
-        document.getElementById('loginError').innerHTML = '';
-    }
-    
-    function closeLoginModal() {
-        document.getElementById('loginModal').style.display = 'none';
-    }
-    
-    async function loginCustomer() {
-        const email = document.getElementById('loginEmail').value.trim();
-        const name = document.getElementById('loginName').value.trim();
-        const errorDiv = document.getElementById('loginError');
-        
-        if (!email || !name) {
-            errorDiv.innerHTML = '⚠️ الرجاء إدخال البريد الإلكتروني والاسم';
-            return;
-        }
-        if (!validateEmail(email)) {
-            errorDiv.innerHTML = '⚠️ البريد الإلكتروني غير صحيح (example@domain.com)';
-            return;
-        }
-        
-        const snapshot = await customersRef.orderByChild('email').equalTo(email).once('value');
-        if (snapshot.exists()) {
-            const data = snapshot.val();
-            const customer = Object.values(data)[0];
-            if (customer.name !== name) {
-                errorDiv.innerHTML = '⚠️ الاسم غير مطابق للبريد المسجل';
-                return;
-            }
-            currentUser = { email, name };
-        } else {
-            currentUser = { email, name };
-            await customersRef.push({ email, name, joinedAt: Date.now() });
-        }
-        localStorage.setItem('xnesto_customer', JSON.stringify({ email, name }));
-        updateUserUI();
-        closeLoginModal();
-        alert(`مرحباً ${name}! تم تسجيل الدخول بنجاح 🎉`);
-    }
-    
-    function logoutCustomer() {
-        currentUser = null;
-        localStorage.removeItem('xnesto_customer');
-        updateUserUI();
-        alert('تم تسجيل الخروج بنجاح');
-    }
-    
-    function updateUserUI() {
-        const authDiv = document.getElementById('authButtons');
-        if (currentUser) {
-            authDiv.innerHTML = `
-                <div class="user-info">
-                    <i class="fas fa-user-check"></i>
-                    <span>${currentUser.name.split(' ')[0]}</span>
-                    <button class="logout-btn-small" onclick="logoutCustomer()">خروج</button>
-                </div>
-            `;
-        } else {
-            authDiv.innerHTML = `<button class="customer-btn" onclick="showLoginModal()"><i class="fas fa-user"></i> <span>تسجيل دخول</span></button>`;
+    // إنشاء أيقونات طائرة
+    function createFloatingIcons() {
+        const container = document.getElementById('floatingIcons');
+        const icons = ['🎮', '🕹️', '💿', '⚡', '🔥', '🎯', '🏆', '💎', '🌟', '🎲'];
+        for (let i = 0; i < 20; i++) {
+            const icon = document.createElement('div');
+            icon.className = 'float-icon';
+            icon.textContent = icons[Math.floor(Math.random() * icons.length)];
+            icon.style.left = Math.random() * 100 + '%';
+            icon.style.animationDuration = 8 + Math.random() * 8 + 's';
+            icon.style.animationDelay = Math.random() * 10 + 's';
+            icon.style.fontSize = 1 + Math.random() * 1.5 + 'rem';
+            container.appendChild(icon);
         }
     }
-    
-    // ==================== وظائف المنتجات ====================
-    function loadProducts() {
-        productsRef.on('value', (snapshot) => {
-            const data = snapshot.val();
-            if (data && Array.isArray(data) && data.length > 0) products = data;
-            else { products = JSON.parse(JSON.stringify(allDefaultProducts)); productsRef.set(products); }
-            renderProducts();
-        });
-    }
-    
-    function formatPrice(price) { return `${currencySymbols[currentCurrency]} ${(price * exchangeRates[currentCurrency]).toFixed(2)}`; }
-    
-    function getFilteredProducts() {
-        let filtered = [...products];
-        if (searchQuery.trim()) {
-            const query = searchQuery.toLowerCase();
-            filtered = filtered.filter(p => p.nameAr.toLowerCase().includes(query) || p.nameEn.toLowerCase().includes(query));
-        }
-        if (currentCategory !== 'all') {
-            filtered = filtered.filter(p => p.category === currentCategory);
-        }
-        return filtered;
-    }
-    
-    function renderProducts() {
-        const filtered = getFilteredProducts();
-        const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
-        if (currentPage > totalPages) currentPage = 1;
-        const start = (currentPage - 1) * ITEMS_PER_PAGE;
-        const pageProducts = filtered.slice(start, start + ITEMS_PER_PAGE);
-        const container = document.getElementById('productsContainer');
-        if (pageProducts.length === 0) { container.innerHTML = '<div style="text-align:center; padding:2rem;">لا توجد منتجات حالياً</div>'; return; }
-        
-        container.innerHTML = pageProducts.map(p => {
-            const name = currentLang === 'ar' ? p.nameAr : p.nameEn;
-            const desc = currentLang === 'ar' ? p.detailsAr : p.detailsEn;
-            const price = formatPrice(p.priceOMR);
-            const hasDiscount = p.oldPrice && p.oldPrice > p.priceOMR;
-            const oldPrice = hasDiscount ? formatPrice(p.oldPrice) : null;
-            const discountPercent = hasDiscount ? Math.round((1 - p.priceOMR / p.oldPrice) * 100) : 0;
-            const categoryName = categoryNames[p.category] || p.category;
-            let imageHtml = p.image && p.image.trim() ? `<div class="product-image" style="background-image: url('${p.image}');"><div class="product-badge">${categoryName}</div></div>` : `<div class="product-image" style="background: linear-gradient(135deg, #1e3a5f, #0f2a4a); display: flex; align-items: center; justify-content: center;"><div style="font-size: 2.5rem;">${p.category === 'games' ? '🎮' : '💳'}</div><div class="product-badge">${categoryName}</div></div>`;
-            return `<div class="product-card">${hasDiscount ? `<div class="discount-badge">🔥 -${discountPercent}%</div>` : ''}${imageHtml}<div class="card-info"><div class="product-title">${escapeHtml(name)}</div><div class="product-details">${escapeHtml(desc || '')}</div><div class="price-container">${hasDiscount ? `<span class="old-price">${oldPrice}</span>` : ''}<span class="price">${price}</span></div><button class="btn-wa" onclick="requestPurchase(${p.id}, '${escapeHtml(name)}', ${p.priceOMR})"><i class="fab fa-whatsapp"></i> ${currentLang === 'ar' ? 'اطلب الآن' : 'Order Now'}</button></div></div>`;
-        }).join('');
-        
-        const pagContainer = document.getElementById('pagination');
-        if (totalPages > 1) {
-            let pagesHtml = '';
-            for (let i = 1; i <= totalPages; i++) pagesHtml += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
-            pagContainer.innerHTML = pagesHtml;
-        } else pagContainer.innerHTML = '';
-        document.getElementById('searchCount').innerHTML = filtered.length;
-    }
-    
-    function escapeHtml(text) { if (!text) return ''; return text.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m] || m)); }
-    function goToPage(page) { currentPage = page; renderProducts(); }
-    function setCategory(cat) { currentCategory = cat; currentPage = 1; renderTabs(); renderProducts(); }
-    
-    function requestPurchase(id, name, priceOMR) {
-        if (!currentUser) {
-            alert('الرجاء تسجيل الدخول أولاً');
-            showLoginModal();
-            return;
-        }
-        pendingProductData = { id, name, priceOMR };
-        document.getElementById('termsCheck').checked = false;
-        document.getElementById('acceptTermsBtn').classList.remove('enabled');
-        document.getElementById('termsModal').style.display = 'flex';
-    }
-    
-    function toggleTermsAccept() { const cb = document.getElementById('termsCheck'); cb.checked = !cb.checked; const btn = document.getElementById('acceptTermsBtn'); if (cb.checked) btn.classList.add('enabled'); else btn.classList.remove('enabled'); }
-    function closeTermsModal() { document.getElementById('termsModal').style.display = 'none'; pendingProductData = null; }
-    function acceptTerms() {
-        if (!document.getElementById('termsCheck').checked) { alert('يرجى الموافقة على الشروط والأحكام'); return; }
-        if (!pendingProductData) return;
-        const { name, priceOMR } = pendingProductData;
-        const sym = currencySymbols[currentCurrency];
-        const convertedPrice = (priceOMR * exchangeRates[currentCurrency]).toFixed(2);
-        const message = `🛒 طلب شراء من xnesto\n━━━━━━━━━━━━━━━━━━━━\n🎮 المنتج: ${name}\n💰 السعر: ${sym} ${convertedPrice}\n👤 العميل: ${currentUser.name}\n📧 البريد: ${currentUser.email}\n━━━━━━━━━━━━━━━━━━━━\n📞 يرجى تأكيد الطلب وإرسال طريقة الدفع.\n\n✅ أوافق على شروط وأحكام المتجر.`;
-        window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
-        closeTermsModal();
-    }
-    
-    function setLang(lang) { currentLang = lang; document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active')); event.target.classList.add('active'); renderProducts(); }
-    function setCurrency(currency) { currentCurrency = currency; renderProducts(); }
-    function toggleMode() { const isLight = document.body.classList.toggle('light-mode'); const btn = document.querySelector('.mode-toggle-btn'); btn.innerHTML = isLight ? '☀️ نهاري' : '🌙 ليلي'; localStorage.setItem('xnesto_mode', isLight ? 'light' : 'dark'); }
-    function setView(view) { document.body.classList.remove('view-mobile', 'view-desktop'); document.body.classList.add('view-' + view); localStorage.setItem('xnesto_view', view); }
-    
-    document.getElementById('searchInput').addEventListener('input', (e) => { searchQuery = e.target.value; currentPage = 1; renderProducts(); });
-    const savedMode = localStorage.getItem('xnesto_mode'); if (savedMode === 'light') { document.body.classList.add('light-mode'); document.querySelector('.mode-toggle-btn').innerHTML = '☀️ نهاري'; }
-    const savedView = localStorage.getItem('xnesto_view') || 'mobile'; setView(savedView);
-    const savedCustomer = localStorage.getItem('xnesto_customer'); if (savedCustomer) { currentUser = JSON.parse(savedCustomer); updateUserUI(); }
-    document.getElementById('instagramText').innerHTML = `<a href="https://instagram.com/${INSTA_USERNAME}" target="_blank" style="color:#ffaa66;text-decoration:none;">${INSTA_USERNAME}</a>`;
-    document.getElementById('whatsappText').innerHTML = `<a href="https://wa.me/${WA_NUMBER}" target="_blank" style="color:#ffaa66;text-decoration:none;">+${WA_NUMBER}</a>`;
-    
-    loadCategories();
-    loadProducts();
-    
-    window.toggleTermsAccept = toggleTermsAccept; window.closeTermsModal = closeTermsModal; window.acceptTerms = acceptTerms; window.requestPurchase = requestPurchase;
-    window.showLoginModal = showLoginModal; window.closeLoginModal = closeLoginModal; window.loginCustomer = loginCustomer;
+    createFloatingIcons();
 </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>xnesto – متجر الألعاب وبطاقات الشحن | PS4/PS5</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: linear-gradient(135deg, #0a0a1a 0%, #0a0a1a 100%);
-            font-family: 'Cairo', 'Segoe UI', Tahoma, system-ui, sans-serif;
-            color: #f0f0ff;
-            padding: 1.5rem;
-            min-height: 100vh;
-        }
-        .header {
-            text-align: center;
-            background: linear-gradient(135deg, #0f0f2a, #0a0a1f);
-            padding: 0.5rem 1rem 1.5rem;
-            border-radius: 1.5rem;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(255, 170, 68, 0.3);
-        }
-        .header h1 {
-            font-size: 2.5rem;
-            background: linear-gradient(135deg, #ffaa44, #ffcc88, #ffaa44);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-        }
-        .header p { color: #ffdd99; font-size: 0.9rem; }
-        
-        .control-bar {
-            max-width: 1400px;
-            margin: 0 auto 1rem auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            background: rgba(15, 15, 42, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 10px 20px;
-            border-radius: 50px;
-            border: 1px solid rgba(255, 170, 68, 0.2);
-        }
-        .lang-switch {
-            display: flex;
-            gap: 8px;
-            background: #1e1e3a;
-            padding: 4px;
-            border-radius: 40px;
-        }
-        .lang-btn {
-            background: transparent;
-            border: none;
-            padding: 6px 16px;
-            border-radius: 40px;
-            color: #ccc;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-        .lang-btn.active { background: #ffaa44; color: #0a0a1a; }
-        .currency-selector {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: #1e1e3a;
-            padding: 4px 12px;
-            border-radius: 40px;
-        }
-        #currencySelect {
-            background: #0a0c1a;
-            border: 1px solid #ffaa44;
-            color: #ffdd99;
-            padding: 5px 10px;
-            border-radius: 30px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-        .customer-btn {
-            background: #2d2f6e;
-            border: none;
-            color: #ffaa66;
-            padding: 6px 14px;
-            border-radius: 40px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .user-info {
-            background: #1e1e3a;
-            padding: 6px 14px;
-            border-radius: 40px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: #ffaa66;
-            font-size: 0.8rem;
-        }
-        .logout-btn-small {
-            background: #ff4444;
-            border: none;
-            color: white;
-            padding: 3px 10px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.7rem;
-        }
-        
-        .search-bar-container {
-            max-width: 1400px;
-            margin: 0 auto 1rem auto;
-            background: rgba(15, 15, 42, 0.8);
-            padding: 8px 20px;
-            border-radius: 50px;
-        }
-        .search-box {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: #1e1e3a;
-            padding: 5px 15px;
-            border-radius: 40px;
-        }
-        #searchInput {
-            flex: 1;
-            background: transparent;
-            border: none;
-            padding: 10px 0;
-            color: white;
-            outline: none;
-        }
-        .search-results-count {
-            background: #2d2f6e;
-            padding: 4px 10px;
-            border-radius: 30px;
-            font-size: 0.7rem;
-            color: #ffaa66;
-        }
-        
-        .tabs-container {
-            max-width: 1400px;
-            margin: 0 auto 2rem auto;
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .tab-btn {
-            background: #1e1e3a;
-            border: 1px solid rgba(255,170,68,0.3);
-            padding: 10px 24px;
-            border-radius: 40px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.2s;
-            font-size: 0.9rem;
-        }
-        .tab-btn.active { background: #ffaa44; color: #0a0a1a; border-color: #ffaa44; }
-        
-        .products-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-        .product-card {
-            background: #11152b;
-            border-radius: 1rem;
-            overflow: hidden;
-            transition: 0.3s;
-            border: 1px solid rgba(255, 170, 68, 0.2);
-            position: relative;
-        }
-        .product-card:hover { transform: translateY(-4px); border-color: #ffaa44; }
-        .discount-badge {
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            background: #ff4444;
-            color: white;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-        }
-        .product-image {
-            width: 100%;
-            height: 180px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            background-color: #1e1e3a;
-        }
-        .product-badge {
-            position: absolute;
-            bottom: 8px;
-            right: 8px;
-            background: rgba(0,0,0,0.7);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.65rem;
-        }
-        .card-info { padding: 1rem; }
-        .product-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 5px; text-align: center; }
-        .product-details { font-size: 0.7rem; color: #b9c5f0; text-align: center; margin: 8px 0; }
-        .price-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin: 10px 0;
-        }
-        .old-price { font-size: 0.8rem; color: #888; text-decoration: line-through; }
-        .price { font-size: 1.3rem; font-weight: bold; color: #ffaa44; }
-        .btn-wa {
-            width: 100%;
-            background: #25D366;
-            border: none;
-            padding: 8px;
-            border-radius: 40px;
-            color: #000;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            font-size: 0.85rem;
-        }
-        
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
-        }
-        .page-btn {
-            background: #1e1e3a;
-            border: 1px solid #ffaa44;
-            color: #ffdd99;
-            padding: 6px 12px;
-            border-radius: 30px;
-            cursor: pointer;
-        }
-        .page-btn.active { background: #ffaa44; color: #0a0a1a; }
-        
-        .footer {
-            text-align: center;
-            margin-top: 2rem;
-            padding: 1.5rem;
-            color: #6f7bb3;
-            border-top: 1px solid rgba(255, 170, 68, 0.2);
-        }
-        .whatsapp-float {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: #25D366;
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            color: white;
-            text-decoration: none;
-            z-index: 999;
-        }
-        
-        .login-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(12px);
-            align-items: center;
-            justify-content: center;
-            z-index: 5000;
-            padding: 1rem;
-        }
-        .login-box {
-            background: #11152b;
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            border: 2px solid #ffaa44;
-            width: 100%;
-            max-width: 380px;
-            text-align: center;
-        }
-        .login-box h2 { color: #ffaa44; margin-bottom: 1rem; }
-        .login-box input {
-            width: 100%;
-            padding: 0.8rem;
-            margin: 0.5rem 0;
-            border-radius: 2rem;
-            background: #1e1e3a;
-            border: 1px solid #ffaa44;
-            color: white;
-        }
-        .login-box button {
-            width: 100%;
-            padding: 0.8rem;
-            margin-top: 0.5rem;
-            border-radius: 2rem;
-            background: #ffaa44;
-            color: #0a0a1a;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-        }
-        .login-error { color: #ff6666; font-size: 0.7rem; margin-top: 0.5rem; }
-        
-        .terms-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(12px);
-            align-items: center;
-            justify-content: center;
-            z-index: 4000;
-            padding: 1rem;
-        }
-        .terms-box {
-            background: #11152b;
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            border: 2px solid #ffaa44;
-            width: 100%;
-            max-width: 500px;
-            max-height: 85vh;
-            overflow-y: auto;
-        }
-        .terms-box h3 { color: #ffaa44; margin-bottom: 1rem; text-align: center; }
-        .terms-item-row {
-            display: flex;
-            gap: 8px;
-            align-items: flex-start;
-            margin-bottom: 8px;
-            background: rgba(255,170,68,0.05);
-            border-radius: 8px;
-            padding: 8px 10px;
-            border-right: 3px solid rgba(255,170,68,0.3);
-        }
-        .terms-item-row .t-num {
-            background: #ffaa44;
-            color: #0a0a1a;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            min-width: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.65rem;
-            font-weight: 900;
-        }
-        .terms-item-row p { font-size: 0.78rem; color: #b9c5f0; line-height: 1.5; text-align: right; flex: 1; }
-        .terms-checkbox-row {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(0,204,136,0.08);
-            border: 1px solid rgba(0,204,136,0.3);
-            border-radius: 8px;
-            padding: 10px;
-            margin: 12px 0 8px;
-            cursor: pointer;
-        }
-        .terms-checkbox-row input { accent-color: #00cc88; width: 18px; height: 18px; cursor: pointer; }
-        .terms-checkbox-row label { font-size: 0.8rem; color: #00cc88; font-weight: 700; cursor: pointer; }
-        .terms-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 8px;
-        }
-        .terms-buttons button {
-            padding: 10px 20px;
-            border-radius: 40px;
-            cursor: pointer;
-            font-weight: bold;
-            border: none;
-            font-size: 0.85rem;
-        }
-        .accept-btn {
-            background: #ffaa44;
-            color: #0a0a1a;
-            flex: 1;
-            opacity: 0.5;
-            pointer-events: none;
-            transition: 0.2s;
-        }
-        .accept-btn.enabled { opacity: 1; pointer-events: all; }
-        .decline-btn { background: #444; color: white; }
-        
-        .device-bar {
-            background: #07071a;
-            border-bottom: 1px solid rgba(255,170,68,0.2);
-            padding: 6px 16px;
-            display: flex;
-            justify-content: center;
-            gap: 6px;
-            position: sticky;
-            top: 0;
-            z-index: 9999;
-        }
-        .device-btn {
-            background: #1e1e3a;
-            border: 1px solid rgba(255,170,68,0.2);
-            color: #888;
-            padding: 5px 14px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .device-btn.active { background: #ffaa44; color: #0a0a1a; border-color: #ffaa44; }
-        .mode-toggle-btn {
-            background: transparent;
-            border: 1px solid rgba(255,170,68,0.4);
-            color: #ffaa66;
-            padding: 5px 14px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        body.light-mode {
-            background: #f0f4ff !important;
-            color: #1a1a2e !important;
-        }
-        body.light-mode .header { background: linear-gradient(135deg, #1a3a7a, #0d2a6e) !important; }
-        body.light-mode .control-bar { background: rgba(255,255,255,0.95) !important; }
-        body.light-mode .product-card { background: #ffffff !important; }
-        body.light-mode .product-title { color: #1a1a2e !important; }
-        body.light-mode .footer { background: #1a3a7a !important; }
-        body.light-mode .device-bar { background: #1a3a7a !important; }
-        body.view-mobile .products-grid { grid-template-columns: repeat(2, 1fr) !important; }
-        body.view-desktop .products-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important; }
-        
-        @media (max-width: 640px) {
-            body { padding: 0.5rem; }
-            .products-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
-            .product-image { height: 130px; }
-            .product-title { font-size: 0.85rem; }
-            .price { font-size: 1rem; }
-        }
-    </style>
-</head>
-<body>
-
-<div class="device-bar">
-    <button class="device-btn active" onclick="setView('mobile')"><i class="fas fa-mobile-alt"></i> جوال</button>
-    <button class="device-btn" onclick="setView('desktop')"><i class="fas fa-desktop"></i> كمبيوتر</button>
-    <button class="mode-toggle-btn" onclick="toggleMode()">🌙 ليلي</button>
-</div>
-
-<div class="header">
-    <h1>🎮 XNESTO STORE 🎮</h1>
-    <p>أكبر متجر لألعاب PlayStation وبطاقات الشحن - توصيل فوري</p>
-</div>
 
 <div class="control-bar">
     <div class="lang-switch">
@@ -1336,9 +691,7 @@
     </div>
 </div>
 
-<div id="tabsContainer" class="tabs-container">
-    <!-- سيتم تعبئة التصنيفات من Firebase -->
-</div>
+<div id="tabsContainer" class="tabs-container"></div>
 
 <div id="productsContainer" class="products-grid"></div>
 <div id="pagination" class="pagination"></div>
@@ -1355,7 +708,6 @@
     <i class="fab fa-whatsapp"></i>
 </a>
 
-<!-- مودال تسجيل الدخول -->
 <div id="loginModal" class="login-modal">
     <div class="login-box">
         <h2><i class="fas fa-user-plus"></i> تسجيل دخول العميل</h2>
@@ -1367,7 +719,6 @@
     </div>
 </div>
 
-<!-- مودال الشروط -->
 <div id="termsModal" class="terms-modal">
     <div class="terms-box">
         <h3><i class="fas fa-file-contract"></i> شروط وأحكام الشراء</h3>
@@ -1468,12 +819,7 @@
         
         container.innerHTML = allCats.map(cat => `
             <button class="tab-btn ${currentCategory === cat.key ? 'active' : ''}" onclick="setCategory('${cat.key}')">
-                <div class="tab-btn-bg" style="background:linear-gradient(135deg, #1a0a4e, #2d1a6e);display:flex;align-items:center;justify-content:center;font-size:2rem;">${cat.name.charAt(0)}</div>
-                <div class="tab-btn-overlay"></div>
-                <div class="tab-btn-text">
-                    <span class="tab-btn-title">${cat.name}</span>
-                    <span class="tab-btn-sub">${cat.sub}</span>
-                </div>
+                ${cat.name}
             </button>
         `).join('');
     }
@@ -1552,8 +898,13 @@
     function loadProducts() {
         productsRef.on('value', (snapshot) => {
             const data = snapshot.val();
-            if (data && Array.isArray(data) && data.length > 0) products = data;
-            else { products = JSON.parse(JSON.stringify(allDefaultProducts)); productsRef.set(products); }
+            if (data && Array.isArray(data) && data.length > 0) {
+                products = data.sort((a, b) => (a.order || 0) - (b.order || 0));
+            } else {
+                products = JSON.parse(JSON.stringify(allDefaultProducts));
+                products.forEach((p, idx) => { p.order = idx; });
+                productsRef.set(products);
+            }
             renderProducts();
         });
     }
