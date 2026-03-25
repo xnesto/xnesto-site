@@ -141,7 +141,7 @@
             100% { transform: translateY(-100%) rotate(360deg); opacity: 0; }
         }
         
-        /* عبارات ترحيبية (معدلة) */
+        /* عبارات ترحيبية */
         .welcome-quotes {
             display: flex;
             justify-content: center;
@@ -165,12 +165,8 @@
             50% { border-color: rgba(255,170,68,0.8); box-shadow: 0 0 15px rgba(255,170,68,0.4); }
         }
         
-        .quote-badge i {
-            margin-left: 5px;
-            color: #ffaa44;
-        }
+        .quote-badge i { margin-left: 5px; color: #ffaa44; }
         
-        /* إحصائيات */
         .stats-badge {
             display: inline-flex;
             align-items: center;
@@ -182,25 +178,89 @@
             backdrop-filter: blur(5px);
         }
         
-        .stat-item {
-            font-size: 0.7rem;
+        .stat-item { font-size: 0.7rem; display: flex; align-items: center; gap: 5px; }
+        .stat-item i { color: #ffaa44; }
+        .stat-number { font-weight: bold; color: #ffaa44; }
+        
+        /* ==================== قسم الأكثر مبيعاً ==================== */
+        .best-sellers {
+            background: rgba(255,170,68,0.05);
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255,170,68,0.2);
+        }
+        
+        .best-sellers-title {
+            text-align: center;
+            color: #ffaa44;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .best-sellers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .best-seller-card {
+            background: rgba(0,0,0,0.3);
+            border-radius: 0.8rem;
+            padding: 0.8rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid rgba(255,170,68,0.2);
+        }
+        
+        .best-seller-card:hover { transform: translateY(-3px); border-color: #ffaa44; }
+        .best-seller-card img { width: 60px; height: 60px; border-radius: 0.5rem; margin-bottom: 5px; }
+        .best-seller-card .name { font-size: 0.7rem; font-weight: bold; }
+        .best-seller-card .sales { font-size: 0.6rem; color: #ffaa44; }
+        
+        /* ==================== تقييمات المنتجات ==================== */
+        .rating-stars {
             display: flex;
-            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            margin: 5px 0;
+        }
+        
+        .star {
+            font-size: 0.8rem;
+            cursor: pointer;
+            color: #555;
+            transition: 0.2s;
+        }
+        
+        .star.active { color: #ffaa44; }
+        .star.hover { color: #ffcc66; }
+        
+        .rating-count {
+            font-size: 0.6rem;
+            color: #888;
+            text-align: center;
+        }
+        
+        .rating-input {
+            display: flex;
+            justify-content: center;
             gap: 5px;
+            margin-top: 5px;
         }
         
-        .stat-item i {
-            color: #ffaa44;
+        .rating-btn {
+            background: #2d2f6e;
+            border: none;
+            padding: 2px 6px;
+            border-radius: 20px;
+            font-size: 0.6rem;
+            cursor: pointer;
+            color: white;
         }
         
-        .stat-number {
-            font-weight: bold;
-            color: #ffaa44;
-        }
-        
-        /* باقي الكود الأصلي كما هو */
-        .header h1, .header p { display: none; }
-        
+        /* باقي الكود الأصلي */
         .control-bar {
             max-width: 1400px;
             margin: 0 auto 1rem auto;
@@ -215,411 +275,72 @@
             border-radius: 50px;
             border: 1px solid rgba(255, 170, 68, 0.2);
         }
-        .lang-switch {
-            display: flex;
-            gap: 8px;
-            background: #1e1e3a;
-            padding: 4px;
-            border-radius: 40px;
-        }
-        .lang-btn {
-            background: transparent;
-            border: none;
-            padding: 6px 16px;
-            border-radius: 40px;
-            color: #ccc;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
+        .lang-switch { display: flex; gap: 8px; background: #1e1e3a; padding: 4px; border-radius: 40px; }
+        .lang-btn { background: transparent; border: none; padding: 6px 16px; border-radius: 40px; color: #ccc; font-weight: bold; cursor: pointer; font-size: 0.8rem; }
         .lang-btn.active { background: #ffaa44; color: #0a0a1a; }
-        .currency-selector {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: #1e1e3a;
-            padding: 4px 12px;
-            border-radius: 40px;
-        }
-        #currencySelect {
-            background: #0a0c1a;
-            border: 1px solid #ffaa44;
-            color: #ffdd99;
-            padding: 5px 10px;
-            border-radius: 30px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-        .customer-btn {
-            background: #2d2f6e;
-            border: none;
-            color: #ffaa66;
-            padding: 6px 14px;
-            border-radius: 40px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .user-info {
-            background: #1e1e3a;
-            padding: 6px 14px;
-            border-radius: 40px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: #ffaa66;
-            font-size: 0.8rem;
-        }
-        .logout-btn-small {
-            background: #ff4444;
-            border: none;
-            color: white;
-            padding: 3px 10px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.7rem;
-        }
+        .currency-selector { display: flex; align-items: center; gap: 8px; background: #1e1e3a; padding: 4px 12px; border-radius: 40px; }
+        #currencySelect { background: #0a0c1a; border: 1px solid #ffaa44; color: #ffdd99; padding: 5px 10px; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 0.8rem; }
+        .customer-btn { background: #2d2f6e; border: none; color: #ffaa66; padding: 6px 14px; border-radius: 40px; cursor: pointer; font-size: 0.8rem; display: flex; align-items: center; gap: 6px; }
+        .user-info { background: #1e1e3a; padding: 6px 14px; border-radius: 40px; display: flex; align-items: center; gap: 6px; color: #ffaa66; font-size: 0.8rem; }
+        .logout-btn-small { background: #ff4444; border: none; color: white; padding: 3px 10px; border-radius: 20px; cursor: pointer; font-size: 0.7rem; }
         
-        .search-bar-container {
-            max-width: 1400px;
-            margin: 0 auto 1rem auto;
-            background: rgba(15, 15, 42, 0.8);
-            padding: 8px 20px;
-            border-radius: 50px;
-        }
-        .search-box {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: #1e1e3a;
-            padding: 5px 15px;
-            border-radius: 40px;
-        }
-        #searchInput {
-            flex: 1;
-            background: transparent;
-            border: none;
-            padding: 10px 0;
-            color: white;
-            outline: none;
-        }
-        .search-results-count {
-            background: #2d2f6e;
-            padding: 4px 10px;
-            border-radius: 30px;
-            font-size: 0.7rem;
-            color: #ffaa66;
-        }
+        .search-bar-container { max-width: 1400px; margin: 0 auto 1rem auto; background: rgba(15, 15, 42, 0.8); padding: 8px 20px; border-radius: 50px; }
+        .search-box { display: flex; align-items: center; gap: 10px; background: #1e1e3a; padding: 5px 15px; border-radius: 40px; }
+        #searchInput { flex: 1; background: transparent; border: none; padding: 10px 0; color: white; outline: none; }
+        .search-results-count { background: #2d2f6e; padding: 4px 10px; border-radius: 30px; font-size: 0.7rem; color: #ffaa66; }
         
-        .tabs-container {
-            max-width: 1400px;
-            margin: 0 auto 2rem auto;
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .tab-btn {
-            background: #1e1e3a;
-            border: 1px solid rgba(255,170,68,0.3);
-            padding: 10px 24px;
-            border-radius: 40px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.2s;
-            font-size: 0.9rem;
-        }
+        .tabs-container { max-width: 1400px; margin: 0 auto 2rem auto; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+        .tab-btn { background: #1e1e3a; border: 1px solid rgba(255,170,68,0.3); padding: 10px 24px; border-radius: 40px; cursor: pointer; font-weight: bold; transition: 0.2s; font-size: 0.9rem; }
         .tab-btn.active { background: #ffaa44; color: #0a0a1a; border-color: #ffaa44; }
         
-        .products-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-        .product-card {
-            background: #11152b;
-            border-radius: 1rem;
-            overflow: hidden;
-            transition: 0.3s;
-            border: 1px solid rgba(255, 170, 68, 0.2);
-            position: relative;
-        }
+        .products-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+        .product-card { background: #11152b; border-radius: 1rem; overflow: hidden; transition: 0.3s; border: 1px solid rgba(255, 170, 68, 0.2); position: relative; }
         .product-card:hover { transform: translateY(-4px); border-color: #ffaa44; }
-        .discount-badge {
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            background: #ff4444;
-            color: white;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-        }
-        .product-image {
-            width: 100%;
-            height: 180px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            background-color: #1e1e3a;
-        }
-        .product-badge {
-            position: absolute;
-            bottom: 8px;
-            right: 8px;
-            background: rgba(0,0,0,0.7);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.65rem;
-        }
+        .discount-badge { position: absolute; top: 8px; left: 8px; background: #ff4444; color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; }
+        .product-image { width: 100%; height: 180px; background-size: cover; background-position: center; position: relative; background-color: #1e1e3a; }
+        .product-badge { position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.7); padding: 4px 10px; border-radius: 20px; font-size: 0.65rem; }
         .card-info { padding: 1rem; }
         .product-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 5px; text-align: center; }
         .product-details { font-size: 0.7rem; color: #b9c5f0; text-align: center; margin: 8px 0; }
-        .price-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin: 10px 0;
-        }
+        .price-container { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 10px 0; }
         .old-price { font-size: 0.8rem; color: #888; text-decoration: line-through; }
         .price { font-size: 1.3rem; font-weight: bold; color: #ffaa44; }
-        .btn-wa {
-            width: 100%;
-            background: #25D366;
-            border: none;
-            padding: 8px;
-            border-radius: 40px;
-            color: #000;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            font-size: 0.85rem;
-        }
+        .btn-wa { width: 100%; background: #25D366; border: none; padding: 8px; border-radius: 40px; color: #000; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.85rem; }
         
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
-        }
-        .page-btn {
-            background: #1e1e3a;
-            border: 1px solid #ffaa44;
-            color: #ffdd99;
-            padding: 6px 12px;
-            border-radius: 30px;
-            cursor: pointer;
-        }
+        .pagination { display: flex; justify-content: center; gap: 8px; margin-top: 1.5rem; flex-wrap: wrap; }
+        .page-btn { background: #1e1e3a; border: 1px solid #ffaa44; color: #ffdd99; padding: 6px 12px; border-radius: 30px; cursor: pointer; }
         .page-btn.active { background: #ffaa44; color: #0a0a1a; }
         
-        .footer {
-            text-align: center;
-            margin-top: 2rem;
-            padding: 1.5rem;
-            color: #6f7bb3;
-            border-top: 1px solid rgba(255, 170, 68, 0.2);
-        }
-        .whatsapp-float {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: #25D366;
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            color: white;
-            text-decoration: none;
-            z-index: 999;
-        }
+        .footer { text-align: center; margin-top: 2rem; padding: 1.5rem; color: #6f7bb3; border-top: 1px solid rgba(255, 170, 68, 0.2); }
+        .whatsapp-float { position: fixed; bottom: 20px; left: 20px; background: #25D366; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: white; text-decoration: none; z-index: 999; }
         
-        .login-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(12px);
-            align-items: center;
-            justify-content: center;
-            z-index: 5000;
-            padding: 1rem;
-        }
-        .login-box {
-            background: #11152b;
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            border: 2px solid #ffaa44;
-            width: 100%;
-            max-width: 380px;
-            text-align: center;
-        }
+        .login-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(12px); align-items: center; justify-content: center; z-index: 5000; padding: 1rem; }
+        .login-box { background: #11152b; border-radius: 1.5rem; padding: 1.5rem; border: 2px solid #ffaa44; width: 100%; max-width: 380px; text-align: center; }
         .login-box h2 { color: #ffaa44; margin-bottom: 1rem; }
-        .login-box input {
-            width: 100%;
-            padding: 0.8rem;
-            margin: 0.5rem 0;
-            border-radius: 2rem;
-            background: #1e1e3a;
-            border: 1px solid #ffaa44;
-            color: white;
-        }
-        .login-box button {
-            width: 100%;
-            padding: 0.8rem;
-            margin-top: 0.5rem;
-            border-radius: 2rem;
-            background: #ffaa44;
-            color: #0a0a1a;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-        }
+        .login-box input { width: 100%; padding: 0.8rem; margin: 0.5rem 0; border-radius: 2rem; background: #1e1e3a; border: 1px solid #ffaa44; color: white; }
+        .login-box button { width: 100%; padding: 0.8rem; margin-top: 0.5rem; border-radius: 2rem; background: #ffaa44; color: #0a0a1a; font-weight: bold; border: none; cursor: pointer; }
         .login-error { color: #ff6666; font-size: 0.7rem; margin-top: 0.5rem; }
         
-        .terms-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(12px);
-            align-items: center;
-            justify-content: center;
-            z-index: 4000;
-            padding: 1rem;
-        }
-        .terms-box {
-            background: #11152b;
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            border: 2px solid #ffaa44;
-            width: 100%;
-            max-width: 500px;
-            max-height: 85vh;
-            overflow-y: auto;
-        }
+        .terms-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(12px); align-items: center; justify-content: center; z-index: 4000; padding: 1rem; }
+        .terms-box { background: #11152b; border-radius: 1.5rem; padding: 1.5rem; border: 2px solid #ffaa44; width: 100%; max-width: 500px; max-height: 85vh; overflow-y: auto; }
         .terms-box h3 { color: #ffaa44; margin-bottom: 1rem; text-align: center; }
-        .terms-item-row {
-            display: flex;
-            gap: 8px;
-            align-items: flex-start;
-            margin-bottom: 8px;
-            background: rgba(255,170,68,0.05);
-            border-radius: 8px;
-            padding: 8px 10px;
-            border-right: 3px solid rgba(255,170,68,0.3);
-        }
-        .terms-item-row .t-num {
-            background: #ffaa44;
-            color: #0a0a1a;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            min-width: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.65rem;
-            font-weight: 900;
-        }
+        .terms-item-row { display: flex; gap: 8px; align-items: flex-start; margin-bottom: 8px; background: rgba(255,170,68,0.05); border-radius: 8px; padding: 8px 10px; border-right: 3px solid rgba(255,170,68,0.3); }
+        .terms-item-row .t-num { background: #ffaa44; color: #0a0a1a; border-radius: 50%; width: 20px; height: 20px; min-width: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 900; }
         .terms-item-row p { font-size: 0.78rem; color: #b9c5f0; line-height: 1.5; text-align: right; flex: 1; }
-        .terms-checkbox-row {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(0,204,136,0.08);
-            border: 1px solid rgba(0,204,136,0.3);
-            border-radius: 8px;
-            padding: 10px;
-            margin: 12px 0 8px;
-            cursor: pointer;
-        }
+        .terms-checkbox-row { display: flex; align-items: center; gap: 8px; background: rgba(0,204,136,0.08); border: 1px solid rgba(0,204,136,0.3); border-radius: 8px; padding: 10px; margin: 12px 0 8px; cursor: pointer; }
         .terms-checkbox-row input { accent-color: #00cc88; width: 18px; height: 18px; cursor: pointer; }
         .terms-checkbox-row label { font-size: 0.8rem; color: #00cc88; font-weight: 700; cursor: pointer; }
-        .terms-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 8px;
-        }
-        .terms-buttons button {
-            padding: 10px 20px;
-            border-radius: 40px;
-            cursor: pointer;
-            font-weight: bold;
-            border: none;
-            font-size: 0.85rem;
-        }
-        .accept-btn {
-            background: #ffaa44;
-            color: #0a0a1a;
-            flex: 1;
-            opacity: 0.5;
-            pointer-events: none;
-            transition: 0.2s;
-        }
+        .terms-buttons { display: flex; gap: 10px; justify-content: center; margin-top: 8px; }
+        .terms-buttons button { padding: 10px 20px; border-radius: 40px; cursor: pointer; font-weight: bold; border: none; font-size: 0.85rem; }
+        .accept-btn { background: #ffaa44; color: #0a0a1a; flex: 1; opacity: 0.5; pointer-events: none; transition: 0.2s; }
         .accept-btn.enabled { opacity: 1; pointer-events: all; }
         .decline-btn { background: #444; color: white; }
         
-        .device-bar {
-            background: #07071a;
-            border-bottom: 1px solid rgba(255,170,68,0.2);
-            padding: 6px 16px;
-            display: flex;
-            justify-content: center;
-            gap: 6px;
-            position: sticky;
-            top: 0;
-            z-index: 9999;
-        }
-        .device-btn {
-            background: #1e1e3a;
-            border: 1px solid rgba(255,170,68,0.2);
-            color: #888;
-            padding: 5px 14px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
+        .device-bar { background: #07071a; border-bottom: 1px solid rgba(255,170,68,0.2); padding: 6px 16px; display: flex; justify-content: center; gap: 6px; position: sticky; top: 0; z-index: 9999; }
+        .device-btn { background: #1e1e3a; border: 1px solid rgba(255,170,68,0.2); color: #888; padding: 5px 14px; border-radius: 20px; cursor: pointer; font-size: 0.75rem; display: flex; align-items: center; gap: 5px; }
         .device-btn.active { background: #ffaa44; color: #0a0a1a; border-color: #ffaa44; }
-        .mode-toggle-btn {
-            background: transparent;
-            border: 1px solid rgba(255,170,68,0.4);
-            color: #ffaa66;
-            padding: 5px 14px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        body.light-mode {
-            background: #f0f4ff !important;
-            color: #1a1a2e !important;
-        }
+        .mode-toggle-btn { background: transparent; border: 1px solid rgba(255,170,68,0.4); color: #ffaa66; padding: 5px 14px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; gap: 5px; }
+        body.light-mode { background: #f0f4ff !important; color: #1a1a2e !important; }
         body.light-mode .header { background: linear-gradient(135deg, #1a3a7a, #0d2a6e) !important; }
         body.light-mode .control-bar { background: rgba(255,255,255,0.95) !important; }
         body.light-mode .product-card { background: #ffffff !important; }
@@ -637,9 +358,7 @@
             .price { font-size: 1rem; }
             .main-logo { font-size: 2rem; }
             .controller-icon { font-size: 2rem; }
-            .quote-badge { font-size: 0.6rem; padding: 4px 10px; }
-            .stats-badge { gap: 8px; padding: 4px 12px; }
-            .stat-item { font-size: 0.6rem; }
+            .best-sellers-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -651,14 +370,10 @@
     <button class="mode-toggle-btn" onclick="toggleMode()">🌙 ليلي</button>
 </div>
 
-<!-- ==================== هيدر جديد ==================== -->
+<!-- هيدر -->
 <div class="header">
     <div class="header-bg"></div>
-    
-    <!-- جزيئات متوهجة -->
     <div class="sparkles-container" id="sparklesContainer"></div>
-    
-    <!-- أيقونات طائرة -->
     <div class="floating-icons" id="floatingIcons"></div>
     
     <div class="logo-container">
@@ -668,11 +383,8 @@
         </div>
     </div>
     
-    <div class="controller-icon">
-        <i class="fas fa-gamepad"></i>
-    </div>
+    <div class="controller-icon"><i class="fas fa-gamepad"></i></div>
     
-    <!-- عبارات ترحيبية (معدلة) -->
     <div class="welcome-quotes">
         <div class="quote-badge"><i class="fas fa-tag"></i> أفضل الأسعار</div>
         <div class="quote-badge"><i class="fas fa-bolt"></i> توصيل فوري</div>
@@ -680,7 +392,6 @@
         <div class="quote-badge"><i class="fas fa-shield-alt"></i> دفع آمن 100%</div>
     </div>
     
-    <!-- إحصائيات -->
     <div class="stats-badge">
         <div class="stat-item"><i class="fas fa-gamepad"></i> <span class="stat-number">500+</span> لعبة</div>
         <div class="stat-item"><i class="fas fa-users"></i> <span class="stat-number">10K+</span> عميل</div>
@@ -690,7 +401,6 @@
 </div>
 
 <script>
-    // إنشاء جزيئات متوهجة
     function createSparkles() {
         const container = document.getElementById('sparklesContainer');
         for (let i = 0; i < 40; i++) {
@@ -700,15 +410,13 @@
             sparkle.style.animationDelay = Math.random() * 5 + 's';
             sparkle.style.animationDuration = 2 + Math.random() * 2 + 's';
             sparkle.style.width = 3 + Math.random() * 5 + 'px';
-            sparkle.style.height = sparkle.style.width;
             container.appendChild(sparkle);
         }
     }
     
-    // إنشاء أيقونات طائرة
     function createFloatingIcons() {
         const container = document.getElementById('floatingIcons');
-        const icons = ['🎮', '🕹️', '💿', '⚡', '🎯', '🏆', '💎', '🌟', '🎲', '🔊', '📀', '🎧'];
+        const icons = ['🎮', '🕹️', '💿', '⚡', '🎯', '🏆', '💎', '🌟'];
         for (let i = 0; i < 25; i++) {
             const icon = document.createElement('div');
             icon.className = 'float-icon';
@@ -716,11 +424,9 @@
             icon.style.left = Math.random() * 100 + '%';
             icon.style.animationDuration = 8 + Math.random() * 8 + 's';
             icon.style.animationDelay = Math.random() * 10 + 's';
-            icon.style.fontSize = 1 + Math.random() * 1.5 + 'rem';
             container.appendChild(icon);
         }
     }
-    
     createSparkles();
     createFloatingIcons();
 </script>
@@ -752,6 +458,12 @@
     </div>
 </div>
 
+<!-- قسم الأكثر مبيعاً -->
+<div id="bestSellersSection" class="best-sellers" style="display:none;">
+    <div class="best-sellers-title"><i class="fas fa-trophy"></i> 🔥 الأكثر مبيعاً 🔥 <i class="fas fa-fire"></i></div>
+    <div id="bestSellersGrid" class="best-sellers-grid"></div>
+</div>
+
 <div id="tabsContainer" class="tabs-container"></div>
 
 <div id="productsContainer" class="products-grid"></div>
@@ -765,14 +477,12 @@
     <p>© 2025 xnesto - جميع الحقوق محفوظة</p>
 </div>
 
-<a href="https://wa.me/96879977100" class="whatsapp-float" target="_blank">
-    <i class="fab fa-whatsapp"></i>
-</a>
+<a href="https://wa.me/96879977100" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
 <div id="loginModal" class="login-modal">
     <div class="login-box">
         <h2><i class="fas fa-user-plus"></i> تسجيل دخول العميل</h2>
-        <input type="email" id="loginEmail" placeholder="البريد الإلكتروني (example@email.com)">
+        <input type="email" id="loginEmail" placeholder="البريد الإلكتروني">
         <input type="text" id="loginName" placeholder="الاسم الكامل">
         <div id="loginError" class="login-error"></div>
         <button onclick="loginCustomer()">تسجيل دخول / إنشاء حساب</button>
@@ -783,14 +493,14 @@
 <div id="termsModal" class="terms-modal">
     <div class="terms-box">
         <h3><i class="fas fa-file-contract"></i> شروط وأحكام الشراء</h3>
-        <div class="terms-item-row"><div class="t-num">1</div><p>جميع المنتجات رقمية (ألعاب - بطاقات شحن) يتم تسليمها فور إتمام الدفع عبر واتساب.</p></div>
+        <div class="terms-item-row"><div class="t-num">1</div><p>جميع المنتجات رقمية يتم تسليمها فور إتمام الدفع عبر واتساب.</p></div>
         <div class="terms-item-row"><div class="t-num">2</div><p>المنتجات الرقمية غير قابلة للاسترجاع أو الاستبدال بعد التسليم.</p></div>
         <div class="terms-item-row"><div class="t-num">3</div><p>يرجى التأكد من صحة حساب PlayStation الخاص بك قبل الطلب.</p></div>
-        <div class="terms-item-row"><div class="t-num">4</div><p>الأسعار المعلنة شاملة جميع الرسوم ولا تضاف أي رسوم إضافية.</p></div>
-        <div class="terms-item-row"><div class="t-num">5</div><p>في حال وجود أي مشكلة تقنية، يرجى التواصل معنا خلال 24 ساعة من الاستلام.</p></div>
-        <div class="terms-item-row"><div class="t-num">6</div><p>xnesto غير مسؤول عن أي حظر أو تعليق لحساب PlayStation بسبب مخالفة شروط سوني.</p></div>
-        <div class="terms-item-row"><div class="t-num">7</div><p>وقت التسليم من 5 دقائق إلى 24 ساعة حسب التوفر والوقت.</p></div>
-        <div class="terms-checkbox-row" onclick="toggleTermsAccept()"><input type="checkbox" id="termsCheck"><label for="termsCheck">أقر بأنني قرأت وأوافق على جميع الشروط والأحكام أعلاه</label></div>
+        <div class="terms-item-row"><div class="t-num">4</div><p>الأسعار المعلنة شاملة جميع الرسوم.</p></div>
+        <div class="terms-item-row"><div class="t-num">5</div><p>في حال وجود أي مشكلة تقنية، يرجى التواصل معنا خلال 24 ساعة.</p></div>
+        <div class="terms-item-row"><div class="t-num">6</div><p>xnesto غير مسؤول عن أي حظر لحساب PlayStation.</p></div>
+        <div class="terms-item-row"><div class="t-num">7</div><p>وقت التسليم من 5 دقائق إلى 24 ساعة حسب التوفر.</p></div>
+        <div class="terms-checkbox-row" onclick="toggleTermsAccept()"><input type="checkbox" id="termsCheck"><label>أقر بأنني قرأت وأوافق على جميع الشروط والأحكام</label></div>
         <div class="terms-buttons"><button id="acceptTermsBtn" class="accept-btn" onclick="acceptTerms()">✅ أوافق وأكمل الطلب</button><button id="declineTermsBtn" class="decline-btn" onclick="closeTermsModal()">❌ إغلاق</button></div>
     </div>
 </div>
@@ -802,6 +512,8 @@
     const productsRef = database.ref('products');
     const customersRef = database.ref('customers');
     const categoriesRef = database.ref('categories');
+    const ratingsRef = database.ref('ratings');
+    const ordersRef = database.ref('orders');
     
     let products = [];
     let categories = [];
@@ -820,51 +532,40 @@
     const exchangeRates = { OMR: 1, USD: 2.6, SAR: 9.75, AED: 9.55 };
     const currencySymbols = { OMR: "ر.ع", USD: "$", SAR: "ر.س", AED: "د.إ" };
     
-    // ==================== 50 لعبة كاملة ====================
+    // المنتجات الافتراضية
     const allGames = [
-        { id: 1, nameAr: "Assassin's Creed Shadows", nameEn: "Assassin's Creed Shadows", priceOMR: 14, oldPrice: 20, image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/3159340/header.jpg", detailsAr: "🏷️ 65GB | 🎮 عربي/إنجليزي", detailsEn: "📦 65GB | 🎮 Arabic/English" },
-        { id: 2, nameAr: "Call of Duty Black Ops 6", nameEn: "Call of Duty Black Ops 6", priceOMR: 22, oldPrice: 30, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2933620/header.jpg", detailsAr: "🏷️ 120GB | 🎮 إنجليزي", detailsEn: "📦 120GB | 🎮 English" },
-        { id: 3, nameAr: "Grand Theft Auto VI", nameEn: "Grand Theft Auto VI", priceOMR: 6, oldPrice: 10, image: "https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/downloads/gtavi/gtavi_cover_ps5.jpg", detailsAr: "🏷️ 150GB | 🌍 عالم مفتوح", detailsEn: "📦 150GB | 🌍 Open World" },
-        { id: 4, nameAr: "God of War Ragnarök", nameEn: "God of War Ragnarök", priceOMR: 10, oldPrice: 15, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2322010/header.jpg", detailsAr: "🏷️ 85GB | 🪓 ملحمة إسكندنافية", detailsEn: "📦 85GB | 🪓 Norse Saga" },
-        { id: 5, nameAr: "Spider-Man 2", nameEn: "Spider-Man 2", priceOMR: 16, oldPrice: 22, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2651280/header.jpg", detailsAr: "🏷️ 98GB | 🕷️ بيتر + مايلز", detailsEn: "📦 98GB | 🕷️ Peter + Miles" }
+        { id: 1, nameAr: "Assassin's Creed Shadows", nameEn: "Assassin's Creed Shadows", priceOMR: 14, oldPrice: 20, image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/3159340/header.jpg", detailsAr: "🏷️ 65GB | 🎮 عربي/إنجليزي", detailsEn: "📦 65GB | 🎮 Arabic/English", sales: 145 },
+        { id: 2, nameAr: "Call of Duty Black Ops 6", nameEn: "Call of Duty Black Ops 6", priceOMR: 22, oldPrice: 30, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2933620/header.jpg", detailsAr: "🏷️ 120GB | 🎮 إنجليزي", detailsEn: "📦 120GB | 🎮 English", sales: 210 },
+        { id: 3, nameAr: "Grand Theft Auto VI", nameEn: "Grand Theft Auto VI", priceOMR: 6, oldPrice: 10, image: "https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/downloads/gtavi/gtavi_cover_ps5.jpg", detailsAr: "🏷️ 150GB | 🌍 عالم مفتوح", detailsEn: "📦 150GB | 🌍 Open World", sales: 320 },
+        { id: 4, nameAr: "God of War Ragnarök", nameEn: "God of War Ragnarök", priceOMR: 10, oldPrice: 15, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2322010/header.jpg", detailsAr: "🏷️ 85GB | 🪓 ملحمة إسكندنافية", detailsEn: "📦 85GB | 🪓 Norse Saga", sales: 180 },
+        { id: 5, nameAr: "Spider-Man 2", nameEn: "Spider-Man 2", priceOMR: 16, oldPrice: 22, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2651280/header.jpg", detailsAr: "🏷️ 98GB | 🕷️ بيتر + مايلز", detailsEn: "📦 98GB | 🕷️ Peter + Miles", sales: 195 }
     ];
     for (let i = 6; i <= 50; i++) {
         allGames.push({
             id: i, nameAr: `لعبة PS5 مميزة ${i}`, nameEn: `Premium PS5 Game ${i}`,
             priceOMR: 9 + Math.floor(Math.random() * 10), oldPrice: 12 + Math.floor(Math.random() * 10),
             image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2358720/header.jpg",
-            detailsAr: `🏷️ لعبة رقم ${i}`, detailsEn: `Game ${i}`
+            detailsAr: `🏷️ لعبة رقم ${i}`, detailsEn: `Game ${i}`, sales: Math.floor(Math.random() * 100)
         });
     }
     
     const giftCards = [
-        { id: 101, nameAr: "🇺🇸 بطاقة أمريكي", nameEn: "🇺🇸 US Card", category: "giftcards", priceOMR: 5, oldPrice: 6, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/30px-Flag_of_the_United_States.svg.png", detailsAr: "10$ | 25$ | 50$ | 100$", detailsEn: "10$ | 25$ | 50$ | 100$" },
-        { id: 102, nameAr: "🇸🇦 بطاقة سعودي", nameEn: "🇸🇦 Saudi Card", category: "giftcards", priceOMR: 4.5, oldPrice: 5.5, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/30px-Flag_of_Saudi_Arabia.svg.png", detailsAr: "50ر.س | 100ر.س | 200ر.س", detailsEn: "50 SAR | 100 SAR | 200 SAR" },
-        { id: 103, nameAr: "🇦🇪 بطاقة إماراتي", nameEn: "🇦🇪 UAE Card", category: "giftcards", priceOMR: 5, oldPrice: 6, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Flag_of_the_United_Arab_Emirates.svg/30px-Flag_of_the_United_Arab_Emirates.svg.png", detailsAr: "50د.إ | 100د.إ | 200د.إ", detailsEn: "50 AED | 100 AED | 200 AED" },
-        { id: 104, nameAr: "🇶🇦 بطاقة قطري", nameEn: "🇶🇦 Qatar Card", category: "giftcards", priceOMR: 4.5, oldPrice: 5.5, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Flag_of_Qatar.svg/30px-Flag_of_Qatar.svg.png", detailsAr: "50ر.ق | 100ر.ق | 200ر.ق", detailsEn: "50 QAR | 100 QAR | 200 QAR" },
-        { id: 105, nameAr: "🇰🇼 بطاقة كويتي", nameEn: "🇰🇼 Kuwait Card", category: "giftcards", priceOMR: 6, oldPrice: 7, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Flag_of_Kuwait.svg/30px-Flag_of_Kuwait.svg.png", detailsAr: "5د.ك | 10د.ك | 20د.ك", detailsEn: "5 KWD | 10 KWD | 20 KWD" },
-        { id: 106, nameAr: "🇧🇭 بطاقة بحريني", nameEn: "🇧🇭 Bahrain Card", category: "giftcards", priceOMR: 5.5, oldPrice: 6.5, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Flag_of_Bahrain.svg/30px-Flag_of_Bahrain.svg.png", detailsAr: "5د.ب | 10د.ب | 20د.ب", detailsEn: "5 BHD | 10 BHD | 20 BHD" },
-        { id: 107, nameAr: "🇴🇲 بطاقة عماني", nameEn: "🇴🇲 Oman Card", category: "giftcards", priceOMR: 5, oldPrice: 6, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Flag_of_Oman.svg/30px-Flag_of_Oman.svg.png", detailsAr: "5ر.ع | 10ر.ع | 20ر.ع", detailsEn: "5 OMR | 10 OMR | 20 OMR" },
-        { id: 108, nameAr: "🇮🇳 بطاقة هندي", nameEn: "🇮🇳 India Card", category: "giftcards", priceOMR: 3.5, oldPrice: 4.5, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Flag_of_India.svg/30px-Flag_of_India.svg.png", detailsAr: "500₹ | 1000₹ | 2000₹", detailsEn: "500₹ | 1000₹ | 2000₹" },
-        { id: 109, nameAr: "🇹🇷 بطاقة تركي", nameEn: "🇹🇷 Turkey Card", category: "giftcards", priceOMR: 4, oldPrice: 5, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Flag_of_Turkey.svg/30px-Flag_of_Turkey.svg.png", detailsAr: "100₺ | 250₺ | 500₺", detailsEn: "100₺ | 250₺ | 500₺" },
-        { id: 110, nameAr: "🇮🇩 بطاقة إندونيسي", nameEn: "🇮🇩 Indonesia Card", category: "giftcards", priceOMR: 4, oldPrice: 5, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Flag_of_Indonesia.svg/30px-Flag_of_Indonesia.svg.png", detailsAr: "50k | 100k | 200k", detailsEn: "50k | 100k | 200k" }
+        { id: 101, nameAr: "🇺🇸 بطاقة أمريكي", nameEn: "🇺🇸 US Card", category: "giftcards", priceOMR: 5, oldPrice: 6, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/30px-Flag_of_the_United_States.svg.png", detailsAr: "10$ | 25$ | 50$ | 100$", detailsEn: "10$ | 25$ | 50$ | 100$", sales: 85 },
+        { id: 102, nameAr: "🇸🇦 بطاقة سعودي", nameEn: "🇸🇦 Saudi Card", category: "giftcards", priceOMR: 4.5, oldPrice: 5.5, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/30px-Flag_of_Saudi_Arabia.svg.png", detailsAr: "50ر.س | 100ر.س | 200ر.س", detailsEn: "50 SAR | 100 SAR | 200 SAR", sales: 92 },
+        { id: 103, nameAr: "🇦🇪 بطاقة إماراتي", nameEn: "🇦🇪 UAE Card", category: "giftcards", priceOMR: 5, oldPrice: 6, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Flag_of_the_United_Arab_Emirates.svg/30px-Flag_of_the_United_Arab_Emirates.svg.png", detailsAr: "50د.إ | 100د.إ | 200د.إ", detailsEn: "50 AED | 100 AED | 200 AED", sales: 78 },
+        { id: 104, nameAr: "🇴🇲 بطاقة عماني", nameEn: "🇴🇲 Oman Card", category: "giftcards", priceOMR: 5, oldPrice: 6, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Flag_of_Oman.svg/30px-Flag_of_Oman.svg.png", detailsAr: "5ر.ع | 10ر.ع | 20ر.ع", detailsEn: "5 OMR | 10 OMR | 20 OMR", sales: 110 }
     ];
     
     for (let i = 0; i < allGames.length; i++) allGames[i].category = "games";
     for (let i = 0; i < giftCards.length; i++) giftCards[i].category = "giftcards";
     const allDefaultProducts = [...allGames, ...giftCards];
     
-    // ==================== تحميل التصنيفات ====================
+    // تحميل التصنيفات
     function loadCategories() {
         categoriesRef.on('value', (snapshot) => {
             const data = snapshot.val();
-            if (data && data.categories && data.names) {
-                categories = data.categories;
-                categoryNames = data.names;
-            } else {
-                categories = ["games", "giftcards"];
-                categoryNames = { games: "🎮 ألعاب PS4/PS5", giftcards: "💳 بطاقات شحن" };
-            }
+            if (data && data.categories && data.names) { categories = data.categories; categoryNames = data.names; }
+            else { categories = ["games", "giftcards"]; categoryNames = { games: "🎮 ألعاب PS4/PS5", giftcards: "💳 بطاقات شحن" }; }
             renderTabs();
         });
     }
@@ -872,128 +573,114 @@
     function renderTabs() {
         const container = document.getElementById('tabsContainer');
         if (!container) return;
-        
-        const allCats = [
-            { key: "all", name: "🎮 جميع المنتجات", sub: "كل المنتجات" },
-            ...categories.map(c => ({ key: c, name: categoryNames[c] || c, sub: categoryNames[c] || c }))
-        ];
-        
-        container.innerHTML = allCats.map(cat => `
-            <button class="tab-btn ${currentCategory === cat.key ? 'active' : ''}" onclick="setCategory('${cat.key}')">
-                ${cat.name}
-            </button>
-        `).join('');
+        const allCats = [{ key: "all", name: "🎮 جميع المنتجات" }, ...categories.map(c => ({ key: c, name: categoryNames[c] || c }))];
+        container.innerHTML = allCats.map(cat => `<button class="tab-btn ${currentCategory === cat.key ? 'active' : ''}" onclick="setCategory('${cat.key}')">${cat.name}</button>`).join('');
     }
     
-    // ==================== وظائف تسجيل الدخول ====================
-    function validateEmail(email) {
-        const re = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
-        return re.test(email);
-    }
-    
-    function showLoginModal() {
-        document.getElementById('loginModal').style.display = 'flex';
-        document.getElementById('loginError').innerHTML = '';
-    }
-    
-    function closeLoginModal() {
-        document.getElementById('loginModal').style.display = 'none';
-    }
+    // تسجيل الدخول
+    function validateEmail(email) { return /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/.test(email); }
+    function showLoginModal() { document.getElementById('loginModal').style.display = 'flex'; document.getElementById('loginError').innerHTML = ''; }
+    function closeLoginModal() { document.getElementById('loginModal').style.display = 'none'; }
     
     async function loginCustomer() {
         const email = document.getElementById('loginEmail').value.trim();
         const name = document.getElementById('loginName').value.trim();
         const errorDiv = document.getElementById('loginError');
-        
-        if (!email || !name) {
-            errorDiv.innerHTML = '⚠️ الرجاء إدخال البريد الإلكتروني والاسم';
-            return;
-        }
-        if (!validateEmail(email)) {
-            errorDiv.innerHTML = '⚠️ البريد الإلكتروني غير صحيح (example@domain.com)';
-            return;
-        }
-        
+        if (!email || !name) { errorDiv.innerHTML = '⚠️ الرجاء إدخال البريد الإلكتروني والاسم'; return; }
+        if (!validateEmail(email)) { errorDiv.innerHTML = '⚠️ البريد الإلكتروني غير صحيح'; return; }
         const snapshot = await customersRef.orderByChild('email').equalTo(email).once('value');
         if (snapshot.exists()) {
-            const data = snapshot.val();
-            const customer = Object.values(data)[0];
-            if (customer.name !== name) {
-                errorDiv.innerHTML = '⚠️ الاسم غير مطابق للبريد المسجل';
-                return;
-            }
+            const customer = Object.values(snapshot.val())[0];
+            if (customer.name !== name) { errorDiv.innerHTML = '⚠️ الاسم غير مطابق للبريد المسجل'; return; }
             currentUser = { email, name };
-        } else {
-            currentUser = { email, name };
-            await customersRef.push({ email, name, joinedAt: Date.now() });
-        }
+        } else { currentUser = { email, name }; await customersRef.push({ email, name, joinedAt: Date.now() }); }
         localStorage.setItem('xnesto_customer', JSON.stringify({ email, name }));
         updateUserUI();
         closeLoginModal();
         alert(`مرحباً ${name}! تم تسجيل الدخول بنجاح 🎉`);
     }
     
-    function logoutCustomer() {
-        currentUser = null;
-        localStorage.removeItem('xnesto_customer');
-        updateUserUI();
-        alert('تم تسجيل الخروج بنجاح');
-    }
-    
+    function logoutCustomer() { currentUser = null; localStorage.removeItem('xnesto_customer'); updateUserUI(); alert('تم تسجيل الخروج'); }
     function updateUserUI() {
         const authDiv = document.getElementById('authButtons');
-        if (currentUser) {
-            authDiv.innerHTML = `
-                <div class="user-info">
-                    <i class="fas fa-user-check"></i>
-                    <span>${currentUser.name.split(' ')[0]}</span>
-                    <button class="logout-btn-small" onclick="logoutCustomer()">خروج</button>
-                </div>
-            `;
-        } else {
-            authDiv.innerHTML = `<button class="customer-btn" onclick="showLoginModal()"><i class="fas fa-user"></i> <span>تسجيل دخول</span></button>`;
-        }
+        if (currentUser) authDiv.innerHTML = `<div class="user-info"><i class="fas fa-user-check"></i><span>${currentUser.name.split(' ')[0]}</span><button class="logout-btn-small" onclick="logoutCustomer()">خروج</button></div>`;
+        else authDiv.innerHTML = `<button class="customer-btn" onclick="showLoginModal()"><i class="fas fa-user"></i> <span>تسجيل دخول</span></button>`;
     }
     
-    // ==================== وظائف المنتجات ====================
+    // المنتجات
     function loadProducts() {
         productsRef.on('value', (snapshot) => {
             const data = snapshot.val();
-            if (data && Array.isArray(data) && data.length > 0) {
-                products = data.sort((a, b) => (a.order || 0) - (b.order || 0));
-            } else {
-                products = JSON.parse(JSON.stringify(allDefaultProducts));
-                products.forEach((p, idx) => { p.order = idx; });
-                productsRef.set(products);
-            }
+            if (data && Array.isArray(data) && data.length > 0) products = data.sort((a, b) => (a.order || 0) - (b.order || 0));
+            else { products = JSON.parse(JSON.stringify(allDefaultProducts)); products.forEach((p, idx) => { p.order = idx; }); productsRef.set(products); }
             renderProducts();
+            loadBestSellers();
         });
     }
     
-    function formatPrice(price) { return `${currencySymbols[currentCurrency]} ${(price * exchangeRates[currentCurrency]).toFixed(2)}`; }
+    // الأكثر مبيعاً
+    function loadBestSellers() {
+        const sorted = [...products].sort((a, b) => (b.sales || 0) - (a.sales || 0)).slice(0, 6);
+        const section = document.getElementById('bestSellersSection');
+        const grid = document.getElementById('bestSellersGrid');
+        if (sorted.length > 0) {
+            section.style.display = 'block';
+            grid.innerHTML = sorted.map(p => `
+                <div class="best-seller-card" onclick="scrollToProduct(${p.id})">
+                    <img src="${p.image || 'https://via.placeholder.com/60'}" onerror="this.src='https://via.placeholder.com/60'">
+                    <div class="name">${currentLang === 'ar' ? p.nameAr : p.nameEn}</div>
+                    <div class="sales"><i class="fas fa-shopping-cart"></i> ${p.sales || 0} مبيعات</div>
+                </div>
+            `).join('');
+        }
+    }
     
+    function scrollToProduct(id) {
+        const element = document.getElementById(`product-${id}`);
+        if (element) element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    
+    // تقييمات المنتجات
+    async function submitRating(productId, rating) {
+        if (!currentUser) { alert('الرجاء تسجيل الدخول أولاً'); showLoginModal(); return; }
+        const ratingData = { userId: currentUser.email, productId, rating, timestamp: Date.now() };
+        await ratingsRef.push(ratingData);
+        alert('✅ تم إضافة تقييمك بنجاح!');
+        renderProducts();
+    }
+    
+    async function getProductRating(productId) {
+        const snapshot = await ratingsRef.orderByChild('productId').equalTo(productId).once('value');
+        const ratings = snapshot.val();
+        if (!ratings) return { avg: 0, count: 0 };
+        const values = Object.values(ratings);
+        const avg = values.reduce((sum, r) => sum + r.rating, 0) / values.length;
+        return { avg: avg.toFixed(1), count: values.length };
+    }
+    
+    function formatPrice(price) { return `${currencySymbols[currentCurrency]} ${(price * exchangeRates[currentCurrency]).toFixed(2)}`; }
     function getFilteredProducts() {
         let filtered = [...products];
         if (searchQuery.trim()) {
             const query = searchQuery.toLowerCase();
             filtered = filtered.filter(p => p.nameAr.toLowerCase().includes(query) || p.nameEn.toLowerCase().includes(query));
         }
-        if (currentCategory !== 'all') {
-            filtered = filtered.filter(p => p.category === currentCategory);
-        }
+        if (currentCategory !== 'all') filtered = filtered.filter(p => p.category === currentCategory);
         return filtered;
     }
     
-    function renderProducts() {
+    async function renderProducts() {
         const filtered = getFilteredProducts();
         const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
         if (currentPage > totalPages) currentPage = 1;
         const start = (currentPage - 1) * ITEMS_PER_PAGE;
         const pageProducts = filtered.slice(start, start + ITEMS_PER_PAGE);
         const container = document.getElementById('productsContainer');
-        if (pageProducts.length === 0) { container.innerHTML = '<div style="text-align:center; padding:2rem;">لا توجد منتجات حالياً</div>'; return; }
+        if (pageProducts.length === 0) { container.innerHTML = '<div style="text-align:center; padding:2rem;">لا توجد منتجات</div>'; return; }
         
-        container.innerHTML = pageProducts.map(p => {
+        let html = '';
+        for (const p of pageProducts) {
+            const rating = await getProductRating(p.id);
             const name = currentLang === 'ar' ? p.nameAr : p.nameEn;
             const desc = currentLang === 'ar' ? p.detailsAr : p.detailsEn;
             const price = formatPrice(p.priceOMR);
@@ -1002,8 +689,26 @@
             const discountPercent = hasDiscount ? Math.round((1 - p.priceOMR / p.oldPrice) * 100) : 0;
             const categoryName = categoryNames[p.category] || p.category;
             let imageHtml = p.image && p.image.trim() ? `<div class="product-image" style="background-image: url('${p.image}');"><div class="product-badge">${categoryName}</div></div>` : `<div class="product-image" style="background: linear-gradient(135deg, #1e3a5f, #0f2a4a); display: flex; align-items: center; justify-content: center;"><div style="font-size: 2.5rem;">${p.category === 'games' ? '🎮' : '💳'}</div><div class="product-badge">${categoryName}</div></div>`;
-            return `<div class="product-card">${hasDiscount ? `<div class="discount-badge">🔥 -${discountPercent}%</div>` : ''}${imageHtml}<div class="card-info"><div class="product-title">${escapeHtml(name)}</div><div class="product-details">${escapeHtml(desc || '')}</div><div class="price-container">${hasDiscount ? `<span class="old-price">${oldPrice}</span>` : ''}<span class="price">${price}</span></div><button class="btn-wa" onclick="requestPurchase(${p.id}, '${escapeHtml(name)}', ${p.priceOMR})"><i class="fab fa-whatsapp"></i> ${currentLang === 'ar' ? 'اطلب الآن' : 'Order Now'}</button></div></div>`;
-        }).join('');
+            
+            html += `<div class="product-card" id="product-${p.id}">
+                ${hasDiscount ? `<div class="discount-badge">🔥 -${discountPercent}%</div>` : ''}
+                ${imageHtml}
+                <div class="card-info">
+                    <div class="product-title">${escapeHtml(name)}</div>
+                    <div class="product-details">${escapeHtml(desc || '')}</div>
+                    <div class="rating-stars" data-id="${p.id}">
+                        ${[1,2,3,4,5].map(s => `<i class="fas fa-star star ${rating.avg >= s ? 'active' : ''}" style="font-size:0.7rem;"></i>`).join('')}
+                    </div>
+                    <div class="rating-count">${rating.count} تقييم (${rating.avg})</div>
+                    <div class="rating-input">
+                        ${[1,2,3,4,5].map(s => `<button class="rating-btn" onclick="submitRating(${p.id}, ${s})">${s}⭐</button>`).join('')}
+                    </div>
+                    <div class="price-container">${hasDiscount ? `<span class="old-price">${oldPrice}</span>` : ''}<span class="price">${price}</span></div>
+                    <button class="btn-wa" onclick="requestPurchase(${p.id}, '${escapeHtml(name)}', ${p.priceOMR})"><i class="fab fa-whatsapp"></i> ${currentLang === 'ar' ? 'اطلب الآن' : 'Order Now'}</button>
+                </div>
+            </div>`;
+        }
+        container.innerHTML = html;
         
         const pagContainer = document.getElementById('pagination');
         if (totalPages > 1) {
@@ -1018,12 +723,8 @@
     function goToPage(page) { currentPage = page; renderProducts(); }
     function setCategory(cat) { currentCategory = cat; currentPage = 1; renderTabs(); renderProducts(); }
     
-    function requestPurchase(id, name, priceOMR) {
-        if (!currentUser) {
-            alert('الرجاء تسجيل الدخول أولاً');
-            showLoginModal();
-            return;
-        }
+    async function requestPurchase(id, name, priceOMR) {
+        if (!currentUser) { alert('الرجاء تسجيل الدخول أولاً'); showLoginModal(); return; }
         pendingProductData = { id, name, priceOMR };
         document.getElementById('termsCheck').checked = false;
         document.getElementById('acceptTermsBtn').classList.remove('enabled');
@@ -1032,15 +733,36 @@
     
     function toggleTermsAccept() { const cb = document.getElementById('termsCheck'); cb.checked = !cb.checked; const btn = document.getElementById('acceptTermsBtn'); if (cb.checked) btn.classList.add('enabled'); else btn.classList.remove('enabled'); }
     function closeTermsModal() { document.getElementById('termsModal').style.display = 'none'; pendingProductData = null; }
-    function acceptTerms() {
-        if (!document.getElementById('termsCheck').checked) { alert('يرجى الموافقة على الشروط والأحكام'); return; }
+    
+    async function acceptTerms() {
+        if (!document.getElementById('termsCheck').checked) { alert('يرجى الموافقة على الشروط'); return; }
         if (!pendingProductData) return;
-        const { name, priceOMR } = pendingProductData;
+        const { name, priceOMR, id } = pendingProductData;
         const sym = currencySymbols[currentCurrency];
         const convertedPrice = (priceOMR * exchangeRates[currentCurrency]).toFixed(2);
-        const message = `🛒 طلب شراء من xnesto\n━━━━━━━━━━━━━━━━━━━━\n🎮 المنتج: ${name}\n💰 السعر: ${sym} ${convertedPrice}\n👤 العميل: ${currentUser.name}\n📧 البريد: ${currentUser.email}\n━━━━━━━━━━━━━━━━━━━━\n📞 يرجى تأكيد الطلب وإرسال طريقة الدفع.\n\n✅ أوافق على شروط وأحكام المتجر.`;
+        
+        // حفظ الطلب في Firebase
+        const order = {
+            id: Date.now(),
+            customerName: currentUser.name,
+            customerEmail: currentUser.email,
+            productId: id,
+            productName: name,
+            price: priceOMR,
+            convertedPrice: `${sym} ${convertedPrice}`,
+            date: new Date().toLocaleString('ar-SA'),
+            status: "قيد المعالجة"
+        };
+        await ordersRef.push(order);
+        
+        // تحديث عدد المبيعات للمنتج
+        const product = products.find(p => p.id === id);
+        if (product) { product.sales = (product.sales || 0) + 1; await productsRef.set(products); }
+        
+        const message = `🛒 طلب شراء من xnesto\n━━━━━━━━━━━━━━━━━━━━\n🎮 المنتج: ${name}\n💰 السعر: ${sym} ${convertedPrice}\n👤 العميل: ${currentUser.name}\n📧 البريد: ${currentUser.email}\n📅 التاريخ: ${new Date().toLocaleString('ar-SA')}\n━━━━━━━━━━━━━━━━━━━━\n📞 يرجى تأكيد الطلب وإرسال طريقة الدفع.\n\n✅ أوافق على شروط وأحكام المتجر.`;
         window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
         closeTermsModal();
+        alert('✅ تم إرسال طلبك بنجاح! سنتواصل معك قريباً.');
     }
     
     function setLang(lang) { currentLang = lang; document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active')); event.target.classList.add('active'); renderProducts(); }
@@ -1052,14 +774,16 @@
     const savedMode = localStorage.getItem('xnesto_mode'); if (savedMode === 'light') { document.body.classList.add('light-mode'); document.querySelector('.mode-toggle-btn').innerHTML = '☀️ نهاري'; }
     const savedView = localStorage.getItem('xnesto_view') || 'mobile'; setView(savedView);
     const savedCustomer = localStorage.getItem('xnesto_customer'); if (savedCustomer) { currentUser = JSON.parse(savedCustomer); updateUserUI(); }
-    document.getElementById('instagramText').innerHTML = `<a href="https://instagram.com/${INSTA_USERNAME}" target="_blank" style="color:#ffaa66;text-decoration:none;">${INSTA_USERNAME}</a>`;
-    document.getElementById('whatsappText').innerHTML = `<a href="https://wa.me/${WA_NUMBER}" target="_blank" style="color:#ffaa66;text-decoration:none;">+${WA_NUMBER}</a>`;
+    document.getElementById('instagramText').innerHTML = `<a href="https://instagram.com/${INSTA_USERNAME}" target="_blank" style="color:#ffaa66;">${INSTA_USERNAME}</a>`;
+    document.getElementById('whatsappText').innerHTML = `<a href="https://wa.me/${WA_NUMBER}" target="_blank" style="color:#ffaa66;">+${WA_NUMBER}</a>`;
     
     loadCategories();
     loadProducts();
     
     window.toggleTermsAccept = toggleTermsAccept; window.closeTermsModal = closeTermsModal; window.acceptTerms = acceptTerms; window.requestPurchase = requestPurchase;
     window.showLoginModal = showLoginModal; window.closeLoginModal = closeLoginModal; window.loginCustomer = loginCustomer;
+    window.submitRating = submitRating;
+    window.scrollToProduct = scrollToProduct;
 </script>
 </body>
 </html>
