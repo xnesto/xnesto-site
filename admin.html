@@ -8,6 +8,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <style>
+        /* جميع الأنماط السابقة محتفظ بها، وسأضيف فقط ما يخص عمود الترتيب الجديد */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: linear-gradient(135deg, #0a0a1a 0%, #0a0a1a 100%);
@@ -113,7 +114,7 @@
         .btn-success { background: #00cc88; }
         .btn-danger { background: #ff4444; }
         .btn-warning { background: #ffaa44; color: #0a0a1a; }
-        .stock-input, .sales-input {
+        .stock-input, .sales-input, .order-input {
             width: 55px;
             background: #1e1e3a;
             border: 1px solid #ffaa44;
@@ -135,7 +136,6 @@
         .delete-btn { background: #ff4444; color: #fff; }
         .move-top-btn { background: #2d6e2d; color: white; }
         .move-bottom-btn { background: #6e2d2d; color: white; }
-        .order-btn { background: #2d2f6e; border: none; padding: 2px 5px; border-radius: 1rem; cursor: pointer; color: white; font-size: 0.65rem; }
         .admin-panel {
             background: #11152b;
             border: 2px solid #ffaa44;
@@ -211,7 +211,6 @@
         .bestseller-item-info img { width: 30px; height: 30px; border-radius: 6px; object-fit: cover; }
         .bestseller-rank { background: #ffaa44; color: #0a0a1a; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.65rem; }
         .bestseller-sales { background: #2d2f6e; padding: 2px 6px; border-radius: 20px; font-size: 0.6rem; }
-        /* نموذج التعديل المحسن بمسميات */
         .product-edit-form {
             background: #1e1e3a;
             padding: 0.8rem;
@@ -319,7 +318,8 @@
             border-color: rgba(0,0,0,0.1) !important;
         }
         body.light-mode .stock-input,
-        body.light-mode .sales-input {
+        body.light-mode .sales-input,
+        body.light-mode .order-input {
             background: #f5f5f5 !important;
             color: #1a1a2e !important;
         }
@@ -610,34 +610,40 @@
         }
     }
     
-    // دوال نقل المنتج بسرعة
-    function moveToTop(productId) {
-        const index = products.findIndex(p => p.id == productId);
-        if (index === 0) return;
-        const product = products[index];
-        products.splice(index, 1);
-        products.unshift(product);
-        // إعادة ترتيب الحقل order
-        products.forEach((p, idx) => p.order = idx);
+    // دالة لتحديد ترتيب المنتج يدوياً (اختر رقم بين 1 وعدد المنتجات)
+    function setProductOrder(productId, newOrder) {
+        let orderNum = parseInt(newOrder);
+        if (isNaN(orderNum)) return;
+        // التأكد من أن الرقم بين 1 وعدد المنتجات
+        if (orderNum < 1) orderNum = 1;
+        if (orderNum > products.length) orderNum = products.length;
+        
+        const currentIndex = products.findIndex(p => p.id == productId);
+        if (currentIndex === -1) return;
+        if (currentIndex + 1 === orderNum) return; // لا تغيير
+        
+        const product = products[currentIndex];
+        // إزالة المنتج من موقعه الحالي
+        products.splice(currentIndex, 1);
+        // إدراجه في الموضع الجديد (orderNum-1 لأن المصفوفة تبدأ من 0)
+        products.splice(orderNum - 1, 0, product);
+        // إعادة تعيين قيم الترتيب (order) لكل المنتجات
+        products.forEach((p, idx) => { p.order = idx; });
         saveProducts().then(() => {
             renderProductsTable();
             updateProductsStats();
+            renderBestsellersList();
+            updateBestsellerSelect();
         });
-        alert(`✅ تم نقل المنتج ${product.nameAr} إلى الأعلى`);
+    }
+    
+    // دوال نقل المنتج بسرعة
+    function moveToTop(productId) {
+        setProductOrder(productId, 1);
     }
     
     function moveToBottom(productId) {
-        const index = products.findIndex(p => p.id == productId);
-        if (index === products.length - 1) return;
-        const product = products[index];
-        products.splice(index, 1);
-        products.push(product);
-        products.forEach((p, idx) => p.order = idx);
-        saveProducts().then(() => {
-            renderProductsTable();
-            updateProductsStats();
-        });
-        alert(`✅ تم نقل المنتج ${product.nameAr} إلى الأسفل`);
+        setProductOrder(productId, products.length);
     }
     
     // دوال تعديل المنتج (مع إضافة رفع صورة)
@@ -693,7 +699,7 @@
         reader.readAsDataURL(file);
     }
     
-    // عرض جدول المنتجات (مع إضافة أزرار النقل السريع)
+    // عرض جدول المنتجات (مع إضافة حقل الترتيب القابل للتعديل)
     function renderProductsTable() {
         const filtered = getFilteredProducts();
         const container = document.getElementById('productsTable');
@@ -701,38 +707,39 @@
         
         container.innerHTML = `
             <div style="overflow-x:auto;">
-                <table>
+                 <table>
                     <thead>
-                        <tr><th>الترتيب</th><th>الصورة</th><th>الاسم</th><th>السعر</th><th>الكمية</th><th>المبيعات</th><th>التصنيف</th><th>إجراءات</th></tr>
+                        <tr><th>الترتيب</th><th>الصورة</th><th>الاسم</th><th>السعر</th><th>الكمية</th><th>المبيعات</th><th>التصنيف</th><th>إجراءات</th> </tr>
                     </thead>
                     <tbody id="productsTableBody"></tbody>
-                </table>
+                 </table>
             </div>
         `;
         
         const tbody = document.getElementById('productsTableBody');
-        tbody.innerHTML = filtered.map((p, idx) => {
-            const productIndex = products.findIndex(prod => prod.id === p.id);
+        tbody.innerHTML = filtered.map((p) => {
+            // معرفة الرقم الحقيقي في قائمة products (وليس بعد الفلترة)
+            const realIndex = products.findIndex(prod => prod.id === p.id);
+            const currentOrder = realIndex + 1; // الترتيب الفعلي (يبدأ من 1)
             return `
                 <tr id="product-row-${p.id}">
-                    <td>
-                        <div style="display:flex; gap:3px; justify-content:center; flex-wrap:wrap;">
-                            <button class="order-btn" onclick="moveProductUp(${productIndex})" ${productIndex === 0 ? 'disabled style="opacity:0.5;"' : ''}>⬆️</button>
-                            <button class="order-btn" onclick="moveProductDown(${productIndex})" ${productIndex === products.length-1 ? 'disabled style="opacity:0.5;"' : ''}>⬇️</button>
-                            <button class="move-top-btn" onclick="moveToTop(${p.id})" ${productIndex === 0 ? 'disabled style="opacity:0.5;"' : ''} title="نقل إلى الأعلى">⤴️</button>
-                            <button class="move-bottom-btn" onclick="moveToBottom(${p.id})" ${productIndex === products.length-1 ? 'disabled style="opacity:0.5;"' : ''} title="نقل إلى الأسفل">⤵️</button>
+                     <td>
+                        <div style="display:flex; gap:3px; justify-content:center; flex-wrap:wrap; align-items:center;">
+                            <input type="number" class="order-input" id="order_input_${p.id}" value="${currentOrder}" min="1" max="${products.length}" step="1" style="width:55px;" onchange="setProductOrder(${p.id}, this.value)">
+                            <button class="move-top-btn" onclick="moveToTop(${p.id})" ${realIndex === 0 ? 'disabled style="opacity:0.5;"' : ''} title="نقل إلى الأول">⤴️</button>
+                            <button class="move-bottom-btn" onclick="moveToBottom(${p.id})" ${realIndex === products.length-1 ? 'disabled style="opacity:0.5;"' : ''} title="نقل إلى الأخير">⤵️</button>
                         </div>
-                    </td>
-                    <td><img src="${p.image || ''}" width="30" height="30" style="border-radius:6px; object-fit:cover;" onerror="this.src='https://via.placeholder.com/30'"></td>
-                    <td>${escapeHtml(p.nameAr)}<br><small style="opacity:0.7;">${escapeHtml(p.nameEn)}</small></td>
-                    <td>${p.priceOMR} ر.ع${p.oldPrice ? `<br><span style="text-decoration:line-through; font-size:0.6rem;">${p.oldPrice}</span>` : ''}</td>
-                    <td><input type="number" class="stock-input" id="stock_${p.id}" value="${p.stock || 0}" min="0" step="1" onchange="updateStock(${p.id}, this.value)"></td>
-                    <td><input type="number" class="sales-input" id="sales_${p.id}" value="${p.sales || 0}" min="0" step="1" onchange="updateSales(${p.id}, this.value)"></td>
-                    <td>${categoryNames[p.category] || p.category}</td>
-                    <td>
+                     </td>
+                     <td><img src="${p.image || ''}" width="30" height="30" style="border-radius:6px; object-fit:cover;" onerror="this.src='https://via.placeholder.com/30'"></td>
+                     <td>${escapeHtml(p.nameAr)}<br><small style="opacity:0.7;">${escapeHtml(p.nameEn)}</small></td>
+                     <td>${p.priceOMR} ر.ع${p.oldPrice ? `<br><span style="text-decoration:line-through; font-size:0.6rem;">${p.oldPrice}</span>` : ''}</td>
+                     <td><input type="number" class="stock-input" id="stock_${p.id}" value="${p.stock || 0}" min="0" step="1" onchange="updateStock(${p.id}, this.value)"></td>
+                     <td><input type="number" class="sales-input" id="sales_${p.id}" value="${p.sales || 0}" min="0" step="1" onchange="updateSales(${p.id}, this.value)"></td>
+                     <td>${categoryNames[p.category] || p.category}</td>
+                     <td>
                         <button class="edit-btn" onclick="openEditForm(${p.id})">✏️</button>
                         <button class="delete-btn" onclick="deleteProduct(${p.id})">🗑️</button>
-                    </td>
+                     </td>
                 </tr>
                 <tr id="edit-form-${p.id}" style="display:none;">
                     <td colspan="8">
@@ -804,12 +811,11 @@
         });
     }
     
-    function moveProductUp(index) { if (index === 0) return; [products[index], products[index-1]] = [products[index-1], products[index]]; saveProducts(); renderProductsTable(); }
-    function moveProductDown(index) { if (index === products.length-1) return; [products[index], products[index+1]] = [products[index+1], products[index]]; saveProducts(); renderProductsTable(); }
-    
     async function deleteProduct(id) {
         if (confirm('⚠️ حذف المنتج؟')) {
             products = products.filter(p => p.id != id);
+            // إعادة ترقيم order
+            products.forEach((p, idx) => { p.order = idx; });
             await saveProducts();
             renderProductsTable();
             updateProductsStats();
@@ -964,7 +970,7 @@
         if (orders.length === 0) { container.innerHTML = '<div class="loading">لا توجد طلبات</div>'; return; }
         container.innerHTML = `
             <div style="overflow-x:auto;">
-                <table>
+                 <table>
                     <thead><tr><th>رقم الطلب</th><th>المنتج</th><th>السعر</th><th>التاريخ</th><th>الحالة</th></tr></thead>
                     <tbody>
                         ${orders.map(order => `
@@ -977,7 +983,7 @@
                             </tr>
                         `).join('')}
                     </tbody>
-                </table>
+                 </table>
             </div>
         `;
     }
