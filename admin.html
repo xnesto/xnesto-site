@@ -15,6 +15,7 @@
             color: #fff;
             padding: 1rem;
             min-height: 100vh;
+            transition: all 0.3s ease;
         }
         .header {
             text-align: center;
@@ -32,6 +33,7 @@
             flex-wrap: wrap;
             margin-bottom: 1rem;
             justify-content: space-between;
+            align-items: center;
         }
         .search-input, .filter-select {
             background: #1e1e3a;
@@ -41,7 +43,7 @@
             color: #fff;
             font-size: 0.75rem;
         }
-        .back-link, .logout-btn {
+        .back-link, .logout-btn, .mode-toggle-btn {
             padding: 0.4rem 1rem;
             border-radius: 2rem;
             text-decoration: none;
@@ -52,6 +54,7 @@
         }
         .back-link { background: #ffaa44; color: #0a0a1a; }
         .logout-btn { background: #ff4444; color: white; }
+        .mode-toggle-btn { background: #ffaa44; color: #0a0a1a; }
         .admin-tabs {
             display: flex;
             gap: 0.4rem;
@@ -120,9 +123,18 @@
             text-align: center;
             font-size: 0.7rem;
         }
-        .edit-btn, .delete-btn { padding: 2px 6px; margin: 0 2px; border: none; border-radius: 1rem; cursor: pointer; font-size: 0.6rem; }
+        .edit-btn, .delete-btn, .move-top-btn, .move-bottom-btn {
+            padding: 2px 6px;
+            margin: 0 2px;
+            border: none;
+            border-radius: 1rem;
+            cursor: pointer;
+            font-size: 0.6rem;
+        }
         .edit-btn { background: #ffa500; color: #fff; }
         .delete-btn { background: #ff4444; color: #fff; }
+        .move-top-btn { background: #2d6e2d; color: white; }
+        .move-bottom-btn { background: #6e2d2d; color: white; }
         .order-btn { background: #2d2f6e; border: none; padding: 2px 5px; border-radius: 1rem; cursor: pointer; color: white; font-size: 0.65rem; }
         .admin-panel {
             background: #11152b;
@@ -146,6 +158,9 @@
             flex: 1;
             min-width: 90px;
             font-size: 0.7rem;
+        }
+        .add-form input::placeholder, .add-form textarea::placeholder {
+            color: #aaa;
         }
         .btn-save { background: #00cc88; border: none; padding: 0.4rem 1rem; border-radius: 2rem; cursor: pointer; font-weight: bold; font-size: 0.75rem; }
         .image-upload-area {
@@ -196,28 +211,133 @@
         .bestseller-item-info img { width: 30px; height: 30px; border-radius: 6px; object-fit: cover; }
         .bestseller-rank { background: #ffaa44; color: #0a0a1a; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.65rem; }
         .bestseller-sales { background: #2d2f6e; padding: 2px 6px; border-radius: 20px; font-size: 0.6rem; }
+        /* نموذج التعديل المحسن بمسميات */
         .product-edit-form {
             background: #1e1e3a;
-            padding: 0.5rem;
-            border-radius: 0.6rem;
+            padding: 0.8rem;
+            border-radius: 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 0.5rem;
         }
-        .product-edit-form input, .product-edit-form textarea, .product-edit-form select {
+        .edit-field {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .edit-field label {
+            font-size: 0.65rem;
+            font-weight: bold;
+            color: #ffaa44;
+            text-align: right;
+        }
+        .edit-field input, .edit-field textarea, .edit-field select {
             width: 100%;
-            padding: 0.3rem;
-            margin: 0.2rem 0;
+            padding: 0.4rem;
             border-radius: 1rem;
             background: #0a0c1a;
             border: 1px solid #ffaa44;
             color: white;
-            font-size: 0.65rem;
+            font-size: 0.7rem;
+        }
+        .edit-image-upload {
+            background: #0a0c1a;
+            border: 1px dashed #ffaa44;
+            border-radius: 1rem;
+            padding: 0.3rem;
+            text-align: center;
+            cursor: pointer;
+            font-size: 0.7rem;
+            color: #ffaa44;
+        }
+        .edit-image-preview {
+            margin-top: 5px;
+            max-width: 100%;
+            max-height: 60px;
+            border-radius: 8px;
+            display: none;
+        }
+        .edit-buttons {
+            grid-column: 1 / -1;
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 0.5rem;
         }
         .footer { text-align: center; margin-top: 1.2rem; padding: 0.8rem; color: #888; font-size: 0.65rem; border-top: 1px solid rgba(255,170,68,0.1); }
         .loading { text-align: center; padding: 1.5rem; color: #ffaa44; font-size: 0.8rem; }
+        
+        /* وضع نهاري */
+        body.light-mode {
+            background: #f0f4ff !important;
+            color: #1a1a2e !important;
+        }
+        body.light-mode .header {
+            background: linear-gradient(135deg, #1a3a7a, #0d2a6e) !important;
+        }
+        body.light-mode .admin-panel,
+        body.light-mode .categories-manager,
+        body.light-mode .bestseller-manager {
+            background: #ffffff !important;
+            border-color: #ffaa44 !important;
+        }
+        body.light-mode .admin-panel h3,
+        body.light-mode .categories-manager h3,
+        body.light-mode .bestseller-manager h3 {
+            color: #ffaa44 !important;
+        }
+        body.light-mode input, 
+        body.light-mode select, 
+        body.light-mode textarea {
+            background: #f5f5f5 !important;
+            color: #1a1a2e !important;
+            border-color: #ffaa44 !important;
+        }
+        body.light-mode input::placeholder, 
+        body.light-mode textarea::placeholder {
+            color: #888 !important;
+        }
+        body.light-mode .data-table {
+            background: rgba(0,0,0,0.05) !important;
+        }
+        body.light-mode td {
+            color: #1a1a2e !important;
+        }
+        body.light-mode .stat-card {
+            background: #ffffff !important;
+            border-color: #ffaa44 !important;
+        }
+        body.light-mode .category-badge {
+            background: #e8e8e8 !important;
+            color: #1a1a2e !important;
+        }
+        body.light-mode .btn-sm {
+            background: #2d2f6e !important;
+            color: white !important;
+        }
+        body.light-mode .bestseller-item {
+            border-color: rgba(0,0,0,0.1) !important;
+        }
+        body.light-mode .stock-input,
+        body.light-mode .sales-input {
+            background: #f5f5f5 !important;
+            color: #1a1a2e !important;
+        }
+        body.light-mode .product-edit-form {
+            background: #f5f5f5 !important;
+        }
+        body.light-mode .product-edit-form input,
+        body.light-mode .product-edit-form textarea,
+        body.light-mode .product-edit-form select {
+            background: #ffffff !important;
+            color: #1a1a2e !important;
+        }
         @media (max-width: 640px) {
             body { padding: 0.5rem; }
             th, td { padding: 4px 3px; font-size: 0.6rem; }
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
             .admin-tab { padding: 0.3rem 0.8rem; font-size: 0.65rem; }
+            .product-edit-form { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -228,12 +348,13 @@
     <p>إدارة المنتجات - المخزون - المبيعات - الطلبات</p>
 </div>
 
-<div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 0.8rem; justify-content: space-between;">
-    <div>
+<div class="control-bar">
+    <div style="display: flex; gap: 8px;">
         <a href="index.html" class="back-link"><i class="fas fa-arrow-right"></i> المتجر</a>
         <button id="logoutBtn" class="logout-btn" style="display:none;"><i class="fas fa-sign-out-alt"></i> خروج</button>
+        <button class="mode-toggle-btn" onclick="toggleMode()">🌙 ليلي</button>
     </div>
-    <div>
+    <div style="display: flex; gap: 8px;">
         <input type="text" id="searchInput" class="search-input" placeholder="🔍 بحث">
         <select id="filterCategory" class="filter-select">
             <option value="all">الكل</option>
@@ -328,7 +449,7 @@
     const ADMIN_PASSWORD = "ssp1995";
     const SESSION_KEY = "xnesto_admin_logged";
     
-    // المنتجات الافتراضية
+    // المنتجات الافتراضية (نفس السابق)
     const defaultGames = [
         { id: 1, nameAr: "Assassin's Creed Shadows", nameEn: "Assassin's Creed Shadows", priceOMR: 14, oldPrice: 20, stock: 50, image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/3159340/header.jpg", detailsAr: "🏷️ 65GB | 🎮 عربي/إنجليزي", detailsEn: "📦 65GB | 🎮 Arabic/English", order: 1, sales: 564, category: "games" },
         { id: 2, nameAr: "Call of Duty Black Ops 6", nameEn: "Call of Duty Black Ops 6", priceOMR: 22, oldPrice: 30, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2933620/header.jpg", detailsAr: "🏷️ 120GB | 🎮 إنجليزي", detailsEn: "📦 120GB | 🎮 English", order: 2, sales: 464, category: "games" },
@@ -339,7 +460,6 @@
         { id: 7, nameAr: "Horizon Forbidden West", nameEn: "Horizon Forbidden West", priceOMR: 11, oldPrice: 17, stock: 50, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1151640/header.jpg", detailsAr: "🏷️ 96GB | 🦕 مغامرة مستقبلية", detailsEn: "📦 96GB | 🦕 Future Adventure", order: 7, sales: 380, category: "games" },
         { id: 8, nameAr: "Ghost of Tsushima", nameEn: "Ghost of Tsushima", priceOMR: 11, oldPrice: 17, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2215430/header.jpg", detailsAr: "🏷️ 50GB | 🗡️ ساموراي", detailsEn: "📦 50GB | 🗡️ Samurai", order: 8, sales: 312, category: "games" }
     ];
-    
     for (let i = 9; i <= 50; i++) {
         defaultGames.push({
             id: i, nameAr: `لعبة PS5 مميزة ${i}`, nameEn: `Premium PS5 Game ${i}`,
@@ -349,18 +469,16 @@
             detailsAr: `🏷️ لعبة رقم ${i}`, detailsEn: `Game ${i}`, sales: Math.floor(Math.random() * 300) + 50, category: "games"
         });
     }
-    
     const giftCards = [
         { id: 101, nameAr: "🇺🇸 بطاقة أمريكي", nameEn: "🇺🇸 US Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/30px-Flag_of_the_United_States.svg.png", detailsAr: "10$ | 25$ | 50$ | 100$", detailsEn: "10$ | 25$ | 50$ | 100$", order: 101, sales: 244 },
         { id: 102, nameAr: "🇸🇦 بطاقة سعودي", nameEn: "🇸🇦 Saudi Card", category: "giftcards", priceOMR: 4.5, oldPrice: 5.5, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/30px-Flag_of_Saudi_Arabia.svg.png", detailsAr: "50ر.س | 100ر.س | 200ر.س", detailsEn: "50 SAR | 100 SAR | 200 SAR", order: 102, sales: 210 },
         { id: 103, nameAr: "🇦🇪 بطاقة إماراتي", nameEn: "🇦🇪 UAE Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Flag_of_the_United_Arab_Emirates.svg/30px-Flag_of_the_United_Arab_Emirates.svg.png", detailsAr: "50د.إ | 100د.إ | 200د.إ", detailsEn: "50 AED | 100 AED | 200 AED", order: 103, sales: 195 },
         { id: 104, nameAr: "🇴🇲 بطاقة عماني", nameEn: "🇴🇲 Oman Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Flag_of_Oman.svg/30px-Flag_of_Oman.svg.png", detailsAr: "5ر.ع | 10ر.ع | 20ر.ع", detailsEn: "5 OMR | 10 OMR | 20 OMR", order: 104, sales: 180 }
     ];
-    
     for (let i = 0; i < giftCards.length; i++) giftCards[i].category = "giftcards";
     const allDefaultProducts = [...defaultGames, ...giftCards];
     
-    // ==================== التحقق من الدخول ====================
+    // التحقق من الدخول
     function checkSession() {
         if (localStorage.getItem(SESSION_KEY) === "true") { 
             isLoggedIn = true; 
@@ -397,7 +515,7 @@
     }
     document.getElementById('logoutBtn').onclick = logout;
     
-    // ==================== Tabs ====================
+    // Tabs
     document.querySelectorAll('.admin-tab').forEach(tab => {
         tab.onclick = () => switchTab(tab.dataset.tab);
     });
@@ -414,7 +532,7 @@
         if (tab === 'categories') { renderCategoriesList(); }
     }
     
-    // ==================== المنتجات ====================
+    // المنتجات
     function loadProducts() {
         productsRef.on('value', (snapshot) => {
             const data = snapshot.val();
@@ -433,7 +551,16 @@
     }
     
     function saveProducts() { 
-        productsRef.set(products);
+        return productsRef.set(products)
+            .then(() => {
+                console.log('✅ تم حفظ المنتجات');
+                return true;
+            })
+            .catch(error => {
+                console.error('❌ خطأ:', error);
+                alert('خطأ في الحفظ: ' + error.message);
+                return false;
+            });
     }
     
     function updateProductsStats() {
@@ -459,14 +586,114 @@
     
     function updateSales(productId, newSales) {
         const product = products.find(p => p.id == productId);
-        if (product) { product.sales = parseInt(newSales); saveProducts(); renderProductsTable(); renderBestsellersList(); updateBestsellerSelect(); }
+        if (product) {
+            let salesValue = parseInt(newSales);
+            if (isNaN(salesValue)) salesValue = 0;
+            product.sales = salesValue;
+            saveProducts().then(() => {
+                renderProductsTable();
+                renderBestsellersList();
+                updateBestsellerSelect();
+            });
+        }
     }
     
     function updateStock(productId, newStock) {
         const product = products.find(p => p.id == productId);
-        if (product) { product.stock = parseInt(newStock); saveProducts(); renderProductsTable(); }
+        if (product) {
+            let stockValue = parseInt(newStock);
+            if (isNaN(stockValue)) stockValue = 0;
+            product.stock = stockValue;
+            saveProducts().then(() => {
+                renderProductsTable();
+            });
+        }
     }
     
+    // دوال نقل المنتج بسرعة
+    function moveToTop(productId) {
+        const index = products.findIndex(p => p.id == productId);
+        if (index === 0) return;
+        const product = products[index];
+        products.splice(index, 1);
+        products.unshift(product);
+        // إعادة ترتيب الحقل order
+        products.forEach((p, idx) => p.order = idx);
+        saveProducts().then(() => {
+            renderProductsTable();
+            updateProductsStats();
+        });
+        alert(`✅ تم نقل المنتج ${product.nameAr} إلى الأعلى`);
+    }
+    
+    function moveToBottom(productId) {
+        const index = products.findIndex(p => p.id == productId);
+        if (index === products.length - 1) return;
+        const product = products[index];
+        products.splice(index, 1);
+        products.push(product);
+        products.forEach((p, idx) => p.order = idx);
+        saveProducts().then(() => {
+            renderProductsTable();
+            updateProductsStats();
+        });
+        alert(`✅ تم نقل المنتج ${product.nameAr} إلى الأسفل`);
+    }
+    
+    // دوال تعديل المنتج (مع إضافة رفع صورة)
+    function openEditForm(id) {
+        document.getElementById(`edit-form-${id}`).style.display = 'table-row';
+    }
+    function closeEditForm(id) {
+        document.getElementById(`edit-form-${id}`).style.display = 'none';
+    }
+    
+    async function saveEdit(id) {
+        const p = products.find(p => p.id == id);
+        if (!p) return;
+        p.nameAr = document.getElementById(`editNameAr_${id}`).value;
+        p.nameEn = document.getElementById(`editNameEn_${id}`).value;
+        p.priceOMR = parseFloat(document.getElementById(`editPrice_${id}`).value);
+        p.oldPrice = parseFloat(document.getElementById(`editOldPrice_${id}`).value) || null;
+        p.stock = parseInt(document.getElementById(`editStock_${id}`).value) || 0;
+        p.sales = parseInt(document.getElementById(`editSales_${id}`).value) || 0;
+        // الصورة: إذا تم رفع صورة جديدة نستخدمها، وإلا نستخدم الرابط النصي
+        const tempImage = window[`tempEditImage_${id}`];
+        if (tempImage) {
+            p.image = tempImage;
+            delete window[`tempEditImage_${id}`];
+        } else {
+            p.image = document.getElementById(`editImageUrl_${id}`).value;
+        }
+        p.detailsAr = document.getElementById(`editDescAr_${id}`).value;
+        p.detailsEn = document.getElementById(`editDescEn_${id}`).value;
+        p.category = document.getElementById(`editCategory_${id}`).value;
+        await saveProducts();
+        closeEditForm(id);
+        alert('✅ تم التحديث');
+        renderProductsTable();
+        updateProductsStats();
+        renderBestsellersList();
+        updateBestsellerSelect();
+    }
+    
+    // دوال رفع الصورة في التعديل
+    function handleEditImageUpload(id, file) {
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const dataUrl = e.target.result;
+            window[`tempEditImage_${id}`] = dataUrl;
+            const preview = document.getElementById(`editImagePreview_${id}`);
+            if (preview) {
+                preview.src = dataUrl;
+                preview.style.display = 'block';
+            }
+        };
+        reader.readAsDataURL(file);
+    }
+    
+    // عرض جدول المنتجات (مع إضافة أزرار النقل السريع)
     function renderProductsTable() {
         const filtered = getFilteredProducts();
         const container = document.getElementById('productsTable');
@@ -488,46 +715,97 @@
             const productIndex = products.findIndex(prod => prod.id === p.id);
             return `
                 <tr id="product-row-${p.id}">
-                    <td><div style="display:flex; gap:3px; justify-content:center;"><button class="order-btn" onclick="moveProductUp(${productIndex})" ${productIndex === 0 ? 'disabled style="opacity:0.5;"' : ''}>⬆️</button><button class="order-btn" onclick="moveProductDown(${productIndex})" ${productIndex === products.length-1 ? 'disabled style="opacity:0.5;"' : ''}>⬇️</button></div></td>
+                    <td>
+                        <div style="display:flex; gap:3px; justify-content:center; flex-wrap:wrap;">
+                            <button class="order-btn" onclick="moveProductUp(${productIndex})" ${productIndex === 0 ? 'disabled style="opacity:0.5;"' : ''}>⬆️</button>
+                            <button class="order-btn" onclick="moveProductDown(${productIndex})" ${productIndex === products.length-1 ? 'disabled style="opacity:0.5;"' : ''}>⬇️</button>
+                            <button class="move-top-btn" onclick="moveToTop(${p.id})" ${productIndex === 0 ? 'disabled style="opacity:0.5;"' : ''} title="نقل إلى الأعلى">⤴️</button>
+                            <button class="move-bottom-btn" onclick="moveToBottom(${p.id})" ${productIndex === products.length-1 ? 'disabled style="opacity:0.5;"' : ''} title="نقل إلى الأسفل">⤵️</button>
+                        </div>
+                    </td>
                     <td><img src="${p.image || ''}" width="30" height="30" style="border-radius:6px; object-fit:cover;" onerror="this.src='https://via.placeholder.com/30'"></td>
                     <td>${escapeHtml(p.nameAr)}<br><small style="opacity:0.7;">${escapeHtml(p.nameEn)}</small></td>
                     <td>${p.priceOMR} ر.ع${p.oldPrice ? `<br><span style="text-decoration:line-through; font-size:0.6rem;">${p.oldPrice}</span>` : ''}</td>
                     <td><input type="number" class="stock-input" id="stock_${p.id}" value="${p.stock || 0}" min="0" step="1" onchange="updateStock(${p.id}, this.value)"></td>
                     <td><input type="number" class="sales-input" id="sales_${p.id}" value="${p.sales || 0}" min="0" step="1" onchange="updateSales(${p.id}, this.value)"></td>
                     <td>${categoryNames[p.category] || p.category}</td>
-                    <td><button class="edit-btn" onclick="openEditForm(${p.id})">✏️</button><button class="delete-btn" onclick="deleteProduct(${p.id})">🗑️</button></td>
-                 </tr>
-                <tr id="edit-form-${p.id}" style="display:none;"><td colspan="8"><div class="product-edit-form"><input type="text" id="editNameAr_${p.id}" value="${escapeHtml(p.nameAr)}"><input type="text" id="editNameEn_${p.id}" value="${escapeHtml(p.nameEn)}"><input type="number" id="editPrice_${p.id}" value="${p.priceOMR}" step="0.5"><input type="number" id="editOldPrice_${p.id}" value="${p.oldPrice || ''}" step="0.5"><input type="number" id="editStock_${p.id}" value="${p.stock || 0}" step="1"><input type="number" id="editSales_${p.id}" value="${p.sales || 0}" step="1"><input type="text" id="editImageUrl_${p.id}" value="${escapeHtml(p.image || '')}" placeholder="رابط الصورة"><textarea id="editDescAr_${p.id}" rows="1">${escapeHtml(p.detailsAr || '')}</textarea><textarea id="editDescEn_${p.id}" rows="1">${escapeHtml(p.detailsEn || '')}</textarea><select id="editCategory_${p.id}">${categories.map(cat => `<option value="${cat}" ${p.category === cat ? 'selected' : ''}>${categoryNames[cat]}</option>`).join('')}</select><button onclick="saveEdit(${p.id})" style="background:#00cc88;">💾 حفظ</button><button onclick="closeEditForm(${p.id})" style="background:#ff4444;">إلغاء</button></div></td></tr>
+                    <td>
+                        <button class="edit-btn" onclick="openEditForm(${p.id})">✏️</button>
+                        <button class="delete-btn" onclick="deleteProduct(${p.id})">🗑️</button>
+                    </td>
+                </tr>
+                <tr id="edit-form-${p.id}" style="display:none;">
+                    <td colspan="8">
+                        <div class="product-edit-form">
+                            <div class="edit-field">
+                                <label>📝 الاسم بالعربية</label>
+                                <input type="text" id="editNameAr_${p.id}" value="${escapeHtml(p.nameAr)}">
+                            </div>
+                            <div class="edit-field">
+                                <label>🌐 الاسم بالإنجليزية</label>
+                                <input type="text" id="editNameEn_${p.id}" value="${escapeHtml(p.nameEn)}">
+                            </div>
+                            <div class="edit-field">
+                                <label>💰 السعر (ر.ع)</label>
+                                <input type="number" id="editPrice_${p.id}" value="${p.priceOMR}" step="0.5">
+                            </div>
+                            <div class="edit-field">
+                                <label>🏷️ السعر القديم</label>
+                                <input type="number" id="editOldPrice_${p.id}" value="${p.oldPrice || ''}" step="0.5">
+                            </div>
+                            <div class="edit-field">
+                                <label>📦 الكمية</label>
+                                <input type="number" id="editStock_${p.id}" value="${p.stock || 0}" step="1">
+                            </div>
+                            <div class="edit-field">
+                                <label>📈 المبيعات</label>
+                                <input type="number" id="editSales_${p.id}" value="${p.sales || 0}" step="1">
+                            </div>
+                            <div class="edit-field">
+                                <label>🖼️ الصورة (رابط)</label>
+                                <input type="text" id="editImageUrl_${p.id}" value="${escapeHtml(p.image || '')}" placeholder="رابط الصورة">
+                                <div class="edit-image-upload" onclick="document.getElementById('editImageFile_${p.id}').click()">
+                                    <i class="fas fa-cloud-upload-alt"></i> اختر صورة من جهازك
+                                    <input type="file" id="editImageFile_${p.id}" accept="image/*" style="display:none;">
+                                </div>
+                                <img id="editImagePreview_${p.id}" class="edit-image-preview" src="${p.image || ''}" onerror="this.style.display='none'" style="${p.image ? 'display:block' : 'display:none'}">
+                            </div>
+                            <div class="edit-field">
+                                <label>📝 الوصف بالعربية</label>
+                                <textarea id="editDescAr_${p.id}" rows="2">${escapeHtml(p.detailsAr || '')}</textarea>
+                            </div>
+                            <div class="edit-field">
+                                <label>📝 الوصف بالإنجليزية</label>
+                                <textarea id="editDescEn_${p.id}" rows="2">${escapeHtml(p.detailsEn || '')}</textarea>
+                            </div>
+                            <div class="edit-field">
+                                <label>📂 التصنيف</label>
+                                <select id="editCategory_${p.id}">${categories.map(cat => `<option value="${cat}" ${p.category === cat ? 'selected' : ''}>${categoryNames[cat]}</option>`).join('')}</select>
+                            </div>
+                            <div class="edit-buttons">
+                                <button onclick="saveEdit(${p.id})" style="background:#00cc88;">💾 حفظ</button>
+                                <button onclick="closeEditForm(${p.id})" style="background:#ff4444;">إلغاء</button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
             `;
         }).join('');
+        
+        // ربط أحداث رفع الصورة لكل منتج
+        products.forEach(p => {
+            const fileInput = document.getElementById(`editImageFile_${p.id}`);
+            if (fileInput) {
+                fileInput.onchange = (e) => {
+                    const file = e.target.files[0];
+                    if (file) handleEditImageUpload(p.id, file);
+                };
+            }
+        });
     }
     
     function moveProductUp(index) { if (index === 0) return; [products[index], products[index-1]] = [products[index-1], products[index]]; saveProducts(); renderProductsTable(); }
     function moveProductDown(index) { if (index === products.length-1) return; [products[index], products[index+1]] = [products[index+1], products[index]]; saveProducts(); renderProductsTable(); }
-    function openEditForm(id) { document.getElementById(`edit-form-${id}`).style.display = 'table-row'; }
-    function closeEditForm(id) { document.getElementById(`edit-form-${id}`).style.display = 'none'; }
-    
-    async function saveEdit(id) {
-        const p = products.find(p => p.id == id);
-        if (!p) return;
-        p.nameAr = document.getElementById(`editNameAr_${id}`).value;
-        p.nameEn = document.getElementById(`editNameEn_${id}`).value;
-        p.priceOMR = parseFloat(document.getElementById(`editPrice_${id}`).value);
-        p.oldPrice = parseFloat(document.getElementById(`editOldPrice_${id}`).value) || null;
-        p.stock = parseInt(document.getElementById(`editStock_${id}`).value) || 0;
-        p.sales = parseInt(document.getElementById(`editSales_${id}`).value) || 0;
-        p.image = document.getElementById(`editImageUrl_${id}`).value;
-        p.detailsAr = document.getElementById(`editDescAr_${id}`).value;
-        p.detailsEn = document.getElementById(`editDescEn_${id}`).value;
-        p.category = document.getElementById(`editCategory_${id}`).value;
-        await saveProducts();
-        closeEditForm(id);
-        alert('✅ تم التحديث');
-        renderProductsTable();
-        updateProductsStats();
-        renderBestsellersList();
-        updateBestsellerSelect();
-    }
     
     async function deleteProduct(id) {
         if (confirm('⚠️ حذف المنتج؟')) {
@@ -591,28 +869,32 @@
         };
         
         products.push(newProduct);
-        await saveProducts();
+        const success = await saveProducts();
         
-        // مسح النموذج
-        document.getElementById('newNameAr').value = ''; 
-        document.getElementById('newNameEn').value = ''; 
-        document.getElementById('newPrice').value = ''; 
-        document.getElementById('newOldPrice').value = ''; 
-        document.getElementById('newStock').value = '99'; 
-        document.getElementById('newSales').value = '0'; 
-        document.getElementById('newDesc').value = ''; 
-        currentImageData = null; 
-        preview.style.display = 'none';
-        preview.src = '';
-        
-        alert('✅ تم إضافة المنتج بنجاح');
-        renderProductsTable();
-        updateProductsStats();
-        renderBestsellersList();
-        updateBestsellerSelect();
+        if (success) {
+            document.getElementById('newNameAr').value = ''; 
+            document.getElementById('newNameEn').value = ''; 
+            document.getElementById('newPrice').value = ''; 
+            document.getElementById('newOldPrice').value = ''; 
+            document.getElementById('newStock').value = '99'; 
+            document.getElementById('newSales').value = '0'; 
+            document.getElementById('newDesc').value = ''; 
+            currentImageData = null; 
+            preview.style.display = 'none';
+            preview.src = '';
+            
+            alert('✅ تم إضافة المنتج');
+            renderProductsTable();
+            updateProductsStats();
+            renderBestsellersList();
+            updateBestsellerSelect();
+        } else {
+            products.pop();
+            alert('❌ فشل الحفظ');
+        }
     }
     
-    // ==================== الأكثر مبيعاً ====================
+    // الأكثر مبيعاً
     function updateBestsellerSelect() {
         const select = document.getElementById('addToBestsellerSelect');
         if (!select) return;
@@ -646,17 +928,16 @@
                 <div class="bestseller-item-info">
                     <div class="bestseller-rank">${index + 1}</div>
                     <img src="${p.image || 'https://via.placeholder.com/30'}" onerror="this.src='https://via.placeholder.com/30'">
-                    <div><strong>${escapeHtml(p.nameAr)}</strong><br><small style="opacity:0.7;">${escapeHtml(p.nameEn)}</small></div>
+                    <div><strong>${escapeHtml(p.nameAr)}</strong><br><small>${escapeHtml(p.nameEn)}</small></div>
                 </div>
                 <div class="bestseller-sales"><i class="fas fa-chart-line"></i> ${p.sales || 0}</div>
                 <div><input type="number" class="sales-input" id="bestseller_sales_${p.id}" value="${p.sales || 0}" step="1" style="width:65px;"> <button onclick="updateSales(${p.id}, document.getElementById('bestseller_sales_${p.id}').value)" class="btn-sm btn-success">تحديث</button></div>
             </div>
         `).join('');
     }
-    
     function refreshBestsellers() { renderBestsellersList(); alert('✅ تم تحديث القائمة'); }
     
-    // ==================== الطلبات ====================
+    // الطلبات
     function loadOrders() {
         ordersRef.on('value', (snapshot) => {
             const data = snapshot.val();
@@ -666,7 +947,6 @@
             updateOrdersStats();
         });
     }
-    
     function updateOrdersStats() {
         const pending = orders.filter(o => o.status === 'pending').length;
         const completed = orders.filter(o => o.status === 'completed').length;
@@ -678,18 +958,14 @@
         `;
         document.getElementById('ordersStats').style.display = 'grid';
     }
-    
     function renderOrdersTable() {
         const container = document.getElementById('ordersTable');
         if (!container) return;
         if (orders.length === 0) { container.innerHTML = '<div class="loading">لا توجد طلبات</div>'; return; }
-        
         container.innerHTML = `
             <div style="overflow-x:auto;">
-                 <table>
-                    <thead>
-                        <tr><th>رقم الطلب</th><th>المنتج</th><th>السعر</th><th>التاريخ</th><th>الحالة</th> </tr>
-                    </thead>
+                <table>
+                    <thead><tr><th>رقم الطلب</th><th>المنتج</th><th>السعر</th><th>التاريخ</th><th>الحالة</th></tr></thead>
                     <tbody>
                         ${orders.map(order => `
                             <tr>
@@ -706,7 +982,7 @@
         `;
     }
     
-    // ==================== التصنيفات ====================
+    // التصنيفات
     function loadCategories() {
         categoriesRef.on('value', (snapshot) => {
             const data = snapshot.val();
@@ -722,7 +998,6 @@
             renderCategoriesList();
         });
     }
-    
     function updateCategorySelect() {
         const select = document.getElementById('newCategorySelect');
         if (select) {
@@ -733,7 +1008,6 @@
             filterSelect.innerHTML = '<option value="all">الكل</option>' + categories.map(cat => `<option value="${cat}">${categoryNames[cat]}</option>`).join('');
         }
     }
-    
     function renderCategoriesList() {
         const container = document.getElementById('categoriesList');
         if (!container) return;
@@ -744,7 +1018,6 @@
             </div>
         `).join('');
     }
-    
     function deleteCategory(cat) {
         if (confirm(`حذف تصنيف "${categoryNames[cat]}"؟`)) {
             categories = categories.filter(c => c !== cat);
@@ -755,7 +1028,6 @@
             alert('✅ تم الحذف');
         }
     }
-    
     document.getElementById('addCategoryBtn').onclick = () => {
         const newCat = document.getElementById('newCategoryName').value.trim();
         if (newCat && !categories.includes(newCat)) {
@@ -771,12 +1043,11 @@
         }
     };
     
-    // ==================== بحث وتصفية ====================
+    // بحث وتصفية
     document.getElementById('searchInput').addEventListener('input', (e) => {
         searchQuery = e.target.value.toLowerCase();
         renderProductsTable();
     });
-    
     document.getElementById('filterCategory').addEventListener('change', (e) => {
         filterCategory = e.target.value;
         renderProductsTable();
@@ -787,7 +1058,24 @@
         return text.toString().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;"); 
     }
     
-    // بدء التشغيل
+    // وضع ليلي/نهاري
+    function toggleMode() {
+        document.body.classList.toggle('light-mode');
+        const btn = document.querySelector('.mode-toggle-btn');
+        if (document.body.classList.contains('light-mode')) {
+            btn.innerHTML = '🌞 نهاري';
+        } else {
+            btn.innerHTML = '🌙 ليلي';
+        }
+        localStorage.setItem('admin_mode', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+    }
+    const savedMode = localStorage.getItem('admin_mode');
+    if (savedMode === 'light') {
+        document.body.classList.add('light-mode');
+        const btn = document.querySelector('.mode-toggle-btn');
+        if (btn) btn.innerHTML = '🌞 نهاري';
+    }
+    
     checkSession();
 </script>
 </body>
