@@ -9,7 +9,6 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <style>
-        /* جميع الستايلات كما هي (لم أغيرها لتوفير المساحة) */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: linear-gradient(135deg, #0a0a1a 0%, #0a0a1a 100%);
@@ -19,12 +18,43 @@
             min-height: 100vh;
             font-weight: 400;
             line-height: 1.5;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
+        
         @media (max-width: 640px) {
             body { padding: 8px; }
+            .header { padding: 1rem 0.8rem; border-radius: 1.2rem; margin-bottom: 12px; }
+            .main-logo { font-size: 1.8rem; letter-spacing: 2px; }
+            .controller-icon { font-size: 1.8rem; }
+            .quote-badge { font-size: 0.6rem; padding: 4px 10px; }
+            .stats-badge { gap: 10px; padding: 4px 12px; }
+            .stat-item { font-size: 0.6rem; }
+            .control-bar { padding: 8px 12px; border-radius: 40px; gap: 8px; }
+            .lang-btn { padding: 4px 12px; font-size: 0.7rem; }
+            #currencySelect { padding: 4px 8px; font-size: 0.7rem; }
+            .search-bar-container { padding: 6px 12px; margin-bottom: 12px; }
+            .search-box { padding: 4px 12px; }
+            #searchInput { font-size: 0.8rem; padding: 8px 0; }
+            .tabs-container { gap: 8px; margin-bottom: 16px; }
+            .tab-btn { padding: 6px 16px; font-size: 0.75rem; }
             .products-grid { gap: 10px; grid-template-columns: repeat(2, 1fr); }
+            .product-card { border-radius: 12px; }
             .product-image { height: 140px; }
+            .card-info { padding: 8px; }
+            .product-title { font-size: 0.85rem; }
+            .product-details { font-size: 0.6rem; margin: 4px 0; }
+            .price { font-size: 1rem; }
+            .old-price { font-size: 0.65rem; }
+            .btn-wa { padding: 6px; font-size: 0.7rem; }
+            .best-sellers { padding: 12px; margin-bottom: 16px; border-radius: 1rem; }
+            .best-sellers-grid { gap: 8px; grid-template-columns: repeat(2, 1fr); }
+            .best-seller-card img { width: 55px; height: 55px; }
+            .footer { padding: 12px; margin-top: 16px; font-size: 0.65rem; }
+            .whatsapp-float { width: 45px; height: 45px; font-size: 1.5rem; line-height: 45px; bottom: 15px; left: 15px; }
         }
+        
         .header {
             position: relative;
             text-align: center;
@@ -35,275 +65,33 @@
             border: 1px solid rgba(255, 170, 68, 0.3);
             overflow: hidden;
         }
-        .main-logo { font-size: 2.2rem; font-weight: 900; background: linear-gradient(135deg, #ffcc88, #ffaa44, #ff8844); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        .control-bar {
-            max-width: 1400px;
-            margin: 0 auto 1rem auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
-            background: rgba(15, 15, 42, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 8px 16px;
-            border-radius: 50px;
-            border: 1px solid rgba(255, 170, 68, 0.2);
-        }
-        .search-bar-container {
-            max-width: 1400px;
-            margin: 0 auto 0.8rem auto;
-            background: rgba(15, 15, 42, 0.8);
-            padding: 6px 16px;
-            border-radius: 50px;
-        }
-        .search-box {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: #1e1e3a;
-            padding: 4px 12px;
-            border-radius: 40px;
-        }
-        #searchInput {
-            flex: 1;
-            background: transparent;
-            border: none;
-            padding: 8px 0;
-            color: white;
-            outline: none;
-            font-size: 0.85rem;
-        }
-        .tabs-container {
-            max-width: 1400px;
-            margin: 0 auto 1.2rem auto;
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .tab-btn {
-            background: #1e1e3a;
-            border: 1px solid rgba(255,170,68,0.3);
-            padding: 8px 18px;
-            border-radius: 40px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: 0.2s;
-            font-size: 0.8rem;
-            color: #f0f0ff;
-        }
-        .tab-btn.active {
-            background: #ffaa44;
-            color: #0a0a1a;
-            border-color: #ffaa44;
-        }
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-            gap: 12px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        .product-card {
-            background: rgba(15, 15, 42, 0.7);
-            border-radius: 1rem;
-            border: 1px solid rgba(255, 170, 68, 0.15);
-            overflow: hidden;
-            transition: all 0.3s;
-            position: relative;
-        }
-        .product-card:hover {
-            transform: translateY(-5px);
-            border-color: #ffaa44;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-        .product-card.out-of-stock { opacity: 0.7; filter: grayscale(0.3); }
-        .product-image {
-            height: 160px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-        .discount-badge {
+        
+        .header-bg {
             position: absolute;
-            top: 8px;
-            left: 8px;
-            background: #ff4444;
-            color: white;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 0.6rem;
-            font-weight: bold;
-            z-index: 10;
+            inset: 0;
+            background: radial-gradient(circle at 20% 30%, rgba(255,100,0,0.1), transparent 70%),
+                        radial-gradient(circle at 80% 70%, rgba(0,150,255,0.08), transparent 70%);
+            animation: bgPulse 8s ease-in-out infinite;
+            pointer-events: none;
         }
-        .out-of-stock-badge {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background: #ff4444;
-            color: white;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 0.6rem;
-            font-weight: bold;
-            z-index: 10;
-        }
-        .card-info { padding: 10px; }
-        .product-title { font-size: 0.95rem; font-weight: 800; margin-bottom: 4px; text-align: center; }
-        .product-details { font-size: 0.65rem; color: #b9c5f0; text-align: center; margin: 6px 0; }
-        .price-container { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 6px 0; }
-        .old-price { font-size: 0.75rem; color: #888; text-decoration: line-through; }
-        .price { font-size: 1.1rem; font-weight: 900; color: #ffaa44; }
-        .btn-wa {
-            width: 100%;
-            background: #25D366;
-            border: none;
-            padding: 8px;
-            border-radius: 40px;
-            color: #000;
-            font-weight: 800;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            font-size: 0.75rem;
-            transition: all 0.2s;
-        }
-        .btn-wa:hover { background: #20b859; transform: scale(1.02); }
-        .btn-wa.disabled { background: #888; cursor: not-allowed; opacity: 0.6; pointer-events: none; }
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: 6px;
-            margin-top: 1.2rem;
-            flex-wrap: wrap;
-        }
-        .page-btn {
-            background: #1e1e3a;
-            border: 1px solid #ffaa44;
-            color: #ffdd99;
-            padding: 5px 10px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-        .page-btn.active {
-            background: #ffaa44;
-            color: #0a0a1a;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 1.5rem;
-            padding: 1rem;
-            color: #6f7bb3;
-            border-top: 1px solid rgba(255, 170, 68, 0.2);
-            font-size: 0.7rem;
-        }
-        .whatsapp-float {
-            position: fixed;
-            bottom: 15px;
-            left: 15px;
-            background: #25D366;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
-            color: white;
-            text-decoration: none;
-            z-index: 999;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-        .loading-spinner {
-            text-align: center;
-            padding: 40px;
-            color: #ffaa44;
-            font-size: 1.2rem;
-        }
-        .loading-spinner i {
-            font-size: 2rem;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .sync-badge {
-            background: #00cc88;
-            color: #0a0a1a;
-            padding: 2px 8px;
-            border-radius: 20px;
-            font-size: 0.6rem;
-            font-weight: bold;
-            margin-right: 10px;
-        }
-        .device-bar {
-            background: #07071a;
-            border-bottom: 1px solid rgba(255,170,68,0.2);
-            padding: 5px 12px;
-            display: flex;
-            justify-content: center;
-            gap: 5px;
-            position: sticky;
-            top: 0;
-            z-index: 9999;
-        }
-        .device-btn {
-            background: #1e1e3a;
-            border: 1px solid rgba(255,170,68,0.2);
-            color: #888;
-            padding: 4px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.65rem;
-        }
-        .device-btn.active {
-            background: #ffaa44;
-            color: #0a0a1a;
-        }
-        .mode-toggle-btn {
-            background: transparent;
-            border: 1px solid rgba(255,170,68,0.4);
-            color: #ffaa66;
-            padding: 4px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.7rem;
-        }
-        body.light-mode {
-            background: #f0f4ff !important;
-            color: #1a1a2e !important;
-        }
-        body.light-mode .product-card {
-            background: #ffffff !important;
-        }
-        body.light-mode .price {
-            color: #ff8844;
-        }
-        .best-sellers {
-            background: linear-gradient(135deg, rgba(255,170,68,0.08), rgba(255,100,0,0.03));
-            border-radius: 1.2rem;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-        }
-        .best-sellers-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-            gap: 10px;
-        }
-        .best-seller-card {
-            background: rgba(0,0,0,0.4);
-            border-radius: 0.8rem;
-            padding: 8px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
+        
+        @keyframes bgPulse { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.03); } }
+        
+        .logo-container { position: relative; display: inline-block; margin-bottom: 0.3rem; }
+        .logo-glow { position: absolute; inset: -15px; background: radial-gradient(circle, rgba(255,170,68,0.3), transparent 70%); filter: blur(15px); animation: logoPulse 2s ease-in-out infinite; }
+        @keyframes logoPulse { 0%, 100% { opacity: 0.4; transform: scale(0.95); } 50% { opacity: 0.8; transform: scale(1.05); } }
+        .main-logo { position: relative; font-size: 2.2rem; font-weight: 900; background: linear-gradient(135deg, #ffcc88, #ffaa44, #ff8844); -webkit-background-clip: text; background-clip: text; color: transparent; letter-spacing: 2px; }
+        .controller-icon { font-size: 2rem; display: inline-block; animation: controllerFloat 3s ease-in-out infinite; filter: drop-shadow(0 0 10px rgba(0,100,255,0.5)); margin: 0 5px; }
+        @keyframes controllerFloat { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-5px) rotate(3deg); } }
+        
+        .welcome-quotes { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 10px 0 5px; }
+        .quote-badge { background: rgba(0,0,0,0.4); backdrop-filter: blur(6px); padding: 4px 12px; border-radius: 30px; font-size: 0.65rem; border: 1px solid rgba(255,170,68,0.3); font-weight: 500; }
+        .quote-badge i { margin-left: 4px; color: #ffaa44; }
+        .stats-badge { display: inline-flex; align-items: center; gap: 12px; background: rgba(0,0,0,0.3); padding: 4px 16px; border-radius: 30px; margin-top: 8px; backdrop-filter: blur(4px); }
+        .stat-item { font-size: 0.65rem; display: flex; align-items: center; gap: 4px; font-weight: 500; }
+        .stat-item i { color: #ffaa44; font-size: 0.7rem; }
+        .stat-number { font-weight: bold; color: #ffaa44; }
+        
         .section-divider {
             display: flex;
             align-items: center;
@@ -318,12 +106,115 @@
         }
         .divider-badge {
             background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(4px);
             padding: 6px 16px;
             border-radius: 40px;
             font-size: 0.75rem;
             font-weight: bold;
             color: #ffaa44;
+            border: 1px solid rgba(255,170,68,0.3);
         }
+        
+        .best-sellers {
+            background: linear-gradient(135deg, rgba(255,170,68,0.08), rgba(255,100,0,0.03));
+            border-radius: 1.2rem;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255,170,68,0.2);
+        }
+        .best-sellers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; }
+        .best-seller-card {
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(4px);
+            border-radius: 0.8rem;
+            padding: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid rgba(255,170,68,0.2);
+            position: relative;
+        }
+        .best-seller-card:hover { transform: translateY(-3px); border-color: #ffaa44; }
+        .best-seller-rank {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: #ffaa44;
+            color: #0a0a1a;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.7rem;
+        }
+        .best-seller-card img { width: 70px; height: 70px; border-radius: 0.8rem; margin-bottom: 6px; object-fit: cover; }
+        .best-seller-card .name { font-size: 0.75rem; font-weight: bold; margin-bottom: 4px; }
+        .best-seller-card .sales { font-size: 0.6rem; color: #ffaa44; }
+        
+        .control-bar {
+            max-width: 1400px;
+            margin: 0 auto 1rem auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            background: rgba(15, 15, 42, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 8px 16px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 170, 68, 0.2);
+        }
+        .lang-switch { display: flex; gap: 6px; background: #1e1e3a; padding: 3px; border-radius: 40px; }
+        .lang-btn { background: transparent; border: none; padding: 5px 12px; border-radius: 40px; color: #ccc; font-weight: bold; cursor: pointer; font-size: 0.75rem; }
+        .lang-btn.active { background: #ffaa44; color: #0a0a1a; }
+        .currency-selector { display: flex; align-items: center; gap: 6px; background: #1e1e3a; padding: 3px 10px; border-radius: 40px; }
+        #currencySelect { background: #0a0c1a; border: 1px solid #ffaa44; color: #ffdd99; padding: 4px 8px; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 0.7rem; }
+        
+        .search-bar-container { max-width: 1400px; margin: 0 auto 0.8rem auto; background: rgba(15, 15, 42, 0.8); padding: 6px 16px; border-radius: 50px; }
+        .search-box { display: flex; align-items: center; gap: 8px; background: #1e1e3a; padding: 4px 12px; border-radius: 40px; }
+        #searchInput { flex: 1; background: transparent; border: none; padding: 8px 0; color: white; outline: none; font-size: 0.85rem; font-weight: 500; }
+        .search-results-count { background: #2d2f6e; padding: 3px 8px; border-radius: 30px; font-size: 0.6rem; color: #ffaa66; font-weight: 600; }
+        
+        .tabs-container { max-width: 1400px; margin: 0 auto 1.2rem auto; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+        .tab-btn { background: #1e1e3a; border: 1px solid rgba(255,170,68,0.3); padding: 8px 18px; border-radius: 40px; cursor: pointer; font-weight: 700; transition: 0.2s; font-size: 0.8rem; }
+        .tab-btn.active { background: #ffaa44; color: #0a0a1a; border-color: #ffaa44; }
+        
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px; max-width: 1400px; margin: 0 auto; }
+        .product-card { background: rgba(15, 15, 42, 0.7); border-radius: 1rem; border: 1px solid rgba(255, 170, 68, 0.15); overflow: hidden; transition: all 0.3s; position: relative; }
+        .product-card:hover { transform: translateY(-5px); border-color: #ffaa44; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+        .product-card.out-of-stock { opacity: 0.7; filter: grayscale(0.3); }
+        .product-image { height: 160px; background-size: cover; background-position: center; position: relative; }
+        .discount-badge { position: absolute; top: 8px; left: 8px; background: #ff4444; color: white; padding: 3px 10px; border-radius: 20px; font-size: 0.6rem; font-weight: bold; z-index: 10; }
+        .out-of-stock-badge { position: absolute; top: 8px; right: 8px; background: #ff4444; color: white; padding: 3px 10px; border-radius: 20px; font-size: 0.6rem; font-weight: bold; z-index: 10; }
+        .card-info { padding: 10px; }
+        .product-title { font-size: 0.95rem; font-weight: 800; margin-bottom: 4px; text-align: center; letter-spacing: 0.3px; }
+        .product-details { font-size: 0.65rem; color: #b9c5f0; text-align: center; margin: 6px 0; font-weight: 500; }
+        .price-container { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 6px 0; }
+        .old-price { font-size: 0.75rem; color: #888; text-decoration: line-through; }
+        .price { font-size: 1.1rem; font-weight: 900; color: #ffaa44; letter-spacing: 0.5px; }
+        .btn-wa { width: 100%; background: #25D366; border: none; padding: 8px; border-radius: 40px; color: #000; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; font-size: 0.75rem; transition: all 0.2s; letter-spacing: 0.3px; }
+        .btn-wa:hover { background: #20b859; transform: scale(1.02); }
+        .btn-wa.disabled { background: #888; cursor: not-allowed; opacity: 0.6; pointer-events: none; }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 1.2rem;
+            flex-wrap: wrap;
+        }
+        .page-btn { background: #1e1e3a; border: 1px solid #ffaa44; color: #ffdd99; padding: 5px 10px; border-radius: 30px; cursor: pointer; font-size: 0.7rem; font-weight: 600; transition: all 0.2s; }
+        .page-btn:hover { background: #ffaa44; color: #0a0a1a; }
+        .page-btn.active { background: #ffaa44; color: #0a0a1a; }
+        
+        .footer { text-align: center; margin-top: 1.5rem; padding: 1rem; color: #6f7bb3; border-top: 1px solid rgba(255, 170, 68, 0.2); font-size: 0.7rem; }
+        .whatsapp-float { position: fixed; bottom: 15px; left: 15px; background: #25D366; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; color: white; text-decoration: none; z-index: 999; box-shadow: 0 2px 10px rgba(0,0,0,0.3); transition: all 0.2s; }
+        .whatsapp-float:hover { transform: scale(1.1); background: #20b859; }
+        
         .terms-modal {
             display: none;
             position: fixed;
@@ -347,6 +238,69 @@
             max-height: 90vh;
             overflow-y: auto;
         }
+        .terms-box h3 { color: #ffaa44; margin-bottom: 0.8rem; font-size: 1.1rem; font-weight: 800; }
+        .terms-section-title { color: #ffaa44; font-size: 0.85rem; font-weight: bold; margin: 12px 0 6px; text-align: right; border-bottom: 1px solid rgba(255,170,68,0.2); padding-bottom: 4px; }
+        .terms-item-row {
+            display: flex;
+            gap: 6px;
+            align-items: flex-start;
+            margin-bottom: 6px;
+            background: rgba(255,170,68,0.05);
+            border-radius: 8px;
+            padding: 6px 8px;
+        }
+        .terms-item-row.warning { background: rgba(255,68,68,0.08); border-right: 3px solid #ff4444; }
+        .terms-item-row.success { background: rgba(0,204,136,0.08); border-right: 3px solid #00cc88; }
+        .terms-item-row .t-num {
+            background: #ffaa44;
+            color: #0a0a1a;
+            border-radius: 50%;
+            width: 18px; height: 18px; min-width: 18px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.6rem; font-weight: 900;
+        }
+        .terms-item-row p { font-size: 0.75rem; color: #b9c5f0; text-align: right; flex: 1; line-height: 1.4; font-weight: 500; }
+        .terms-checkbox-row {
+            display: flex; align-items: center; gap: 8px;
+            background: rgba(0,204,136,0.08); border-radius: 8px;
+            padding: 10px; margin: 12px 0; cursor: pointer;
+            border: 1px solid rgba(0,204,136,0.3);
+        }
+        .terms-checkbox-row input { width: 18px; height: 18px; accent-color: #00cc88; cursor: pointer; }
+        .terms-checkbox-row label { font-size: 0.8rem; color: #00cc88; font-weight: 700; cursor: pointer; }
+        .accept-btn { opacity: 0.5; pointer-events: none; transition: 0.2s; background: #ffaa44 !important; color: #0a0a1a !important; font-weight: 800; }
+        .accept-btn.enabled { opacity: 1; pointer-events: all; }
+        .decline-btn { background: #444 !important; color: white !important; font-weight: 700; }
+        .terms-buttons { display: flex; gap: 10px; margin-top: 10px; }
+        .terms-buttons button { flex: 1; padding: 0.8rem; border-radius: 2rem; font-weight: bold; border: none; cursor: pointer; font-size: 0.85rem; }
+        
+        .device-bar { background: #07071a; border-bottom: 1px solid rgba(255,170,68,0.2); padding: 5px 12px; display: flex; justify-content: center; gap: 5px; position: sticky; top: 0; z-index: 9999; }
+        .device-btn { background: #1e1e3a; border: 1px solid rgba(255,170,68,0.2); color: #888; padding: 4px 12px; border-radius: 20px; cursor: pointer; font-size: 0.65rem; display: flex; align-items: center; gap: 4px; font-weight: 600; }
+        .device-btn.active { background: #ffaa44; color: #0a0a1a; border-color: #ffaa44; }
+        .mode-toggle-btn { background: transparent; border: 1px solid rgba(255,170,68,0.4); color: #ffaa66; padding: 4px 12px; border-radius: 20px; cursor: pointer; font-size: 0.7rem; font-weight: 700; display: flex; align-items: center; gap: 4px; }
+        
+        /* وضع النهاري - تحسين الخطوط */
+        body.light-mode { background: #f0f4ff !important; color: #1a1a2e !important; font-weight: 500; }
+        body.light-mode .header { background: linear-gradient(135deg, #1a3a7a, #0d2a6e) !important; }
+        body.light-mode .control-bar { background: rgba(255,255,255,0.95) !important; }
+        body.light-mode .product-card { background: #ffffff !important; }
+        body.light-mode .product-title { font-weight: 800; color: #1a1a2e; }
+        body.light-mode .price { font-weight: 900; color: #ff8844; }
+        body.light-mode .product-details { font-weight: 500; color: #4a4a6a; }
+        body.light-mode .btn-wa { font-weight: 800; background: #25D366; color: #000; }
+        body.light-mode .tab-btn { font-weight: 700; }
+        body.light-mode .page-btn { font-weight: 700; }
+        body.light-mode .quote-badge { font-weight: 600; background: rgba(255,255,255,0.8); color: #1a1a2e; }
+        body.light-mode .stat-item { font-weight: 600; }
+        body.light-mode .footer { background: #1a3a7a !important; }
+        body.light-mode .device-bar { background: #1a3a7a !important; }
+        body.light-mode .best-seller-card { background: rgba(255,255,255,0.9); color: #1a1a2e; }
+        body.light-mode .best-seller-card .name { color: #1a1a2e; }
+        body.light-mode .terms-box { background: #ffffff; color: #1a1a2e; }
+        body.light-mode .terms-item-row p { color: #333; }
+        body.light-mode .search-results-count { background: #ddd; color: #333; }
+        body.view-mobile .products-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        body.view-desktop .products-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important; }
     </style>
 </head>
 <body>
@@ -358,26 +312,42 @@
 </div>
 
 <div class="header">
-    <div class="main-logo"><i class="fab fa-playstation"></i> XNESTO <i class="fas fa-store"></i></div>
+    <div class="header-bg"></div>
+    <div class="logo-container">
+        <div class="logo-glow"></div>
+        <div class="main-logo"><i class="fab fa-playstation"></i> XNESTO <i class="fas fa-store"></i></div>
+    </div>
     <div class="controller-icon"><i class="fas fa-gamepad"></i></div>
-    <div style="display: flex; justify-content: center; gap: 10px; margin-top: 10px; flex-wrap: wrap;">
-        <div class="quote-badge" style="background: rgba(0,0,0,0.4); padding: 4px 12px; border-radius: 30px;"><i class="fas fa-tag"></i> أفضل الأسعار</div>
-        <div class="quote-badge" style="background: rgba(0,0,0,0.4); padding: 4px 12px; border-radius: 30px;"><i class="fas fa-bolt"></i> توصيل فوري</div>
-        <div class="quote-badge" style="background: rgba(0,0,0,0.4); padding: 4px 12px; border-radius: 30px;"><i class="fas fa-headset"></i> دعم 24/7</div>
+    <div class="welcome-quotes">
+        <div class="quote-badge"><i class="fas fa-tag"></i> أفضل الأسعار</div>
+        <div class="quote-badge"><i class="fas fa-bolt"></i> توصيل فوري</div>
+        <div class="quote-badge"><i class="fas fa-headset"></i> دعم 24/7</div>
+        <div class="quote-badge"><i class="fas fa-shield-alt"></i> دفع آمن</div>
+    </div>
+    <div class="stats-badge">
+        <div class="stat-item"><i class="fas fa-gamepad"></i> <span class="stat-number">500+</span></div>
+        <div class="stat-item"><i class="fas fa-users"></i> <span class="stat-number">10K+</span></div>
+        <div class="stat-item"><i class="fas fa-star"></i> <span class="stat-number">4.9</span></div>
+        <div class="stat-item"><i class="fas fa-clock"></i> <span class="stat-number">24/7</span></div>
     </div>
 </div>
 
 <div class="control-bar">
-    <div class="lang-switch" style="display: flex; gap: 6px;">
-        <button class="lang-btn active" onclick="setLang('ar')">🇸🇦 عربي</button>
-        <button class="lang-btn" onclick="setLang('en')">🇬🇧 EN</button>
+    <div class="lang-switch">
+        <button class="lang-btn active" data-lang="ar" onclick="setLang('ar')">🇸🇦 عربي</button>
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">🇬🇧 EN</button>
     </div>
     <div class="currency-selector">
+        <label><i class="fas fa-coins"></i></label>
         <select id="currencySelect" onchange="setCurrency(this.value)">
             <option value="OMR">ريال عماني</option>
-            <option value="USD">دولار</option>
             <option value="SAR">ريال سعودي</option>
             <option value="AED">درهم إماراتي</option>
+            <option value="KWD">دينار كويتي</option>
+            <option value="BHD">دينار بحريني</option>
+            <option value="QAR">ريال قطري</option>
+            <option value="USD">دولار أمريكي</option>
+            <option value="EUR">يورو</option>
         </select>
     </div>
 </div>
@@ -386,7 +356,7 @@
     <div class="search-box">
         <i class="fas fa-search"></i>
         <input type="text" id="searchInput" placeholder="🔍 ابحث عن منتج...">
-        <span class="search-results-count" id="searchCount" style="background: #2d2f6e; padding: 3px 8px; border-radius: 30px; font-size: 0.6rem;">0</span>
+        <span class="search-results-count" id="searchCount">0</span>
     </div>
 </div>
 
@@ -411,6 +381,10 @@
 <div id="pagination" class="pagination"></div>
 
 <div class="footer">
+    <div class="social-icons">
+        <i class="fab fa-instagram"></i> <span id="instagramText">xnesto_store</span>
+        <i class="fab fa-whatsapp"></i> <span id="whatsappText">+96879977100</span>
+    </div>
     <p>© 2025 xnesto - جميع الحقوق محفوظة</p>
 </div>
 
@@ -419,20 +393,177 @@
 <div id="termsModal" class="terms-modal">
     <div class="terms-box">
         <h3><i class="fas fa-file-contract"></i> شروط الشراء والاستخدام</h3>
-        <div style="margin: 10px 0;">
-            <input type="checkbox" id="termsCheck"> 
+        <p style="font-size: 0.8rem; color: #ffaa44; margin-bottom: 10px; font-weight: bold;">يرجى قراءة الشروط بعناية قبل الشراء:</p>
+        <div class="terms-item-row success"><div class="t-num">✓</div><p>الحساب نظيف 100% — يحتوي على اللعبة المطلوبة فقط.</p></div>
+        <div class="terms-section-title">📖 طريقة الاستخدام:</div>
+        <div class="terms-item-row"><div class="t-num">1</div><p>سجل الدخول بالحساب على جهازك.</p></div>
+        <div class="terms-item-row"><div class="t-num">2</div><p>اذهب إلى Library ← نزّل اللعبة.</p></div>
+        <div class="terms-item-row"><div class="t-num">3</div><p>بعد انتهاء التنزيل، سجل الخروج فوراً والعب من حسابك الأساسي.</p></div>
+        <div class="terms-section-title">🚫 ممنوع تماماً:</div>
+        <div class="terms-item-row warning"><div class="t-num">!</div><p>تغيير كلمة السر أو ربط بطاقة بنكية.</p></div>
+        <div class="terms-item-row warning"><div class="t-num">!</div><p>الدخول من أكثر من جهاز أو مشاركة الحساب.</p></div>
+        <div class="terms-section-title">🛡️ الضمان:</div>
+        <div class="terms-item-row success"><div class="t-num">7</div><p>ضمان لمدة 7 أيام. المنتجات الرقمية لا تسترد بعد التسليم.</p></div>
+        <div class="terms-item-row warning"><div class="t-num">!</div><p>xnesto غير مسؤول عن مخالفة شروط سوني.</p></div>
+        <div class="terms-checkbox-row" id="termsCheckboxRow">
+            <input type="checkbox" id="termsCheck">
             <label>أقر بأنني قرأت وأوافق على جميع الشروط</label>
         </div>
-        <div style="display: flex; gap: 10px;">
-            <button id="acceptTermsBtn" style="flex:1; padding: 10px; background: #ffaa44; border: none; border-radius: 30px; font-weight: bold;">✅ أوافق</button>
-            <button id="declineTermsBtn" style="flex:1; padding: 10px; background: #444; border: none; border-radius: 30px; color: white;">❌ إلغاء</button>
+        <div class="terms-buttons">
+            <button id="acceptTermsBtn" class="accept-btn">✅ أوافق وأكمل الطلب</button>
+            <button id="declineTermsBtn" class="decline-btn">❌ إلغاء</button>
         </div>
     </div>
 </div>
 
 <script>
-    // ==================== المنتجات الافتراضية (تظهر فوراً) ====================
-    const DEFAULT_PRODUCTS = [
+    // ==================== دوال الشروط والطلب ====================
+    let pendingOrderProduct = null;
+    const WA_NUMBER = "96879977100";
+    
+    function toggleTermsAccept() {
+        const check = document.getElementById('termsCheck');
+        const acceptBtn = document.getElementById('acceptTermsBtn');
+        if (check && acceptBtn) {
+            if (check.checked) {
+                acceptBtn.classList.add('enabled');
+            } else {
+                acceptBtn.classList.remove('enabled');
+            }
+        }
+    }
+    
+    function closeTermsModal() {
+        const termsModal = document.getElementById('termsModal');
+        if (termsModal) termsModal.style.display = 'none';
+        pendingOrderProduct = null;
+    }
+    
+    function showTermsForProduct(productId, productName, productPrice) {
+        let priceValue = parseFloat(productPrice);
+        if (isNaN(priceValue)) priceValue = 0;
+        
+        pendingOrderProduct = { 
+            id: productId, 
+            name: productName, 
+            price: priceValue
+        };
+        const termsModal = document.getElementById('termsModal');
+        if (termsModal) {
+            termsModal.style.display = 'flex';
+            const termsCheck = document.getElementById('termsCheck');
+            const acceptBtn = document.getElementById('acceptTermsBtn');
+            if (termsCheck) termsCheck.checked = false;
+            if (acceptBtn) acceptBtn.classList.remove('enabled');
+        }
+    }
+    
+    function redirectToWhatsApp(product) {
+        if (!product || !product.name) {
+            alert('حدث خطأ، يرجى المحاولة مرة أخرى');
+            return;
+        }
+        const whatsappNumber = WA_NUMBER;
+        const priceText = (product.price && !isNaN(product.price)) ? product.price + " ر.ع" : "تم الاتفاق";
+        const message = `مرحباً xnesto، أرغب في شراء:\n\n📦 المنتج: ${product.name}\n💰 السعر: ${priceText}\n\n✅ لقد قرأت الشروط وأوافق عليها.`;
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+        window.open(whatsappUrl, '_blank');
+    }
+    
+    window.requestProduct = function(productId, productName, productPrice) {
+        let priceValue = parseFloat(productPrice);
+        if (isNaN(priceValue)) priceValue = 0;
+        let safeName = productName || 'منتج';
+        showTermsForProduct(productId, safeName, priceValue);
+    };
+    
+    window.acceptTerms = function() {
+        const termsCheck = document.getElementById('termsCheck');
+        if (!termsCheck || !termsCheck.checked) {
+            alert('⚠️ يرجى الموافقة على الشروط أولاً');
+            return;
+        }
+        if (pendingOrderProduct) {
+            redirectToWhatsApp(pendingOrderProduct);
+            closeTermsModal();
+        } else {
+            alert('⚠️ حدث خطأ، يرجى المحاولة مرة أخرى');
+        }
+    };
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const acceptBtn = document.getElementById('acceptTermsBtn');
+        const declineBtn = document.getElementById('declineTermsBtn');
+        const termsCheck = document.getElementById('termsCheck');
+        const checkboxRow = document.getElementById('termsCheckboxRow');
+        
+        if (acceptBtn) {
+            acceptBtn.onclick = function(e) {
+                e.preventDefault();
+                window.acceptTerms();
+            };
+        }
+        if (declineBtn) {
+            declineBtn.onclick = function(e) {
+                e.preventDefault();
+                closeTermsModal();
+            };
+        }
+        if (termsCheck) {
+            termsCheck.onchange = function() { toggleTermsAccept(); };
+        }
+        if (checkboxRow) {
+            checkboxRow.onclick = function(e) {
+                if (e.target !== termsCheck) {
+                    if (termsCheck) {
+                        termsCheck.checked = !termsCheck.checked;
+                        toggleTermsAccept();
+                    }
+                }
+            };
+        }
+    });
+    
+    // ==================== Firebase والإعدادات ====================
+    const firebaseConfig = { databaseURL: "https://xnesto-645bf-default-rtdb.asia-southeast1.firebasedatabase.app/" };
+    
+    // محاولة تهيئة Firebase مع مهلة 3 ثواني
+    let firebaseReady = false;
+    let products = [];
+    let categories = [];
+    let categoryNames = {};
+    let currentLang = "ar";
+    let currentCurrency = "OMR";
+    let currentPage = 1;
+    let currentCategory = "all";
+    let searchQuery = "";
+    const ITEMS_PER_PAGE = 12;
+    
+    // العملات المطلوبة: دول الخليج + دولار أمريكي + يورو
+    const exchangeRates = { 
+        OMR: 1,        // ريال عماني (الأساس)
+        SAR: 9.75,     // ريال سعودي
+        AED: 9.55,     // درهم إماراتي
+        KWD: 0.79,     // دينار كويتي
+        BHD: 0.98,     // دينار بحريني
+        QAR: 9.46,     // ريال قطري
+        USD: 2.6,      // دولار أمريكي
+        EUR: 2.4       // يورو
+    };
+    const currencySymbols = { 
+        OMR: "ر.ع", 
+        SAR: "ر.س", 
+        AED: "د.إ", 
+        KWD: "د.ك", 
+        BHD: "د.ب", 
+        QAR: "ر.ق", 
+        USD: "$", 
+        EUR: "€" 
+    };
+    
+    // المنتجات الافتراضية (تظهر فوراً بدون تأخير)
+    const allGames = [
         { id: 1, nameAr: "Assassin's Creed Shadows", nameEn: "Assassin's Creed Shadows", priceOMR: 14, oldPrice: 20, stock: 50, image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/3159340/header.jpg", detailsAr: "🏷️ 65GB | 🎮 عربي/إنجليزي", detailsEn: "📦 65GB | 🎮 Arabic/English", sales: 564, category: "games" },
         { id: 2, nameAr: "Call of Duty Black Ops 6", nameEn: "Call of Duty Black Ops 6", priceOMR: 22, oldPrice: 30, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2933620/header.jpg", detailsAr: "🏷️ 120GB | 🎮 إنجليزي", detailsEn: "📦 120GB | 🎮 English", sales: 464, category: "games" },
         { id: 3, nameAr: "Grand Theft Auto VI", nameEn: "Grand Theft Auto VI", priceOMR: 6, oldPrice: 10, stock: 100, image: "https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/downloads/gtavi/gtavi_cover_ps5.jpg", detailsAr: "🏷️ 150GB | 🌍 عالم مفتوح", detailsEn: "📦 150GB | 🌍 Open World", sales: 588, category: "games" },
@@ -440,60 +571,55 @@
         { id: 5, nameAr: "Spider-Man 2", nameEn: "Spider-Man 2", priceOMR: 16, oldPrice: 22, stock: 40, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2651280/header.jpg", detailsAr: "🏷️ 98GB | 🕷️ بيتر + مايلز", detailsEn: "📦 98GB | 🕷️ Peter + Miles", sales: 440, category: "games" },
         { id: 6, nameAr: "Elden Ring", nameEn: "Elden Ring", priceOMR: 12, oldPrice: 18, stock: 55, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg", detailsAr: "🏷️ 60GB | ⚔️ RPG خيالي", detailsEn: "📦 60GB | ⚔️ Fantasy RPG", sales: 520, category: "games" },
         { id: 7, nameAr: "Horizon Forbidden West", nameEn: "Horizon Forbidden West", priceOMR: 11, oldPrice: 17, stock: 50, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1151640/header.jpg", detailsAr: "🏷️ 96GB | 🦕 مغامرة مستقبلية", detailsEn: "📦 96GB | 🦕 Future Adventure", sales: 380, category: "games" },
-        { id: 8, nameAr: "Ghost of Tsushima", nameEn: "Ghost of Tsushima", priceOMR: 11, oldPrice: 17, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2215430/header.jpg", detailsAr: "🏷️ 50GB | 🗡️ ساموراي", detailsEn: "📦 50GB | 🗡️ Samurai", sales: 312, category: "games" },
-        { id: 101, nameAr: "🇺🇸 بطاقة أمريكي", nameEn: "🇺🇸 US Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/50px-Flag_of_the_United_States.svg.png", detailsAr: "10$ | 25$ | 50$ | 100$", detailsEn: "10$ | 25$ | 50$ | 100$", sales: 244 },
-        { id: 102, nameAr: "🇸🇦 بطاقة سعودي", nameEn: "🇸🇦 Saudi Card", category: "giftcards", priceOMR: 4.5, oldPrice: 5.5, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/50px-Flag_of_Saudi_Arabia.svg.png", detailsAr: "50ر.س | 100ر.س | 200ر.س", detailsEn: "50 SAR | 100 SAR | 200 SAR", sales: 210 },
-        { id: 103, nameAr: "🇦🇪 بطاقة إماراتي", nameEn: "🇦🇪 UAE Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Flag_of_the_United_Arab_Emirates.svg/50px-Flag_of_the_United_Arab_Emirates.svg.png", detailsAr: "50د.إ | 100د.إ | 200د.إ", detailsEn: "50 AED | 100 AED | 200 AED", sales: 195 },
-        { id: 104, nameAr: "🇴🇲 بطاقة عماني", nameEn: "🇴🇲 Oman Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Flag_of_Oman.svg/50px-Flag_of_Oman.svg.png", detailsAr: "5ر.ع | 10ر.ع | 20ر.ع", detailsEn: "5 OMR | 10 OMR | 20 OMR", sales: 180 }
+        { id: 8, nameAr: "Ghost of Tsushima", nameEn: "Ghost of Tsushima", priceOMR: 11, oldPrice: 17, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2215430/header.jpg", detailsAr: "🏷️ 50GB | 🗡️ ساموراي", detailsEn: "📦 50GB | 🗡️ Samurai", sales: 312, category: "games" }
     ];
-
-    // ==================== المتغيرات العامة ====================
-    let products = [];
-    let categories = ["games", "giftcards"];
-    let categoryNames = { games: "🎮 ألعاب", giftcards: "💳 بطاقات شحن" };
-    let currentLang = "ar";
-    let currentCurrency = "OMR";
-    let currentPage = 1;
-    let currentCategory = "all";
-    let searchQuery = "";
-    let pendingOrderProduct = null;
-    let firebaseLoaded = false;
-    const ITEMS_PER_PAGE = 12;
-    const WA_NUMBER = "96879977100";
     
-    const exchangeRates = { OMR: 1, USD: 2.6, SAR: 9.75, AED: 9.55 };
-    const currencySymbols = { OMR: "ر.ع", USD: "$", SAR: "ر.س", AED: "د.إ" };
-    
-    // ==================== عرض المنتجات فوراً (بدون انتظار Firebase) ====================
-    function showProductsImmediately() {
-        // استخدام المنتجات الافتراضية فوراً
-        products = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
-        renderProducts();
-        loadBestSellers();
-        renderTabs();
+    for (let i = 9; i <= 50; i++) {
+        allGames.push({
+            id: i, nameAr: `لعبة PS5 مميزة ${i}`, nameEn: `Premium PS5 Game ${i}`,
+            priceOMR: 9 + Math.floor(Math.random() * 10), oldPrice: 12 + Math.floor(Math.random() * 10),
+            stock: 20 + Math.floor(Math.random() * 80),
+            image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2358720/header.jpg",
+            detailsAr: `🏷️ لعبة رقم ${i}`, detailsEn: `Game ${i}`, sales: Math.floor(Math.random() * 300) + 100, category: "games"
+        });
     }
     
-    // ==================== محاولة الاتصال بـ Firebase مع Timeout ====================
-    function initFirebaseWithTimeout() {
-        const firebaseConfig = { 
-            databaseURL: "https://xnesto-645bf-default-rtdb.asia-southeast1.firebasedatabase.app/" 
-        };
-        
+    const giftCards = [
+        { id: 101, nameAr: "🇺🇸 بطاقة أمريكي", nameEn: "🇺🇸 US Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/30px-Flag_of_the_United_States.svg.png", detailsAr: "10$ | 25$ | 50$ | 100$", detailsEn: "10$ | 25$ | 50$ | 100$", sales: 244 },
+        { id: 102, nameAr: "🇸🇦 بطاقة سعودي", nameEn: "🇸🇦 Saudi Card", category: "giftcards", priceOMR: 4.5, oldPrice: 5.5, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/30px-Flag_of_Saudi_Arabia.svg.png", detailsAr: "50ر.س | 100ر.س | 200ر.س", detailsEn: "50 SAR | 100 SAR | 200 SAR", sales: 210 },
+        { id: 103, nameAr: "🇦🇪 بطاقة إماراتي", nameEn: "🇦🇪 UAE Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Flag_of_the_United_Arab_Emirates.svg/30px-Flag_of_the_United_Arab_Emirates.svg.png", detailsAr: "50د.إ | 100د.إ | 200د.إ", detailsEn: "50 AED | 100 AED | 200 AED", sales: 195 },
+        { id: 104, nameAr: "🇴🇲 بطاقة عماني", nameEn: "🇴🇲 Oman Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Flag_of_Oman.svg/30px-Flag_of_Oman.svg.png", detailsAr: "5ر.ع | 10ر.ع | 20ر.ع", detailsEn: "5 OMR | 10 OMR | 20 OMR", sales: 180 }
+    ];
+    
+    for (let i = 0; i < giftCards.length; i++) giftCards[i].category = "giftcards";
+    const allDefaultProducts = [...allGames, ...giftCards];
+    
+    // عرض المنتجات فوراً (بدون انتظار Firebase)
+    function displayProductsImmediately() {
+        products = JSON.parse(JSON.stringify(allDefaultProducts));
+        categories = ["games", "giftcards"];
+        categoryNames = { games: "🎮 ألعاب", giftcards: "💳 بطاقات شحن" };
+        renderTabs();
+        renderProducts();
+        loadBestSellers();
+    }
+    
+    // محاولة تحميل البيانات من Firebase في الخلفية
+    function loadFirebaseData() {
         try {
             firebase.initializeApp(firebaseConfig);
             const database = firebase.database();
             const productsRef = database.ref('products');
             const categoriesRef = database.ref('categories');
             
-            // تعيين مهلة 3 ثواني فقط للاتصال بقاعدة البيانات
+            // مهلة 3 ثواني - إذا لم تستجب Firebase نستمر بالمنتجات المحلية
             const timeoutId = setTimeout(() => {
-                if (!firebaseLoaded) {
-                    console.log("⏱️ Firebase timeout - استخدام المنتجات المحلية");
-                    firebaseLoaded = true;
+                if (!firebaseReady) {
+                    console.log("Firebase timeout - using local products");
+                    firebaseReady = true;
                 }
             }, 3000);
             
-            // محاولة جلب الفئات
             categoriesRef.once('value', (snapshot) => {
                 const data = snapshot.val();
                 if (data && data.categories && data.names) {
@@ -503,43 +629,27 @@
                 }
             }).catch(() => {});
             
-            // محاولة جلب المنتجات
             productsRef.on('value', (snapshot) => {
                 clearTimeout(timeoutId);
                 const data = snapshot.val();
                 if (data && Array.isArray(data) && data.length > 0) {
                     products = data;
-                    firebaseLoaded = true;
-                    console.log("✅ تم تحميل المنتجات من Firebase");
+                    firebaseReady = true;
                     renderProducts();
                     loadBestSellers();
-                } else {
-                    if (!firebaseLoaded) {
-                        products = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
-                        renderProducts();
-                        loadBestSellers();
-                    }
                 }
-            }, (error) => {
-                console.log("⚠️ خطأ في Firebase:", error);
+            }, () => {
                 clearTimeout(timeoutId);
-                if (!firebaseLoaded) {
-                    products = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
-                    renderProducts();
-                    loadBestSellers();
-                }
             });
-            
         } catch (error) {
-            console.log("⚠️ فشل تهيئة Firebase:", error);
-            products = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
-            renderProducts();
-            loadBestSellers();
-            renderTabs();
+            console.log("Firebase initialization failed:", error);
         }
     }
     
-    // ==================== دوال العرض ====================
+    function loadCategories() {
+        // تم التعامل معها في displayProductsImmediately
+    }
+    
     function renderTabs() {
         const container = document.getElementById('tabsContainer');
         if (!container) return;
@@ -550,7 +660,7 @@
     function setLang(lang) { 
         currentLang = lang; 
         document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active')); 
-        event.target.classList.add('active');
+        document.querySelector(`.lang-btn[data-lang="${lang}"]`).classList.add('active'); 
         renderProducts(); 
         loadBestSellers(); 
     }
@@ -568,7 +678,9 @@
     }
     
     function getFilteredProducts() {
-        let filtered = [...products];
+        let filtered = [];
+        if (Array.isArray(products) && products.length > 0) filtered = [...products];
+        else filtered = JSON.parse(JSON.stringify(allDefaultProducts));
         
         if (searchQuery) {
             filtered = filtered.filter(p => {
@@ -586,25 +698,47 @@
         return filtered;
     }
     
+    function handleButtonClick(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        
+        const button = event.currentTarget;
+        const productId = button.getAttribute('data-id');
+        const productName = button.getAttribute('data-name');
+        const productPrice = button.getAttribute('data-price');
+        
+        if (!productId || !productName) {
+            console.error('بيانات المنتج غير مكتملة');
+            alert('حدث خطأ في بيانات المنتج');
+            return;
+        }
+        
+        window.requestProduct(productId, productName, productPrice);
+    }
+    
     function renderProducts() {
         const filtered = getFilteredProducts();
         const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
         const start = (currentPage - 1) * ITEMS_PER_PAGE;
         const paginated = filtered.slice(start, start + ITEMS_PER_PAGE);
         const container = document.getElementById('productsContainer');
-        const searchCount = document.getElementById('searchCount');
-        
         if (!container) return;
-        if (searchCount) searchCount.innerText = filtered.length;
+        document.getElementById('searchCount').innerText = filtered.length;
         
         if (paginated.length === 0) { 
-            container.innerHTML = '<div style="text-align:center; padding:40px;">لا توجد منتجات</div>'; 
+            container.innerHTML = '<div class="loading">لا توجد منتجات</div>'; 
             return; 
         }
         
         container.innerHTML = paginated.map(p => {
-            let productPrice = p.priceOMR || p.price || p.price_omr || 0;
-            let oldPriceValue = p.oldPrice || p.old_price || null;
+            let productPrice = 0;
+            if (typeof p.priceOMR !== 'undefined' && p.priceOMR !== null) productPrice = p.priceOMR;
+            else if (typeof p.price !== 'undefined' && p.price !== null) productPrice = p.price;
+            else if (typeof p.price_omr !== 'undefined' && p.price_omr !== null) productPrice = p.price_omr;
+            
+            let oldPriceValue = null;
+            if (p.oldPrice) oldPriceValue = p.oldPrice;
+            else if (p.old_price) oldPriceValue = p.old_price;
             
             let name = '';
             if (currentLang === 'ar') name = p.nameAr || p.name_ar || p.name || 'منتج';
@@ -630,7 +764,7 @@
                 : `<button class="btn-wa" data-id="${productId}" data-name="${escapeHtml(name)}" data-price="${productPrice}"><i class="fab fa-whatsapp"></i> اطلب الآن</button>`;
             
             return `
-                <div class="product-card ${isOutOfStock ? 'out-of-stock' : ''}">
+                <div class="product-card ${isOutOfStock ? 'out-of-stock' : ''}" id="product-${productId}">
                     ${discount > 0 ? `<div class="discount-badge">-${discount}%</div>` : ''}
                     ${isOutOfStock ? `<div class="out-of-stock-badge">⚠️ نفذت الكمية</div>` : ''}
                     <div class="product-image" style="background-image: url('${imageUrl}');"></div>
@@ -647,13 +781,13 @@
             `;
         }).join('');
         
-        // إضافة أحداث للأزرار
-        document.querySelectorAll('.btn-wa:not(.disabled)').forEach(button => {
+        const allButtons = document.querySelectorAll('.btn-wa:not(.disabled)');
+        
+        allButtons.forEach(button => {
             button.removeEventListener('click', handleButtonClick);
             button.addEventListener('click', handleButtonClick);
         });
         
-        // الترقيم
         const paginationDiv = document.getElementById('pagination');
         if (totalPages > 1 && paginationDiv) {
             let pages = '';
@@ -666,122 +800,66 @@
         }
     }
     
-    function goToPage(page) { 
-        currentPage = page; 
-        renderProducts(); 
-        window.scrollTo({ top: 400, behavior: 'smooth' }); 
-    }
+    function goToPage(page) { currentPage = page; renderProducts(); window.scrollTo({ top: 400, behavior: 'smooth' }); }
     
     function loadBestSellers() {
         const section = document.getElementById('bestSellersSection');
         const grid = document.getElementById('bestSellersGrid');
         if (!section || !grid) return;
         const sorted = [...products].sort((a, b) => (b.sales || 0) - (a.sales || 0)).slice(0, 4);
-        if (sorted.length > 0 && products.length > 0) {
+        if (sorted.length > 0) {
             section.style.display = 'block';
             grid.innerHTML = sorted.map((p, index) => {
                 const name = currentLang === 'ar' ? (p.nameAr || p.name_ar || p.name) : (p.nameEn || p.name_en || p.name);
                 return `
-                    <div class="best-seller-card" style="background:rgba(0,0,0,0.4); border-radius:0.8rem; padding:8px; text-align:center;">
-                        <div style="position:absolute; margin-top:-12px; margin-right:-8px; background:#ffaa44; width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold;">${index + 1}</div>
-                        <img src="${p.image || 'https://via.placeholder.com/70'}" style="width:70px; height:70px; border-radius:0.8rem; margin-bottom:6px;">
-                        <div style="font-size:0.75rem; font-weight:bold;">${escapeHtml(name)}</div>
-                        <div style="font-size:0.6rem; color:#ffaa44;">${p.sales || 0} مبيعات</div>
+                    <div class="best-seller-card" onclick="document.getElementById('product-${p.id || p.product_id}').scrollIntoView({behavior:'smooth'})">
+                        <div class="best-seller-rank">${index + 1}</div>
+                        <img src="${p.image || p.img || 'https://via.placeholder.com/70'}" alt="${name}">
+                        <div class="name">${escapeHtml(name)}</div>
+                        <div class="sales">${p.sales || 0} مبيعات</div>
                     </div>
                 `;
             }).join('');
         }
     }
     
-    function handleButtonClick(event) {
-        event.preventDefault();
-        event.stopPropagation();
-        const button = event.currentTarget;
-        const productId = button.getAttribute('data-id');
-        const productName = button.getAttribute('data-name');
-        const productPrice = parseFloat(button.getAttribute('data-price'));
-        
-        if (!productId || !productName || isNaN(productPrice)) {
-            alert('حدث خطأ في بيانات المنتج');
-            return;
-        }
-        
-        showTermsForProduct(productId, productName, productPrice);
-    }
-    
-    function showTermsForProduct(productId, productName, productPrice) {
-        pendingOrderProduct = { id: productId, name: productName, price: productPrice };
-        const modal = document.getElementById('termsModal');
-        if (modal) modal.style.display = 'flex';
-    }
-    
-    function redirectToWhatsApp(product) {
-        if (!product || !product.name) return;
-        const message = `مرحباً xnesto، أرغب في شراء:\n\n📦 المنتج: ${product.name}\n💰 السعر: ${product.price} ر.ع\n\n✅ لقد قرأت الشروط وأوافق عليها.`;
-        window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
-    }
-    
-    function escapeHtml(text) { 
-        if (!text) return ''; 
-        return text.toString().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); 
-    }
+    function escapeHtml(text) { if (!text) return ''; return text.toString().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;"); }
     
     function setView(view) { 
         document.body.classList.remove('view-mobile', 'view-desktop'); 
         document.body.classList.add('view-' + view); 
         const btns = document.querySelectorAll('.device-btn');
         btns.forEach(btn => btn.classList.remove('active'));
-        const activeBtn = Array.from(btns).find(btn => btn.textContent.includes(view === 'mobile' ? 'جوال' : 'كمبيوتر'));
-        if (activeBtn) activeBtn.classList.add('active');
+        if (event && event.currentTarget) event.currentTarget.classList.add('active');
+        else {
+            const activeBtn = Array.from(btns).find(btn => btn.textContent.includes(view === 'mobile' ? 'جوال' : 'كمبيوتر'));
+            if (activeBtn) activeBtn.classList.add('active');
+        }
     }
     
     function toggleMode() { 
         document.body.classList.toggle('light-mode'); 
         const btn = document.querySelector('.mode-toggle-btn'); 
-        if (btn) btn.innerHTML = document.body.classList.contains('light-mode') ? '🌞 نهاري' : '🌙 ليلي';
+        btn.innerHTML = document.body.classList.contains('light-mode') ? '🌞 نهاري' : '🌙 ليلي';
+        localStorage.setItem('store_mode', document.body.classList.contains('light-mode') ? 'light' : 'dark');
     }
     
-    // ==================== تهيئة الصفحة ====================
-    // الخطوة 1: عرض المنتجات فوراً (بدون أي تأخير)
-    showProductsImmediately();
-    
-    // الخطوة 2: محاولة الاتصال بـ Firebase في الخلفية (مع مهلة 3 ثواني)
-    setTimeout(() => {
-        initFirebaseWithTimeout();
-    }, 100);
-    
-    // إضافة مستمع البحث
-    document.getElementById('searchInput').addEventListener('input', (e) => { 
-        searchQuery = e.target.value.toLowerCase(); 
-        currentPage = 1; 
-        renderProducts(); 
-    });
-    
-    // إضافة مستمعي النافذة المنبثقة
-    document.getElementById('acceptTermsBtn')?.addEventListener('click', () => {
-        const check = document.getElementById('termsCheck');
-        if (!check?.checked) {
-            alert('يرجى الموافقة على الشروط');
-            return;
-        }
-        if (pendingOrderProduct) {
-            redirectToWhatsApp(pendingOrderProduct);
-            document.getElementById('termsModal').style.display = 'none';
-            pendingOrderProduct = null;
-        }
-    });
-    
-    document.getElementById('declineTermsBtn')?.addEventListener('click', () => {
-        document.getElementById('termsModal').style.display = 'none';
-        pendingOrderProduct = null;
-    });
-    
-    // استعادة الوضع الليلي
-    if (localStorage.getItem('store_mode') === 'light') {
+    const savedMode = localStorage.getItem('store_mode');
+    if (savedMode === 'light') {
         document.body.classList.add('light-mode');
         const btn = document.querySelector('.mode-toggle-btn');
         if (btn) btn.innerHTML = '🌞 نهاري';
     }
+    
+    document.getElementById('searchInput').addEventListener('input', (e) => { searchQuery = e.target.value.toLowerCase(); currentPage = 1; renderProducts(); });
+    
+    // تشغيل العرض المباشر فوراً
+    displayProductsImmediately();
+    
+    // محاولة تحميل البيانات من Firebase في الخلفية
+    setTimeout(() => {
+        loadFirebaseData();
+    }, 100);
     
     window.goToPage = goToPage;
     window.setLang = setLang;
