@@ -540,19 +540,60 @@
     
     // ==================== دوال العرض ====================
     function displayProductsImmediately() {
-        // عرض المنتجات المحلية فوراً
-        products = JSON.parse(JSON.stringify(allDefaultProducts));
-        products.forEach((p, idx) => { p.order = idx; });
-        renderProductsTable();
-        updateProductsStats();
-        renderBestsellersList();
-        updateBestsellerSelect();
-        
-        // تهيئة Firebase في الخلفية
-        setTimeout(() => {
-            initFirebase();
-        }, 100);
-    }
+    // عرض المنتجات المحلية فوراً
+    products = JSON.parse(JSON.stringify(allDefaultProducts));
+    products.forEach((p, idx) => { p.order = idx; });
+    renderProductsTable();
+    updateProductsStats();
+    renderBestsellersList();
+    updateBestsellerSelect();
+    
+    // ثم محاولة الاتصال بـ Firebase
+    setTimeout(() => {
+        try {
+            const firebaseConfig = { databaseURL: "https://xnesto-645bf-default-rtdb.asia-southeast1.firebasedatabase.app/" };
+            if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+            const database = firebase.database();
+            productsRef = database.ref('products');
+            categoriesRef = database.ref('categories');
+            ordersRef = database.ref('orders');
+            
+            // تحميل المنتجات من Firebase
+            productsRef.on('value', (snapshot) => {
+                const data = snapshot.val();
+                if (data && Array.isArray(data) && data.length > 0) {
+                    products = data.sort((a, b) => (a.order || 0) - (b.order || 0));
+                    renderProductsTable();
+                    updateProductsStats();
+                    renderBestsellersList();
+                    updateBestsellerSelect();
+                    console.log('✅ تم تحميل المنتجات من Firebase');
+                }
+            });
+            
+            // تحميل التصنيفات
+            categoriesRef.on('value', (snapshot) => {
+                const data = snapshot.val();
+                if (data && data.categories && data.names) {
+                    categories = data.categories;
+                    categoryNames = data.names;
+                }
+                updateCategorySelect();
+                renderCategoriesList();
+            });
+            
+            // تحميل الطلبات
+            ordersRef.on('value', (snapshot) => {
+                const data = snapshot.val();
+                if (data) orders = Object.values(data).sort((a,b) => b.id - a.id);
+                else orders = [];
+                renderOrdersTable();
+                updateOrdersStats();
+            });
+            
+        } catch(e) { console.log("Firebase error:", e); }
+    }, 100);
+}
     
     function checkSession() {
         if (localStorage.getItem(SESSION_KEY) === "true") { 
