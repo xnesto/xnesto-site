@@ -19,44 +19,47 @@
             font-weight: 400;
             line-height: 1.5;
             text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
-        /* استعلامات الوسائط - عرض المنتجات */
         @media (max-width: 640px) {
             body { padding: 8px; }
-            .products-grid { 
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 10px;
-            }
-            .product-image { 
-                height: 130px;
-                background-size: contain !important;
-                background-repeat: no-repeat !important;
-                background-position: center !important;
-            }
-            .product-title { font-size: 0.7rem; }
-            .product-details { font-size: 0.55rem; }
-            .price { font-size: 0.8rem; }
-            .old-price { font-size: 0.55rem; }
-            .btn-wa { font-size: 0.6rem; padding: 5px; }
-            .card-info { padding: 6px; }
+            .header { padding: 1rem 0.8rem; border-radius: 1.2rem; margin-bottom: 12px; }
+            .main-logo { font-size: 1.8rem; letter-spacing: 2px; }
+            .controller-icon { font-size: 1.8rem; }
+            .quote-badge { font-size: 0.6rem; padding: 4px 10px; }
+            .stats-badge { gap: 10px; padding: 4px 12px; }
+            .stat-item { font-size: 0.6rem; }
+            .control-bar { padding: 8px 12px; border-radius: 40px; gap: 8px; }
+            .lang-btn { padding: 4px 12px; font-size: 0.7rem; }
+            #currencySelect { padding: 4px 8px; font-size: 0.7rem; }
+            .search-bar-container { padding: 6px 12px; margin-bottom: 12px; }
+            .search-box { padding: 4px 12px; }
+            #searchInput { font-size: 0.8rem; padding: 8px 0; }
+            .tabs-container { gap: 8px; margin-bottom: 16px; }
+            .tab-btn { padding: 6px 16px; font-size: 0.75rem; }
+            .products-grid { gap: 10px; grid-template-columns: repeat(3, 1fr); }
+            .product-image { height: 140px; background-size: contain !important; background-repeat: no-repeat !important; background-position: center !important; }
+            .card-info { padding: 8px; }
+            .product-title { font-size: 0.75rem; }
+            .product-details { font-size: 0.55rem; margin: 4px 0; }
+            .price { font-size: 0.85rem; }
+            .old-price { font-size: 0.6rem; }
+            .btn-wa { padding: 6px; font-size: 0.65rem; }
+            .best-sellers { padding: 12px; margin-bottom: 16px; border-radius: 1rem; }
+            .best-sellers-grid { gap: 8px; grid-template-columns: repeat(2, 1fr); }
+            .best-seller-card img { width: 55px; height: 55px; }
+            .footer { padding: 12px; margin-top: 16px; font-size: 0.65rem; }
+            .whatsapp-float { width: 45px; height: 45px; font-size: 1.5rem; line-height: 45px; bottom: 15px; left: 15px; }
         }
         
         @media (min-width: 641px) and (max-width: 1024px) {
-            .products-grid { 
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 15px;
-            }
+            .products-grid { grid-template-columns: repeat(3, 1fr); gap: 15px; }
         }
         
         @media (min-width: 1025px) {
-            .products-grid { 
-                display: grid;
-                grid-template-columns: repeat(4, 1fr);
-                gap: 20px;
-            }
+            .products-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; }
         }
         
         .header {
@@ -176,7 +179,22 @@
         .lang-btn { background: transparent; border: none; padding: 5px 12px; border-radius: 40px; color: #ccc; font-weight: bold; cursor: pointer; font-size: 0.75rem; transition: all 0.2s; }
         .lang-btn.active { background: #ffaa44; color: #0a0a1a; }
         .currency-selector { display: flex; align-items: center; gap: 6px; background: #1e1e3a; padding: 3px 10px; border-radius: 40px; }
-        #currencySelect { background: #0a0c1a; border: 1px solid #ffaa44; color: #ffdd99; padding: 4px 8px; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 0.7rem; }
+        .currency-selector label i { color: #ffaa44; }
+        #currencySelect { 
+            background: #0a0c1a; 
+            border: 1px solid #ffaa44; 
+            color: #ffdd99; 
+            padding: 5px 10px; 
+            border-radius: 30px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            font-size: 0.75rem;
+            font-family: 'Cairo', sans-serif;
+        }
+        #currencySelect option {
+            background: #0a0c1a;
+            color: #ffdd99;
+        }
         
         .search-bar-container { max-width: 1400px; margin: 0 auto 0.8rem auto; background: rgba(15, 15, 42, 0.8); padding: 6px 16px; border-radius: 50px; }
         .search-box { display: flex; align-items: center; gap: 8px; background: #1e1e3a; padding: 4px 12px; border-radius: 40px; }
@@ -187,11 +205,7 @@
         .tab-btn { background: #1e1e3a; border: 1px solid rgba(255,170,68,0.3); padding: 8px 18px; border-radius: 40px; cursor: pointer; font-weight: 700; transition: 0.2s; font-size: 0.8rem; color: #f0f0ff; }
         .tab-btn.active { background: #ffaa44; color: #0a0a1a; border-color: #ffaa44; }
         
-        .products-grid { 
-            display: grid;
-            max-width: 1400px; 
-            margin: 0 auto; 
-        }
+        .products-grid { display: grid; max-width: 1400px; margin: 0 auto; }
         .product-card { 
             background: rgba(15, 15, 42, 0.7); 
             border-radius: 1rem; 
@@ -302,18 +316,26 @@
         .device-btn.active { background: #ffaa44; color: #0a0a1a; border-color: #ffaa44; }
         .mode-toggle-btn { background: transparent; border: 1px solid rgba(255,170,68,0.4); color: #ffaa66; padding: 4px 12px; border-radius: 20px; cursor: pointer; font-size: 0.7rem; font-weight: 700; display: flex; align-items: center; gap: 4px; }
         
-        body.light-mode { background: #f0f4ff !important; color: #1a1a2e !important; }
+        body.light-mode { background: #f0f4ff !important; color: #1a1a2e !important; font-weight: 500; }
         body.light-mode .header { background: linear-gradient(135deg, #1a3a7a, #0d2a6e) !important; }
         body.light-mode .control-bar { background: rgba(255,255,255,0.95) !important; }
         body.light-mode .product-card { background: #ffffff !important; }
-        body.light-mode .product-title { color: #1a1a2e; }
-        body.light-mode .price { color: #ff8844; }
-        body.light-mode .product-details { color: #4a4a6a; }
-        body.light-mode .btn-wa { background: #25D366; color: #000; }
-        body.light-mode .tab-btn { color: #1a1a2e; }
+        body.light-mode .product-title { font-weight: 800; color: #1a1a2e; }
+        body.light-mode .price { font-weight: 900; color: #ff8844; }
+        body.light-mode .product-details { font-weight: 500; color: #4a4a6a; }
+        body.light-mode .btn-wa { font-weight: 800; background: #25D366; color: #000; }
+        body.light-mode .tab-btn { font-weight: 700; color: #1a1a2e; }
+        body.light-mode .page-btn { font-weight: 700; }
+        body.light-mode .quote-badge { font-weight: 600; background: rgba(255,255,255,0.8); color: #1a1a2e; }
+        body.light-mode .stat-item { font-weight: 600; }
+        body.light-mode .footer { background: #1a3a7a !important; }
+        body.light-mode .device-bar { background: #1a3a7a !important; }
         body.light-mode .best-seller-card { background: rgba(255,255,255,0.9); color: #1a1a2e; }
+        body.light-mode .best-seller-card .name { color: #1a1a2e; }
         body.light-mode .terms-box { background: #ffffff; color: #1a1a2e; }
         body.light-mode .terms-item-row p { color: #333; }
+        body.light-mode .search-results-count { background: #ddd; color: #333; }
+        body.light-mode #currencySelect { background: #f5f5f5; color: #1a1a2e; border-color: #ffaa44; }
     </style>
 </head>
 <body>
@@ -338,8 +360,8 @@
         <div class="quote-badge" id="quote-secure"><i class="fas fa-shield-alt"></i> دفع آمن</div>
     </div>
     <div class="stats-badge">
-        <div class="stat-item"><i class="fas fa-gamepad"></i> <span class="stat-number">500+</span> <span id="stat-products-label">منتج</span></div>
-        <div class="stat-item"><i class="fas fa-users"></i> <span class="stat-number">10K+</span> <span id="stat-customers-label">عميل</span></div>
+        <div class="stat-item"><i class="fas fa-gamepad"></i> <span class="stat-number">30+</span> <span id="stat-products-label">لعبة</span></div>
+        <div class="stat-item"><i class="fas fa-users"></i> <span class="stat-number">1K+</span> <span id="stat-customers-label">عميل</span></div>
         <div class="stat-item"><i class="fas fa-star"></i> <span class="stat-number">4.9</span> <span id="stat-rating-label">تقييم</span></div>
         <div class="stat-item"><i class="fas fa-clock"></i> <span class="stat-number">24/7</span> <span id="stat-support-label">دعم</span></div>
     </div>
@@ -353,14 +375,14 @@
     <div class="currency-selector">
         <label><i class="fas fa-coins"></i></label>
         <select id="currencySelect" onchange="setCurrency(this.value)">
-            <option value="OMR">ريال عماني</option>
-            <option value="SAR">ريال سعودي</option>
-            <option value="AED">درهم إماراتي</option>
-            <option value="KWD">دينار كويتي</option>
-            <option value="BHD">دينار بحريني</option>
-            <option value="QAR">ريال قطري</option>
-            <option value="USD">دولار أمريكي</option>
-            <option value="EUR">يورو</option>
+            <option value="OMR">🇴🇲 ريال عماني</option>
+            <option value="SAR">🇸🇦 ريال سعودي</option>
+            <option value="AED">🇦🇪 درهم إماراتي</option>
+            <option value="KWD">🇰🇼 دينار كويتي</option>
+            <option value="BHD">🇧🇭 دينار بحريني</option>
+            <option value="QAR">🇶🇦 ريال قطري</option>
+            <option value="USD">🇺🇸 دولار أمريكي</option>
+            <option value="EUR">🇪🇺 يورو</option>
         </select>
     </div>
 </div>
@@ -433,12 +455,11 @@
     // ==================== بيانات الترجمة ====================
     const translations = {
         ar: {
-            // النصوص الثابتة
             quoteBestPrice: "أفضل الأسعار",
             quoteFastDelivery: "توصيل فوري",
             quoteSupport: "دعم 24/7",
             quoteSecure: "دفع آمن",
-            statProducts: "منتج",
+            statProducts: "لعبة",
             statCustomers: "عميل",
             statRating: "تقييم",
             statSupport: "دعم",
@@ -450,7 +471,6 @@
             viewDesktop: "كمبيوتر",
             orderNow: "اطلب الآن",
             outOfStock: "نفذت الكمية",
-            // شروط الشراء
             termsTitle: "شروط الشراء والاستخدام",
             termsNote: "يرجى قراءة الشروط بعناية قبل الشراء:",
             termsClean: "الحساب نظيف 100% — يحتوي على اللعبة المطلوبة فقط.",
@@ -473,7 +493,7 @@
             quoteFastDelivery: "Fast Delivery",
             quoteSupport: "24/7 Support",
             quoteSecure: "Secure Payment",
-            statProducts: "Products",
+            statProducts: "Games",
             statCustomers: "Customers",
             statRating: "Rating",
             statSupport: "Support",
@@ -485,7 +505,7 @@
             viewDesktop: "Desktop",
             orderNow: "Order Now",
             outOfStock: "Out of Stock",
-            termsTitle: "Purchase Terms & Conditions",
+            termsTitle: "Terms & Conditions",
             termsNote: "Please read carefully before purchasing:",
             termsClean: "100% clean account — contains only the requested game.",
             termsHowTitle: "📖 How to use:",
@@ -507,49 +527,6 @@
     // ==================== دوال الشروط والطلب ====================
     let pendingOrderProduct = null;
     const WA_NUMBER = "96879977100";
-    
-    function updateUILanguage(lang) {
-        const t = translations[lang];
-        if (!t) return;
-        
-        // تحديث النصوص الثابتة
-        document.getElementById('quote-best-price').innerHTML = `<i class="fas fa-tag"></i> ${t.quoteBestPrice}`;
-        document.getElementById('quote-fast-delivery').innerHTML = `<i class="fas fa-bolt"></i> ${t.quoteFastDelivery}`;
-        document.getElementById('quote-support').innerHTML = `<i class="fas fa-headset"></i> ${t.quoteSupport}`;
-        document.getElementById('quote-secure').innerHTML = `<i class="fas fa-shield-alt"></i> ${t.quoteSecure}`;
-        document.getElementById('stat-products-label').innerText = t.statProducts;
-        document.getElementById('stat-customers-label').innerText = t.statCustomers;
-        document.getElementById('stat-rating-label').innerText = t.statRating;
-        document.getElementById('stat-support-label').innerText = t.statSupport;
-        document.getElementById('bestseller-title').innerHTML = t.bestsellerTitle;
-        document.getElementById('all-products-title').innerHTML = t.allProductsTitle;
-        document.getElementById('searchInput').placeholder = t.searchPlaceholder;
-        document.getElementById('copyright').innerHTML = t.copyright;
-        
-        // تحديث أزرار العرض
-        const mobileBtnText = document.querySelector('.view-text-mobile');
-        const desktopBtnText = document.querySelector('.view-text-desktop');
-        if (mobileBtnText) mobileBtnText.innerText = t.viewMobile;
-        if (desktopBtnText) desktopBtnText.innerText = t.viewDesktop;
-        
-        // تحديث شروط الشراء
-        document.getElementById('terms-title').innerHTML = `<i class="fas fa-file-contract"></i> ${t.termsTitle}`;
-        document.getElementById('terms-note').innerHTML = t.termsNote;
-        document.getElementById('terms-clean').innerHTML = t.termsClean;
-        document.getElementById('terms-how-title').innerHTML = t.termsHowTitle;
-        document.getElementById('terms-step1').innerHTML = t.termsStep1;
-        document.getElementById('terms-step2').innerHTML = t.termsStep2;
-        document.getElementById('terms-step3').innerHTML = t.termsStep3;
-        document.getElementById('terms-forbidden-title').innerHTML = t.termsForbiddenTitle;
-        document.getElementById('terms-forbidden1').innerHTML = t.termsForbidden1;
-        document.getElementById('terms-forbidden2').innerHTML = t.termsForbidden2;
-        document.getElementById('terms-warranty-title').innerHTML = t.termsWarrantyTitle;
-        document.getElementById('terms-warranty').innerHTML = t.termsWarranty;
-        document.getElementById('terms-responsibility').innerHTML = t.termsResponsibility;
-        document.getElementById('terms-agree').innerHTML = t.termsAgree;
-        document.getElementById('acceptTermsBtn').innerHTML = t.acceptBtn;
-        document.getElementById('declineTermsBtn').innerHTML = t.cancelBtn;
-    }
     
     function toggleTermsAccept() {
         const check = document.getElementById('termsCheck');
@@ -669,44 +646,72 @@
     let searchQuery = "";
     const ITEMS_PER_PAGE = 12;
     
+    // العملات مع أعلام الدول
     const exchangeRates = { 
-        OMR: 1, SAR: 9.75, AED: 9.55, KWD: 0.79, BHD: 0.98, QAR: 9.46, USD: 2.6, EUR: 2.4
+        OMR: 1,        // ريال عماني
+        SAR: 9.75,     // ريال سعودي
+        AED: 9.55,     // درهم إماراتي
+        KWD: 0.79,     // دينار كويتي
+        BHD: 0.98,     // دينار بحريني
+        QAR: 9.46,     // ريال قطري
+        USD: 2.6,      // دولار أمريكي
+        EUR: 2.4       // يورو
     };
     const currencySymbols = { 
-        OMR: "ر.ع", SAR: "ر.س", AED: "د.إ", KWD: "د.ك", BHD: "د.ب", QAR: "ر.ق", USD: "$", EUR: "€" 
+        OMR: "ر.ع", 
+        SAR: "ر.س", 
+        AED: "د.إ", 
+        KWD: "د.ك", 
+        BHD: "د.ب", 
+        QAR: "ر.ق", 
+        USD: "$", 
+        EUR: "€" 
     };
     
-    const allGames = [
-        { id: 1, nameAr: "Assassin's Creed Shadows", nameEn: "Assassin's Creed Shadows", priceOMR: 14, oldPrice: 20, stock: 50, image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/3159340/header.jpg", detailsAr: "🏷️ 65GB | 🎮 عربي/إنجليزي | اليابان", detailsEn: "📦 65GB | 🎮 Arabic/English | Japan", sales: 564, category: "games" },
-        { id: 2, nameAr: "Call of Duty Black Ops 6", nameEn: "Call of Duty Black Ops 6", priceOMR: 22, oldPrice: 30, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2933620/header.jpg", detailsAr: "🏷️ 120GB | 🎮 تصويب | إنجليزي", detailsEn: "📦 120GB | 🎮 Shooter | English", sales: 464, category: "games" },
-        { id: 3, nameAr: "Grand Theft Auto VI", nameEn: "Grand Theft Auto VI", priceOMR: 6, oldPrice: 10, stock: 100, image: "https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/downloads/gtavi/gtavi_cover_ps5.jpg", detailsAr: "🏷️ 150GB | 🌍 VICE CITY", detailsEn: "📦 150GB | 🌍 VICE CITY", sales: 588, category: "games" },
-        { id: 4, nameAr: "God of War Ragnarök", nameEn: "God of War Ragnarök", priceOMR: 10, oldPrice: 15, stock: 60, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2322010/header.jpg", detailsAr: "🏷️ 85GB | 🪓 ملحمة إسكندنافية", detailsEn: "📦 85GB | 🪓 Norse Saga", sales: 274, category: "games" },
-        { id: 5, nameAr: "Spider-Man 2", nameEn: "Spider-Man 2", priceOMR: 16, oldPrice: 22, stock: 40, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2651280/header.jpg", detailsAr: "🏷️ 98GB | 🕷️ بيتر + مايلز", detailsEn: "📦 98GB | 🕷️ Peter + Miles", sales: 440, category: "games" },
-        { id: 6, nameAr: "Elden Ring", nameEn: "Elden Ring", priceOMR: 12, oldPrice: 18, stock: 55, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg", detailsAr: "🏷️ 60GB | ⚔️ RPG خيالي", detailsEn: "📦 60GB | ⚔️ Fantasy RPG", sales: 520, category: "games" },
-        { id: 7, nameAr: "Horizon Forbidden West", nameEn: "Horizon Forbidden West", priceOMR: 11, oldPrice: 17, stock: 50, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1151640/header.jpg", detailsAr: "🏷️ 96GB | 🦕 مغامرة مستقبلية", detailsEn: "📦 96GB | 🦕 Future Adventure", sales: 380, category: "games" },
-        { id: 8, nameAr: "Ghost of Tsushima", nameEn: "Ghost of Tsushima", priceOMR: 11, oldPrice: 17, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2215430/header.jpg", detailsAr: "🏷️ 50GB | 🗡️ ساموراي", detailsEn: "📦 50GB | 🗡️ Samurai", sales: 312, category: "games" }
+    // المنتجات الحقيقية (30 لعبة)
+    const realGames = [
+        { id: 1, nameAr: "Assassin's Creed Shadows", nameEn: "Assassin's Creed Shadows", priceOMR: 22, oldPrice: 28, stock: 50, image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/3159340/header.jpg", detailsAr: "🏷️ 65GB | 🎮 عربي/إنجليزي | اليابان", detailsEn: "📦 65GB | 🎮 Arabic/English | Japan", sales: 564, category: "games" },
+        { id: 2, nameAr: "Call of Duty Black Ops 6", nameEn: "Call of Duty Black Ops 6", priceOMR: 27, oldPrice: 32, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2933620/header.jpg", detailsAr: "🏷️ 120GB | 🎮 تصويب | إنجليزي", detailsEn: "📦 120GB | 🎮 Shooter | English", sales: 464, category: "games" },
+        { id: 3, nameAr: "Grand Theft Auto VI", nameEn: "Grand Theft Auto VI", priceOMR: 24, oldPrice: 30, stock: 100, image: "https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/downloads/gtavi/gtavi_cover_ps5.jpg", detailsAr: "🏷️ 150GB | 🌍 VICE CITY", detailsEn: "📦 150GB | 🌍 VICE CITY", sales: 588, category: "games" },
+        { id: 4, nameAr: "God of War Ragnarök", nameEn: "God of War Ragnarök", priceOMR: 18, oldPrice: 24, stock: 60, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2322010/header.jpg", detailsAr: "🏷️ 85GB | 🪓 ملحمة إسكندنافية", detailsEn: "📦 85GB | 🪓 Norse Saga", sales: 274, category: "games" },
+        { id: 5, nameAr: "Spider-Man 2", nameEn: "Spider-Man 2", priceOMR: 21, oldPrice: 28, stock: 40, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2651280/header.jpg", detailsAr: "🏷️ 98GB | 🕷️ بيتر + مايلز", detailsEn: "📦 98GB | 🕷️ Peter + Miles", sales: 440, category: "games" },
+        { id: 6, nameAr: "Elden Ring", nameEn: "Elden Ring", priceOMR: 16, oldPrice: 22, stock: 55, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg", detailsAr: "🏷️ 60GB | ⚔️ RPG خيالي", detailsEn: "📦 60GB | ⚔️ Fantasy RPG", sales: 520, category: "games" },
+        { id: 7, nameAr: "Horizon Forbidden West", nameEn: "Horizon Forbidden West", priceOMR: 15, oldPrice: 20, stock: 50, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1151640/header.jpg", detailsAr: "🏷️ 96GB | 🦕 مغامرة مستقبلية", detailsEn: "📦 96GB | 🦕 Future Adventure", sales: 380, category: "games" },
+        { id: 8, nameAr: "Ghost of Tsushima", nameEn: "Ghost of Tsushima", priceOMR: 17, oldPrice: 22, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2215430/header.jpg", detailsAr: "🏷️ 50GB | 🗡️ ساموراي", detailsEn: "📦 50GB | 🗡️ Samurai", sales: 312, category: "games" },
+        { id: 9, nameAr: "The Last of Us Part I", nameEn: "The Last of Us Part I", priceOMR: 20, oldPrice: 25, stock: 35, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1888930/header.jpg", detailsAr: "🏷️ 70GB | 🧟 لعبة البقاء", detailsEn: "📦 70GB | 🧟 Survival Game", sales: 290, category: "games" },
+        { id: 10, nameAr: "Final Fantasy XVI", nameEn: "Final Fantasy XVI", priceOMR: 22, oldPrice: 28, stock: 30, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2055370/header.jpg", detailsAr: "🏷️ 90GB | 🗡️ RPG خيالي", detailsEn: "📦 90GB | 🗡️ Fantasy RPG", sales: 250, category: "games" },
+        { id: 11, nameAr: "Star Wars Jedi Survivor", nameEn: "Star Wars Jedi Survivor", priceOMR: 18, oldPrice: 24, stock: 40, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1774580/header.jpg", detailsAr: "🏷️ 130GB | ⚔️ حرب النجوم", detailsEn: "📦 130GB | ⚔️ Star Wars", sales: 210, category: "games" },
+        { id: 12, nameAr: "Hogwarts Legacy", nameEn: "Hogwarts Legacy", priceOMR: 17, oldPrice: 22, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/990080/header.jpg", detailsAr: "🏷️ 85GB | 🪄 هاري بوتر", detailsEn: "📦 85GB | 🪄 Harry Potter", sales: 380, category: "games" },
+        { id: 13, nameAr: "Resident Evil 4 Remake", nameEn: "Resident Evil 4 Remake", priceOMR: 16, oldPrice: 22, stock: 50, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2050650/header.jpg", detailsAr: "🏷️ 60GB | 🧟 رعب", detailsEn: "📦 60GB | 🧟 Horror", sales: 320, category: "games" },
+        { id: 14, nameAr: "Dead Space Remake", nameEn: "Dead Space Remake", priceOMR: 15, oldPrice: 20, stock: 35, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1693980/header.jpg", detailsAr: "🏷️ 50GB | 🚀 رعب فضائي", detailsEn: "📦 50GB | 🚀 Space Horror", sales: 180, category: "games" },
+        { id: 15, nameAr: "Diablo IV", nameEn: "Diablo IV", priceOMR: 21, oldPrice: 28, stock: 40, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2344520/header.jpg", detailsAr: "🏷️ 80GB | 🔥 لعبة تقمص أدوار", detailsEn: "📦 80GB | 🔥 Action RPG", sales: 420, category: "games" },
+        { id: 16, nameAr: "Baldur's Gate 3", nameEn: "Baldur's Gate 3", priceOMR: 24, oldPrice: 30, stock: 35, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1086940/header.jpg", detailsAr: "🏷️ 120GB | 🎲 RPG استراتيجي", detailsEn: "📦 120GB | 🎲 Strategy RPG", sales: 450, category: "games" },
+        { id: 17, nameAr: "Cyberpunk 2077", nameEn: "Cyberpunk 2077", priceOMR: 13, oldPrice: 18, stock: 60, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/header.jpg", detailsAr: "🏷️ 70GB | 🤖 مستقبلية", detailsEn: "📦 70GB | 🤖 Futuristic", sales: 380, category: "games" },
+        { id: 18, nameAr: "EA Sports FC 24", nameEn: "EA Sports FC 24", priceOMR: 15, oldPrice: 20, stock: 80, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2195250/header.jpg", detailsAr: "🏷️ 45GB | ⚽ كرة قدم", detailsEn: "📦 45GB | ⚽ Football", sales: 520, category: "games" },
+        { id: 19, nameAr: "NBA 2K24", nameEn: "NBA 2K24", priceOMR: 15, oldPrice: 20, stock: 70, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2335780/header.jpg", detailsAr: "🏷️ 110GB | 🏀 كرة سلة", detailsEn: "📦 110GB | 🏀 Basketball", sales: 340, category: "games" },
+        { id: 20, nameAr: "Mortal Kombat 1", nameEn: "Mortal Kombat 1", priceOMR: 19, oldPrice: 25, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1971870/header.jpg", detailsAr: "🏷️ 100GB | 🥊 قتال", detailsEn: "📦 100GB | 🥊 Fighting", sales: 310, category: "games" },
+        { id: 21, nameAr: "Street Fighter 6", nameEn: "Street Fighter 6", priceOMR: 17, oldPrice: 23, stock: 50, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1364780/header.jpg", detailsAr: "🏷️ 60GB | 🥊 قتال", detailsEn: "📦 60GB | 🥊 Fighting", sales: 280, category: "games" },
+        { id: 22, nameAr: "Tekken 8", nameEn: "Tekken 8", priceOMR: 20, oldPrice: 26, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1778820/header.jpg", detailsAr: "🏷️ 80GB | 🥊 قتال", detailsEn: "📦 80GB | 🥊 Fighting", sales: 260, category: "games" },
+        { id: 23, nameAr: "Armored Core VI", nameEn: "Armored Core VI", priceOMR: 18, oldPrice: 24, stock: 35, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1888160/header.jpg", detailsAr: "🏷️ 60GB | 🤖 ميكا", detailsEn: "📦 60GB | 🤖 Mecha", sales: 190, category: "games" },
+        { id: 24, nameAr: "Lies of P", nameEn: "Lies of P", priceOMR: 17, oldPrice: 23, stock: 40, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1627720/header.jpg", detailsAr: "🏷️ 35GB | 🎭 سولز لايك", detailsEn: "📦 35GB | 🎭 Souls-like", sales: 210, category: "games" },
+        { id: 25, nameAr: "Stray", nameEn: "Stray", priceOMR: 11, oldPrice: 15, stock: 90, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1332010/header.jpg", detailsAr: "🏷️ 10GB | 🐱 قط", detailsEn: "📦 10GB | 🐱 Cat", sales: 410, category: "games" },
+        { id: 26, nameAr: "It Takes Two", nameEn: "It Takes Two", priceOMR: 10, oldPrice: 14, stock: 85, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1426210/header.jpg", detailsAr: "🏷️ 45GB | 👥 تعاوني", detailsEn: "📦 45GB | 👥 Co-op", sales: 390, category: "games" },
+        { id: 27, nameAr: "Red Dead Redemption 2", nameEn: "Red Dead Redemption 2", priceOMR: 12, oldPrice: 17, stock: 70, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1174180/header.jpg", detailsAr: "🏷️ 115GB | 🤠 رعاة البقر", detailsEn: "📦 115GB | 🤠 Western", sales: 480, category: "games" },
+        { id: 28, nameAr: "Grand Theft Auto V", nameEn: "Grand Theft Auto V", priceOMR: 10, oldPrice: 14, stock: 100, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/271590/header.jpg", detailsAr: "🏷️ 95GB | 🌍 عالم مفتوح", detailsEn: "📦 95GB | 🌍 Open World", sales: 620, category: "games" },
+        { id: 29, nameAr: "The Witcher 3", nameEn: "The Witcher 3", priceOMR: 9, oldPrice: 13, stock: 85, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/292030/header.jpg", detailsAr: "🏷️ 50GB | ⚔️ RPG خيالي", detailsEn: "📦 50GB | ⚔️ Fantasy RPG", sales: 550, category: "games" },
+        { id: 30, nameAr: "Sekiro: Shadows Die Twice", nameEn: "Sekiro: Shadows Die Twice", priceOMR: 19, oldPrice: 25, stock: 40, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/814380/header.jpg", detailsAr: "🏷️ 25GB | 🗡️ ساموراي", detailsEn: "📦 25GB | 🗡️ Samurai", sales: 320, category: "games" }
     ];
-    
-    for (let i = 9; i <= 50; i++) {
-        allGames.push({
-            id: i, nameAr: `لعبة PS5 مميزة ${i}`, nameEn: `Premium PS5 Game ${i}`,
-            priceOMR: 9 + Math.floor(Math.random() * 10), oldPrice: 12 + Math.floor(Math.random() * 10),
-            stock: 20 + Math.floor(Math.random() * 80),
-            image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2358720/header.jpg",
-            detailsAr: `🏷️ لعبة رقم ${i}`, detailsEn: `Game ${i}`, sales: Math.floor(Math.random() * 300) + 100, category: "games"
-        });
-    }
     
     const giftCards = [
-        { id: 101, nameAr: "🇺🇸 بطاقة أمريكي", nameEn: "🇺🇸 US Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/30px-Flag_of_the_United_States.svg.png", detailsAr: "10$ | 25$ | 50$ | 100$", detailsEn: "10$ | 25$ | 50$ | 100$", sales: 244 },
-        { id: 102, nameAr: "🇸🇦 بطاقة سعودي", nameEn: "🇸🇦 Saudi Card", category: "giftcards", priceOMR: 4.5, oldPrice: 5.5, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/30px-Flag_of_Saudi_Arabia.svg.png", detailsAr: "50ر.س | 100ر.س | 200ر.س", detailsEn: "50 SAR | 100 SAR | 200 SAR", sales: 210 },
-        { id: 103, nameAr: "🇦🇪 بطاقة إماراتي", nameEn: "🇦🇪 UAE Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Flag_of_the_United_Arab_Emirates.svg/30px-Flag_of_the_United_Arab_Emirates.svg.png", detailsAr: "50د.إ | 100د.إ | 200د.إ", detailsEn: "50 AED | 100 AED | 200 AED", sales: 195 },
-        { id: 104, nameAr: "🇴🇲 بطاقة عماني", nameEn: "🇴🇲 Oman Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Flag_of_Oman.svg/30px-Flag_of_Oman.svg.png", detailsAr: "5ر.ع | 10ر.ع | 20ر.ع", detailsEn: "5 OMR | 10 OMR | 20 OMR", sales: 180 }
+        { id: 101, nameAr: "🇺🇸 بطاقة أمريكي", nameEn: "🇺🇸 US Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/50px-Flag_of_the_United_States.svg.png", detailsAr: "10$ | 25$ | 50$ | 100$", detailsEn: "10$ | 25$ | 50$ | 100$", sales: 244 },
+        { id: 102, nameAr: "🇸🇦 بطاقة سعودي", nameEn: "🇸🇦 Saudi Card", category: "giftcards", priceOMR: 4.5, oldPrice: 5.5, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/50px-Flag_of_Saudi_Arabia.svg.png", detailsAr: "50ر.س | 100ر.س | 200ر.س", detailsEn: "50 SAR | 100 SAR | 200 SAR", sales: 210 },
+        { id: 103, nameAr: "🇦🇪 بطاقة إماراتي", nameEn: "🇦🇪 UAE Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Flag_of_the_United_Arab_Emirates.svg/50px-Flag_of_the_United_Arab_Emirates.svg.png", detailsAr: "50د.إ | 100د.إ | 200د.إ", detailsEn: "50 AED | 100 AED | 200 AED", sales: 195 },
+        { id: 104, nameAr: "🇴🇲 بطاقة عماني", nameEn: "🇴🇲 Oman Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Flag_of_Oman.svg/50px-Flag_of_Oman.svg.png", detailsAr: "5ر.ع | 10ر.ع | 20ر.ع", detailsEn: "5 OMR | 10 OMR | 20 OMR", sales: 180 }
     ];
     
-    for (let i = 0; i < giftCards.length; i++) giftCards[i].category = "giftcards";
-    const allDefaultProducts = [...allGames, ...giftCards];
+    const allDefaultProducts = [...realGames, ...giftCards];
     
+    // عرض المنتجات فوراً
     function displayProductsImmediately() {
         products = JSON.parse(JSON.stringify(allDefaultProducts));
         categories = ["games", "giftcards"];
@@ -715,6 +720,45 @@
         renderProducts();
         loadBestSellers();
         updateUILanguage(currentLang);
+    }
+    
+    function updateUILanguage(lang) {
+        const t = translations[lang];
+        if (!t) return;
+        document.getElementById('quote-best-price').innerHTML = `<i class="fas fa-tag"></i> ${t.quoteBestPrice}`;
+        document.getElementById('quote-fast-delivery').innerHTML = `<i class="fas fa-bolt"></i> ${t.quoteFastDelivery}`;
+        document.getElementById('quote-support').innerHTML = `<i class="fas fa-headset"></i> ${t.quoteSupport}`;
+        document.getElementById('quote-secure').innerHTML = `<i class="fas fa-shield-alt"></i> ${t.quoteSecure}`;
+        document.getElementById('stat-products-label').innerText = t.statProducts;
+        document.getElementById('stat-customers-label').innerText = t.statCustomers;
+        document.getElementById('stat-rating-label').innerText = t.statRating;
+        document.getElementById('stat-support-label').innerText = t.statSupport;
+        document.getElementById('bestseller-title').innerHTML = t.bestsellerTitle;
+        document.getElementById('all-products-title').innerHTML = t.allProductsTitle;
+        document.getElementById('searchInput').placeholder = t.searchPlaceholder;
+        document.getElementById('copyright').innerHTML = t.copyright;
+        document.getElementById('terms-title').innerHTML = `<i class="fas fa-file-contract"></i> ${t.termsTitle}`;
+        document.getElementById('terms-note').innerHTML = t.termsNote;
+        document.getElementById('terms-clean').innerHTML = t.termsClean;
+        document.getElementById('terms-how-title').innerHTML = t.termsHowTitle;
+        document.getElementById('terms-step1').innerHTML = t.termsStep1;
+        document.getElementById('terms-step2').innerHTML = t.termsStep2;
+        document.getElementById('terms-step3').innerHTML = t.termsStep3;
+        document.getElementById('terms-forbidden-title').innerHTML = t.termsForbiddenTitle;
+        document.getElementById('terms-forbidden1').innerHTML = t.termsForbidden1;
+        document.getElementById('terms-forbidden2').innerHTML = t.termsForbidden2;
+        document.getElementById('terms-warranty-title').innerHTML = t.termsWarrantyTitle;
+        document.getElementById('terms-warranty').innerHTML = t.termsWarranty;
+        document.getElementById('terms-responsibility').innerHTML = t.termsResponsibility;
+        document.getElementById('terms-agree').innerHTML = t.termsAgree;
+        document.getElementById('acceptTermsBtn').innerHTML = t.acceptBtn;
+        document.getElementById('declineTermsBtn').innerHTML = t.cancelBtn;
+        
+        // تحديث نصوص أزرار العرض
+        const mobileText = document.querySelector('.view-text-mobile');
+        const desktopText = document.querySelector('.view-text-desktop');
+        if (mobileText) mobileText.innerText = t.viewMobile;
+        if (desktopText) desktopText.innerText = t.viewDesktop;
     }
     
     function initFirebase() {
