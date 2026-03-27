@@ -20,17 +20,8 @@
         
         @media (max-width: 640px) {
             body { padding: 8px; }
-            .products-grid { 
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 10px;
-            }
-            .product-image { 
-                height: 130px;
-                background-size: contain !important;
-                background-repeat: no-repeat !important;
-                background-position: center !important;
-            }
+            .products-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+            .product-image { height: 130px; background-size: contain !important; background-repeat: no-repeat !important; background-position: center !important; }
             .product-title { font-size: 0.7rem; }
             .product-details { font-size: 0.55rem; }
             .price { font-size: 0.8rem; }
@@ -38,19 +29,11 @@
         }
         
         @media (min-width: 641px) and (max-width: 1024px) {
-            .products-grid { 
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 15px;
-            }
+            .products-grid { grid-template-columns: repeat(3, 1fr); gap: 15px; }
         }
         
         @media (min-width: 1025px) {
-            .products-grid { 
-                display: grid;
-                grid-template-columns: repeat(4, 1fr);
-                gap: 20px;
-            }
+            .products-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; }
         }
         
         .header {
@@ -163,12 +146,7 @@
             position: relative;
         }
         .product-card:hover { transform: translateY(-5px); border-color: #ffaa44; }
-        .product-image { 
-            height: 160px; 
-            background-size: cover; 
-            background-position: center; 
-            background-repeat: no-repeat;
-        }
+        .product-image { height: 160px; background-size: cover; background-position: center; background-repeat: no-repeat; }
         .discount-badge { position: absolute; top: 8px; left: 8px; background: #ff4444; color: white; padding: 3px 10px; border-radius: 20px; font-size: 0.6rem; font-weight: bold; z-index: 10; }
         .out-of-stock-badge { position: absolute; top: 8px; right: 8px; background: #ff4444; color: white; padding: 3px 10px; border-radius: 20px; font-size: 0.6rem; z-index: 10; }
         .card-info { padding: 10px; flex: 1; display: flex; flex-direction: column; }
@@ -323,52 +301,26 @@
     // ==================== بيانات الترجمة ====================
     const translations = {
         ar: {
-            quoteBestPrice: "أفضل الأسعار",
-            quoteFastDelivery: "توصيل فوري",
-            quoteSupport: "دعم 24/7",
-            quoteSecure: "دفع آمن",
-            statProducts: "لعبة",
-            statCustomers: "عميل",
-            statRating: "تقييم",
-            statSupport: "دعم",
-            bestsellerTitle: "🔥 الأكثر مبيعاً 🔥",
-            allProductsTitle: "🎮 جميع المنتجات 🎮",
-            searchPlaceholder: "🔍 ابحث عن منتج...",
-            copyright: "© 2025 xnesto - جميع الحقوق محفوظة",
-            viewMobile: "جوال",
-            viewDesktop: "كمبيوتر",
-            orderNow: "اطلب الآن",
-            outOfStock: "نفذت الكمية",
-            termsTitle: "شروط الشراء والاستخدام",
-            termsAgree: "أقر بأنني قرأت وأوافق على جميع الشروط",
-            acceptBtn: "✅ أوافق وأكمل الطلب",
-            cancelBtn: "❌ إلغاء"
+            quoteBestPrice: "أفضل الأسعار", quoteFastDelivery: "توصيل فوري", quoteSupport: "دعم 24/7", quoteSecure: "دفع آمن",
+            statProducts: "لعبة", statCustomers: "عميل", statRating: "تقييم", statSupport: "دعم",
+            bestsellerTitle: "🔥 الأكثر مبيعاً 🔥", allProductsTitle: "🎮 جميع المنتجات 🎮",
+            searchPlaceholder: "🔍 ابحث عن منتج...", copyright: "© 2025 xnesto - جميع الحقوق محفوظة",
+            viewMobile: "جوال", viewDesktop: "كمبيوتر", orderNow: "اطلب الآن", outOfStock: "نفذت الكمية",
+            termsTitle: "شروط الشراء والاستخدام", termsAgree: "أقر بأنني قرأت وأوافق على جميع الشروط",
+            acceptBtn: "✅ أوافق وأكمل الطلب", cancelBtn: "❌ إلغاء"
         },
         en: {
-            quoteBestPrice: "Best Prices",
-            quoteFastDelivery: "Fast Delivery",
-            quoteSupport: "24/7 Support",
-            quoteSecure: "Secure Payment",
-            statProducts: "Games",
-            statCustomers: "Customers",
-            statRating: "Rating",
-            statSupport: "Support",
-            bestsellerTitle: "🔥 Best Sellers 🔥",
-            allProductsTitle: "🎮 All Products 🎮",
-            searchPlaceholder: "🔍 Search products...",
-            copyright: "© 2025 xnesto - All Rights Reserved",
-            viewMobile: "Mobile",
-            viewDesktop: "Desktop",
-            orderNow: "Order Now",
-            outOfStock: "Out of Stock",
-            termsTitle: "Terms & Conditions",
-            termsAgree: "I have read and agree to all terms",
-            acceptBtn: "✅ Accept & Complete Order",
-            cancelBtn: "❌ Cancel"
+            quoteBestPrice: "Best Prices", quoteFastDelivery: "Fast Delivery", quoteSupport: "24/7 Support", quoteSecure: "Secure Payment",
+            statProducts: "Games", statCustomers: "Customers", statRating: "Rating", statSupport: "Support",
+            bestsellerTitle: "🔥 Best Sellers 🔥", allProductsTitle: "🎮 All Products 🎮",
+            searchPlaceholder: "🔍 Search products...", copyright: "© 2025 xnesto - All Rights Reserved",
+            viewMobile: "Mobile", viewDesktop: "Desktop", orderNow: "Order Now", outOfStock: "Out of Stock",
+            termsTitle: "Terms & Conditions", termsAgree: "I have read and agree to all terms",
+            acceptBtn: "✅ Accept & Complete Order", cancelBtn: "❌ Cancel"
         }
     };
     
-    // ==================== المنتجات (30 لعبة حقيقية فقط) ====================
+    // ==================== المنتجات الافتراضية (30 لعبة) ====================
     const realGames = [
         { id: 1, nameAr: "Assassin's Creed Shadows", nameEn: "Assassin's Creed Shadows", priceOMR: 22, oldPrice: 28, stock: 50, image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/3159340/header.jpg", detailsAr: "🏷️ 65GB | 🎮 عربي/إنجليزي | اليابان", detailsEn: "📦 65GB | 🎮 Arabic/English | Japan", sales: 564, category: "games" },
         { id: 2, nameAr: "Call of Duty Black Ops 6", nameEn: "Call of Duty Black Ops 6", priceOMR: 27, oldPrice: 32, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2933620/header.jpg", detailsAr: "🏷️ 120GB | 🎮 تصويب | إنجليزي", detailsEn: "📦 120GB | 🎮 Shooter | English", sales: 464, category: "games" },
@@ -409,10 +361,9 @@
         { id: 104, nameAr: "🇴🇲 بطاقة عماني", nameEn: "🇴🇲 Oman Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Flag_of_Oman.svg/50px-Flag_of_Oman.svg.png", detailsAr: "5ر.ع | 10ر.ع | 20ر.ع", detailsEn: "5 OMR | 10 OMR | 20 OMR", sales: 180 }
     ];
     
-    // ==================== 30 لعبة فقط + 4 بطاقات = 34 منتج ====================
     const allDefaultProducts = [...realGames, ...giftCards];
     
-    // ==================== باقي الكود (لم يتغير) ====================
+    // ==================== المتغيرات العامة ====================
     let products = [];
     let categories = ["games", "giftcards"];
     let categoryNames = { games: "🎮 ألعاب PS4/PS5", giftcards: "💳 بطاقات شحن" };
@@ -428,6 +379,7 @@
     const exchangeRates = { OMR: 1, SAR: 9.75, AED: 9.55, KWD: 0.79, BHD: 0.98, QAR: 9.46, USD: 2.6, EUR: 2.4 };
     const currencySymbols = { OMR: "ر.ع", SAR: "ر.س", AED: "د.إ", KWD: "د.ك", BHD: "د.ب", QAR: "ر.ق", USD: "$", EUR: "€" };
     
+    // ==================== دوال العرض ====================
     function updateUILanguage(lang) {
         const t = translations[lang];
         if (!t) return;
@@ -447,14 +399,6 @@
         document.getElementById('terms-agree').innerHTML = t.termsAgree;
         document.getElementById('acceptTermsBtn').innerHTML = t.acceptBtn;
         document.getElementById('declineTermsBtn').innerHTML = t.cancelBtn;
-    }
-    
-    function displayProductsImmediately() {
-        products = JSON.parse(JSON.stringify(allDefaultProducts));
-        renderTabs();
-        renderProducts();
-        loadBestSellers();
-        updateUILanguage(currentLang);
     }
     
     function renderTabs() {
@@ -609,6 +553,65 @@
         localStorage.setItem('store_mode', document.body.classList.contains('light-mode') ? 'light' : 'dark');
     }
     
+    // ==================== Firebase والإعدادات ====================
+    let firebaseInitialized = false;
+    let productsRef = null;
+    
+    function initFirebase() {
+        try {
+            const firebaseConfig = { databaseURL: "https://xnesto-645bf-default-rtdb.asia-southeast1.firebasedatabase.app/" };
+            
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+            }
+            
+            const database = firebase.database();
+            productsRef = database.ref('products');
+            
+            const timeoutId = setTimeout(() => {
+                if (!firebaseInitialized) {
+                    console.log("Firebase timeout - using local products");
+                    firebaseInitialized = true;
+                }
+            }, 3000);
+            
+            // الاستماع للتغييرات في Firebase (تحديث فوري)
+            productsRef.on('value', (snapshot) => {
+                clearTimeout(timeoutId);
+                const data = snapshot.val();
+                if (data && Array.isArray(data) && data.length > 0) {
+                    products = data.sort((a, b) => (a.order || 0) - (b.order || 0));
+                    firebaseInitialized = true;
+                    console.log('✅ تم تحديث المنتجات من Firebase');
+                    renderProducts();
+                    loadBestSellers();
+                    renderTabs();
+                }
+            }, (error) => {
+                clearTimeout(timeoutId);
+                console.log("Firebase error:", error);
+            });
+            
+        } catch (error) {
+            console.log("Firebase initialization failed:", error);
+        }
+    }
+    
+    function displayProductsImmediately() {
+        // عرض المنتجات المحلية فوراً
+        products = JSON.parse(JSON.stringify(allDefaultProducts));
+        renderTabs();
+        renderProducts();
+        loadBestSellers();
+        updateUILanguage(currentLang);
+        
+        // تهيئة Firebase في الخلفية
+        setTimeout(() => {
+            initFirebase();
+        }, 100);
+    }
+    
+    // ==================== تهيئة الصفحة ====================
     if (localStorage.getItem('store_mode') === 'light') {
         document.body.classList.add('light-mode');
         document.querySelector('.mode-toggle-btn').innerHTML = '🌞 نهاري';
