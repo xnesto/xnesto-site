@@ -39,20 +39,25 @@
             #searchInput { font-size: 0.8rem; padding: 8px 0; }
             .tabs-container { gap: 8px; margin-bottom: 16px; }
             .tab-btn { padding: 6px 16px; font-size: 0.75rem; }
-            .products-grid { gap: 10px; grid-template-columns: repeat(2, 1fr); }
-            .product-card { border-radius: 12px; }
+            /* عرض 3 منتجات في الجوال */
+            .products-grid { gap: 10px; grid-template-columns: repeat(3, 1fr); }
             .product-image { height: 140px; }
             .card-info { padding: 8px; }
-            .product-title { font-size: 0.85rem; }
-            .product-details { font-size: 0.6rem; margin: 4px 0; }
-            .price { font-size: 1rem; }
-            .old-price { font-size: 0.65rem; }
-            .btn-wa { padding: 6px; font-size: 0.7rem; }
+            .product-title { font-size: 0.75rem; }
+            .product-details { font-size: 0.55rem; margin: 4px 0; }
+            .price { font-size: 0.85rem; }
+            .old-price { font-size: 0.6rem; }
+            .btn-wa { padding: 6px; font-size: 0.65rem; }
             .best-sellers { padding: 12px; margin-bottom: 16px; border-radius: 1rem; }
             .best-sellers-grid { gap: 8px; grid-template-columns: repeat(2, 1fr); }
             .best-seller-card img { width: 55px; height: 55px; }
             .footer { padding: 12px; margin-top: 16px; font-size: 0.65rem; }
             .whatsapp-float { width: 45px; height: 45px; font-size: 1.5rem; line-height: 45px; bottom: 15px; left: 15px; }
+        }
+        
+        /* عرض 4 منتجات في الكمبيوتر */
+        @media (min-width: 641px) {
+            .products-grid { grid-template-columns: repeat(4, 1fr); gap: 15px; }
         }
         
         .header {
@@ -169,7 +174,7 @@
             border: 1px solid rgba(255, 170, 68, 0.2);
         }
         .lang-switch { display: flex; gap: 6px; background: #1e1e3a; padding: 3px; border-radius: 40px; }
-        .lang-btn { background: transparent; border: none; padding: 5px 12px; border-radius: 40px; color: #ccc; font-weight: bold; cursor: pointer; font-size: 0.75rem; }
+        .lang-btn { background: transparent; border: none; padding: 5px 12px; border-radius: 40px; color: #ccc; font-weight: bold; cursor: pointer; font-size: 0.75rem; transition: all 0.2s; }
         .lang-btn.active { background: #ffaa44; color: #0a0a1a; }
         .currency-selector { display: flex; align-items: center; gap: 6px; background: #1e1e3a; padding: 3px 10px; border-radius: 40px; }
         #currencySelect { background: #0a0c1a; border: 1px solid #ffaa44; color: #ffdd99; padding: 4px 8px; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 0.7rem; }
@@ -180,10 +185,10 @@
         .search-results-count { background: #2d2f6e; padding: 3px 8px; border-radius: 30px; font-size: 0.6rem; color: #ffaa66; font-weight: 600; }
         
         .tabs-container { max-width: 1400px; margin: 0 auto 1.2rem auto; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
-        .tab-btn { background: #1e1e3a; border: 1px solid rgba(255,170,68,0.3); padding: 8px 18px; border-radius: 40px; cursor: pointer; font-weight: 700; transition: 0.2s; font-size: 0.8rem; }
+        .tab-btn { background: #1e1e3a; border: 1px solid rgba(255,170,68,0.3); padding: 8px 18px; border-radius: 40px; cursor: pointer; font-weight: 700; transition: 0.2s; font-size: 0.8rem; color: #f0f0ff; }
         .tab-btn.active { background: #ffaa44; color: #0a0a1a; border-color: #ffaa44; }
         
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px; max-width: 1400px; margin: 0 auto; }
+        .products-grid { display: grid; gap: 12px; max-width: 1400px; margin: 0 auto; }
         .product-card { background: rgba(15, 15, 42, 0.7); border-radius: 1rem; border: 1px solid rgba(255, 170, 68, 0.15); overflow: hidden; transition: all 0.3s; position: relative; }
         .product-card:hover { transform: translateY(-5px); border-color: #ffaa44; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
         .product-card.out-of-stock { opacity: 0.7; filter: grayscale(0.3); }
@@ -193,7 +198,7 @@
         .card-info { padding: 10px; }
         .product-title { font-size: 0.95rem; font-weight: 800; margin-bottom: 4px; text-align: center; letter-spacing: 0.3px; }
         .product-details { font-size: 0.65rem; color: #b9c5f0; text-align: center; margin: 6px 0; font-weight: 500; }
-        .price-container { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 6px 0; }
+        .price-container { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 6px 0; flex-wrap: wrap; }
         .old-price { font-size: 0.75rem; color: #888; text-decoration: line-through; }
         .price { font-size: 1.1rem; font-weight: 900; color: #ffaa44; letter-spacing: 0.5px; }
         .btn-wa { width: 100%; background: #25D366; border: none; padding: 8px; border-radius: 40px; color: #000; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; font-size: 0.75rem; transition: all 0.2s; letter-spacing: 0.3px; }
@@ -288,7 +293,7 @@
         body.light-mode .price { font-weight: 900; color: #ff8844; }
         body.light-mode .product-details { font-weight: 500; color: #4a4a6a; }
         body.light-mode .btn-wa { font-weight: 800; background: #25D366; color: #000; }
-        body.light-mode .tab-btn { font-weight: 700; }
+        body.light-mode .tab-btn { font-weight: 700; color: #1a1a2e; }
         body.light-mode .page-btn { font-weight: 700; }
         body.light-mode .quote-badge { font-weight: 600; background: rgba(255,255,255,0.8); color: #1a1a2e; }
         body.light-mode .stat-item { font-weight: 600; }
@@ -299,8 +304,6 @@
         body.light-mode .terms-box { background: #ffffff; color: #1a1a2e; }
         body.light-mode .terms-item-row p { color: #333; }
         body.light-mode .search-results-count { background: #ddd; color: #333; }
-        body.view-mobile .products-grid { grid-template-columns: repeat(2, 1fr) !important; }
-        body.view-desktop .products-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important; }
     </style>
 </head>
 <body>
@@ -528,7 +531,6 @@
     // ==================== Firebase والإعدادات ====================
     const firebaseConfig = { databaseURL: "https://xnesto-645bf-default-rtdb.asia-southeast1.firebasedatabase.app/" };
     
-    // محاولة تهيئة Firebase مع مهلة 3 ثواني
     let firebaseReady = false;
     let products = [];
     let categories = [];
@@ -562,11 +564,11 @@
         EUR: "€" 
     };
     
-    // المنتجات الافتراضية (تظهر فوراً بدون تأخير)
+    // المنتجات الافتراضية مع بيانات عربي وإنجليزي صحيحة
     const allGames = [
-        { id: 1, nameAr: "Assassin's Creed Shadows", nameEn: "Assassin's Creed Shadows", priceOMR: 14, oldPrice: 20, stock: 50, image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/3159340/header.jpg", detailsAr: "🏷️ 65GB | 🎮 عربي/إنجليزي", detailsEn: "📦 65GB | 🎮 Arabic/English", sales: 564, category: "games" },
-        { id: 2, nameAr: "Call of Duty Black Ops 6", nameEn: "Call of Duty Black Ops 6", priceOMR: 22, oldPrice: 30, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2933620/header.jpg", detailsAr: "🏷️ 120GB | 🎮 إنجليزي", detailsEn: "📦 120GB | 🎮 English", sales: 464, category: "games" },
-        { id: 3, nameAr: "Grand Theft Auto VI", nameEn: "Grand Theft Auto VI", priceOMR: 6, oldPrice: 10, stock: 100, image: "https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/downloads/gtavi/gtavi_cover_ps5.jpg", detailsAr: "🏷️ 150GB | 🌍 عالم مفتوح", detailsEn: "📦 150GB | 🌍 Open World", sales: 588, category: "games" },
+        { id: 1, nameAr: "Assassin's Creed Shadows", nameEn: "Assassin's Creed Shadows", priceOMR: 14, oldPrice: 20, stock: 50, image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/3159340/header.jpg", detailsAr: "🏷️ 65GB | 🎮 عربي/إنجليزي | اليابان", detailsEn: "📦 65GB | 🎮 Arabic/English | Japan", sales: 564, category: "games" },
+        { id: 2, nameAr: "Call of Duty Black Ops 6", nameEn: "Call of Duty Black Ops 6", priceOMR: 22, oldPrice: 30, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2933620/header.jpg", detailsAr: "🏷️ 120GB | 🎮 تصويب | إنجليزي", detailsEn: "📦 120GB | 🎮 Shooter | English", sales: 464, category: "games" },
+        { id: 3, nameAr: "Grand Theft Auto VI", nameEn: "Grand Theft Auto VI", priceOMR: 6, oldPrice: 10, stock: 100, image: "https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/downloads/gtavi/gtavi_cover_ps5.jpg", detailsAr: "🏷️ 150GB | 🌍 VICE CITY", detailsEn: "📦 150GB | 🌍 VICE CITY", sales: 588, category: "games" },
         { id: 4, nameAr: "God of War Ragnarök", nameEn: "God of War Ragnarök", priceOMR: 10, oldPrice: 15, stock: 60, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2322010/header.jpg", detailsAr: "🏷️ 85GB | 🪓 ملحمة إسكندنافية", detailsEn: "📦 85GB | 🪓 Norse Saga", sales: 274, category: "games" },
         { id: 5, nameAr: "Spider-Man 2", nameEn: "Spider-Man 2", priceOMR: 16, oldPrice: 22, stock: 40, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2651280/header.jpg", detailsAr: "🏷️ 98GB | 🕷️ بيتر + مايلز", detailsEn: "📦 98GB | 🕷️ Peter + Miles", sales: 440, category: "games" },
         { id: 6, nameAr: "Elden Ring", nameEn: "Elden Ring", priceOMR: 12, oldPrice: 18, stock: 55, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg", detailsAr: "🏷️ 60GB | ⚔️ RPG خيالي", detailsEn: "📦 60GB | ⚔️ Fantasy RPG", sales: 520, category: "games" },
@@ -594,7 +596,7 @@
     for (let i = 0; i < giftCards.length; i++) giftCards[i].category = "giftcards";
     const allDefaultProducts = [...allGames, ...giftCards];
     
-    // عرض المنتجات فوراً (بدون انتظار Firebase)
+    // عرض المنتجات فوراً
     function displayProductsImmediately() {
         products = JSON.parse(JSON.stringify(allDefaultProducts));
         categories = ["games", "giftcards"];
@@ -612,7 +614,6 @@
             const productsRef = database.ref('products');
             const categoriesRef = database.ref('categories');
             
-            // مهلة 3 ثواني - إذا لم تستجب Firebase نستمر بالمنتجات المحلية
             const timeoutId = setTimeout(() => {
                 if (!firebaseReady) {
                     console.log("Firebase timeout - using local products");
@@ -646,10 +647,6 @@
         }
     }
     
-    function loadCategories() {
-        // تم التعامل معها في displayProductsImmediately
-    }
-    
     function renderTabs() {
         const container = document.getElementById('tabsContainer');
         if (!container) return;
@@ -660,7 +657,8 @@
     function setLang(lang) { 
         currentLang = lang; 
         document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active')); 
-        document.querySelector(`.lang-btn[data-lang="${lang}"]`).classList.add('active'); 
+        const activeBtn = document.querySelector(`.lang-btn[data-lang="${lang}"]`);
+        if (activeBtn) activeBtn.classList.add('active');
         renderProducts(); 
         loadBestSellers(); 
     }
@@ -814,7 +812,7 @@
                 return `
                     <div class="best-seller-card" onclick="document.getElementById('product-${p.id || p.product_id}').scrollIntoView({behavior:'smooth'})">
                         <div class="best-seller-rank">${index + 1}</div>
-                        <img src="${p.image || p.img || 'https://via.placeholder.com/70'}" alt="${name}">
+                        <img src="${p.image || p.img || 'https://via.placeholder.com/70'}" alt="${escapeHtml(name)}">
                         <div class="name">${escapeHtml(name)}</div>
                         <div class="sales">${p.sales || 0} مبيعات</div>
                     </div>
