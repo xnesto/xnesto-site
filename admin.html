@@ -8,7 +8,6 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <style>
-        /* جميع الأنماط كما هي (لم أغيرها) */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: linear-gradient(135deg, #0a0a1a 0%, #0a0a1a 100%);
@@ -339,6 +338,14 @@
             .admin-tab { padding: 0.3rem 0.8rem; font-size: 0.65rem; }
             .product-edit-form { grid-template-columns: 1fr; }
         }
+        
+        /* تحسين عرض الصور في الجوال */
+        @media (max-width: 640px) {
+            .product-image-preview {
+                max-width: 40px;
+                max-height: 40px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -429,10 +436,52 @@
 </div>
 
 <script>
-    // Firebase Configuration
+    // ==================== المنتجات الحقيقية (30 لعبة) ====================
+    const realGames = [
+        { id: 1, nameAr: "Assassin's Creed Shadows", nameEn: "Assassin's Creed Shadows", priceOMR: 22, oldPrice: 28, stock: 50, image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/3159340/header.jpg", detailsAr: "🏷️ 65GB | 🎮 عربي/إنجليزي | اليابان", detailsEn: "📦 65GB | 🎮 Arabic/English | Japan", sales: 564, category: "games" },
+        { id: 2, nameAr: "Call of Duty Black Ops 6", nameEn: "Call of Duty Black Ops 6", priceOMR: 27, oldPrice: 32, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2933620/header.jpg", detailsAr: "🏷️ 120GB | 🎮 تصويب | إنجليزي", detailsEn: "📦 120GB | 🎮 Shooter | English", sales: 464, category: "games" },
+        { id: 3, nameAr: "Grand Theft Auto VI", nameEn: "Grand Theft Auto VI", priceOMR: 24, oldPrice: 30, stock: 100, image: "https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/downloads/gtavi/gtavi_cover_ps5.jpg", detailsAr: "🏷️ 150GB | 🌍 VICE CITY", detailsEn: "📦 150GB | 🌍 VICE CITY", sales: 588, category: "games" },
+        { id: 4, nameAr: "God of War Ragnarök", nameEn: "God of War Ragnarök", priceOMR: 18, oldPrice: 24, stock: 60, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2322010/header.jpg", detailsAr: "🏷️ 85GB | 🪓 ملحمة إسكندنافية", detailsEn: "📦 85GB | 🪓 Norse Saga", sales: 274, category: "games" },
+        { id: 5, nameAr: "Spider-Man 2", nameEn: "Spider-Man 2", priceOMR: 21, oldPrice: 28, stock: 40, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2651280/header.jpg", detailsAr: "🏷️ 98GB | 🕷️ بيتر + مايلز", detailsEn: "📦 98GB | 🕷️ Peter + Miles", sales: 440, category: "games" },
+        { id: 6, nameAr: "Elden Ring", nameEn: "Elden Ring", priceOMR: 16, oldPrice: 22, stock: 55, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg", detailsAr: "🏷️ 60GB | ⚔️ RPG خيالي", detailsEn: "📦 60GB | ⚔️ Fantasy RPG", sales: 520, category: "games" },
+        { id: 7, nameAr: "Horizon Forbidden West", nameEn: "Horizon Forbidden West", priceOMR: 15, oldPrice: 20, stock: 50, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1151640/header.jpg", detailsAr: "🏷️ 96GB | 🦕 مغامرة مستقبلية", detailsEn: "📦 96GB | 🦕 Future Adventure", sales: 380, category: "games" },
+        { id: 8, nameAr: "Ghost of Tsushima", nameEn: "Ghost of Tsushima", priceOMR: 17, oldPrice: 22, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2215430/header.jpg", detailsAr: "🏷️ 50GB | 🗡️ ساموراي", detailsEn: "📦 50GB | 🗡️ Samurai", sales: 312, category: "games" },
+        { id: 9, nameAr: "The Last of Us Part I", nameEn: "The Last of Us Part I", priceOMR: 20, oldPrice: 25, stock: 35, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1888930/header.jpg", detailsAr: "🏷️ 70GB | 🧟 لعبة البقاء", detailsEn: "📦 70GB | 🧟 Survival Game", sales: 290, category: "games" },
+        { id: 10, nameAr: "Final Fantasy XVI", nameEn: "Final Fantasy XVI", priceOMR: 22, oldPrice: 28, stock: 30, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2055370/header.jpg", detailsAr: "🏷️ 90GB | 🗡️ RPG خيالي", detailsEn: "📦 90GB | 🗡️ Fantasy RPG", sales: 250, category: "games" },
+        { id: 11, nameAr: "Star Wars Jedi Survivor", nameEn: "Star Wars Jedi Survivor", priceOMR: 18, oldPrice: 24, stock: 40, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1774580/header.jpg", detailsAr: "🏷️ 130GB | ⚔️ حرب النجوم", detailsEn: "📦 130GB | ⚔️ Star Wars", sales: 210, category: "games" },
+        { id: 12, nameAr: "Hogwarts Legacy", nameEn: "Hogwarts Legacy", priceOMR: 17, oldPrice: 22, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/990080/header.jpg", detailsAr: "🏷️ 85GB | 🪄 هاري بوتر", detailsEn: "📦 85GB | 🪄 Harry Potter", sales: 380, category: "games" },
+        { id: 13, nameAr: "Resident Evil 4 Remake", nameEn: "Resident Evil 4 Remake", priceOMR: 16, oldPrice: 22, stock: 50, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2050650/header.jpg", detailsAr: "🏷️ 60GB | 🧟 رعب", detailsEn: "📦 60GB | 🧟 Horror", sales: 320, category: "games" },
+        { id: 14, nameAr: "Dead Space Remake", nameEn: "Dead Space Remake", priceOMR: 15, oldPrice: 20, stock: 35, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1693980/header.jpg", detailsAr: "🏷️ 50GB | 🚀 رعب فضائي", detailsEn: "📦 50GB | 🚀 Space Horror", sales: 180, category: "games" },
+        { id: 15, nameAr: "Diablo IV", nameEn: "Diablo IV", priceOMR: 21, oldPrice: 28, stock: 40, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2344520/header.jpg", detailsAr: "🏷️ 80GB | 🔥 لعبة تقمص أدوار", detailsEn: "📦 80GB | 🔥 Action RPG", sales: 420, category: "games" },
+        { id: 16, nameAr: "Baldur's Gate 3", nameEn: "Baldur's Gate 3", priceOMR: 24, oldPrice: 30, stock: 35, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1086940/header.jpg", detailsAr: "🏷️ 120GB | 🎲 RPG استراتيجي", detailsEn: "📦 120GB | 🎲 Strategy RPG", sales: 450, category: "games" },
+        { id: 17, nameAr: "Cyberpunk 2077", nameEn: "Cyberpunk 2077", priceOMR: 13, oldPrice: 18, stock: 60, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/header.jpg", detailsAr: "🏷️ 70GB | 🤖 مستقبلية", detailsEn: "📦 70GB | 🤖 Futuristic", sales: 380, category: "games" },
+        { id: 18, nameAr: "EA Sports FC 24", nameEn: "EA Sports FC 24", priceOMR: 15, oldPrice: 20, stock: 80, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2195250/header.jpg", detailsAr: "🏷️ 45GB | ⚽ كرة قدم", detailsEn: "📦 45GB | ⚽ Football", sales: 520, category: "games" },
+        { id: 19, nameAr: "NBA 2K24", nameEn: "NBA 2K24", priceOMR: 15, oldPrice: 20, stock: 70, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2335780/header.jpg", detailsAr: "🏷️ 110GB | 🏀 كرة سلة", detailsEn: "📦 110GB | 🏀 Basketball", sales: 340, category: "games" },
+        { id: 20, nameAr: "Mortal Kombat 1", nameEn: "Mortal Kombat 1", priceOMR: 19, oldPrice: 25, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1971870/header.jpg", detailsAr: "🏷️ 100GB | 🥊 قتال", detailsEn: "📦 100GB | 🥊 Fighting", sales: 310, category: "games" },
+        { id: 21, nameAr: "Street Fighter 6", nameEn: "Street Fighter 6", priceOMR: 17, oldPrice: 23, stock: 50, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1364780/header.jpg", detailsAr: "🏷️ 60GB | 🥊 قتال", detailsEn: "📦 60GB | 🥊 Fighting", sales: 280, category: "games" },
+        { id: 22, nameAr: "Tekken 8", nameEn: "Tekken 8", priceOMR: 20, oldPrice: 26, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1778820/header.jpg", detailsAr: "🏷️ 80GB | 🥊 قتال", detailsEn: "📦 80GB | 🥊 Fighting", sales: 260, category: "games" },
+        { id: 23, nameAr: "Armored Core VI", nameEn: "Armored Core VI", priceOMR: 18, oldPrice: 24, stock: 35, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1888160/header.jpg", detailsAr: "🏷️ 60GB | 🤖 ميكا", detailsEn: "📦 60GB | 🤖 Mecha", sales: 190, category: "games" },
+        { id: 24, nameAr: "Lies of P", nameEn: "Lies of P", priceOMR: 17, oldPrice: 23, stock: 40, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1627720/header.jpg", detailsAr: "🏷️ 35GB | 🎭 سولز لايك", detailsEn: "📦 35GB | 🎭 Souls-like", sales: 210, category: "games" },
+        { id: 25, nameAr: "Stray", nameEn: "Stray", priceOMR: 11, oldPrice: 15, stock: 90, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1332010/header.jpg", detailsAr: "🏷️ 10GB | 🐱 قط", detailsEn: "📦 10GB | 🐱 Cat", sales: 410, category: "games" },
+        { id: 26, nameAr: "It Takes Two", nameEn: "It Takes Two", priceOMR: 10, oldPrice: 14, stock: 85, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1426210/header.jpg", detailsAr: "🏷️ 45GB | 👥 تعاوني", detailsEn: "📦 45GB | 👥 Co-op", sales: 390, category: "games" },
+        { id: 27, nameAr: "Red Dead Redemption 2", nameEn: "Red Dead Redemption 2", priceOMR: 12, oldPrice: 17, stock: 70, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1174180/header.jpg", detailsAr: "🏷️ 115GB | 🤠 رعاة البقر", detailsEn: "📦 115GB | 🤠 Western", sales: 480, category: "games" },
+        { id: 28, nameAr: "Grand Theft Auto V", nameEn: "Grand Theft Auto V", priceOMR: 10, oldPrice: 14, stock: 100, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/271590/header.jpg", detailsAr: "🏷️ 95GB | 🌍 عالم مفتوح", detailsEn: "📦 95GB | 🌍 Open World", sales: 620, category: "games" },
+        { id: 29, nameAr: "The Witcher 3", nameEn: "The Witcher 3", priceOMR: 9, oldPrice: 13, stock: 85, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/292030/header.jpg", detailsAr: "🏷️ 50GB | ⚔️ RPG خيالي", detailsEn: "📦 50GB | ⚔️ Fantasy RPG", sales: 550, category: "games" },
+        { id: 30, nameAr: "Sekiro: Shadows Die Twice", nameEn: "Sekiro: Shadows Die Twice", priceOMR: 19, oldPrice: 25, stock: 40, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/814380/header.jpg", detailsAr: "🏷️ 25GB | 🗡️ ساموراي", detailsEn: "📦 25GB | 🗡️ Samurai", sales: 320, category: "games" }
+    ];
+    
+    const giftCards = [
+        { id: 101, nameAr: "🇺🇸 بطاقة أمريكي", nameEn: "🇺🇸 US Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/50px-Flag_of_the_United_States.svg.png", detailsAr: "10$ | 25$ | 50$ | 100$", detailsEn: "10$ | 25$ | 50$ | 100$", sales: 244 },
+        { id: 102, nameAr: "🇸🇦 بطاقة سعودي", nameEn: "🇸🇦 Saudi Card", category: "giftcards", priceOMR: 4.5, oldPrice: 5.5, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/50px-Flag_of_Saudi_Arabia.svg.png", detailsAr: "50ر.س | 100ر.س | 200ر.س", detailsEn: "50 SAR | 100 SAR | 200 SAR", sales: 210 },
+        { id: 103, nameAr: "🇦🇪 بطاقة إماراتي", nameEn: "🇦🇪 UAE Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Flag_of_the_United_Arab_Emirates.svg/50px-Flag_of_the_United_Arab_Emirates.svg.png", detailsAr: "50د.إ | 100د.إ | 200د.إ", detailsEn: "50 AED | 100 AED | 200 AED", sales: 195 },
+        { id: 104, nameAr: "🇴🇲 بطاقة عماني", nameEn: "🇴🇲 Oman Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Flag_of_Oman.svg/50px-Flag_of_Oman.svg.png", detailsAr: "5ر.ع | 10ر.ع | 20ر.ع", detailsEn: "5 OMR | 10 OMR | 20 OMR", sales: 180 }
+    ];
+    
+    const allDefaultProducts = [...realGames, ...giftCards];
+    
+    // ==================== Firebase والإعدادات ====================
     const firebaseConfig = { databaseURL: "https://xnesto-645bf-default-rtdb.asia-southeast1.firebasedatabase.app/" };
     
-    // محاولة تهيئة Firebase مع مهلة
     let firebaseInitialized = false;
     let database = null;
     let productsRef = null;
@@ -451,36 +500,7 @@
     const ADMIN_PASSWORD = "ssp1995";
     const SESSION_KEY = "xnesto_admin_logged";
     
-    // المنتجات الافتراضية (تظهر فوراً)
-    const defaultGames = [
-        { id: 1, nameAr: "Assassin's Creed Shadows", nameEn: "Assassin's Creed Shadows", priceOMR: 14, oldPrice: 20, stock: 50, image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/3159340/header.jpg", detailsAr: "🏷️ 65GB | 🎮 عربي/إنجليزي", detailsEn: "📦 65GB | 🎮 Arabic/English", order: 1, sales: 564, category: "games" },
-        { id: 2, nameAr: "Call of Duty Black Ops 6", nameEn: "Call of Duty Black Ops 6", priceOMR: 22, oldPrice: 30, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2933620/header.jpg", detailsAr: "🏷️ 120GB | 🎮 إنجليزي", detailsEn: "📦 120GB | 🎮 English", order: 2, sales: 464, category: "games" },
-        { id: 3, nameAr: "Grand Theft Auto VI", nameEn: "Grand Theft Auto VI", priceOMR: 6, oldPrice: 10, stock: 100, image: "https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/downloads/gtavi/gtavi_cover_ps5.jpg", detailsAr: "🏷️ 150GB | 🌍 عالم مفتوح", detailsEn: "📦 150GB | 🌍 Open World", order: 3, sales: 588, category: "games" },
-        { id: 4, nameAr: "God of War Ragnarök", nameEn: "God of War Ragnarök", priceOMR: 10, oldPrice: 15, stock: 60, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2322010/header.jpg", detailsAr: "🏷️ 85GB | 🪓 ملحمة إسكندنافية", detailsEn: "📦 85GB | 🪓 Norse Saga", order: 4, sales: 274, category: "games" },
-        { id: 5, nameAr: "Spider-Man 2", nameEn: "Spider-Man 2", priceOMR: 16, oldPrice: 22, stock: 40, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2651280/header.jpg", detailsAr: "🏷️ 98GB | 🕷️ بيتر + مايلز", detailsEn: "📦 98GB | 🕷️ Peter + Miles", order: 5, sales: 440, category: "games" },
-        { id: 6, nameAr: "Elden Ring", nameEn: "Elden Ring", priceOMR: 12, oldPrice: 18, stock: 55, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg", detailsAr: "🏷️ 60GB | ⚔️ RPG خيالي", detailsEn: "📦 60GB | ⚔️ Fantasy RPG", order: 6, sales: 520, category: "games" },
-        { id: 7, nameAr: "Horizon Forbidden West", nameEn: "Horizon Forbidden West", priceOMR: 11, oldPrice: 17, stock: 50, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1151640/header.jpg", detailsAr: "🏷️ 96GB | 🦕 مغامرة مستقبلية", detailsEn: "📦 96GB | 🦕 Future Adventure", order: 7, sales: 380, category: "games" },
-        { id: 8, nameAr: "Ghost of Tsushima", nameEn: "Ghost of Tsushima", priceOMR: 11, oldPrice: 17, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2215430/header.jpg", detailsAr: "🏷️ 50GB | 🗡️ ساموراي", detailsEn: "📦 50GB | 🗡️ Samurai", order: 8, sales: 312, category: "games" }
-    ];
-    for (let i = 9; i <= 50; i++) {
-        defaultGames.push({
-            id: i, nameAr: `لعبة PS5 مميزة ${i}`, nameEn: `Premium PS5 Game ${i}`,
-            priceOMR: 9 + Math.floor(Math.random() * 10), oldPrice: 12 + Math.floor(Math.random() * 10),
-            stock: 20 + Math.floor(Math.random() * 80), order: i,
-            image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2358720/header.jpg",
-            detailsAr: `🏷️ لعبة رقم ${i}`, detailsEn: `Game ${i}`, sales: Math.floor(Math.random() * 300) + 50, category: "games"
-        });
-    }
-    const giftCards = [
-        { id: 101, nameAr: "🇺🇸 بطاقة أمريكي", nameEn: "🇺🇸 US Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/30px-Flag_of_the_United_States.svg.png", detailsAr: "10$ | 25$ | 50$ | 100$", detailsEn: "10$ | 25$ | 50$ | 100$", order: 101, sales: 244 },
-        { id: 102, nameAr: "🇸🇦 بطاقة سعودي", nameEn: "🇸🇦 Saudi Card", category: "giftcards", priceOMR: 4.5, oldPrice: 5.5, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/30px-Flag_of_Saudi_Arabia.svg.png", detailsAr: "50ر.س | 100ر.س | 200ر.س", detailsEn: "50 SAR | 100 SAR | 200 SAR", order: 102, sales: 210 },
-        { id: 103, nameAr: "🇦🇪 بطاقة إماراتي", nameEn: "🇦🇪 UAE Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Flag_of_the_United_Arab_Emirates.svg/30px-Flag_of_the_United_Arab_Emirates.svg.png", detailsAr: "50د.إ | 100د.إ | 200د.إ", detailsEn: "50 AED | 100 AED | 200 AED", order: 103, sales: 195 },
-        { id: 104, nameAr: "🇴🇲 بطاقة عماني", nameEn: "🇴🇲 Oman Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Flag_of_Oman.svg/30px-Flag_of_Oman.svg.png", detailsAr: "5ر.ع | 10ر.ع | 20ر.ع", detailsEn: "5 OMR | 10 OMR | 20 OMR", order: 104, sales: 180 }
-    ];
-    for (let i = 0; i < giftCards.length; i++) giftCards[i].category = "giftcards";
-    const allDefaultProducts = [...defaultGames, ...giftCards];
-    
-    // عرض المنتجات فوراً (بدون انتظار Firebase)
+    // عرض المنتجات فوراً
     function displayProductsImmediately() {
         products = JSON.parse(JSON.stringify(allDefaultProducts));
         products.forEach((p, idx) => { p.order = idx; });
@@ -499,7 +519,6 @@
             categoriesRef = database.ref('categories');
             ordersRef = database.ref('orders');
             
-            // مهلة 3 ثواني
             const timeoutId = setTimeout(() => {
                 if (!firebaseInitialized) {
                     console.log("Firebase timeout - using local data");
@@ -507,7 +526,6 @@
                 }
             }, 3000);
             
-            // تحميل المنتجات
             productsRef.on('value', (snapshot) => {
                 clearTimeout(timeoutId);
                 const data = snapshot.val();
@@ -539,7 +557,6 @@
                 }
             });
             
-            // تحميل التصنيفات
             categoriesRef.on('value', (snapshot) => {
                 const data = snapshot.val();
                 if (data && data.categories && data.names) {
@@ -553,7 +570,6 @@
                 renderCategoriesList();
             });
             
-            // تحميل الطلبات
             ordersRef.on('value', (snapshot) => {
                 const data = snapshot.val();
                 if (data) orders = Object.values(data).sort((a,b) => b.id - a.id);
@@ -564,7 +580,6 @@
             
         } catch (error) {
             console.log("Firebase initialization failed:", error);
-            // استخدام البيانات المحلية
             products = JSON.parse(JSON.stringify(allDefaultProducts));
             products.forEach((p, idx) => { p.order = idx; });
             renderProductsTable();
@@ -576,7 +591,6 @@
         }
     }
     
-    // حفظ المنتجات
     function saveProducts() { 
         if (productsRef) {
             return productsRef.set(products)
@@ -589,13 +603,11 @@
                     return false;
                 });
         } else {
-            // إذا لم تكن Firebase جاهزة، فقط حفظ محلياً
             console.log('محلياً - تم حفظ المنتجات');
             return Promise.resolve(true);
         }
     }
     
-    // باقي الدوال كما هي (لم أغيرها)
     function checkSession() {
         if (localStorage.getItem(SESSION_KEY) === "true") { 
             isLoggedIn = true; 
@@ -620,8 +632,8 @@
     function showAdminPanel() {
         document.getElementById('adminPanel').style.display = 'block';
         document.getElementById('logoutBtn').style.display = 'inline-block';
-        displayProductsImmediately(); // عرض فوري
-        initFirebase(); // تشغيل Firebase في الخلفية
+        displayProductsImmediately();
+        initFirebase();
         switchTab('products');
     }
     
@@ -631,7 +643,6 @@
     }
     document.getElementById('logoutBtn').onclick = logout;
     
-    // Tabs
     document.querySelectorAll('.admin-tab').forEach(tab => {
         tab.onclick = () => switchTab(tab.dataset.tab);
     });
@@ -815,4 +826,333 @@
                         <div class="product-edit-form">
                             <div class="edit-field">
                                 <label>📝 الاسم بالعربية</label>
-                            
+                                <input type="text" id="editNameAr_${p.id}" value="${escapeHtml(p.nameAr)}">
+                            </div>
+                            <div class="edit-field">
+                                <label>🌐 الاسم بالإنجليزية</label>
+                                <input type="text" id="editNameEn_${p.id}" value="${escapeHtml(p.nameEn)}">
+                            </div>
+                            <div class="edit-field">
+                                <label>💰 السعر (ر.ع)</label>
+                                <input type="number" id="editPrice_${p.id}" value="${p.priceOMR}" step="0.5">
+                            </div>
+                            <div class="edit-field">
+                                <label>🏷️ السعر القديم</label>
+                                <input type="number" id="editOldPrice_${p.id}" value="${p.oldPrice || ''}" step="0.5">
+                            </div>
+                            <div class="edit-field">
+                                <label>📦 الكمية</label>
+                                <input type="number" id="editStock_${p.id}" value="${p.stock || 0}" step="1">
+                            </div>
+                            <div class="edit-field">
+                                <label>📈 المبيعات</label>
+                                <input type="number" id="editSales_${p.id}" value="${p.sales || 0}" step="1">
+                            </div>
+                            <div class="edit-field">
+                                <label>🖼️ الصورة (رابط)</label>
+                                <input type="text" id="editImageUrl_${p.id}" value="${escapeHtml(p.image || '')}" placeholder="رابط الصورة">
+                                <div class="edit-image-upload" onclick="document.getElementById('editImageFile_${p.id}').click()">
+                                    <i class="fas fa-cloud-upload-alt"></i> اختر صورة من جهازك
+                                    <input type="file" id="editImageFile_${p.id}" accept="image/*" style="display:none;">
+                                </div>
+                                <img id="editImagePreview_${p.id}" class="edit-image-preview" src="${p.image || ''}" onerror="this.style.display='none'" style="${p.image ? 'display:block' : 'display:none'}">
+                            </div>
+                            <div class="edit-field">
+                                <label>📝 الوصف بالعربية</label>
+                                <textarea id="editDescAr_${p.id}" rows="2">${escapeHtml(p.detailsAr || '')}</textarea>
+                            </div>
+                            <div class="edit-field">
+                                <label>📝 الوصف بالإنجليزية</label>
+                                <textarea id="editDescEn_${p.id}" rows="2">${escapeHtml(p.detailsEn || '')}</textarea>
+                            </div>
+                            <div class="edit-field">
+                                <label>📂 التصنيف</label>
+                                <select id="editCategory_${p.id}">${categories.map(cat => `<option value="${cat}" ${p.category === cat ? 'selected' : ''}>${categoryNames[cat]}</option>`).join('')}</select>
+                            </div>
+                            <div class="edit-buttons">
+                                <button onclick="saveEdit(${p.id})" style="background:#00cc88;">💾 حفظ</button>
+                                <button onclick="closeEditForm(${p.id})" style="background:#ff4444;">إلغاء</button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        }).join('');
+        
+        products.forEach(p => {
+            const fileInput = document.getElementById(`editImageFile_${p.id}`);
+            if (fileInput) {
+                fileInput.onchange = (e) => {
+                    const file = e.target.files[0];
+                    if (file) handleEditImageUpload(p.id, file);
+                };
+            }
+        });
+    }
+    
+    async function deleteProduct(id) {
+        if (confirm('⚠️ حذف المنتج؟')) {
+            products = products.filter(p => p.id != id);
+            products.forEach((p, idx) => { p.order = idx; });
+            await saveProducts();
+            renderProductsTable();
+            updateProductsStats();
+            renderBestsellersList();
+            updateBestsellerSelect();
+            alert('✅ تم الحذف');
+        }
+    }
+    
+    function handleImageUpload(file, callback) {
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (e) => callback(e.target.result);
+        reader.readAsDataURL(file);
+    }
+    
+    const uploadArea = document.getElementById("newImageUploadArea");
+    const fileInput = document.getElementById("newImageFile");
+    const preview = document.getElementById("newImagePreview");
+    if (uploadArea) uploadArea.addEventListener("click", () => fileInput.click());
+    if (fileInput) {
+        fileInput.addEventListener("change", (e) => {
+            const file = e.target.files[0];
+            if (file) handleImageUpload(file, (data) => { currentImageData = data; preview.src = data; preview.style.display = "block"; });
+        });
+    }
+    
+    async function addProduct() {
+        const nameAr = document.getElementById('newNameAr').value.trim();
+        const nameEn = document.getElementById('newNameEn').value.trim();
+        const category = document.getElementById('newCategorySelect').value;
+        const price = parseFloat(document.getElementById('newPrice').value);
+        const oldPrice = parseFloat(document.getElementById('newOldPrice').value) || null;
+        const stock = parseInt(document.getElementById('newStock').value) || 0;
+        const sales = parseInt(document.getElementById('newSales').value) || 0;
+        const image = currentImageData || "";
+        const desc = document.getElementById('newDesc').value.trim();
+        
+        if (!nameAr || !nameEn || isNaN(price)) { 
+            alert('⚠️ يرجى ملء الاسم والسعر'); 
+            return; 
+        }
+        
+        const newProduct = { 
+            id: Date.now(), 
+            nameAr, 
+            nameEn, 
+            category, 
+            priceOMR: price, 
+            oldPrice: (oldPrice && oldPrice > price) ? oldPrice : null, 
+            stock, 
+            image, 
+            detailsAr: desc, 
+            detailsEn: desc, 
+            order: products.length, 
+            sales: sales 
+        };
+        
+        products.push(newProduct);
+        const success = await saveProducts();
+        
+        if (success) {
+            document.getElementById('newNameAr').value = ''; 
+            document.getElementById('newNameEn').value = ''; 
+            document.getElementById('newPrice').value = ''; 
+            document.getElementById('newOldPrice').value = ''; 
+            document.getElementById('newStock').value = '99'; 
+            document.getElementById('newSales').value = '0'; 
+            document.getElementById('newDesc').value = ''; 
+            currentImageData = null; 
+            preview.style.display = 'none';
+            preview.src = '';
+            
+            alert('✅ تم إضافة المنتج');
+            renderProductsTable();
+            updateProductsStats();
+            renderBestsellersList();
+            updateBestsellerSelect();
+        } else {
+            products.pop();
+            alert('❌ فشل الحفظ');
+        }
+    }
+    
+    function updateBestsellerSelect() {
+        const select = document.getElementById('addToBestsellerSelect');
+        if (!select) return;
+        select.innerHTML = '<option value="">-- اختر لعبة --</option>';
+        products.filter(p => p.category === 'games').forEach(p => {
+            select.innerHTML += `<option value="${p.id}">${p.nameAr} (${p.sales || 0} مبيعات)</option>`;
+        });
+    }
+    
+    function addToBestsellers() {
+        const productId = parseInt(document.getElementById('addToBestsellerSelect').value);
+        const newSales = parseInt(document.getElementById('bestsellerSales').value);
+        if (!productId || isNaN(newSales)) { alert('اختر لعبة وأدخل عدد المبيعات'); return; }
+        const product = products.find(p => p.id === productId);
+        if (product) {
+            product.sales = newSales;
+            saveProducts();
+            renderBestsellersList();
+            renderProductsTable();
+            updateBestsellerSelect();
+            alert(`✅ تم تحديث مبيعات ${product.nameAr} إلى ${newSales}`);
+        }
+    }
+    
+    function renderBestsellersList() {
+        const sorted = [...products].filter(p => p.category === 'games').sort((a, b) => (b.sales || 0) - (a.sales || 0));
+        const container = document.getElementById('bestsellerList');
+        if (!container) return;
+        container.innerHTML = sorted.map((p, index) => `
+            <div class="bestseller-item">
+                <div class="bestseller-item-info">
+                    <div class="bestseller-rank">${index + 1}</div>
+                    <img src="${p.image || 'https://via.placeholder.com/30'}" onerror="this.src='https://via.placeholder.com/30'">
+                    <div><strong>${escapeHtml(p.nameAr)}</strong><br><small>${escapeHtml(p.nameEn)}</small></div>
+                </div>
+                <div class="bestseller-sales"><i class="fas fa-chart-line"></i> ${p.sales || 0}</div>
+                <div><input type="number" class="sales-input" id="bestseller_sales_${p.id}" value="${p.sales || 0}" step="1" style="width:65px;"> <button onclick="updateSales(${p.id}, document.getElementById('bestseller_sales_${p.id}').value)" class="btn-sm btn-success">تحديث</button></div>
+            </div>
+        `).join('');
+    }
+    function refreshBestsellers() { renderBestsellersList(); alert('✅ تم تحديث القائمة'); }
+    
+    function updateOrdersStats() {
+        const pending = orders.filter(o => o.status === 'pending').length;
+        const completed = orders.filter(o => o.status === 'completed').length;
+        const total = orders.length;
+        const statsDiv = document.getElementById('ordersStats');
+        if (statsDiv) {
+            statsDiv.innerHTML = `
+                <div class="stat-card"><i class="fas fa-clock"></i><div class="stat-value">${pending}</div><div class="stat-label">قيد المعالجة</div></div>
+                <div class="stat-card"><i class="fas fa-check-circle"></i><div class="stat-value">${completed}</div><div class="stat-label">مكتملة</div></div>
+                <div class="stat-card"><i class="fas fa-shopping-cart"></i><div class="stat-value">${total}</div><div class="stat-label">إجمالي الطلبات</div></div>
+            `;
+            statsDiv.style.display = 'grid';
+        }
+    }
+    
+    function renderOrdersTable() {
+        const container = document.getElementById('ordersTable');
+        if (!container) return;
+        if (orders.length === 0) { container.innerHTML = '<div class="loading">لا توجد طلبات</div>'; return; }
+        container.innerHTML = `
+            <div style="overflow-x:auto;">
+                <table>
+                    <thead><tr><th>رقم الطلب</th><th>المنتج</th><th>السعر</th><th>التاريخ</th><th>الحالة</th></tr></thead>
+                    <tbody>
+                        ${orders.map(order => `
+                            <tr>
+                                <td>#${order.id}</td>
+                                <td>${escapeHtml(order.productName || 'منتج')}</td>
+                                <td>${order.price || 0} ر.ع</td>
+                                <td>${order.date ? new Date(order.date).toLocaleDateString('ar') : '-'}</td>
+                                <td><span class="status-badge status-${order.status || 'pending'}">${order.status === 'completed' ? 'مكتمل' : 'قيد المعالجة'}</span></td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+        `;
+    }
+    
+    function updateCategorySelect() {
+        const select = document.getElementById('newCategorySelect');
+        if (select) {
+            select.innerHTML = categories.map(cat => `<option value="${cat}">${categoryNames[cat]}</option>`).join('');
+        }
+        const filterSelect = document.getElementById('filterCategory');
+        if (filterSelect) {
+            filterSelect.innerHTML = '<option value="all">الكل</option>' + categories.map(cat => `<option value="${cat}">${categoryNames[cat]}</option>`).join('');
+        }
+    }
+    
+    function renderCategoriesList() {
+        const container = document.getElementById('categoriesList');
+        if (!container) return;
+        container.innerHTML = categories.map(cat => `
+            <div class="category-badge">
+                ${categoryNames[cat]}
+                <i class="fas fa-trash-alt" onclick="deleteCategory('${cat}')"></i>
+            </div>
+        `).join('');
+    }
+    
+    function deleteCategory(cat) {
+        if (confirm(`حذف تصنيف "${categoryNames[cat]}"؟`)) {
+            categories = categories.filter(c => c !== cat);
+            delete categoryNames[cat];
+            if (categoriesRef) categoriesRef.set({ categories, names: categoryNames });
+            updateCategorySelect();
+            renderCategoriesList();
+            alert('✅ تم الحذف');
+        }
+    }
+    
+    document.getElementById('addCategoryBtn').onclick = () => {
+        const newCat = document.getElementById('newCategoryName').value.trim();
+        if (newCat && !categories.includes(newCat)) {
+            categories.push(newCat);
+            categoryNames[newCat] = newCat;
+            if (categoriesRef) categoriesRef.set({ categories, names: categoryNames });
+            updateCategorySelect();
+            renderCategoriesList();
+            document.getElementById('newCategoryName').value = '';
+            alert('✅ تم إضافة التصنيف');
+        } else {
+            alert('التصنيف موجود أو فارغ');
+        }
+    };
+    
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+        searchQuery = e.target.value.toLowerCase();
+        renderProductsTable();
+    });
+    document.getElementById('filterCategory').addEventListener('change', (e) => {
+        filterCategory = e.target.value;
+        renderProductsTable();
+    });
+    
+    function escapeHtml(text) { 
+        if (!text) return ''; 
+        return text.toString().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;"); 
+    }
+    
+    function toggleMode() {
+        document.body.classList.toggle('light-mode');
+        const btn = document.querySelector('.mode-toggle-btn');
+        if (document.body.classList.contains('light-mode')) {
+            btn.innerHTML = '🌞 نهاري';
+        } else {
+            btn.innerHTML = '🌙 ليلي';
+        }
+        localStorage.setItem('admin_mode', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+    }
+    const savedMode = localStorage.getItem('admin_mode');
+    if (savedMode === 'light') {
+        document.body.classList.add('light-mode');
+        const btn = document.querySelector('.mode-toggle-btn');
+        if (btn) btn.innerHTML = '🌞 نهاري';
+    }
+    
+    window.updateSales = updateSales;
+    window.updateStock = updateStock;
+    window.setProductOrder = setProductOrder;
+    window.moveToTop = moveToTop;
+    window.moveToBottom = moveToBottom;
+    window.openEditForm = openEditForm;
+    window.closeEditForm = closeEditForm;
+    window.saveEdit = saveEdit;
+    window.deleteProduct = deleteProduct;
+    window.addProduct = addProduct;
+    window.addToBestsellers = addToBestsellers;
+    window.refreshBestsellers = refreshBestsellers;
+    window.toggleMode = toggleMode;
+    
+    checkSession();
+</script>
+</body>
+</html>
