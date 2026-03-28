@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>xnesto – متجر الألعاب وبطاقات الشحن | PS4/PS5</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <style>
@@ -13,12 +14,210 @@
             background: linear-gradient(135deg, #0a0a1a 0%, #0a0a1a 100%);
             font-family: 'Cairo', 'Segoe UI', Tahoma, system-ui, sans-serif;
             color: #f0f0ff;
-            padding: 1.5rem;
+            padding: 1rem;
             min-height: 100vh;
         }
         
+        /* ========== HERO HEADER DESIGN ========== */
+        .hero-header {
+            position: relative;
+            background: linear-gradient(135deg, #0f0f2a 0%, #1a1a3a 50%, #0a0a1f 100%);
+            border-radius: 2rem;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            border: 1px solid rgba(255, 170, 68, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 170, 68, 0.1);
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        /* خلفية متحركة بتوهج */
+        .hero-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 40%, rgba(255, 170, 68, 0.15), transparent 50%),
+                        radial-gradient(circle at 70% 60%, rgba(0, 150, 255, 0.1), transparent 50%);
+            animation: rotateGlow 15s linear infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes rotateGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem 1.5rem;
+        }
+        
+        /* الشعار مع تأثير النبض */
+        .logo-section {
+            margin-bottom: 1rem;
+        }
+        
+        .main-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 2.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffcc88, #ffaa44, #ff8844);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 3px;
+            animation: pulseGlow 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% {
+                text-shadow: 0 0 5px rgba(255, 170, 68, 0.3);
+                transform: scale(1);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(255, 170, 68, 0.6);
+                transform: scale(1.02);
+            }
+        }
+        
+        /* أيقونة التحكم المتحركة */
+        .controller-icon {
+            display: inline-block;
+            font-size: 2.8rem;
+            margin: 0 5px;
+            animation: floatController 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(255, 170, 68, 0.5));
+        }
+        
+        @keyframes floatController {
+            0%, 100% {
+                transform: translateY(0) rotate(-3deg);
+            }
+            50% {
+                transform: translateY(-8px) rotate(3deg);
+            }
+        }
+        
+        /* النص التعريفي مع تأثير الكتابة */
+        .tagline {
+            font-size: 1.1rem;
+            color: #ffdd99;
+            margin: 0.5rem 0 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tagline-text {
+            border-right: 2px solid #ffaa44;
+            padding-right: 10px;
+            animation: blinkCursor 0.8s step-end infinite;
+        }
+        
+        @keyframes blinkCursor {
+            0%, 100% { border-right-color: #ffaa44; }
+            50% { border-right-color: transparent; }
+        }
+        
+        /* الأزرار (الوسوم) */
+        .quotes-container {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+        }
+        
+        .hero-badge {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 170, 68, 0.4);
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+        
+        .hero-badge i {
+            margin-left: 6px;
+            color: #ffaa44;
+        }
+        
+        .hero-badge:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 170, 68, 0.2);
+            border-color: #ffaa44;
+            box-shadow: 0 5px 15px rgba(255, 170, 68, 0.2);
+        }
+        
+        /* الإحصائيات */
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+        
+        .stat-item {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+            padding: 8px 20px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 170, 68, 0.2);
+        }
+        
+        .stat-item i {
+            color: #ffaa44;
+            font-size: 1rem;
+        }
+        
+        .stat-number {
+            color: #ffaa44;
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 170, 68, 0.15);
+            border-color: #ffaa44;
+        }
+        
+        /* ========== باقي التصميم ========== */
         @media (max-width: 640px) {
             body { padding: 0.5rem; }
+            .hero-content { padding: 1.5rem 1rem; }
+            .main-logo { font-size: 1.8rem; gap: 8px; }
+            .controller-icon { font-size: 1.8rem; }
+            .tagline { font-size: 0.85rem; }
+            .hero-badge { padding: 5px 12px; font-size: 0.7rem; }
+            .stat-item { padding: 5px 12px; font-size: 0.7rem; }
+            .stat-number { font-size: 0.9rem; }
             .products-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 0.8rem; }
             .product-image { height: 130px; background-size: contain !important; background-repeat: no-repeat !important; background-position: center !important; }
             .product-title { font-size: 0.85rem; }
@@ -32,23 +231,6 @@
         @media (min-width: 1025px) {
             .products-grid { grid-template-columns: repeat(4, 1fr) !important; gap: 1.5rem; }
         }
-        
-        .header {
-            text-align: center;
-            background: linear-gradient(135deg, #0f0f2a, #0a0a1f);
-            padding: 0.5rem 1rem 1.5rem;
-            border-radius: 1.5rem;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(255, 170, 68, 0.3);
-        }
-        .header h1 {
-            font-size: 2.5rem;
-            background: linear-gradient(135deg, #ffaa44, #ffcc88, #ffaa44);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-        }
-        .header p { color: #ffdd99; font-size: 0.9rem; }
         
         .control-bar {
             max-width: 1400px;
@@ -284,6 +466,12 @@
             color: white;
             text-decoration: none;
             z-index: 999;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background: #20b859;
         }
         
         .modal {
@@ -309,6 +497,17 @@
             max-width: 550px;
             max-height: 90vh;
             overflow-y: auto;
+            animation: fadeInScale 0.3s ease;
+        }
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
         .modal-content h3 {
             color: #ffaa44;
@@ -349,7 +548,9 @@
             cursor: pointer;
             font-weight: bold;
             font-size: 0.9rem;
+            transition: all 0.2s;
         }
+        .btn-cancel:hover { background: #555; transform: scale(1.02); }
         .btn-accept {
             background: #ffaa44;
             color: #0a0a1a;
@@ -359,7 +560,9 @@
             cursor: pointer;
             font-weight: bold;
             font-size: 0.9rem;
+            transition: all 0.2s;
         }
+        .btn-accept:hover { background: #ffbb55; transform: scale(1.02); }
         
         .device-bar {
             background: #07071a;
@@ -383,6 +586,7 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            transition: all 0.2s;
         }
         .device-btn.active { background: #ffaa44; color: #0a0a1a; border-color: #ffaa44; }
         .mode-toggle-btn {
@@ -397,12 +601,17 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            transition: all 0.2s;
+        }
+        .mode-toggle-btn:hover {
+            background: rgba(255,170,68,0.2);
+            border-color: #ffaa44;
         }
         body.light-mode {
             background: #f0f4ff !important;
             color: #1a1a2e !important;
         }
-        body.light-mode .header { background: linear-gradient(135deg, #1a3a7a, #0d2a6e) !important; }
+        body.light-mode .hero-header { background: linear-gradient(135deg, #1a3a7a, #0d2a6e) !important; }
         body.light-mode .control-bar { background: rgba(255,255,255,0.95) !important; }
         body.light-mode .product-card { background: #ffffff !important; }
         body.light-mode .product-title { color: #1a1a2e !important; }
@@ -410,6 +619,8 @@
         body.light-mode .device-bar { background: #1a3a7a !important; }
         body.light-mode .modal-content { background: #ffffff !important; }
         body.light-mode .modal-content li { color: #333; }
+        body.light-mode .stat-item { background: rgba(0,0,0,0.05); }
+        body.light-mode .hero-badge { background: rgba(0,0,0,0.05); }
     </style>
 </head>
 <body>
@@ -420,9 +631,30 @@
     <button class="mode-toggle-btn" onclick="toggleMode()">🌙 ليلي</button>
 </div>
 
-<div class="header">
-    <h1>🎮 XNESTO STORE 🎮</h1>
-    <p>أكبر متجر لألعاب PlayStation وبطاقات الشحن - توصيل فوري</p>
+<!-- ========== HERO HEADER الجديد ========== -->
+<div class="hero-header">
+    <div class="hero-content">
+        <div class="logo-section">
+            <span class="controller-icon"><i class="fas fa-gamepad"></i></span>
+            <span class="main-logo">XNESTO STORE</span>
+            <span class="controller-icon"><i class="fas fa-store"></i></span>
+        </div>
+        <div class="tagline">
+            <span class="tagline-text" id="typingText">أكبر متجر لألعاب PlayStation وبطاقات الشحن - توصيل فوري</span>
+        </div>
+        <div class="quotes-container">
+            <div class="hero-badge"><i class="fas fa-tag"></i> أفضل الأسعار</div>
+            <div class="hero-badge"><i class="fas fa-bolt"></i> توصيل فوري</div>
+            <div class="hero-badge"><i class="fas fa-headset"></i> دعم 24/7</div>
+            <div class="hero-badge"><i class="fas fa-shield-alt"></i> دفع آمن</div>
+        </div>
+        <div class="stats-container">
+            <div class="stat-item"><i class="fas fa-gamepad"></i> <span class="stat-number">50+</span> <span>لعبة</span></div>
+            <div class="stat-item"><i class="fas fa-users"></i> <span class="stat-number">10K+</span> <span>عميل</span></div>
+            <div class="stat-item"><i class="fas fa-star"></i> <span class="stat-number">4.9</span> <span>تقييم</span></div>
+            <div class="stat-item"><i class="fas fa-clock"></i> <span class="stat-number">24/7</span> <span>دعم</span></div>
+        </div>
+    </div>
 </div>
 
 <div class="control-bar">
@@ -513,6 +745,19 @@
     
     const exchangeRates = { OMR: 1, SAR: 9.75, AED: 9.55, KWD: 0.79, BHD: 0.98, QAR: 9.46, USD: 2.6, EUR: 2.4 };
     const currencySymbols = { OMR: "ر.ع", SAR: "ر.س", AED: "د.إ", KWD: "د.ك", BHD: "د.ب", QAR: "ر.ق", USD: "$", EUR: "€" };
+    
+    // تأثير الكتابة (Typing Effect)
+    const typingText = document.getElementById('typingText');
+    const fullText = "أكبر متجر لألعاب PlayStation وبطاقات الشحن - توصيل فوري";
+    let i = 0;
+    function typeWriter() {
+        if (i < fullText.length) {
+            typingText.innerHTML += fullText.charAt(i);
+            i++;
+            setTimeout(typeWriter, 50);
+        }
+    }
+    setTimeout(typeWriter, 500);
     
     // ==================== المنتجات الافتراضية ====================
     const allGames = [
