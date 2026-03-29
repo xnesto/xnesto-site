@@ -18,6 +18,15 @@
             min-height: 100vh;
         }
         
+        /* تحسين استجابة الشبكة للجوال والكمبيوتر */
+        .products-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* الوضع الافتراضي للكمبيوتر */
+            gap: 1.5rem;
+        }
+
         @media (max-width: 640px) {
             body { padding: 0.5rem; }
             .products-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 0.8rem; }
@@ -35,10 +44,6 @@
         
         @media (min-width: 641px) and (max-width: 1024px) {
             .products-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 1rem; }
-        }
-        
-        @media (min-width: 1025px) {
-            .products-grid { grid-template-columns: repeat(4, 1fr) !important; gap: 1.5rem; }
         }
         
         .hero-header {
@@ -241,27 +246,6 @@
         }
         .trust-badge i { font-size: 1rem; color: #ffaa44; }
         
-        .coupon-banner {
-            background: linear-gradient(135deg, #2d2f6e, #1e1e3a);
-            border-radius: 1rem;
-            padding: 0.5rem 1rem;
-            margin-bottom: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .coupon-code {
-            background: #ffaa44;
-            color: #0a0a1a;
-            padding: 5px 12px;
-            border-radius: 2rem;
-            font-weight: bold;
-            font-size: 0.8rem;
-            cursor: pointer;
-        }
-        
         .control-bar {
             max-width: 1400px;
             margin: 0 auto 1rem auto;
@@ -365,11 +349,6 @@
         }
         .tab-btn.active { background: #ffaa44; color: #0a0a1a; border-color: #ffaa44; }
         
-        .products-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-        }
         .product-card {
             background: #11152b;
             border-radius: 1rem;
@@ -568,111 +547,9 @@
         .btn-cancel:hover { background: #555; transform: scale(1.02); }
         .btn-accept { background: #ffaa44; color: #0a0a1a; border: none; padding: 10px 20px; border-radius: 40px; cursor: pointer; font-weight: bold; font-size: 0.9rem; transition: all 0.2s; }
         .btn-accept:hover { background: #ffbb55; transform: scale(1.02); }
-        
-        .device-bar {
-            background: #07071a;
-            border-bottom: 1px solid rgba(255,170,68,0.2);
-            padding: 6px 16px;
-            display: flex;
-            justify-content: center;
-            gap: 6px;
-            position: sticky;
-            top: 0;
-            z-index: 9999;
-        }
-        .device-btn {
-            background: #1e1e3a;
-            border: 1px solid rgba(255,170,68,0.2);
-            color: #888;
-            padding: 5px 14px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: all 0.2s;
-        }
-        .device-btn.active { background: #ffaa44; color: #0a0a1a; border-color: #ffaa44; }
-        .mode-toggle-btn {
-            background: transparent;
-            border: 1px solid rgba(255,170,68,0.4);
-            color: #ffaa66;
-            padding: 5px 14px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: all 0.2s;
-        }
-        .mode-toggle-btn:hover { background: rgba(255,170,68,0.2); border-color: #ffaa44; }
-        
-        /* ========== الوضع النهاري (Light Mode) ========== */
-        body.light-mode {
-            background: #f0f4ff !important;
-            color: #1a1a2e !important;
-        }
-        body.light-mode .hero-header { background: linear-gradient(135deg, #1a3a7a, #0d2a6e) !important; }
-        body.light-mode .control-bar { background: rgba(255,255,255,0.95) !important; }
-        body.light-mode .product-card { background: #ffffff !important; border: 1px solid #e0e0e0 !important; }
-        body.light-mode .product-title { color: #1a1a2e !important; }
-        body.light-mode .product-details { color: #4a4a6a !important; }
-        body.light-mode .price { color: #ff6600 !important; }
-        body.light-mode .old-price { color: #888888 !important; }
-        body.light-mode .stock-counter { color: #cc6600 !important; }
-        body.light-mode .reviews-count { color: #666666 !important; }
-        body.light-mode .rating-stars i.grey { color: #cccccc !important; }
-        body.light-mode .product-badge { color: #ffffff !important; }
-        body.light-mode .tab-btn { background: #e8e8e8 !important; color: #1a1a2e !important; border-color: #ffaa44 !important; }
-        body.light-mode .tab-btn.active { background: #ffaa44 !important; color: #0a0a1a !important; }
-        body.light-mode .page-btn { background: #e8e8e8 !important; color: #1a1a2e !important; border-color: #ffaa44 !important; }
-        body.light-mode .page-btn.active { background: #ffaa44 !important; color: #0a0a1a !important; }
-        body.light-mode .search-box { background: #f0f0f0 !important; }
-        body.light-mode #searchInput { color: #1a1a2e !important; }
-        body.light-mode .search-results-count { color: #1a1a2e !important; background: #dddddd !important; }
-        body.light-mode .hero-badge { color: #1a1a2e !important; background: rgba(255,255,255,0.9) !important; }
-        body.light-mode .hero-badge i { color: #ffaa44 !important; }
-        body.light-mode .stat-item { color: #1a1a2e !important; background: rgba(0,0,0,0.05) !important; }
-        body.light-mode .stat-item i { color: #ffaa44 !important; }
-        body.light-mode .stat-number { color: #ffaa44 !important; }
-        body.light-mode .slider-text { color: #1a1a2e !important; background: rgba(255,255,255,0.9) !important; }
-        body.light-mode .slider-text i { color: #ffaa44 !important; }
-        body.light-mode .trust-badge { color: #1a1a2e !important; }
-        body.light-mode .trust-badge i { color: #ffaa44 !important; }
-        body.light-mode .coupon-banner { background: linear-gradient(135deg, #e8e8e8, #f0f0f0) !important; }
-        body.light-mode .coupon-code { color: #0a0a1a !important; background: #ffaa44 !important; }
-        body.light-mode .coupon-text { color: #1a1a2e !important; }
-        body.light-mode .footer { color: #cccccc !important; background: #1a3a7a !important; }
-        body.light-mode .footer a { color: #ffaa66 !important; }
-        body.light-mode .device-btn { color: #1a1a2e !important; background: #e8e8e8 !important; }
-        body.light-mode .device-btn.active { color: #0a0a1a !important; background: #ffaa44 !important; }
-        body.light-mode .mode-toggle-btn { color: #ffaa44 !important; background: rgba(0,0,0,0.1) !important; }
-        body.light-mode .weekly-offers { background: rgba(0,0,0,0.05) !important; }
-        body.light-mode .weekly-item { background: #ffffff !important; border: 1px solid #e0e0e0 !important; }
-        body.light-mode .weekly-item .name { color: #1a1a2e !important; }
-        body.light-mode .weekly-item .offer-price { color: #ff6600 !important; }
-        body.light-mode .weekly-item .old-price { color: #999999 !important; }
-        body.light-mode .offer-badge { color: #ffffff !important; background: #ff4444 !important; }
-        body.light-mode .btn-wa { color: #000000 !important; background: #25D366 !important; }
-        body.light-mode .btn-wa.disabled { color: #666666 !important; background: #cccccc !important; }
-        body.light-mode .discount-badge { color: #ffffff !important; background: #ff4444 !important; }
-        body.light-mode .out-of-stock-badge { color: #ffffff !important; background: #ff4444 !important; }
-        body.light-mode .modal-content { background: #ffffff !important; border: 2px solid #ffaa44 !important; }
-        body.light-mode .modal-content li { color: #333333 !important; }
-        body.light-mode .modal-content h3 { color: #ffaa44 !important; }
-        body.light-mode .modal-content p { color: #666666 !important; }
     </style>
 </head>
 <body>
-
-<div class="device-bar">
-    <button class="device-btn active" onclick="setView('mobile')"><i class="fas fa-mobile-alt"></i> جوال</button>
-    <button class="device-btn" onclick="setView('desktop')"><i class="fas fa-desktop"></i> كمبيوتر</button>
-    <button class="mode-toggle-btn" onclick="toggleMode()">🌙 ليلي</button>
-</div>
 
 <div class="hero-header">
     <div class="hero-content">
@@ -708,11 +585,6 @@
     <div class="trust-badge"><i class="fas fa-undo-alt"></i> ضمان 7 أيام</div>
     <div class="trust-badge"><i class="fas fa-headset"></i> دعم فني</div>
     <div class="trust-badge"><i class="fas fa-shield-alt"></i> حماية المشتري</div>
-</div>
-
-<div class="coupon-banner">
-    <span class="coupon-text"><i class="fas fa-gift"></i> خصم 10% على أول طلب!</span>
-    <span class="coupon-code" onclick="copyCoupon('WELCOME10')">📋 WELCOME10 - انسخ الكود</span>
 </div>
 
 <div class="weekly-offers" id="weeklyOffersSection">
@@ -837,8 +709,7 @@
                 term8: "المنتجات الرقمية غير قابلة للاسترجاع أو الاسترداد بعد تسليم الحساب.",
                 term9: "xnesto غير مسؤول عن أي حظر أو تعليق لحساب PlayStation بسبب مخالفة شروط سوني.",
                 cancelBtn: "لا أوافق", acceptBtn: "أوافق على الشروط وأستمر"
-            },
-            deviceView: { mobile: "جوال", desktop: "كمبيوتر" }
+            }
         },
         en: {
             sliderMessages: [
@@ -867,8 +738,7 @@
                 term8: "Digital products are non-refundable after account delivery.",
                 term9: "xnesto is not responsible for any PlayStation account ban due to violation of Sony's terms.",
                 cancelBtn: "I Disagree", acceptBtn: "I Agree & Continue"
-            },
-            deviceView: { mobile: "Mobile", desktop: "Desktop" }
+            }
         }
     };
     
@@ -900,106 +770,24 @@
         document.getElementById('termsNote').innerHTML = t.terms.note;
         document.getElementById('term1').innerHTML = t.terms.term1;
         document.getElementById('term2').innerHTML = t.terms.term2;
-        document.getElementById('term3').innerHTML = `<strong>${t.terms.term3.split('بعد انتهاء')[0] || t.terms.term3.split('after')[0]}</strong>${t.terms.term3.split('بعد انتهاء')[1] || t.terms.term3.split('after')[1] || ''}`;
+        document.getElementById('term3').innerHTML = `<strong>${t.terms.term3.split('<strong>')[1].split('</strong>')[0]}</strong>${t.terms.term3.split('</strong>')[1]}`;
         document.getElementById('term4').innerHTML = t.terms.term4;
         document.getElementById('term5').innerHTML = t.terms.term5;
-        document.getElementById('term6').innerHTML = t.terms.term6;
+        document.getElementById('term6').innerHTML = t.terms.term6.replace('7 أيام', `<strong>7 أيام</strong>`);
         document.getElementById('term7').innerHTML = t.terms.term7;
         document.getElementById('term8').innerHTML = t.terms.term8;
         document.getElementById('term9').innerHTML = t.terms.term9;
         document.getElementById('cancelBtn').innerHTML = t.terms.cancelBtn;
         document.getElementById('acceptBtn').innerHTML = t.terms.acceptBtn;
-        
-        const mobileBtn = document.querySelector('.device-btn:first-child');
-        const desktopBtn = document.querySelector('.device-btn:nth-child(2)');
-        if (mobileBtn) mobileBtn.innerHTML = `<i class="fas fa-mobile-alt"></i> ${t.deviceView.mobile}`;
-        if (desktopBtn) desktopBtn.innerHTML = `<i class="fas fa-desktop"></i> ${t.deviceView.desktop}`;
     }
     
     function updateSliderTextByLang(lang) {
         const t = translations[lang];
         const msg = t.sliderMessages[currentSlideIndex];
-        const sliderDiv = document.getElementById('sliderText');
-        if (sliderDiv) {
-            sliderDiv.innerHTML = `<i class="${msg.icon}"></i> ${msg.text}`;
-        }
+        document.getElementById('sliderText').innerHTML = `<i class="${msg.icon}"></i> <span id="sliderTextContent">${msg.text}</span>`;
     }
-    
-    function loadWeeklyOffers() {
-        const db = firebase.database();
-        const offersRef = db.ref('weekly_offers');
-        offersRef.on('value', (snapshot) => {
-            const data = snapshot.val();
-            weeklyOffers = data ? Object.values(data) : [];
-            renderWeeklyOffers();
-        });
-    }
-    
-    function renderWeeklyOffers() {
-        const container = document.getElementById('weeklyGrid');
-        if (!container) return;
-        if (weeklyOffers.length === 0) {
-            container.innerHTML = '<div style="text-align:center; padding:0.5rem;">لا توجد عروض حالياً</div>';
-            return;
-        }
-        container.innerHTML = weeklyOffers.map(offer => {
-            const product = products.find(p => p.id == offer.productId);
-            if (!product) return '';
-            const discountPercent = offer.discount;
-            const newPrice = product.priceOMR * (1 - discountPercent / 100);
-            return `
-                <div class="weekly-item">
-                    <img src="${product.image || ''}" onerror="this.src='https://via.placeholder.com/40'">
-                    <div class="info">
-                        <div class="name">${currentLang === 'ar' ? product.nameAr : product.nameEn}</div>
-                        <div class="offer-price">${newPrice.toFixed(2)} ر.ع <span class="old-price">${product.priceOMR} ر.ع</span></div>
-                    </div>
-                    <div class="offer-badge">-${discountPercent}%</div>
-                </div>
-            `;
-        }).join('');
-    }
-    
-    const allGames = [
-        { id: 1, nameAr: "Assassin's Creed Shadows", nameEn: "Assassin's Creed Shadows", priceOMR: 13, oldPrice: 22, stock: 50, image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/3159340/header.jpg", detailsAr: "🏷️ 65GB | 🎮 عربي/إنجليزي", detailsEn: "📦 65GB | 🎮 Arabic/English", category: "games", rating: 4.8, reviews: 124 },
-        { id: 2, nameAr: "Call of Duty Black Ops 6", nameEn: "Call of Duty Black Ops 6", priceOMR: 22, oldPrice: 26, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2933620/header.jpg", detailsAr: "🏷️ 120GB | 🎮 إنجليزي", detailsEn: "📦 120GB | 🎮 English", category: "games", rating: 4.7, reviews: 89 },
-        { id: 3, nameAr: "Grand Theft Auto VI", nameEn: "Grand Theft Auto VI", priceOMR: 10, oldPrice: 11, stock: 100, image: "https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/downloads/gtavi/gtavi_cover_ps5.jpg", detailsAr: "🏷️ 150GB | 🌍 عالم مفتوح", detailsEn: "📦 150GB | 🌍 Open World", category: "games", rating: 4.9, reviews: 256 },
-        { id: 4, nameAr: "God of War Ragnarök", nameEn: "God of War Ragnarök", priceOMR: 11, oldPrice: 18, stock: 60, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2322010/header.jpg", detailsAr: "🏷️ 85GB | 🪓 ملحمة إسكندنافية", detailsEn: "📦 85GB | 🪓 Norse Saga", category: "games", rating: 4.9, reviews: 312 },
-        { id: 5, nameAr: "Spider-Man 2", nameEn: "Spider-Man 2", priceOMR: 14.5, oldPrice: 22, stock: 40, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2651280/header.jpg", detailsAr: "🏷️ 98GB | 🕷️ بيتر + مايلز", detailsEn: "📦 98GB | 🕷️ Peter + Miles", category: "games", rating: 4.8, reviews: 178 },
-        { id: 6, nameAr: "Elden Ring", nameEn: "Elden Ring", priceOMR: 12, oldPrice: 18, stock: 55, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg", detailsAr: "🏷️ 60GB | ⚔️ RPG خيالي", detailsEn: "📦 60GB | ⚔️ Fantasy RPG", category: "games", rating: 4.9, reviews: 445 },
-        { id: 7, nameAr: "Horizon Forbidden West", nameEn: "Horizon Forbidden West", priceOMR: 15, oldPrice: 20, stock: 50, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1151640/header.jpg", detailsAr: "🏷️ 96GB | 🦕 مغامرة مستقبلية", detailsEn: "📦 96GB | 🦕 Future Adventure", category: "games", rating: 4.7, reviews: 203 },
-        { id: 8, nameAr: "Ghost of Tsushima", nameEn: "Ghost of Tsushima", priceOMR: 17, oldPrice: 22, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2215430/header.jpg", detailsAr: "🏷️ 50GB | 🗡️ ساموراي", detailsEn: "📦 50GB | 🗡️ Samurai", category: "games", rating: 4.9, reviews: 367 },
-        { id: 9, nameAr: "The Last of Us Part I", nameEn: "The Last of Us Part I", priceOMR: 20, oldPrice: 25, stock: 35, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1888930/header.jpg", detailsAr: "🏷️ 70GB | 🧟 لعبة البقاء", detailsEn: "📦 70GB | 🧟 Survival Game", category: "games", rating: 4.8, reviews: 289 },
-        { id: 10, nameAr: "Final Fantasy XVI", nameEn: "Final Fantasy XVI", priceOMR: 18, oldPrice: 25, stock: 30, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2055370/header.jpg", detailsAr: "🏷️ 90GB | 🗡️ RPG خيالي", detailsEn: "📦 90GB | 🗡️ Fantasy RPG", category: "games", rating: 4.6, reviews: 156 },
-        { id: 11, nameAr: "Red Dead Redemption 2", nameEn: "Red Dead Redemption 2", priceOMR: 15, oldPrice: 24, stock: 70, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1174180/header.jpg", detailsAr: "🏷️ 150GB | 🤠 رعاة البقر", detailsEn: "📦 150GB | 🤠 Western", category: "games", rating: 4.9, reviews: 890 },
-        { id: 12, nameAr: "Cyberpunk 2077", nameEn: "Cyberpunk 2077", priceOMR: 10, oldPrice: 16, stock: 60, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/header.jpg", detailsAr: "🏷️ 70GB | 🤖 مستقبلية", detailsEn: "📦 70GB | 🤖 Futuristic", category: "games", rating: 4.6, reviews: 789 },
-        { id: 13, nameAr: "Tekken 8", nameEn: "Tekken 8", priceOMR: 12, oldPrice: 18, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1778820/header.jpg", detailsAr: "🏷️ 80GB | 🥊 لعبة قتال", detailsEn: "📦 80GB | 🥊 Fighting Game", category: "games", rating: 4.7, reviews: 156 },
-        { id: 108, nameAr: "Mafia: The Old Country", nameEn: "Mafia: The Old Country", priceOMR: 12, oldPrice: 18, stock: 25, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2933620/header.jpg", detailsAr: "🇮🇹 55GB | 🔫 أكشن - مغامرة | 🗡️ قتال بالسكاكين", detailsEn: "🇮🇹 55GB | 🔫 Action-Adventure | 🗡️ Knife Combat", category: "games", rating: 4.7, reviews: 45 }
-    ];
-    for (let i = 14; i <= 50; i++) {
-        if (i === 108) continue;
-        allGames.push({
-            id: i, nameAr: `لعبة PS5 مميزة ${i}`, nameEn: `Premium PS5 Game ${i}`,
-            priceOMR: 9 + Math.floor(Math.random() * 10), oldPrice: 12 + Math.floor(Math.random() * 10),
-            stock: 20 + Math.floor(Math.random() * 80),
-            image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2358720/header.jpg",
-            detailsAr: `🏷️ لعبة رقم ${i}`, detailsEn: `Game ${i}`, category: "games",
-            rating: 4 + Math.random(), reviews: Math.floor(Math.random() * 100)
-        });
-    }
-    
-    const giftCards = [
-        { id: 101, nameAr: "🇺🇸 بطاقة أمريكي", nameEn: "🇺🇸 US Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/30px-Flag_of_the_United_States.svg.png", detailsAr: "10$ | 25$ | 50$ | 100$", detailsEn: "10$ | 25$ | 50$ | 100$", rating: 4.9, reviews: 234 },
-        { id: 102, nameAr: "🇸🇦 بطاقة سعودي", nameEn: "🇸🇦 Saudi Card", category: "giftcards", priceOMR: 4.5, oldPrice: 5.5, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/30px-Flag_of_Saudi_Arabia.svg.png", detailsAr: "50ر.س | 100ر.س | 200ر.س", detailsEn: "50 SAR | 100 SAR | 200 SAR", rating: 4.8, reviews: 189 },
-        { id: 103, nameAr: "🇦🇪 بطاقة إماراتي", nameEn: "🇦🇪 UAE Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Flag_of_the_United_Arab_Emirates.svg/30px-Flag_of_the_United_Arab_Emirates.svg.png", detailsAr: "50د.إ | 100د.إ | 200د.إ", detailsEn: "50 AED | 100 AED | 200 AED", rating: 4.8, reviews: 156 },
-        { id: 104, nameAr: "🇴🇲 بطاقة عماني", nameEn: "🇴🇲 Oman Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Flag_of_Oman.svg/30px-Flag_of_Oman.svg.png", detailsAr: "5ر.ع | 10ر.ع | 20ر.ع", detailsEn: "5 OMR | 10 OMR | 20 OMR", rating: 4.9, reviews: 145 }
-    ];
-    
-    const allDefaultProducts = [...allGames, ...giftCards];
     
     function displayProductsImmediately() {
-        products = JSON.parse(JSON.stringify(allDefaultProducts));
-        products.forEach((p, idx) => { p.order = idx; });
         renderTabs();
         renderProducts();
         
@@ -1173,14 +961,30 @@
         document.getElementById('searchCount').innerHTML = filtered.length;
     }
     
+    function loadWeeklyOffers() {
+        const offers = products.filter(p => p.oldPrice && p.oldPrice > p.priceOMR).slice(0, 5);
+        const container = document.getElementById('weeklyGrid');
+        if (offers.length === 0) { container.innerHTML = '<p style="color:#ffaa44;">لا توجد عروض حالياً</p>'; return; }
+        container.innerHTML = offers.map(p => {
+            const name = currentLang === 'ar' ? (p.nameAr || 'منتج') : (p.nameEn || 'Product');
+            const discount = Math.round((1 - p.priceOMR / p.oldPrice) * 100);
+            return `<div class="weekly-item">
+                <img src="${p.image || 'https://via.placeholder.com/40'}" alt="${name}">
+                <div class="info">
+                    <div class="name">${name}</div>
+                    <div class="offer-price">${formatPrice(p.priceOMR)}</div>
+                    <div class="old-price">${formatPrice(p.oldPrice)}</div>
+                </div>
+                <div class="offer-badge">-${discount}%</div>
+            </div>`;
+        }).join('');
+    }
+    
+    function renderWeeklyOffers() { loadWeeklyOffers(); }
+    
     function escapeHtml(text) { if (!text) return ''; return text.replace(/[&<>]/g, m => ({ '&':'&amp;','<':'&lt;','>':'&gt;' }[m]||m)); }
     function goToPage(page) { currentPage = page; renderProducts(); window.scrollTo({ top: 400, behavior: 'smooth' }); }
     function setCategory(cat) { currentCategory = cat; currentPage = 1; renderTabs(); renderProducts(); }
-    
-    function copyCoupon(code) {
-        navigator.clipboard.writeText(code);
-        alert(`✅ تم نسخ الكود: ${code}\nاستخدمه عند الدفع للحصول على خصم 10%!`);
-    }
     
     function shareProduct(name, price) {
         const message = `🎮 ${name}\n💰 السعر: ${price}\n🛒 اطلب الآن من xnesto: ${window.location.href}`;
@@ -1219,33 +1023,8 @@
     }
     
     function setCurrency(currency) { currentCurrency = currency; renderProducts(); }
-    function toggleMode() { 
-        const isLight = document.body.classList.toggle('light-mode'); 
-        const btn = document.querySelector('.mode-toggle-btn'); 
-        btn.innerHTML = isLight ? '☀️ نهاري' : '🌙 ليلي'; 
-        localStorage.setItem('xnesto_mode', isLight ? 'light' : 'dark'); 
-    }
-    function setView(view) { 
-        document.body.classList.remove('view-mobile', 'view-desktop'); 
-        document.body.classList.add('view-' + view); 
-        localStorage.setItem('xnesto_view', view); 
-        const btns = document.querySelectorAll('.device-btn');
-        btns.forEach(btn => btn.classList.remove('active'));
-        if (event && event.currentTarget) event.currentTarget.classList.add('active');
-        if (view === 'mobile') document.querySelector('.products-grid').style.gridTemplateColumns = 'repeat(3, 1fr)';
-        else document.querySelector('.products-grid').style.gridTemplateColumns = 'repeat(4, 1fr)';
-    }
     
     document.getElementById('searchInput').addEventListener('input', (e) => { searchQuery = e.target.value; currentPage = 1; renderProducts(); });
-    
-    const savedMode = localStorage.getItem('xnesto_mode'); 
-    if (savedMode === 'light') { 
-        document.body.classList.add('light-mode'); 
-        const btn = document.querySelector('.mode-toggle-btn'); 
-        if (btn) btn.innerHTML = '☀️ نهاري'; 
-    }
-    const savedView = localStorage.getItem('xnesto_view') || 'mobile'; 
-    setView(savedView);
     
     document.getElementById('instagramText').innerHTML = `<a href="https://instagram.com/${INSTA_USERNAME}" target="_blank" style="color:#ffaa66;text-decoration:none;">${INSTA_USERNAME}</a>`;
     document.getElementById('whatsappText').innerHTML = `<a href="https://wa.me/${WA_NUMBER}" target="_blank" style="color:#ffaa66;text-decoration:none;">+${WA_NUMBER}</a>`;
@@ -1253,8 +1032,6 @@
     updateUILanguage('ar');
     displayProductsImmediately();
     
-    window.toggleMode = toggleMode;
-    window.setView = setView;
     window.setLang = setLang;
     window.setCurrency = setCurrency;
     window.setCategory = setCategory;
@@ -1262,7 +1039,6 @@
     window.rejectTerms = rejectTerms;
     window.acceptTerms = acceptTerms;
     window.shareProduct = shareProduct;
-    window.copyCoupon = copyCoupon;
 </script>
 </body>
 </html>
