@@ -282,223 +282,189 @@
             border-radius: 40px;
         }
         #currencySelect {
-            background: #0a0c1a;
-            border: 1px solid #ffaa44;
-            color: #ffdd99;
-            padding: 5px 10px;
-            border-radius: 30px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-        
-        .search-bar-container {
-            max-width: 1400px;
-            margin: 0 auto 1rem auto;
-            background: rgba(15, 15, 42, 0.8);
-            padding: 8px 20px;
-            border-radius: 50px;
-        }
-        .search-box {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: #1e1e3a;
-            padding: 5px 15px;
-            border-radius: 40px;
-        }
-        #searchInput {
-            flex: 1;
             background: transparent;
             border: none;
-            padding: 10px 0;
-            color: white;
+            color: #ffaa44;
+            font-weight: bold;
+            cursor: pointer;
             outline: none;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.85rem;
+        }
+        
+        .search-bar-container { max-width: 800px; margin: 0 auto 2rem auto; }
+        .search-box {
+            position: relative;
+            background: rgba(30, 30, 58, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            padding: 12px 25px;
+            border: 1px solid rgba(255, 170, 68, 0.3);
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .search-box:focus-within { border-color: #ffaa44; box-shadow: 0 0 15px rgba(255, 170, 68, 0.2); transform: translateY(-2px); }
+        .search-box i { color: #ffaa44; margin-left: 15px; font-size: 1.2rem; }
+        .search-box input {
+            background: transparent;
+            border: none;
+            color: white;
+            width: 100%;
+            font-size: 1rem;
+            outline: none;
+            font-family: 'Cairo', sans-serif;
         }
         .search-results-count {
-            background: #2d2f6e;
-            padding: 4px 10px;
-            border-radius: 30px;
-            font-size: 0.7rem;
-            color: #ffaa66;
+            position: absolute;
+            left: 20px;
+            background: #ffaa44;
+            color: #0a0a1a;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
         }
         
         .tabs-container {
-            max-width: 1400px;
-            margin: 0 auto 2rem auto;
             display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
             justify-content: center;
+            gap: 12px;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
         }
         .tab-btn {
             background: #1e1e3a;
-            border: 1px solid rgba(255,170,68,0.3);
-            padding: 10px 24px;
-            border-radius: 40px;
+            border: 1px solid rgba(255, 170, 68, 0.2);
+            color: #ccc;
+            padding: 10px 25px;
+            border-radius: 50px;
             cursor: pointer;
-            font-weight: bold;
-            transition: 0.2s;
+            font-weight: 700;
+            transition: all 0.3s ease;
             font-size: 0.9rem;
-            color: #f0f0ff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .tab-btn.active { background: #ffaa44; color: #0a0a1a; border-color: #ffaa44; }
+        .tab-btn.active { background: #ffaa44; color: #0a0a1a; border-color: #ffaa44; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(255, 170, 68, 0.3); }
         
         .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
             max-width: 1400px;
             margin: 0 auto;
-            display: grid;
         }
+        
         .product-card {
             background: #11152b;
-            border-radius: 1rem;
+            border-radius: 1.5rem;
             overflow: hidden;
-            transition: 0.3s;
-            border: 1px solid rgba(255, 170, 68, 0.2);
+            border: 1px solid rgba(255, 170, 68, 0.15);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
+            display: flex;
+            flex-direction: column;
         }
-        .product-card:hover { transform: translateY(-4px); border-color: #ffaa44; }
-        .product-card.out-of-stock { opacity: 0.7; filter: grayscale(0.2); }
-        .discount-badge {
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            background: #ff4444;
-            color: white;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            z-index: 10;
-        }
-        .out-of-stock-badge {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background: #ff4444;
-            color: white;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            z-index: 10;
-            font-weight: bold;
-        }
+        .product-card:hover { transform: translateY(-10px); border-color: #ffaa44; box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5); }
+        
         .product-image {
-            width: 100%;
             height: 180px;
-            background-size: cover;
-            background-position: center;
             position: relative;
-            background-color: #1e1e3a;
+            overflow: hidden;
+            background-color: #07071a;
         }
         .product-badge {
             position: absolute;
-            bottom: 8px;
-            right: 8px;
-            background: rgba(0,0,0,0.7);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.65rem;
-        }
-        .card-info { padding: 1rem; }
-        .product-title {
-            font-size: 1.1rem;
-            font-weight: bold;
-            margin-bottom: 5px;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 5px;
-            flex-wrap: wrap;
-        }
-        .share-btn {
-            background: transparent;
-            border: none;
-            color: #25D366;
-            cursor: pointer;
+            top: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            color: #ffaa44;
+            padding: 4px 12px;
+            border-radius: 50px;
             font-size: 0.7rem;
-            transition: 0.2s;
+            font-weight: 700;
+            border: 1px solid rgba(255, 170, 68, 0.3);
         }
-        .share-btn:hover { transform: scale(1.1); }
-        .product-details { font-size: 0.7rem; color: #b9c5f0; text-align: center; margin: 8px 0; }
-        .price-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin: 10px 0;
+        .discount-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: #ff4444;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 900;
+            z-index: 5;
+            box-shadow: 0 3px 10px rgba(255, 68, 68, 0.4);
         }
-        .old-price { font-size: 0.8rem; color: #888; text-decoration: line-through; }
-        .price { font-size: 1.3rem; font-weight: bold; color: #ffaa44; }
+        
+        .card-info { padding: 1.2rem; display: flex; flex-direction: column; flex-grow: 1; }
+        .product-title { font-size: 0.95rem; font-weight: 800; color: #fff; margin-bottom: 8px; line-height: 1.4; display: flex; justify-content: space-between; align-items: flex-start; }
+        .share-btn { background: none; border: none; color: #25d366; cursor: pointer; font-size: 1.1rem; padding: 0 5px; transition: 0.2s; }
+        .share-btn:hover { transform: scale(1.2); }
+        
+        .rating-stars { display: flex; align-items: center; gap: 4px; margin-bottom: 10px; font-size: 0.75rem; color: #ffaa44; }
+        .reviews-count { color: #888; margin-right: 5px; font-size: 0.7rem; }
+        
+        .product-details { font-size: 0.75rem; color: #b9c5f0; margin-bottom: 15px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        
+        .price-container { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
+        .price { font-size: 1.2rem; font-weight: 900; color: #ffaa44; }
+        .old-price { font-size: 0.85rem; text-decoration: line-through; color: #666; font-weight: 600; }
+        
+        .stock-counter { font-size: 0.7rem; font-weight: 700; margin-bottom: 15px; display: flex; align-items: center; gap: 6px; }
+        .stock-counter.high { color: #00cc88; }
+        .stock-counter.low { color: #ffaa44; }
+        .stock-counter.out { color: #ff4444; }
+        
         .btn-wa {
-            width: 100%;
-            background: #25D366;
+            background: linear-gradient(135deg, #ffaa44, #ff8844);
+            color: #0a0a1a;
             border: none;
-            padding: 8px;
-            border-radius: 40px;
-            color: #000;
-            font-weight: bold;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 0.9rem;
             cursor: pointer;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            font-size: 0.85rem;
+            gap: 10px;
+            width: 100%;
+            margin-top: auto;
         }
-        .btn-wa.disabled { background: #888; cursor: not-allowed; opacity: 0.6; }
+        .btn-wa:hover { transform: scale(1.03); box-shadow: 0 5px 15px rgba(255, 136, 68, 0.4); }
+        .btn-wa i { font-size: 1.2rem; }
+        .btn-wa.disabled { background: #333; color: #888; cursor: not-allowed; }
         
-        .rating-stars { display: flex; justify-content: center; gap: 2px; margin: 5px 0; }
-        .rating-stars i { color: #ffaa44; font-size: 0.7rem; }
-        .rating-stars i.grey { color: #555; }
-        .reviews-count { font-size: 0.6rem; color: #aaa; margin-right: 5px; }
-        .stock-counter {
-            display: inline-block;
-            background: rgba(255,68,68,0.2);
-            color: #ff8888;
-            padding: 2px 8px;
-            border-radius: 20px;
-            font-size: 0.65rem;
-            margin-top: 5px;
-            text-align: center;
-        }
+        .pagination { display: flex; justify-content: center; gap: 10px; margin: 3rem 0; }
+        .page-btn { background: #1e1e3a; border: 1px solid rgba(255, 170, 68, 0.2); color: white; width: 40px; height: 40px; border-radius: 10px; cursor: pointer; font-weight: 700; transition: 0.3s; }
+        .page-btn.active { background: #ffaa44; color: #0a0a1a; border-color: #ffaa44; }
         
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
-        }
-        .page-btn {
-            background: #1e1e3a;
-            border: 1px solid #ffaa44;
-            color: #ffdd99;
-            padding: 6px 12px;
-            border-radius: 30px;
-            cursor: pointer;
-        }
-        .page-btn.active { background: #ffaa44; color: #0a0a1a; }
+        .footer { text-align: center; padding: 3rem 1rem; border-top: 1px solid rgba(255, 170, 68, 0.1); margin-top: 3rem; }
+        .social-icons { display: flex; justify-content: center; gap: 20px; margin-bottom: 1.5rem; }
+        .social-icons i { font-size: 1.5rem; color: #ffaa44; cursor: pointer; transition: 0.3s; }
+        .social-icons i:hover { transform: translateY(-5px); color: #fff; }
+        #copyright { font-size: 0.8rem; color: #666; }
         
-        .footer {
-            text-align: center;
-            margin-top: 2rem;
-            padding: 1.5rem;
-            color: #6f7bb3;
-            border-top: 1px solid rgba(255, 170, 68, 0.2);
-        }
         .whatsapp-float {
             position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: #25D366;
-            width: 55px;
-            height: 55px;
+            bottom: 25px;
+            left: 25px;
+            background: #25d366;
+            color: white;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
-            color: white;
+            font-size: 30px;
             text-decoration: none;
             z-index: 999;
             transition: all 0.3s ease;
@@ -506,6 +472,7 @@
         }
         .whatsapp-float:hover { transform: scale(1.1); background: #20b859; }
         
+        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -526,7 +493,7 @@
             padding: 1.5rem;
             border: 2px solid #ffaa44;
             width: 100%;
-            max-width: 550px;
+            max-width: 600px;
             max-height: 90vh;
             overflow-y: auto;
             animation: fadeInScale 0.3s ease;
@@ -537,6 +504,42 @@
         }
         .modal-content h3 { color: #ffaa44; margin-bottom: 1rem; text-align: center; font-size: 1.3rem; }
         .modal-content p { color: #ffdd99; margin-bottom: 1rem; text-align: center; }
+        
+        /* Licensing Options in Modal */
+        .license-options { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 1.5rem 0; }
+        .license-card {
+            background: #1e1e3a;
+            border: 2px solid rgba(255, 170, 68, 0.2);
+            border-radius: 1rem;
+            padding: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            text-align: center;
+            position: relative;
+        }
+        .license-card.active { border-color: #ffaa44; background: rgba(255, 170, 68, 0.1); }
+        .license-card h4 { color: #ffaa44; margin-bottom: 5px; font-size: 1rem; }
+        .license-card .price-tag { font-weight: 900; font-size: 1.1rem; }
+        .license-card .badge {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ffaa44;
+            color: #0a0a1a;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.65rem;
+            font-weight: bold;
+        }
+
+        /* Comparison Table */
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.75rem; color: #b9c5f0; }
+        .comparison-table th, .comparison-table td { padding: 8px; text-align: center; border-bottom: 1px solid rgba(255, 170, 68, 0.1); }
+        .comparison-table th { color: #ffaa44; }
+        .comparison-table i.fa-check { color: #00cc88; }
+        .comparison-table i.fa-times { color: #ff4444; }
+
         .modal-content ol { margin: 1rem 0; padding-right: 1.5rem; }
         .modal-content li { color: #b9c5f0; margin-bottom: 8px; line-height: 1.5; font-size: 0.85rem; }
         .modal-content li strong { color: #ffaa44; }
@@ -616,8 +619,6 @@
     <div class="trust-badge"><i class="fas fa-shield-alt"></i> حماية المشتري</div>
 </div>
 
-<!-- تم إخفاء كود الخصم حسب طلب العميل -->
-
 <div class="weekly-offers" id="weeklyOffersSection">
     <h3><i class="fas fa-calendar-alt"></i> العروض الأسبوعية 🔥</h3>
     <p>خصومات تصل إلى 40% لفترة محدودة</p>
@@ -669,24 +670,67 @@
     <i class="fab fa-whatsapp"></i>
 </a>
 
+<!-- Purchasing & Licensing Modal -->
 <div id="termsModal" class="modal" style="display:none;">
     <div class="modal-content">
-        <h3 id="termsTitle">📋 شروط الشراء والاستخدام</h3>
-        <p id="termsNote">يرجى قراءة الشروط بعناية قبل إتمام الطلب:</p>
-        <ol>
-            <li id="term1">الحساب نظيف 100% ويحتوي على اللعبة المطلوبة فقط.</li>
-            <li id="term2">بعد تسجيل الدخول، اذهب إلى Library ونزّل اللعبة.</li>
-            <li id="term3"><strong>بعد انتهاء التنزيل كاملاً، يجب تسجيل الخروج فوراً</strong> من الحساب.</li>
-            <li id="term4">ممنوع تغيير كلمة السر أو ربط بطاقة بنكية أو شراء أي شيء داخل الحساب.</li>
-            <li id="term5">ممنوع مشاركة الحساب مع أي شخص آخر.</li>
-            <li id="term6">الحساب مضمون لمدة <strong>7 أيام</strong> من تاريخ التسليم.</li>
-            <li id="term7">في حال وجود أي مشكلة تقنية، سنقدم حساب بديل خلال 24 ساعة.</li>
-            <li id="term8">المنتجات الرقمية غير قابلة للاسترجاع أو الاسترداد بعد تسليم الحساب.</li>
-            <li id="term9">xnesto غير مسؤول عن أي حظر أو تعليق لحساب PlayStation بسبب مخالفة شروط سوني.</li>
+        <h3 id="modalProductName">اسم المنتج</h3>
+        <p id="modalSelectText">يرجى اختيار نوع النسخة المطلوبة:</p>
+        
+        <div id="licenseSelectionArea" class="license-options">
+            <div class="license-card active" id="primaryCard" onclick="selectLicense('primary')">
+                <div class="badge">الأكثر طلباً</div>
+                <h4>النسخة الأساسية</h4>
+                <div class="price-tag" id="primaryPriceDisplay">--</div>
+            </div>
+            <div class="license-card" id="secondaryCard" onclick="selectLicense('secondary')">
+                <h4>النسخة الثانوية</h4>
+                <div class="price-tag" id="secondaryPriceDisplay">--</div>
+            </div>
+        </div>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>الميزة</th>
+                    <th>الأساسية</th>
+                    <th>الثانوية</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>اللعب بحسابك الخاص</td>
+                    <td><i class="fas fa-check"></i> نعم</td>
+                    <td><i class="fas fa-times"></i> لا</td>
+                </tr>
+                <tr>
+                    <td>اللعب بدون إنترنت</td>
+                    <td><i class="fas fa-check"></i> نعم</td>
+                    <td><i class="fas fa-times"></i> لا</td>
+                </tr>
+                <tr>
+                    <td>تجميع التروفيز</td>
+                    <td><i class="fas fa-check"></i> نعم</td>
+                    <td><i class="fas fa-times"></i> لا</td>
+                </tr>
+                <tr>
+                    <td>السعر</td>
+                    <td>أعلى</td>
+                    <td>أرخص</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3 id="termsTitle">📋 شروط الاستخدام</h3>
+        <ol id="termsList">
+            <li>يمنع تغيير بيانات الحساب نهائياً.</li>
+            <li>النسخة الأساسية تسمح لك باللعب بحسابك الشخصي.</li>
+            <li>النسخة الثانوية تتطلب اتصال دائم بالإنترنت واللعب من حساب المتجر.</li>
+            <li>الضمان يسري لمدة 7 أيام من تاريخ الاستلام.</li>
         </ol>
+        
         <div class="terms-actions">
-            <button onclick="rejectTerms()" class="btn-cancel" id="cancelBtn">لا أوافق</button>
-            <button onclick="acceptTerms()" class="btn-accept" id="acceptBtn">أوافق على الشروط وأستمر</button>
+            <button onclick="rejectTerms()" class="btn-cancel" id="cancelBtn">إلغاء</button>
+            <button onclick="acceptTerms()" class="btn-accept" id="acceptBtn">تأكيد الطلب عبر واتساب</button>
         </div>
     </div>
 </div>
@@ -703,457 +747,212 @@
     let currentCategory = "all";
     let searchQuery = "";
     let pendingProductData = null;
-    let sliderInterval = null;
+    let selectedLicenseType = 'primary';
     let weeklyOffers = [];
-    let coupons = [];
+    
     const ITEMS_PER_PAGE = 12;
     const WA_NUMBER = "96879977100";
     const INSTA_USERNAME = "xnesto_store";
     
-    const exchangeRates = { OMR: 1, SAR: 9.75, AED: 9.55, KWD: 0.79, BHD: 0.98, QAR: 9.46, USD: 2.6, EUR: 2.4 };
-    const currencySymbols = { OMR: "ر.ع", SAR: "ر.س", AED: "د.إ", KWD: "د.ك", BHD: "د.ب", QAR: "ر.ق", USD: "$", EUR: "€" };
-    
+    const exchangeRates = { OMR: 1, SAR: 9.75, AED: 9.55, KWD: 0.79, BHD: 0.98, QAR: 9.45, USD: 2.60, EUR: 2.40 };
+    const currencySymbols = { OMR: 'ر.ع', SAR: 'ر.س', AED: 'د.إ', KWD: 'د.ك', BHD: 'د.ب', QAR: 'ر.ق', USD: '$', EUR: '€' };
+
     const translations = {
         ar: {
-            sliderMessages: [
-                { icon: "fas fa-fire", text: "تسجيل حساب فوري - استلم خلال دقائق" },
-                { icon: "fas fa-bolt", text: "أرخص الأسعار في العالم" },
-                { icon: "fas fa-users", text: "أكثر من 1000 عميل وثقوا بنا" }
-            ],
-            badges: {
-                bestPrice: "أفضل الأسعار", fastDelivery: "توصيل فوري",
-                support: "دعم 24/7", secure: "دفع آمن"
-            },
-            stats: { games: "لعبة", customers: "عميل", rating: "تقييم", support: "دعم" },
-            searchPlaceholder: "🔍 ابحث عن منتج...",
-            copyright: "© 2025 xnesto - جميع الحقوق محفوظة",
-            orderNow: "اطلب الآن", outOfStock: "نفذت الكمية",
-            currencyLabel: "العملة:",
-            terms: {
-                title: "📋 شروط الشراء والاستخدام", note: "يرجى قراءة الشروط بعناية قبل إتمام الطلب:",
-                term1: "الحساب نظيف 100% ويحتوي على اللعبة المطلوبة فقط.",
-                term2: "بعد تسجيل الدخول، اذهب إلى Library ونزّل اللعبة.",
-                term3: "بعد انتهاء التنزيل كاملاً، يجب تسجيل الخروج فوراً من الحساب.",
-                term4: "ممنوع تغيير كلمة السر أو ربط بطاقة بنكية أو شراء أي شيء داخل الحساب.",
-                term5: "ممنوع مشاركة الحساب مع أي شخص آخر.",
-                term6: "الحساب مضمون لمدة 7 أيام من تاريخ التسليم.",
-                term7: "في حال وجود أي مشكلة تقنية، سنقدم حساب بديل خلال 24 ساعة.",
-                term8: "المنتجات الرقمية غير قابلة للاسترجاع أو الاسترداد بعد تسليم الحساب.",
-                term9: "xnesto غير مسؤول عن أي حظر أو تعليق لحساب PlayStation بسبب مخالفة شروط سوني.",
-                cancelBtn: "لا أوافق", acceptBtn: "أوافق على الشروط وأستمر"
-            },
-            deviceView: { mobile: "جوال", desktop: "كمبيوتر" }
+            games: "🎮 ألعاب", giftcards: "💳 بطاقات", all: "🔥 الكل",
+            searchPlaceholder: "🔍 ابحث عن منتج...", orderNow: "اطلب الآن",
+            outOfStock: "نفذت الكمية", currencyLabel: "العملة:",
+            statGames: "لعبة", statCustomers: "عميل", statRating: "تقييم", statSupport: "دعم",
+            termsTitle: "📋 شروط الشراء والاستخدام", cancelBtn: "إلغاء", acceptBtn: "تأكيد الطلب عبر واتساب"
         },
         en: {
-            sliderMessages: [
-                { icon: "fas fa-fire", text: "Instant Account - Receive within minutes" },
-                { icon: "fas fa-bolt", text: "Lowest Prices Worldwide" },
-                { icon: "fas fa-users", text: "Over 1000 Satisfied Customers" }
-            ],
-            badges: {
-                bestPrice: "Best Prices", fastDelivery: "Fast Delivery",
-                support: "24/7 Support", secure: "Secure Payment"
-            },
-            stats: { games: "Games", customers: "Customers", rating: "Rating", support: "Support" },
-            searchPlaceholder: "🔍 Search products...",
-            copyright: "© 2025 xnesto - All Rights Reserved",
-            orderNow: "Order Now", outOfStock: "Out of Stock",
-            currencyLabel: "Currency:",
-            terms: {
-                title: "📋 Terms & Conditions", note: "Please read carefully before purchasing:",
-                term1: "100% clean account - contains only the requested game.",
-                term2: "After login, go to Library and download the game.",
-                term3: "After download is complete, log out immediately from the account.",
-                term4: "Do not change password, link bank card, or purchase anything inside the account.",
-                term5: "Do not share the account with anyone else.",
-                term6: "Account is guaranteed for 7 days from delivery date.",
-                term7: "If any technical issue, we will provide a replacement account within 24 hours.",
-                term8: "Digital products are non-refundable after account delivery.",
-                term9: "xnesto is not responsible for any PlayStation account ban due to violation of Sony's terms.",
-                cancelBtn: "I Disagree", acceptBtn: "I Agree & Continue"
-            },
-            deviceView: { mobile: "Mobile", desktop: "Desktop" }
+            games: "🎮 Games", giftcards: "💳 Cards", all: "🔥 All",
+            searchPlaceholder: "🔍 Search products...", orderNow: "Order Now",
+            outOfStock: "Out of Stock", currencyLabel: "Currency:",
+            statGames: "Games", statCustomers: "Customers", statRating: "Rating", statSupport: "Support",
+            termsTitle: "📋 Terms of Purchase", cancelBtn: "Cancel", acceptBtn: "Confirm via WhatsApp"
         }
     };
-    
-    let currentSlideIndex = 0;
-    
-    function updateUILanguage(lang) {
-        const t = translations[lang];
-        if (!t) return;
-        currentSlideIndex = 0;
-        updateSliderTextByLang(lang);
-        if (sliderInterval) clearInterval(sliderInterval);
-        sliderInterval = setInterval(() => {
-            currentSlideIndex = (currentSlideIndex + 1) % t.sliderMessages.length;
-            updateSliderTextByLang(lang);
-        }, 3000);
-        
-        document.getElementById('badgeBestPrice').innerHTML = `<i class="fas fa-tag"></i> ${t.badges.bestPrice}`;
-        document.getElementById('badgeFastDelivery').innerHTML = `<i class="fas fa-bolt"></i> ${t.badges.fastDelivery}`;
-        document.getElementById('badgeSupport').innerHTML = `<i class="fas fa-headset"></i> ${t.badges.support}`;
-        document.getElementById('badgeSecure').innerHTML = `<i class="fas fa-shield-alt"></i> ${t.badges.secure}`;
-        document.getElementById('statGames').innerText = t.stats.games;
-        document.getElementById('statCustomers').innerText = t.stats.customers;
-        document.getElementById('statRating').innerText = t.stats.rating;
-        document.getElementById('statSupport').innerText = t.stats.support;
-        document.getElementById('searchInput').placeholder = t.searchPlaceholder;
-        document.getElementById('copyright').innerHTML = t.copyright;
-        document.getElementById('currencyLabel').innerHTML = t.currencyLabel;
-        document.getElementById('termsTitle').innerHTML = t.terms.title;
-        document.getElementById('termsNote').innerHTML = t.terms.note;
-        document.getElementById('term1').innerHTML = t.terms.term1;
-        document.getElementById('term2').innerHTML = t.terms.term2;
-        document.getElementById('term3').innerHTML = `<strong>${t.terms.term3.split('بعد انتهاء')[0] || t.terms.term3.split('after')[0]}</strong>${t.terms.term3.split('بعد انتهاء')[1] || t.terms.term3.split('after')[1] || ''}`;
-        document.getElementById('term4').innerHTML = t.terms.term4;
-        document.getElementById('term5').innerHTML = t.terms.term5;
-        document.getElementById('term6').innerHTML = t.terms.term6;
-        document.getElementById('term7').innerHTML = t.terms.term7;
-        document.getElementById('term8').innerHTML = t.terms.term8;
-        document.getElementById('term9').innerHTML = t.terms.term9;
-        document.getElementById('cancelBtn').innerHTML = t.terms.cancelBtn;
-        document.getElementById('acceptBtn').innerHTML = t.terms.acceptBtn;
-        
-        const mobileBtn = document.querySelector('.device-btn:first-child');
-        const desktopBtn = document.querySelector('.device-btn:nth-child(2)');
-        if (mobileBtn) mobileBtn.innerHTML = `<i class="fas fa-mobile-alt"></i> ${t.deviceView.mobile}`;
-        if (desktopBtn) desktopBtn.innerHTML = `<i class="fas fa-desktop"></i> ${t.deviceView.desktop}`;
-    }
-    
-    function updateSliderTextByLang(lang) {
-        const t = translations[lang];
-        const msg = t.sliderMessages[currentSlideIndex];
-        const sliderDiv = document.getElementById('sliderText');
-        if (sliderDiv) {
-            sliderDiv.innerHTML = `<i class="${msg.icon}"></i> ${msg.text}`;
-        }
-    }
-    
-    function loadWeeklyOffers() {
+
+    function initFirebase() {
+        if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
-        const offersRef = db.ref('weekly_offers');
-        offersRef.on('value', (snapshot) => {
+        
+        db.ref('products').on('value', (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                products = Array.isArray(data) ? data : Object.values(data);
+                products.sort((a, b) => (a.order || 0) - (b.order || 0));
+                renderProducts();
+                renderTabs();
+            }
+        });
+
+        db.ref('weekly_offers').on('value', (snapshot) => {
             const data = snapshot.val();
             weeklyOffers = data ? Object.values(data) : [];
             renderWeeklyOffers();
         });
     }
-    
+
+    function formatPrice(omr) {
+        const converted = (omr * exchangeRates[currentCurrency]).toFixed(2);
+        return `${currencySymbols[currentCurrency]} ${converted}`;
+    }
+
+    function renderTabs() {
+        const container = document.getElementById('tabsContainer');
+        const t = translations[currentLang];
+        let html = `<button class="tab-btn ${currentCategory === 'all' ? 'active' : ''}" onclick="setCategory('all')">${t.all}</button>`;
+        categories.forEach(cat => {
+            html += `<button class="tab-btn ${currentCategory === cat ? 'active' : ''}" onclick="setCategory('${cat}')">${t[cat] || cat}</button>`;
+        });
+        container.innerHTML = html;
+    }
+
+    function renderProducts() {
+        const container = document.getElementById('productsContainer');
+        let filtered = products.filter(p => {
+            const name = (p.nameAr + p.nameEn).toLowerCase();
+            const matchesSearch = name.includes(searchQuery.toLowerCase());
+            const matchesCat = currentCategory === 'all' || p.category === currentCategory;
+            return matchesSearch && matchesCat;
+        });
+
+        const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+        const start = (currentPage - 1) * ITEMS_PER_PAGE;
+        const pageProducts = filtered.slice(start, start + ITEMS_PER_PAGE);
+
+        const t = translations[currentLang];
+        
+        container.innerHTML = pageProducts.map(p => {
+            const name = currentLang === 'ar' ? p.nameAr : p.nameEn;
+            const price = formatPrice(p.priceOMR);
+            const isOutOfStock = (p.stock || 0) <= 0;
+            const hasDiscount = p.oldPrice && p.oldPrice > p.priceOMR;
+            
+            return `
+                <div class="product-card ${isOutOfStock ? 'out-of-stock' : ''}">
+                    ${hasDiscount ? `<div class="discount-badge">🔥 خصم</div>` : ''}
+                    <div class="product-image" style="background-image: url('${p.image}'); background-size: cover; background-position: center;">
+                        <div class="product-badge">${categoryNames[p.category] || p.category}</div>
+                    </div>
+                    <div class="card-info">
+                        <div class="product-title">${escapeHtml(name)}</div>
+                        <div class="price-container">
+                            <span class="price">${price}</span>
+                            ${hasDiscount ? `<span class="old-price">${formatPrice(p.oldPrice)}</span>` : ''}
+                        </div>
+                        <button class="btn-wa" onclick="requestPurchase('${p.id}')">
+                            <i class="fab fa-whatsapp"></i> ${t.orderNow}
+                        </button>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        renderPagination(totalPages);
+        document.getElementById('searchCount').innerText = filtered.length;
+    }
+
+    function renderPagination(total) {
+        const container = document.getElementById('pagination');
+        if (total <= 1) { container.innerHTML = ''; return; }
+        let html = '';
+        for (let i = 1; i <= total; i++) {
+            html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+        }
+        container.innerHTML = html;
+    }
+
+    function requestPurchase(productId) {
+        const p = products.find(prod => prod.id == productId);
+        if (!p) return;
+        pendingProductData = p;
+        
+        document.getElementById('modalProductName').innerText = currentLang === 'ar' ? p.nameAr : p.nameEn;
+        
+        // Check if product has dual pricing (mostly for games)
+        if (p.category === 'games' && (p.pricePrimary || p.priceSecondary)) {
+            document.getElementById('licenseSelectionArea').style.display = 'grid';
+            document.querySelector('.comparison-table').style.display = 'table';
+            document.getElementById('modalSelectText').style.display = 'block';
+            
+            // Set prices in modal
+            document.getElementById('primaryPriceDisplay').innerText = formatPrice(p.pricePrimary || p.priceOMR);
+            document.getElementById('secondaryPriceDisplay').innerText = formatPrice(p.priceSecondary || (p.priceOMR * 0.6)); // Fallback
+            
+            // Default to primary
+            selectLicense('primary');
+        } else {
+            document.getElementById('licenseSelectionArea').style.display = 'none';
+            document.querySelector('.comparison-table').style.display = 'none';
+            document.getElementById('modalSelectText').style.display = 'none';
+        }
+        
+        document.getElementById('termsModal').style.display = 'flex';
+    }
+
+    function selectLicense(type) {
+        selectedLicenseType = type;
+        document.getElementById('primaryCard').classList.toggle('active', type === 'primary');
+        document.getElementById('secondaryCard').classList.toggle('active', type === 'secondary');
+    }
+
+    function acceptTerms() {
+        const p = pendingProductData;
+        const licenseName = selectedLicenseType === 'primary' ? 'النسخة الأساسية (Primary)' : 'النسخة الثانوية (Secondary)';
+        let finalPrice = p.priceOMR;
+        
+        if (p.category === 'games') {
+            if (selectedLicenseType === 'primary') finalPrice = p.pricePrimary || p.priceOMR;
+            else finalPrice = p.priceSecondary || (p.priceOMR * 0.6);
+        }
+
+        const sym = currencySymbols[currentCurrency];
+        const convertedPrice = (finalPrice * exchangeRates[currentCurrency]).toFixed(2);
+        
+        const message = `🛒 طلب شراء من xnesto\n━━━━━━━━━━━━━━━━━━━━\n🎮 المنتج: ${p.nameAr}\n📂 النوع: ${licenseName}\n💰 السعر: ${sym} ${convertedPrice}\n━━━━━━━━━━━━━━━━━━━━\n📞 يرجى تأكيد الطلب وإرسال طريقة الدفع.`;
+        
+        window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+        document.getElementById('termsModal').style.display = 'none';
+    }
+
+    function rejectTerms() { document.getElementById('termsModal').style.display = 'none'; }
+    function setCategory(cat) { currentCategory = cat; currentPage = 1; renderProducts(); renderTabs(); }
+    function goToPage(page) { currentPage = page; renderProducts(); window.scrollTo(0, 400); }
+    function setCurrency(cur) { currentCurrency = cur; renderProducts(); }
+    function setLang(lang) { currentLang = lang; renderTabs(); renderProducts(); }
+    function escapeHtml(text) { return text ? text.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])) : ''; }
+
     function renderWeeklyOffers() {
         const container = document.getElementById('weeklyGrid');
-        if (!container) return;
-        if (weeklyOffers.length === 0) {
-            container.innerHTML = '<div style="text-align:center; padding:0.5rem;">لا توجد عروض حالياً</div>';
-            return;
-        }
-        container.innerHTML = weeklyOffers.map(offer => {
-            const product = products.find(p => p.id == offer.productId);
-            if (!product) return '';
-            const discountPercent = offer.discount;
-            const newPrice = product.priceOMR * (1 - discountPercent / 100);
+        container.innerHTML = weeklyOffers.map(o => {
+            const p = products.find(prod => prod.id == o.productId);
+            if (!p) return '';
             return `
-                <div class="weekly-item">
-                    <img src="${product.image || ''}" onerror="this.src='https://via.placeholder.com/40'">
+                <div class="weekly-item" onclick="requestPurchase('${p.id}')">
+                    <img src="${p.image}" alt="">
                     <div class="info">
-                        <div class="name">${currentLang === 'ar' ? product.nameAr : product.nameEn}</div>
-                        <div class="offer-price">${newPrice.toFixed(2)} ر.ع <span class="old-price">${product.priceOMR} ر.ع</span></div>
+                        <div class="name">${p.nameAr}</div>
+                        <div class="offer-price">${formatPrice(p.priceOMR * (1 - o.discount/100))} <span class="offer-badge">-${o.discount}%</span></div>
                     </div>
-                    <div class="offer-badge">-${discountPercent}%</div>
                 </div>
             `;
         }).join('');
     }
-    
-    const allGames = [
-        { id: 1, nameAr: "Assassin's Creed Shadows", nameEn: "Assassin's Creed Shadows", priceOMR: 13, oldPrice: 22, stock: 50, image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/3159340/header.jpg", detailsAr: "🏷️ 65GB | 🎮 عربي/إنجليزي", detailsEn: "📦 65GB | 🎮 Arabic/English", category: "games", rating: 4.8, reviews: 124 },
-        { id: 2, nameAr: "Call of Duty Black Ops 6", nameEn: "Call of Duty Black Ops 6", priceOMR: 22, oldPrice: 26, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2933620/header.jpg", detailsAr: "🏷️ 120GB | 🎮 إنجليزي", detailsEn: "📦 120GB | 🎮 English", category: "games", rating: 4.7, reviews: 89 },
-        { id: 3, nameAr: "Grand Theft Auto VI", nameEn: "Grand Theft Auto VI", priceOMR: 10, oldPrice: 11, stock: 100, image: "https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/downloads/gtavi/gtavi_cover_ps5.jpg", detailsAr: "🏷️ 150GB | 🌍 عالم مفتوح", detailsEn: "📦 150GB | 🌍 Open World", category: "games", rating: 4.9, reviews: 256 },
-        { id: 4, nameAr: "God of War Ragnarök", nameEn: "God of War Ragnarök", priceOMR: 11, oldPrice: 18, stock: 60, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2322010/header.jpg", detailsAr: "🏷️ 85GB | 🪓 ملحمة إسكندنافية", detailsEn: "📦 85GB | 🪓 Norse Saga", category: "games", rating: 4.9, reviews: 312 },
-        { id: 5, nameAr: "Spider-Man 2", nameEn: "Spider-Man 2", priceOMR: 14.5, oldPrice: 22, stock: 40, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2651280/header.jpg", detailsAr: "🏷️ 98GB | 🕷️ بيتر + مايلز", detailsEn: "📦 98GB | 🕷️ Peter + Miles", category: "games", rating: 4.8, reviews: 178 },
-        { id: 6, nameAr: "Elden Ring", nameEn: "Elden Ring", priceOMR: 12, oldPrice: 18, stock: 55, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg", detailsAr: "🏷️ 60GB | ⚔️ RPG خيالي", detailsEn: "📦 60GB | ⚔️ Fantasy RPG", category: "games", rating: 4.9, reviews: 445 },
-        { id: 7, nameAr: "Horizon Forbidden West", nameEn: "Horizon Forbidden West", priceOMR: 15, oldPrice: 20, stock: 50, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1151640/header.jpg", detailsAr: "🏷️ 96GB | 🦕 مغامرة مستقبلية", detailsEn: "📦 96GB | 🦕 Future Adventure", category: "games", rating: 4.7, reviews: 203 },
-        { id: 8, nameAr: "Ghost of Tsushima", nameEn: "Ghost of Tsushima", priceOMR: 17, oldPrice: 22, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2215430/header.jpg", detailsAr: "🏷️ 50GB | 🗡️ ساموراي", detailsEn: "📦 50GB | 🗡️ Samurai", category: "games", rating: 4.9, reviews: 367 },
-        { id: 9, nameAr: "The Last of Us Part I", nameEn: "The Last of Us Part I", priceOMR: 20, oldPrice: 25, stock: 35, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1888930/header.jpg", detailsAr: "🏷️ 70GB | 🧟 لعبة البقاء", detailsEn: "📦 70GB | 🧟 Survival Game", category: "games", rating: 4.8, reviews: 289 },
-        { id: 10, nameAr: "Final Fantasy XVI", nameEn: "Final Fantasy XVI", priceOMR: 18, oldPrice: 25, stock: 30, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2055370/header.jpg", detailsAr: "🏷️ 90GB | 🗡️ RPG خيالي", detailsEn: "📦 90GB | 🗡️ Fantasy RPG", category: "games", rating: 4.6, reviews: 156 },
-        { id: 11, nameAr: "Red Dead Redemption 2", nameEn: "Red Dead Redemption 2", priceOMR: 15, oldPrice: 24, stock: 70, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1174180/header.jpg", detailsAr: "🏷️ 150GB | 🤠 رعاة البقر", detailsEn: "📦 150GB | 🤠 Western", category: "games", rating: 4.9, reviews: 890 },
-        { id: 12, nameAr: "Cyberpunk 2077", nameEn: "Cyberpunk 2077", priceOMR: 10, oldPrice: 16, stock: 60, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/header.jpg", detailsAr: "🏷️ 70GB | 🤖 مستقبلية", detailsEn: "📦 70GB | 🤖 Futuristic", category: "games", rating: 4.6, reviews: 789 },
-        { id: 13, nameAr: "Tekken 8", nameEn: "Tekken 8", priceOMR: 12, oldPrice: 18, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1778820/header.jpg", detailsAr: "🏷️ 80GB | 🥊 لعبة قتال", detailsEn: "📦 80GB | 🥊 Fighting Game", category: "games", rating: 4.7, reviews: 156 },
-        { id: 108, nameAr: "Mafia: The Old Country", nameEn: "Mafia: The Old Country", priceOMR: 12, oldPrice: 18, stock: 25, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2933620/header.jpg", detailsAr: "🇮🇹 55GB | 🔫 أكشن - مغامرة | 🗡️ قتال بالسكاكين", detailsEn: "🇮🇹 55GB | 🔫 Action-Adventure | 🗡️ Knife Combat", category: "games", rating: 4.7, reviews: 45 }
-    ];
-    for (let i = 14; i <= 50; i++) {
-        if (i === 108) continue;
-        allGames.push({
-            id: i, nameAr: `لعبة PS5 مميزة ${i}`, nameEn: `Premium PS5 Game ${i}`,
-            priceOMR: 9 + Math.floor(Math.random() * 10), oldPrice: 12 + Math.floor(Math.random() * 10),
-            stock: 20 + Math.floor(Math.random() * 80),
-            image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2358720/header.jpg",
-            detailsAr: `🏷️ لعبة رقم ${i}`, detailsEn: `Game ${i}`, category: "games",
-            rating: 4 + Math.random(), reviews: Math.floor(Math.random() * 100)
-        });
+
+    function setView(view) {
+        const grid = document.getElementById('productsContainer');
+        if (view === 'mobile') grid.style.gridTemplateColumns = 'repeat(3, 1fr)';
+        else grid.style.gridTemplateColumns = 'repeat(4, 1fr)';
+        document.querySelectorAll('.device-btn').forEach(b => b.classList.remove('active'));
+        event.currentTarget.classList.add('active');
     }
-    
-    const giftCards = [
-        { id: 101, nameAr: "🇺🇸 بطاقة أمريكي", nameEn: "🇺🇸 US Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/30px-Flag_of_the_United_States.svg.png", detailsAr: "10$ | 25$ | 50$ | 100$", detailsEn: "10$ | 25$ | 50$ | 100$", rating: 4.9, reviews: 234 },
-        { id: 102, nameAr: "🇸🇦 بطاقة سعودي", nameEn: "🇸🇦 Saudi Card", category: "giftcards", priceOMR: 4.5, oldPrice: 5.5, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/30px-Flag_of_Saudi_Arabia.svg.png", detailsAr: "50ر.س | 100ر.س | 200ر.س", detailsEn: "50 SAR | 100 SAR | 200 SAR", rating: 4.8, reviews: 189 },
-        { id: 103, nameAr: "🇦🇪 بطاقة إماراتي", nameEn: "🇦🇪 UAE Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Flag_of_the_United_Arab_Emirates.svg/30px-Flag_of_the_United_Arab_Emirates.svg.png", detailsAr: "50د.إ | 100د.إ | 200د.إ", detailsEn: "50 AED | 100 AED | 200 AED", rating: 4.8, reviews: 156 },
-        { id: 104, nameAr: "🇴🇲 بطاقة عماني", nameEn: "🇴🇲 Oman Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Flag_of_Oman.svg/30px-Flag_of_Oman.svg.png", detailsAr: "5ر.ع | 10ر.ع | 20ر.ع", detailsEn: "5 OMR | 10 OMR | 20 OMR", rating: 4.9, reviews: 145 }
-    ];
-    
-    const allDefaultProducts = [...allGames, ...giftCards];
-    
-    function displayProductsImmediately() {
-        products = JSON.parse(JSON.stringify(allDefaultProducts));
-        products.forEach((p, idx) => { p.order = idx; });
-        renderTabs();
-        renderProducts();
-        
-        setTimeout(() => {
-            try {
-                if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-                const db = firebase.database();
-                const productsRef = db.ref('products');
-                const categoriesRef = db.ref('categories');
-                const offersRef = db.ref('weekly_offers');
-                
-                categoriesRef.once('value', (snapshot) => {
-                    const data = snapshot.val();
-                    if (data && data.categories && data.names) {
-                        categories = data.categories;
-                        categoryNames = data.names;
-                        renderTabs();
-                    }
-                });
-                
-                productsRef.once('value', (snapshot) => {
-                    const data = snapshot.val();
-                    if (data && Array.isArray(data) && data.length > 0) {
-                        products = data.sort((a, b) => (a.order || 0) - (b.order || 0));
-                        renderProducts();
-                        renderTabs();
-                    }
-                });
-                
-                productsRef.on('value', (snapshot) => {
-                    const data = snapshot.val();
-                    if (data && Array.isArray(data) && data.length > 0) {
-                        products = data.sort((a, b) => (a.order || 0) - (b.order || 0));
-                        renderProducts();
-                    }
-                });
-                
-                categoriesRef.on('value', (snapshot) => {
-                    const data = snapshot.val();
-                    if (data && data.categories && data.names) {
-                        categories = data.categories;
-                        categoryNames = data.names;
-                        renderTabs();
-                    }
-                });
-                
-                offersRef.on('value', () => {
-                    loadWeeklyOffers();
-                });
-                
-            } catch(e) { console.log("Firebase error:", e); }
-        }, 100);
-    }
-    
-    function renderTabs() {
-        const container = document.getElementById('tabsContainer');
-        if (!container) return;
-        const allCats = [
-            { key: "all", name: currentLang === 'ar' ? "🎮 جميع المنتجات" : "🎮 All Products" },
-            ...categories.map(c => ({ key: c, name: categoryNames[c] || c }))
-        ];
-        container.innerHTML = allCats.map(cat => `
-            <button class="tab-btn ${currentCategory === cat.key ? 'active' : ''}" onclick="setCategory('${cat.key}')">
-                ${cat.name}
-            </button>
-        `).join('');
-    }
-    
-    function formatPrice(price) { 
-        const converted = (price * exchangeRates[currentCurrency]).toFixed(2);
-        return `${currencySymbols[currentCurrency]} ${converted}`; 
-    }
-    
-    function getFilteredProducts() {
-        let filtered = [...products];
-        if (searchQuery.trim()) {
-            const query = searchQuery.toLowerCase();
-            filtered = filtered.filter(p => (p.nameAr || '').toLowerCase().includes(query) || (p.nameEn || '').toLowerCase().includes(query));
-        }
-        if (currentCategory !== 'all') {
-            filtered = filtered.filter(p => p.category === currentCategory);
-        }
-        return filtered;
-    }
-    
-    function renderProducts() {
-        const filtered = getFilteredProducts();
-        const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
-        if (currentPage > totalPages) currentPage = 1;
-        const start = (currentPage - 1) * ITEMS_PER_PAGE;
-        const pageProducts = filtered.slice(start, start + ITEMS_PER_PAGE);
-        const container = document.getElementById('productsContainer');
-        if (pageProducts.length === 0) { container.innerHTML = '<div style="text-align:center; padding:2rem;">لا توجد منتجات حالياً</div>'; return; }
-        
-        const t = translations[currentLang];
-        const orderText = t?.orderNow || "اطلب الآن";
-        const outOfStockText = t?.outOfStock || "نفذت الكمية";
-        
-        container.innerHTML = pageProducts.map(p => {
-            const name = currentLang === 'ar' ? (p.nameAr || 'منتج') : (p.nameEn || 'Product');
-            const desc = currentLang === 'ar' ? (p.detailsAr || '') : (p.detailsEn || '');
-            const price = formatPrice(p.priceOMR);
-            const hasDiscount = p.oldPrice && p.oldPrice > p.priceOMR;
-            const oldPrice = hasDiscount ? formatPrice(p.oldPrice) : null;
-            const discountPercent = hasDiscount ? Math.round((1 - p.priceOMR / p.oldPrice) * 100) : 0;
-            const categoryName = categoryNames[p.category] || p.category;
-            const stock = p.stock || 0;
-            const isOutOfStock = stock <= 0;
-            const rating = p.rating || 4.5;
-            const reviews = p.reviews || Math.floor(Math.random() * 500);
-            const fullStars = Math.floor(rating);
-            const hasHalfStar = rating - fullStars >= 0.5;
-            
-            let stockClass = 'high';
-            let stockText = `${stock} متبقية`;
-            if (stock <= 0) { stockClass = 'out'; stockText = 'نفذت'; }
-            else if (stock < 10) { stockClass = 'low'; stockText = `⚠️ متبقي ${stock} فقط!`; }
-            else { stockClass = 'high'; stockText = `✅ متوفر (${stock})`; }
-            
-            let imageHtml = p.image && p.image.trim() ? 
-                `<div class="product-image" style="background-image: url('${p.image}'); background-size: cover; background-position: center;"><div class="product-badge">${categoryName}</div></div>` : 
-                `<div class="product-image" style="background: linear-gradient(135deg, #1e3a5f, #0f2a4a); display: flex; align-items: center; justify-content: center;"><div style="font-size: 2.5rem;">${p.category === 'games' ? '🎮' : '💳'}</div><div class="product-badge">${categoryName}</div></div>`;
-            
-            let starsHtml = '';
-            for (let i = 1; i <= 5; i++) {
-                if (i <= fullStars) starsHtml += '<i class="fas fa-star"></i>';
-                else if (i === fullStars + 1 && hasHalfStar) starsHtml += '<i class="fas fa-star-half-alt"></i>';
-                else starsHtml += '<i class="far fa-star grey"></i>';
-            }
-            
-            return `<div class="product-card ${isOutOfStock ? 'out-of-stock' : ''}">
-                        ${hasDiscount ? `<div class="discount-badge">🔥 -${discountPercent}%</div>` : ''}
-                        ${isOutOfStock ? `<div class="out-of-stock-badge">⚠️ ${outOfStockText}</div>` : ''}
-                        ${imageHtml}
-                        <div class="card-info">
-                            <div class="product-title">
-                                ${escapeHtml(name)}
-                                <button class="share-btn" onclick="shareProduct('${escapeHtml(name)}', '${price}')" title="مشاركة"><i class="fab fa-whatsapp"></i></button>
-                            </div>
-                            <div class="rating-stars">
-                                ${starsHtml}
-                                <span class="reviews-count">(${reviews})</span>
-                            </div>
-                            <div class="product-details">${escapeHtml(desc || '')}</div>
-                            <div class="price-container">
-                                ${hasDiscount ? `<span class="old-price">${oldPrice}</span>` : ''}
-                                <span class="price">${price}</span>
-                            </div>
-                            <div class="stock-counter ${stockClass}">${stockText}</div>
-                            ${!isOutOfStock ? 
-                                `<button class="btn-wa" data-id="${p.id}" data-name="${escapeHtml(name)}" data-price="${p.priceOMR}"><i class="fab fa-whatsapp"></i> ${orderText}</button>` : 
-                                `<button class="btn-wa disabled" disabled><i class="fas fa-times-circle"></i> ${outOfStockText}</button>`
-                            }
-                        </div>
-                    </div>`;
-        }).join('');
-        
-        document.querySelectorAll('.btn-wa:not(.disabled)').forEach(btn => {
-            btn.onclick = (e) => {
-                e.preventDefault();
-                const id = btn.getAttribute('data-id');
-                const name = btn.getAttribute('data-name');
-                const price = parseFloat(btn.getAttribute('data-price'));
-                if (id && name && !isNaN(price)) requestPurchase(id, name, price);
-            };
-        });
-        
-        const pagContainer = document.getElementById('pagination');
-        if (totalPages > 1) {
-            let pagesHtml = '';
-            for (let i = 1; i <= totalPages; i++) pagesHtml += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
-            pagContainer.innerHTML = pagesHtml;
-        } else pagContainer.innerHTML = '';
-        document.getElementById('searchCount').innerHTML = filtered.length;
-    }
-    
-    function escapeHtml(text) { if (!text) return ''; return text.replace(/[&<>]/g, m => ({ '&':'&amp;','<':'&lt;','>':'&gt;' }[m]||m)); }
-    function goToPage(page) { currentPage = page; renderProducts(); window.scrollTo({ top: 400, behavior: 'smooth' }); }
-    function setCategory(cat) { currentCategory = cat; currentPage = 1; renderTabs(); renderProducts(); }
-    
-    function shareProduct(name, price) {
-        const message = `🎮 ${name}\n💰 السعر: ${price}\n🛒 اطلب الآن من xnesto: ${window.location.href}`;
-        window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
-    }
-    
-    function requestPurchase(id, name, priceOMR) {
-        pendingProductData = { id, name, priceOMR };
-        document.getElementById('termsModal').style.display = 'flex';
-    }
-    
-    function rejectTerms() {
-        document.getElementById('termsModal').style.display = 'none';
-        pendingProductData = null;
-    }
-    
-    function acceptTerms() {
-        if (!pendingProductData) return;
-        const { name, priceOMR } = pendingProductData;
-        const sym = currencySymbols[currentCurrency];
-        const convertedPrice = (priceOMR * exchangeRates[currentCurrency]).toFixed(2);
-        const message = `🛒 طلب شراء من xnesto\n━━━━━━━━━━━━━━━━━━━━\n🎮 المنتج: ${name}\n💰 السعر: ${sym} ${convertedPrice}\n━━━━━━━━━━━━━━━━━━━━\n📞 يرجى تأكيد الطلب وإرسال طريقة الدفع.\n\n✅ أوافق على شروط وأحكام المتجر.`;
-        window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
-        document.getElementById('termsModal').style.display = 'none';
-        pendingProductData = null;
-    }
-    
-    function setLang(lang) { 
-        currentLang = lang; 
-        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active')); 
-        if (event && event.target) event.target.classList.add('active');
-        updateUILanguage(lang);
-        renderTabs();
-        renderProducts(); 
-        renderWeeklyOffers();
-    }
-    
-    function setCurrency(currency) { currentCurrency = currency; renderProducts(); }
-    
-    function setView(view) { 
-        const productsGrid = document.querySelector('.products-grid');
-        if (view === 'mobile') {
-            productsGrid.style.gridTemplateColumns = 'repeat(3, 1fr)';
-        } else {
-            productsGrid.style.gridTemplateColumns = 'repeat(4, 1fr)';
-        }
-        localStorage.setItem('xnesto_view', view); 
-        const btns = document.querySelectorAll('.device-btn');
-        btns.forEach(btn => btn.classList.remove('active'));
-        if (event && event.currentTarget) event.currentTarget.classList.add('active');
-    }
-    
-    document.getElementById('searchInput').addEventListener('input', (e) => { searchQuery = e.target.value; currentPage = 1; renderProducts(); });
-    
-    const savedView = localStorage.getItem('xnesto_view') || 'mobile'; 
-    setView(savedView);
-    
-    document.getElementById('instagramText').innerHTML = `<a href="https://instagram.com/${INSTA_USERNAME}" target="_blank" style="color:#ffaa66;text-decoration:none;">${INSTA_USERNAME}</a>`;
-    document.getElementById('whatsappText').innerHTML = `<a href="https://wa.me/${WA_NUMBER}" target="_blank" style="color:#ffaa66;text-decoration:none;">+${WA_NUMBER}</a>`;
-    
-    updateUILanguage('ar');
-    displayProductsImmediately();
-    
-    window.setView = setView;
-    window.setLang = setLang;
-    window.setCurrency = setCurrency;
-    window.setCategory = setCategory;
-    window.goToPage = goToPage;
-    window.rejectTerms = rejectTerms;
-    window.acceptTerms = acceptTerms;
-    window.shareProduct = shareProduct;
+
+    document.getElementById('searchInput').oninput = (e) => { searchQuery = e.target.value; currentPage = 1; renderProducts(); };
+
+    window.onload = initFirebase;
 </script>
 </body>
 </html>
