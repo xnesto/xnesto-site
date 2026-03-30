@@ -11,31 +11,27 @@
     <style>
         :root { --primary: #ffaa44; --secondary: #ff8844; --bg: #0a0a1a; --card-bg: #11152b; --text: #f0f0ff; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--bg); font-family: 'Cairo', sans-serif; color: var(--text); padding: 1rem; min-height: 100vh; transition: 0.3s; }
+        body { background: var(--bg); font-family: 'Cairo', sans-serif; color: var(--text); padding: 1rem; min-height: 100vh; }
         body.en { direction: ltr; text-align: left; }
         
-        /* Header & Logo */
         .hero-header { background: linear-gradient(135deg, #0f0f2a, #1a1a3a, #0a0a1f); border-radius: 2rem; margin-bottom: 2rem; padding: 2rem; text-align: center; border: 1px solid rgba(255,170,68,0.3); }
-        .main-logo { font-size: 2.8rem; font-weight: 900; background: linear-gradient(135deg, #ffcc88, #ffaa44, #ff8844); -webkit-background-clip: text; background-clip: text; color: transparent; letter-spacing: 2px; }
+        .main-logo { font-size: 2.8rem; font-weight: 900; background: linear-gradient(135deg, #ffcc88, #ffaa44, #ff8844); -webkit-background-clip: text; background-clip: text; color: transparent; }
         
-        /* Language & Currency Bar */
         .top-controls { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 1rem; background: rgba(15,15,42,0.8); padding: 10px 20px; border-radius: 50px; border: 1px solid rgba(255,170,68,0.2); }
-        .btn-lang { background: var(--primary); color: #0a0a1a; border: none; padding: 5px 15px; border-radius: 20px; font-weight: bold; cursor: pointer; font-family: 'Cairo'; }
+        .btn-lang { background: var(--primary); color: #0a0a1a; border: none; padding: 5px 15px; border-radius: 20px; font-weight: bold; cursor: pointer; }
         .currency-selector select { background: #1e1e3a; border: none; color: var(--primary); font-weight: bold; padding: 5px 10px; border-radius: 20px; cursor: pointer; outline: none; }
 
-        /* Search & Tabs */
         .search-box { background: rgba(30,30,58,0.6); border-radius: 50px; padding: 12px 25px; border: 1px solid rgba(255,170,68,0.3); display: flex; align-items: center; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto; }
         .search-box input { background: transparent; border: none; color: white; width: 100%; font-size: 1rem; outline: none; font-family: 'Cairo'; margin: 0 10px; }
+        
         .tabs-container { display: flex; justify-content: center; gap: 10px; margin-bottom: 2rem; flex-wrap: wrap; }
         .tab-btn { background: #1e1e3a; border: 1px solid rgba(255,170,68,0.2); color: #ccc; padding: 8px 20px; border-radius: 50px; cursor: pointer; font-weight: 700; transition: 0.3s; }
-        .tab-btn.active { background: var(--primary); color: #0a0a1a; transform: translateY(-3px); }
+        .tab-btn.active { background: var(--primary); color: #0a0a1a; }
 
-        /* Products Grid */
         .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; max-width: 1400px; margin: 0 auto; }
         @media (max-width: 640px) { .products-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; } }
         
         .product-card { background: var(--card-bg); border-radius: 1.5rem; overflow: hidden; border: 1px solid rgba(255,170,68,0.15); transition: 0.4s; display: flex; flex-direction: column; position: relative; }
-        .product-card:hover { transform: translateY(-10px); border-color: var(--primary); }
         .product-image { height: 180px; background-size: cover; background-position: center; position: relative; }
         .product-badge { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.6); color: var(--primary); padding: 3px 10px; border-radius: 50px; font-size: 0.7rem; font-weight: 700; }
         
@@ -50,10 +46,9 @@
         .price-val { font-weight: 900; color: var(--primary); }
         .price-val.primary { color: #00cc88; }
 
-        .btn-wa { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #0a0a1a; border: none; padding: 10px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: 0.3s; width: 100%; margin-top: auto; }
+        .btn-wa { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #0a0a1a; border: none; padding: 10px; border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%; margin-top: auto; }
         .btn-wa.disabled { background: #444; color: #888; cursor: not-allowed; }
 
-        /* Modal Styles */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); align-items: center; justify-content: center; z-index: 5000; padding: 1rem; }
         .modal-content { background: var(--card-bg); border-radius: 1.5rem; padding: 1.5rem; border: 2px solid var(--primary); width: 100%; max-width: 550px; max-height: 90vh; overflow-y: auto; }
         .license-options { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 1.5rem 0; }
@@ -65,8 +60,7 @@
         .terms-actions { display: flex; gap: 10px; justify-content: center; margin-top: 1.5rem; }
         .btn-cancel { background: #444; color: white; border: none; padding: 10px 20px; border-radius: 40px; cursor: pointer; }
         .btn-accept { background: var(--primary); color: #0a0a1a; border: none; padding: 10px 20px; border-radius: 40px; cursor: pointer; font-weight: bold; }
-        
-        .whatsapp-float { position: fixed; bottom: 20px; left: 20px; background: #25d366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .whatsapp-float { position: fixed; bottom: 20px; left: 20px; background: #25d366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; z-index: 1000; }
     </style>
 </head>
 <body>
@@ -80,14 +74,9 @@
     <button class="btn-lang" onclick="toggleLanguage()" id="langBtn">English</button>
     <div class="currency-selector">
         <select id="currencySelect" onchange="setCurrency(this.value)">
-            <option value="OMR">🇴🇲 OMR</option>
-            <option value="SAR">🇸🇦 SAR</option>
-            <option value="AED">🇦🇪 AED</option>
-            <option value="QAR">🇶🇦 QAR</option>
-            <option value="KWD">🇰🇼 KWD</option>
-            <option value="BHD">🇧🇭 BHD</option>
-            <option value="USD">🇺🇸 USD</option>
-            <option value="EUR">🇪🇺 EUR</option>
+            <option value="OMR">🇴🇲 OMR</option><option value="SAR">🇸🇦 SAR</option><option value="AED">🇦🇪 AED</option>
+            <option value="QAR">🇶🇦 QAR</option><option value="KWD">🇰🇼 KWD</option><option value="BHD">🇧🇭 BHD</option>
+            <option value="USD">🇺🇸 USD</option><option value="EUR">🇪🇺 EUR</option>
         </select>
     </div>
 </div>
@@ -97,23 +86,12 @@
     <input type="text" id="searchInput" placeholder="ابحث عن لعبة أو بطاقة...">
 </div>
 
-<div id="tabsContainer" class="tabs-container">
-    <button class="tab-btn active" onclick="setCategory('all')" id="tab-all">🔥 الكل</button>
-    <button class="tab-btn" onclick="setCategory('games')" id="tab-games">🎮 ألعاب</button>
-    <button class="tab-btn" onclick="setCategory('giftcards')" id="tab-cards">💳 بطاقات</button>
-</div>
-
+<div id="tabsContainer" class="tabs-container"></div>
 <div id="productsContainer" class="products-grid"></div>
 
-<div style="text-align:center; padding:2rem; color:#666; font-size:0.8rem;">© 2025 XNESTO STORE - All Rights Reserved</div>
-
-<a href="https://wa.me/96879977100" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
-
-<!-- Purchase Modal -->
 <div id="purchaseModal" class="modal">
     <div class="modal-content">
         <h3 id="modalProductName" style="text-align:center; color:var(--primary);"></h3>
-        
         <div id="gameOptions">
             <p id="modalHint" style="text-align:center; margin:10px 0; font-size:0.9rem; color:#ffdd99;"></p>
             <div class="license-options">
@@ -139,16 +117,10 @@
                 <p id="guide-text"></p>
             </div>
         </div>
-
         <div class="guide-section">
             <h4 id="terms-title">📋 شروط المتجر:</h4>
-            <ul style="padding-right:20px;" id="terms-list">
-                <li>ضمان لمدة 7 أيام.</li>
-                <li>يمنع تغيير بيانات الحساب.</li>
-                <li>لا يوجد استرجاع بعد التسليم.</li>
-            </ul>
+            <ul style="padding-right:20px;" id="terms-list"></ul>
         </div>
-
         <div class="terms-actions">
             <button onclick="closeModal()" class="btn-cancel" id="btn-cancel">إلغاء</button>
             <button onclick="confirmOrder()" class="btn-accept" id="btn-order">تأكيد واتساب</button>
@@ -156,12 +128,14 @@
     </div>
 </div>
 
+<a href="https://wa.me/96879977100" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
 <script>
     const firebaseConfig = { databaseURL: "https://xnesto-645bf-default-rtdb.asia-southeast1.firebasedatabase.app/" };
     if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    let products = [], currentCategory = 'all', currentCurrency = 'OMR', searchQuery = '', currentLang = 'ar';
+    let products = [], categories = {}, currentCategory = 'all', currentCurrency = 'OMR', searchQuery = '', currentLang = 'ar';
     let selectedProduct = null, selectedLicense = 'primary';
 
     const rates = { OMR:1, SAR:9.75, AED:9.55, QAR:9.45, KWD:0.80, BHD:0.98, USD:2.60, EUR:2.45 };
@@ -169,40 +143,29 @@
     
     const i18n = {
         ar: {
-            heroSub: "تسجيل حساب فوري - استلم خلال دقائق",
-            searchPl: "ابحث عن لعبة أو بطاقة...",
-            all: "🔥 الكل", games: "🎮 ألعاب", cards: "💳 بطاقات",
+            heroSub: "تسجيل حساب فوري - استلم خلال دقائق", searchPl: "ابحث عن لعبة أو بطاقة...", all: "🔥 الكل",
             primary: "أساسية", secondary: "ثانوية", order: "اطلب الآن", out: "نفذت الكمية",
-            modalHint: "يرجى اختيار نوع النسخة المطلوبة:",
-            thFeature: "الميزة", thP: "أساسية", thS: "ثانوية",
+            modalHint: "يرجى اختيار نوع النسخة المطلوبة:", thFeature: "الميزة", thP: "أساسية", thS: "ثانوية",
             f1: "اللعب بحسابك الخاص", f2: "اللعب بدون إنترنت", f3: "تجميع التروفيز",
-            guideTitle: "ℹ️ شرح التفعيل:",
-            guideP: "النسخة الأساسية: تفعل الحساب كجهاز رئيسي وتلعب من حسابك الخاص.",
-            guideS: "النسخة الثانوية: تلعب من حساب المتجر مباشرة مع اتصال إنترنت.",
-            termsTitle: "📋 شروط المتجر:",
-            terms: ["ضمان لمدة 7 أيام.", "يمنع تغيير بيانات الحساب.", "لا يوجد استرجاع بعد التسليم."],
+            guideTitle: "ℹ️ شرح التفعيل:", guideP: "الأساسية: تفعل الحساب كجهاز رئيسي وتلعب من حسابك الخاص.", guideS: "الثانوية: تلعب من حساب المتجر مباشرة مع اتصال إنترنت.",
+            termsTitle: "📋 شروط المتجر:", terms: ["ضمان لمدة 7 أيام.", "يمنع تغيير بيانات الحساب.", "لا يوجد استرجاع بعد التسليم."],
             cancel: "إلغاء", confirm: "تأكيد واتساب",
             msg: "🛒 طلب شراء جديد\n🎮 المنتج: {name}\n📂 النوع: {type}\n💰 السعر: {price}\n━━━━━━━━━━━━\n✅ أوافق على الشروط."
         },
         en: {
-            heroSub: "Instant Account Registration - Receive in Minutes",
-            searchPl: "Search for a game or card...",
-            all: "🔥 All", games: "🎮 Games", cards: "💳 Cards",
+            heroSub: "Instant Account Registration - Receive in Minutes", searchPl: "Search for a game or card...", all: "🔥 All",
             primary: "Primary", secondary: "Secondary", order: "Order Now", out: "Out of Stock",
-            modalHint: "Please select the required version:",
-            thFeature: "Feature", thP: "Primary", thS: "Secondary",
+            modalHint: "Please select the required version:", thFeature: "Feature", thP: "Primary", thS: "Secondary",
             f1: "Play on your own account", f2: "Play offline", f3: "Collect Trophies",
-            guideTitle: "ℹ️ Activation Guide:",
-            guideP: "Primary: Activate as main console and play on your own profile.",
-            guideS: "Secondary: Play directly on the store account with internet.",
-            termsTitle: "📋 Store Terms:",
-            terms: ["7-day warranty.", "Changing account data is forbidden.", "No refunds after delivery."],
+            guideTitle: "ℹ️ Activation Guide:", guideP: "Primary: Activate as main console and play on your own profile.", guideS: "Secondary: Play directly on the store account with internet.",
+            termsTitle: "📋 Store Terms:", terms: ["7-day warranty.", "Changing account data is forbidden.", "No refunds after delivery."],
             cancel: "Cancel", confirm: "Confirm WhatsApp",
             msg: "🛒 New Order\n🎮 Product: {name}\n📂 Type: {type}\n💰 Price: {price}\n━━━━━━━━━━━━\n✅ I agree to the terms."
         }
     };
 
     function init() {
+        db.ref('categories').on('value', snap => { categories = snap.val() || { "games": "🎮 ألعاب", "giftcards": "💳 بطاقات" }; renderTabs(); });
         db.ref('products').on('value', snap => {
             const data = snap.val();
             products = data ? (Array.isArray(data) ? data : Object.values(data)) : [];
@@ -217,18 +180,13 @@
         document.documentElement.lang = currentLang;
         document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
         document.getElementById('langBtn').innerText = currentLang === 'ar' ? 'English' : 'العربية';
-        updateUIStrings();
-        renderProducts();
+        updateUIStrings(); renderTabs(); renderProducts();
     }
 
     function updateUIStrings() {
         const t = i18n[currentLang];
         document.getElementById('hero-sub').innerText = t.heroSub;
         document.getElementById('searchInput').placeholder = t.searchPl;
-        document.getElementById('tab-all').innerText = t.all;
-        document.getElementById('tab-games').innerText = t.games;
-        document.getElementById('tab-cards').innerText = t.cards;
-        // Modal strings
         document.getElementById('modalHint').innerText = t.modalHint;
         document.getElementById('label-primary').innerText = t.primary;
         document.getElementById('label-secondary').innerText = t.secondary;
@@ -245,38 +203,41 @@
         document.getElementById('terms-list').innerHTML = t.terms.map(li => `<li>${li}</li>`).join('');
     }
 
+    function renderTabs() {
+        const container = document.getElementById('tabsContainer');
+        let html = `<button class="tab-btn ${currentCategory === 'all' ? 'active' : ''}" onclick="setCategory('all')">${i18n[currentLang].all}</button>`;
+        Object.entries(categories).forEach(([key, name]) => {
+            html += `<button class="tab-btn ${currentCategory === key ? 'active' : ''}" onclick="setCategory('${key}')">${name}</button>`;
+        });
+        container.innerHTML = html;
+    }
+
     function renderProducts() {
         const container = document.getElementById('productsContainer');
         const t = i18n[currentLang];
         const filtered = products.filter(p => {
-            const name = (p.nameAr || '').toLowerCase();
-            const matchesSearch = name.includes(searchQuery.toLowerCase());
+            const matchesSearch = (p.nameAr || '').toLowerCase().includes(searchQuery.toLowerCase());
             const matchesCat = currentCategory === 'all' || p.category === currentCategory;
             return matchesSearch && matchesCat;
         });
 
         container.innerHTML = filtered.map(p => {
-            const out = (p.stock == 0 || !p.stock);
+            const out = (!p.stock || p.stock == 0);
             const isGame = (p.category === 'games');
             const pPrice = p.pricePrimary || p.priceOMR;
             const sPrice = p.priceSecondary || (p.priceOMR * 0.6).toFixed(1);
 
-            let pricing = "";
-            if (isGame) {
-                pricing = `
-                    <div class="pricing-display">
-                        <div class="price-row"><span>${t.primary}:</span><span class="price-val primary">${formatPrice(pPrice)}</span></div>
-                        <div class="price-row"><span>${t.secondary}:</span><span class="price-val">${formatPrice(sPrice)}</span></div>
-                    </div>`;
-            } else {
-                pricing = `<div class="pricing-display" style="justify-content:center;"><span class="price-val" style="font-size:1.1rem;">${formatPrice(p.priceOMR)}</span></div>`;
-            }
+            let pricing = isGame ? `
+                <div class="pricing-display">
+                    <div class="price-row"><span>${t.primary}:</span><span class="price-val primary">${formatPrice(pPrice)}</span></div>
+                    <div class="price-row"><span>${t.secondary}:</span><span class="price-val">${formatPrice(sPrice)}</span></div>
+                </div>` : `<div class="pricing-display" style="justify-content:center;"><span class="price-val" style="font-size:1.1rem;">${formatPrice(p.priceOMR)}</span></div>`;
 
             return `
                 <div class="product-card">
                     ${out ? `<div class="out-of-stock-overlay"><div class="out-of-stock-badge">${t.out}</div></div>` : ''}
                     <div class="product-image" style="background-image:url('${p.image}')">
-                        <div class="product-badge">${p.category === 'games' ? t.games : t.cards}</div>
+                        <div class="product-badge">${categories[p.category] || ''}</div>
                     </div>
                     <div class="card-info">
                         <div class="product-title">${p.nameAr}</div>
@@ -289,16 +250,11 @@
         }).join('');
     }
 
-    function formatPrice(omr) {
-        const val = (omr * rates[currentCurrency]).toFixed(2);
-        return `${symbols[currentCurrency]} ${val}`;
-    }
+    function formatPrice(omr) { return `${symbols[currentCurrency]} ${(omr * rates[currentCurrency]).toFixed(2)}`; }
 
     function openModal(id) {
         selectedProduct = products.find(p => p.id == id);
-        const t = i18n[currentLang];
         document.getElementById('modalProductName').innerText = selectedProduct.nameAr;
-        
         if (selectedProduct.category === 'games') {
             document.getElementById('gameOptions').style.display = 'block';
             const pp = selectedProduct.pricePrimary || selectedProduct.priceOMR;
@@ -306,9 +262,7 @@
             document.getElementById('modalPricePrimary').innerText = formatPrice(pp);
             document.getElementById('modalPriceSecondary').innerText = formatPrice(sp);
             selectLicense('primary');
-        } else {
-            document.getElementById('gameOptions').style.display = 'none';
-        }
+        } else { document.getElementById('gameOptions').style.display = 'none'; }
         document.getElementById('purchaseModal').style.display = 'flex';
     }
 
@@ -320,31 +274,21 @@
     }
 
     function confirmOrder() {
-        const p = selectedProduct;
-        const t = i18n[currentLang];
-        let price = p.priceOMR;
-        let typeText = currentLang === 'ar' ? 'حساب كامل' : 'Full Account';
-
+        const p = selectedProduct; const t = i18n[currentLang];
+        let price = p.priceOMR, typeText = currentLang === 'ar' ? 'طلب' : 'Order';
         if (p.category === 'games') {
             price = selectedLicense === 'primary' ? (p.pricePrimary || p.priceOMR) : (p.priceSecondary || (p.priceOMR * 0.6));
             typeText = t[selectedLicense];
         }
-
         const msg = t.msg.replace('{name}', p.nameAr).replace('{type}', typeText).replace('{price}', formatPrice(price));
         window.open(`https://wa.me/96879977100?text=${encodeURIComponent(msg)}`, '_blank');
         closeModal();
     }
 
     function closeModal() { document.getElementById('purchaseModal').style.display = 'none'; }
-    function setCategory(cat) { 
-        currentCategory = cat; 
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        event.target.classList.add('active');
-        renderProducts(); 
-    }
+    function setCategory(cat) { currentCategory = cat; renderTabs(); renderProducts(); }
     function setCurrency(cur) { currentCurrency = cur; renderProducts(); }
     document.getElementById('searchInput').oninput = e => { searchQuery = e.target.value; renderProducts(); };
-
     init();
 </script>
 </body>
