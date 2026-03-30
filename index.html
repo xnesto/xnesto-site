@@ -23,7 +23,8 @@
             .products-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 0.8rem; }
             .product-image { height: 130px; background-size: contain !important; background-repeat: no-repeat !important; background-position: center !important; }
             .product-title { font-size: 0.7rem; }
-            .price { font-size: 0.8rem; }
+            .price-row { font-size: 0.65rem; }
+            .price-val { font-size: 0.75rem; }
             .btn-wa { font-size: 0.6rem; padding: 5px; }
             .hero-content { padding: 1.2rem 1rem; }
             .main-logo { font-size: 1.6rem; }
@@ -187,7 +188,7 @@
         
         .tabs-container {
             display: flex;
-            justify(content): center;
+            justify-content: center;
             gap: 12px;
             margin-bottom: 2rem;
             flex-wrap: wrap;
@@ -220,36 +221,79 @@
             transition: all 0.4s ease;
             display: flex;
             flex-direction: column;
+            position: relative;
         }
         .product-card:hover { transform: translateY(-10px); border-color: #ffaa44; box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5); }
         
         .product-image { height: 180px; position: relative; overflow: hidden; background-color: #07071a; }
         .product-badge { position: absolute; top: 12px; right: 12px; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px); color: #ffaa44; padding: 4px 12px; border-radius: 50px; font-size: 0.7rem; font-weight: 700; border: 1px solid rgba(255, 170, 68, 0.3); }
         
-        .card-info { padding: 1.2rem; display: flex; flex-direction: column; flex-grow: 1; }
-        .product-title { font-size: 0.95rem; font-weight: 800; color: #fff; margin-bottom: 8px; line-height: 1.4; }
+        .out-of-stock-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            pointer-events: none;
+        }
+        .out-of-stock-badge {
+            background: #ff4444;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 900;
+            font-size: 1rem;
+            transform: rotate(-15deg);
+            border: 2px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .card-info { padding: 1rem; display: flex; flex-direction: column; flex-grow: 1; }
+        .product-title { font-size: 0.9rem; font-weight: 800; color: #fff; margin-bottom: 10px; line-height: 1.4; text-align: center; }
         
-        .price-container { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
-        .price { font-size: 1.2rem; font-weight: 900; color: #ffaa44; }
-        
+        /* Pricing Row Layout */
+        .pricing-display {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 12px;
+            background: rgba(255,255,255,0.03);
+            padding: 8px;
+            border-radius: 12px;
+        }
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: #b9c5f0;
+        }
+        .price-label { font-weight: 600; }
+        .price-val { font-weight: 900; color: #ffaa44; font-size: 0.9rem; }
+        .price-val.primary { color: #00cc88; }
+        .price-val.secondary { color: #ffaa44; }
+
         .btn-wa {
             background: linear-gradient(135deg, #ffaa44, #ff8844);
             color: #0a0a1a;
             border: none;
-            padding: 12px;
+            padding: 10px;
             border-radius: 12px;
             font-weight: 800;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             width: 100%;
             margin-top: auto;
         }
         .btn-wa:hover { transform: scale(1.03); }
+        .btn-wa.disabled { background: #444; color: #888; cursor: not-allowed; transform: none; }
         
         .footer { text-align: center; padding: 3rem 1rem; border-top: 1px solid rgba(255, 170, 68, 0.1); margin-top: 3rem; }
         #copyright { font-size: 0.8rem; color: #666; }
@@ -323,7 +367,6 @@
         .comparison-table i.fa-check { color: #00cc88; }
         .comparison-table i.fa-times { color: #ff4444; }
 
-        /* Guide & Terms Styles */
         .guide-section {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 1rem;
@@ -333,7 +376,7 @@
         }
         .guide-section h4 { color: #ffaa44; margin-bottom: 10px; font-size: 1rem; display: flex; align-items: center; gap: 8px; }
         .guide-section ul { padding-right: 1.2rem; margin-bottom: 1rem; }
-        .guide-section li { font-size: 0.8rem; color: #b9c5f0; margin-bottom: 6px; line-height: 1.4; }
+        .guide-section li { font-size: 0.8rem; color: #b9c5f0; margin-bottom: 6px; line-height: 1.4; list-style: none; }
         .guide-section strong { color: #ffaa44; }
 
         .terms-actions { display: flex; gap: 12px; justify-content: center; margin-top: 1.5rem; position: sticky; bottom: 0; background: #11152b; padding-top: 10px; }
@@ -490,22 +533,52 @@
             return matchesSearch && matchesCat;
         });
 
-        container.innerHTML = filtered.map(p => `
-            <div class="product-card">
-                <div class="product-image" style="background-image: url('${p.image}'); background-size: cover; background-position: center;">
-                    <div class="product-badge">${p.category === 'games' ? 'لعبة' : 'بطاقة'}</div>
-                </div>
-                <div class="card-info">
-                    <div class="product-title">${p.nameAr}</div>
-                    <div class="price-container">
-                        <span class="price">${formatPrice(p.priceOMR)}</span>
+        container.innerHTML = filtered.map(p => {
+            const isOutOfStock = (p.stock === 0 || p.stock === "0");
+            
+            // Pricing Logic
+            let pricingHTML = "";
+            if (p.category === 'games') {
+                const pPrice = p.pricePrimary || p.priceOMR;
+                const sPrice = p.priceSecondary || (p.priceOMR * 0.6).toFixed(1);
+                pricingHTML = `
+                    <div class="pricing-display">
+                        <div class="price-row">
+                            <span class="price-label">أساسية:</span>
+                            <span class="price-val primary">${formatPrice(pPrice)}</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price-label">ثانوية:</span>
+                            <span class="price-val secondary">${formatPrice(sPrice)}</span>
+                        </div>
                     </div>
-                    <button class="btn-wa" onclick="openPurchaseModal('${p.id}')">
-                        <i class="fab fa-whatsapp"></i> اطلب الآن
-                    </button>
+                `;
+            } else {
+                pricingHTML = `
+                    <div class="pricing-display" style="justify-content:center;">
+                        <div class="price-row" style="justify-content:center;">
+                            <span class="price-val" style="font-size:1.1rem;">${formatPrice(p.priceOMR)}</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            return `
+                <div class="product-card">
+                    ${isOutOfStock ? '<div class="out-of-stock-overlay"><div class="out-of-stock-badge">نفذت الكمية</div></div>' : ''}
+                    <div class="product-image" style="background-image: url('${p.image}'); background-size: cover; background-position: center;">
+                        <div class="product-badge">${p.category === 'games' ? 'لعبة' : 'بطاقة'}</div>
+                    </div>
+                    <div class="card-info">
+                        <div class="product-title">${p.nameAr}</div>
+                        ${pricingHTML}
+                        <button class="btn-wa ${isOutOfStock ? 'disabled' : ''}" ${isOutOfStock ? '' : `onclick="openPurchaseModal('${p.id}')"`}>
+                            <i class="fab fa-whatsapp"></i> ${isOutOfStock ? 'غير متوفر حالياً' : 'اطلب الآن'}
+                        </button>
+                    </div>
                 </div>
-            </div>
-        `).join('');
+            `;
+        }).join('');
     }
 
     function formatPrice(omr) {
@@ -521,11 +594,8 @@
         
         if (p.category === 'games') {
             document.getElementById('gameOptionsArea').style.display = 'block';
-            
-            // Logic for legacy products: If no specific prices set, use fallback
             const primaryPrice = p.pricePrimary || p.priceOMR;
             const secondaryPrice = p.priceSecondary || (p.priceOMR * 0.6).toFixed(1);
-            
             document.getElementById('primaryPriceDisplay').innerText = formatPrice(primaryPrice);
             document.getElementById('secondaryPriceDisplay').innerText = formatPrice(secondaryPrice);
             selectLicense('primary');
