@@ -1,12 +1,14 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>xnesto - لوحة الإدارة</title>
+    <title>xnesto - لوحة الإدارة المتكاملة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -122,6 +124,7 @@
         }
         .btn-save { background: #00cc88; border: none; padding: 0.5rem 1rem; border-radius: 2rem; cursor: pointer; font-weight: bold; color: #0a0a1a; }
         .btn-sm { background: #2d2f6e; border: none; padding: 0.3rem 0.8rem; border-radius: 2rem; cursor: pointer; color: white; }
+        .btn-danger { background: #ff4444; }
         
         .items-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
         .item-badge {
@@ -135,15 +138,28 @@
         }
         .item-badge i { cursor: pointer; color: #ff6666; }
         
+        .orders-table {
+            background: rgba(255,255,255,0.05);
+            border-radius: 1rem;
+            overflow-x: auto;
+        }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 8px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem; }
+        th { background: rgba(0,55,145,0.4); color: #ffaa44; }
+        .status-select {
+            background: #1e1e3a;
+            border: 1px solid #ffaa44;
+            border-radius: 1rem;
+            padding: 3px 8px;
+            color: white;
+        }
+        
         .products-table {
             background: rgba(255,255,255,0.05);
             border-radius: 1rem;
             overflow-x: auto;
             margin-top: 0.5rem;
         }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 8px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem; }
-        th { background: rgba(0,55,145,0.4); color: #ffaa44; }
         .stock-input { width: 60px; background: #1e1e3a; border: 1px solid #ffaa44; border-radius: 1rem; padding: 3px; text-align: center; color: white; }
         .edit-btn, .delete-btn {
             padding: 3px 8px;
@@ -236,46 +252,70 @@
             .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
             .product-edit-form { grid-template-columns: 1fr; }
         }
+        
+        body.light-mode {
+            background: #f0f4ff !important;
+            color: #1a1a2e !important;
+        }
+        body.light-mode .header { background: linear-gradient(135deg, #1a3a7a, #0d2a6e) !important; }
+        body.light-mode .section-card { background: #ffffff !important; }
+        body.light-mode .dashboard-card { background: #ffffff !important; }
+        body.light-mode .products-table { background: rgba(0,0,0,0.05) !important; }
+        body.light-mode td { color: #1a1a2e !important; }
+        body.light-mode input, body.light-mode select, body.light-mode textarea {
+            background: #f5f5f5 !important;
+            color: #1a1a2e !important;
+        }
+        body.light-mode .status-select { background: #f5f5f5 !important; color: #1a1a2e !important; }
+        body.light-mode .admin-notification { background: #ffffff !important; }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <h1>🔐 لوحة إدارة xnesto <i class="fas fa-chart-line"></i></h1>
-    <p>إدارة المنتجات - العروض - التصنيفات</p>
-</div>
-
 <div id="loginSection" class="login-box">
-    <h2><i class="fas fa-lock"></i> تسجيل الدخول</h2>
+    <h2>🔐 دخول الإدارة</h2>
     <input type="password" id="adminPassword" placeholder="كلمة السر">
     <button onclick="checkPassword()">دخول</button>
     <div id="loginError" class="login-error"></div>
 </div>
 
 <div id="adminContent" style="display:none;">
+    <div class="header">
+        <h1>🔐 لوحة إدارة xnesto</h1>
+        <p>تحكم كامل في المتجر والطلبات</p>
+    </div>
+
     <div class="control-bar">
         <div>
-            <a href="index.html" class="back-link"><i class="fas fa-arrow-right"></i> المتجر</a>
-            <button onclick="logout()" class="logout-btn"><i class="fas fa-sign-out-alt"></i> خروج</button>
+            <a href="index.html" class="back-link"><i class="fas fa-external-link-alt"></i> عرض المتجر</a>
+            <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> خروج</button>
         </div>
         <div>
-            <input type="text" id="searchInput" class="search-input" placeholder="🔍 بحث">
-            <select id="filterCategory" class="filter-select">
-                <option value="all">الكل</option>
+            <input type="text" class="search-input" placeholder="بحث عن منتج..." oninput="searchQuery = this.value.toLowerCase(); renderProductsTable();">
+            <select class="filter-select" onchange="filterCategory = this.value; renderProductsTable();">
+                <option value="all">جميع التصنيفات</option>
+                <option value="games">ألعاب</option>
+                <option value="giftcards">بطاقات</option>
             </select>
+            <button class="btn-sm" onclick="document.body.classList.toggle('light-mode')">🌓</button>
         </div>
     </div>
 
     <div class="admin-tabs">
         <button class="admin-tab active" onclick="showTab('products')">📦 المنتجات</button>
         <button class="admin-tab" onclick="showTab('offers')">🏷️ العروض</button>
+        <button class="admin-tab" onclick="showTab('coupons')">🎫 أكواد الخصم</button>
+        <button class="admin-tab" onclick="showTab('orders')">📋 الطلبات</button>
         <button class="admin-tab" onclick="showTab('categories')">📁 التصنيفات</button>
+        <button class="admin-tab" onclick="showTab('news')">📰 الأخبار</button>
     </div>
 
     <div id="dashboardSection" class="dashboard-grid">
         <div class="dashboard-card"><i class="fas fa-box"></i><div class="value" id="statProducts">0</div><div class="label">المنتجات</div></div>
         <div class="dashboard-card"><i class="fas fa-chart-line"></i><div class="value" id="statSales">0</div><div class="label">إجمالي المبيعات</div></div>
+        <div class="dashboard-card"><i class="fas fa-shopping-cart"></i><div class="value" id="statOrders">0</div><div class="label">الطلبات</div></div>
         <div class="dashboard-card"><i class="fas fa-tags"></i><div class="value" id="statOffers">0</div><div class="label">العروض النشطة</div></div>
+        <div class="dashboard-card"><i class="fas fa-ticket-alt"></i><div class="value" id="statCoupons">0</div><div class="label">أكواد الخصم</div></div>
     </div>
 
     <div id="productsTab" class="section-card">
@@ -284,8 +324,10 @@
             <input type="text" id="newNameAr" placeholder="الاسم بالعربية">
             <input type="text" id="newNameEn" placeholder="Name in English">
             <select id="newCategorySelect"></select>
-            <input type="number" id="newPrice" step="0.5" placeholder="السعر">
-            <input type="number" id="newOldPrice" step="0.5" placeholder="السعر القديم">
+            <input type="number" id="newPrice" step="0.1" placeholder="السعر الافتراضي">
+            <input type="number" id="newPricePrimary" step="0.1" placeholder="سعر النسخة الأساسية (اختياري)">
+            <input type="number" id="newPriceSecondary" step="0.1" placeholder="سعر النسخة الثانوية (اختياري)">
+            <input type="number" id="newOldPrice" step="0.1" placeholder="السعر القديم">
             <input type="number" id="newStock" step="1" placeholder="الكمية" value="99">
             <div class="image-upload-area" id="newImageUploadArea">
                 <i class="fas fa-cloud-upload-alt"></i> 📸 صورة
@@ -309,6 +351,29 @@
         <div id="offersList" class="items-list"></div>
     </div>
 
+    <div id="couponsTab" class="section-card" style="display:none;">
+        <h3><i class="fas fa-ticket-alt"></i> إدارة أكواد الخصم</h3>
+        <div class="flex-form">
+            <input type="text" id="couponCode" placeholder="كود الخصم (مثل: WELCOME10)">
+            <input type="number" id="couponDiscount" placeholder="نسبة الخصم %" step="5">
+            <button class="btn-save" onclick="addCoupon()">➕ إضافة كود</button>
+        </div>
+        <div id="couponsList" class="items-list"></div>
+    </div>
+
+    <div id="ordersTab" class="section-card" style="display:none;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+            <h3><i class="fas fa-truck"></i> إدارة الطلبات</h3>
+            <button class="btn-sm" onclick="exportOrdersToExcel()"><i class="fas fa-file-excel"></i> تصدير Excel</button>
+        </div>
+        <div class="orders-table">
+            <table id="ordersTable">
+                <thead><tr><th>رقم الطلب</th><th>المنتج</th><th>السعر</th><th>العميل</th><th>التاريخ</th><th>الحالة</th><th>إجراءات</th></tr></thead>
+                <tbody id="ordersTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
     <div id="categoriesTab" class="section-card" style="display:none;">
         <h3><i class="fas fa-tags"></i> إدارة التصنيفات</h3>
         <div id="categoriesList" class="items-list"></div>
@@ -316,6 +381,16 @@
             <input type="text" id="newCategoryName" placeholder="تصنيف جديد">
             <button class="btn-save" onclick="addCategory()">➕ إضافة تصنيف</button>
         </div>
+    </div>
+
+    <div id="newsTab" class="section-card" style="display:none;">
+        <h3><i class="fas fa-newspaper"></i> إدارة الأخبار</h3>
+        <div class="flex-form">
+            <input type="text" id="newsTitle" placeholder="عنوان الخبر">
+            <textarea id="newsContent" rows="2" placeholder="محتوى الخبر" style="flex:2;"></textarea>
+            <button class="btn-save" onclick="addNews()">➕ إضافة خبر</button>
+        </div>
+        <div id="newsList" class="items-list"></div>
     </div>
 
     <div class="footer">
@@ -331,14 +406,17 @@
     let products = [];
     let categories = ["games", "giftcards"];
     let categoryNames = { games: "🎮 ألعاب PS4/PS5", giftcards: "💳 بطاقات شحن" };
+    let orders = [];
     let weeklyOffers = [];
+    let coupons = [];
+    let news = [];
     let currentImageData = null;
     let searchQuery = "";
     let filterCategory = "all";
     let currentTab = "products";
     let notificationTimeout = null;
     
-    let db, productsRef, categoriesRef, offersRef;
+    let db, productsRef, ordersRef, categoriesRef, offersRef, couponsRef, newsRef;
     
     function checkSession() {
         const isLoggedIn = localStorage.getItem(SESSION_KEY) === "true";
@@ -373,58 +451,29 @@
         if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
         db = firebase.database();
         productsRef = db.ref('products');
+        ordersRef = db.ref('orders');
         categoriesRef = db.ref('categories');
         offersRef = db.ref('weekly_offers');
+        couponsRef = db.ref('coupons');
+        newsRef = db.ref('news');
         
         loadProducts();
+        loadOrders();
         loadCategories();
         loadWeeklyOffers();
+        loadCoupons();
+        loadNews();
     }
     
-    const defaultGames = [
-        { id: 1, nameAr: "Assassin's Creed Shadows", nameEn: "Assassin's Creed Shadows", priceOMR: 13, oldPrice: 22, stock: 50, image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/3159340/header.jpg", detailsAr: "🏷️ 65GB | 🎮 عربي/إنجليزي", detailsEn: "📦 65GB | 🎮 Arabic/English", order: 1, category: "games" },
-        { id: 2, nameAr: "Call of Duty Black Ops 6", nameEn: "Call of Duty Black Ops 6", priceOMR: 22, oldPrice: 26, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2933620/header.jpg", detailsAr: "🏷️ 120GB | 🎮 إنجليزي", detailsEn: "📦 120GB | 🎮 English", order: 2, category: "games" },
-        { id: 3, nameAr: "Grand Theft Auto VI", nameEn: "Grand Theft Auto VI", priceOMR: 10, oldPrice: 11, stock: 100, image: "https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/downloads/gtavi/gtavi_cover_ps5.jpg", detailsAr: "🏷️ 150GB | 🌍 عالم مفتوح", detailsEn: "📦 150GB | 🌍 Open World", order: 3, category: "games" },
-        { id: 4, nameAr: "God of War Ragnarök", nameEn: "God of War Ragnarök", priceOMR: 11, oldPrice: 18, stock: 60, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2322010/header.jpg", detailsAr: "🏷️ 85GB | 🪓 ملحمة إسكندنافية", detailsEn: "📦 85GB | 🪓 Norse Saga", order: 4, category: "games" },
-        { id: 5, nameAr: "Spider-Man 2", nameEn: "Spider-Man 2", priceOMR: 14.5, oldPrice: 22, stock: 40, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2651280/header.jpg", detailsAr: "🏷️ 98GB | 🕷️ بيتر + مايلز", detailsEn: "📦 98GB | 🕷️ Peter + Miles", order: 5, category: "games" },
-        { id: 6, nameAr: "Elden Ring", nameEn: "Elden Ring", priceOMR: 12, oldPrice: 18, stock: 55, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg", detailsAr: "🏷️ 60GB | ⚔️ RPG خيالي", detailsEn: "📦 60GB | ⚔️ Fantasy RPG", order: 6, category: "games" },
-        { id: 7, nameAr: "Horizon Forbidden West", nameEn: "Horizon Forbidden West", priceOMR: 15, oldPrice: 20, stock: 50, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1151640/header.jpg", detailsAr: "🏷️ 96GB | 🦕 مغامرة مستقبلية", detailsEn: "📦 96GB | 🦕 Future Adventure", order: 7, category: "games" },
-        { id: 8, nameAr: "Ghost of Tsushima", nameEn: "Ghost of Tsushima", priceOMR: 17, oldPrice: 22, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2215430/header.jpg", detailsAr: "🏷️ 50GB | 🗡️ ساموراي", detailsEn: "📦 50GB | 🗡️ Samurai", order: 8, category: "games" },
-        { id: 9, nameAr: "The Last of Us Part I", nameEn: "The Last of Us Part I", priceOMR: 20, oldPrice: 25, stock: 35, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1888930/header.jpg", detailsAr: "🏷️ 70GB | 🧟 لعبة البقاء", detailsEn: "📦 70GB | 🧟 Survival Game", order: 9, category: "games" },
-        { id: 10, nameAr: "Final Fantasy XVI", nameEn: "Final Fantasy XVI", priceOMR: 18, oldPrice: 25, stock: 30, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2055370/header.jpg", detailsAr: "🏷️ 90GB | 🗡️ RPG خيالي", detailsEn: "📦 90GB | 🗡️ Fantasy RPG", order: 10, category: "games" },
-        { id: 11, nameAr: "Red Dead Redemption 2", nameEn: "Red Dead Redemption 2", priceOMR: 15, oldPrice: 24, stock: 70, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1174180/header.jpg", detailsAr: "🏷️ 150GB | 🤠 رعاة البقر", detailsEn: "📦 150GB | 🤠 Western", order: 11, category: "games" },
-        { id: 12, nameAr: "Cyberpunk 2077", nameEn: "Cyberpunk 2077", priceOMR: 10, oldPrice: 16, stock: 60, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/header.jpg", detailsAr: "🏷️ 70GB | 🤖 مستقبلية", detailsEn: "📦 70GB | 🤖 Futuristic", order: 12, category: "games" },
-        { id: 13, nameAr: "Tekken 8", nameEn: "Tekken 8", priceOMR: 12, oldPrice: 18, stock: 45, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1778820/header.jpg", detailsAr: "🏷️ 80GB | 🥊 لعبة قتال", detailsEn: "📦 80GB | 🥊 Fighting Game", order: 13, category: "games" },
-        { id: 108, nameAr: "Mafia: The Old Country", nameEn: "Mafia: The Old Country", priceOMR: 12, oldPrice: 18, stock: 25, image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2933620/header.jpg", detailsAr: "🇮🇹 55GB | 🔫 أكشن - مغامرة | 🗡️ قتال بالسكاكين", detailsEn: "🇮🇹 55GB | 🔫 Action-Adventure | 🗡️ Knife Combat", order: 108, category: "games" }
-    ];
-    for (let i = 14; i <= 50; i++) {
-        if (i === 108) continue;
-        defaultGames.push({
-            id: i, nameAr: `لعبة PS5 مميزة ${i}`, nameEn: `Premium PS5 Game ${i}`,
-            priceOMR: 9 + Math.floor(Math.random() * 10), oldPrice: 12 + Math.floor(Math.random() * 10),
-            stock: 20 + Math.floor(Math.random() * 80),
-            image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2358720/header.jpg",
-            detailsAr: `🏷️ لعبة رقم ${i}`, detailsEn: `Game ${i}`, order: i, category: "games"
-        });
-    }
-    
-    const giftCards = [
-        { id: 101, nameAr: "🇺🇸 بطاقة أمريكي", nameEn: "🇺🇸 US Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/30px-Flag_of_the_United_States.svg.png", detailsAr: "10$ | 25$ | 50$ | 100$", detailsEn: "10$ | 25$ | 50$ | 100$", order: 101 },
-        { id: 102, nameAr: "🇸🇦 بطاقة سعودي", nameEn: "🇸🇦 Saudi Card", category: "giftcards", priceOMR: 4.5, oldPrice: 5.5, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/30px-Flag_of_Saudi_Arabia.svg.png", detailsAr: "50ر.س | 100ر.س | 200ر.س", detailsEn: "50 SAR | 100 SAR | 200 SAR", order: 102 },
-        { id: 103, nameAr: "🇦🇪 بطاقة إماراتي", nameEn: "🇦🇪 UAE Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Flag_of_the_United_Arab_Emirates.svg/30px-Flag_of_the_United_Arab_Emirates.svg.png", detailsAr: "50د.إ | 100د.إ | 200د.إ", detailsEn: "50 AED | 100 AED | 200 AED", order: 103 },
-        { id: 104, nameAr: "🇴🇲 بطاقة عماني", nameEn: "🇴🇲 Oman Card", category: "giftcards", priceOMR: 5, oldPrice: 6, stock: 200, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Flag_of_Oman.svg/30px-Flag_of_Oman.svg.png", detailsAr: "5ر.ع | 10ر.ع | 20ر.ع", detailsEn: "5 OMR | 10 OMR | 20 OMR", order: 104 }
-    ];
-    
-    const allDefaultProducts = [...defaultGames, ...giftCards];
+    const allDefaultProducts = []; // Initial empty, will be loaded from Firebase
     
     function loadProducts() {
         productsRef.on('value', (snapshot) => {
             const data = snapshot.val();
-            if (data && Array.isArray(data) && data.length > 0) {
+            if (data && Array.isArray(data)) {
                 products = data.sort((a, b) => (a.order || 0) - (b.order || 0));
-            } else {
-                products = JSON.parse(JSON.stringify(allDefaultProducts));
-                productsRef.set(products);
+            } else if (data && typeof data === 'object') {
+                products = Object.values(data).sort((a, b) => (a.order || 0) - (b.order || 0));
             }
             renderProductsTable();
             updateDashboard();
@@ -507,7 +556,11 @@
                     </div></td>
                     <td><img src="${p.image || ''}" width="40" height="40" style="border-radius:8px; object-fit:cover;" onerror="this.src='https://via.placeholder.com/40'"></td>
                     <td><strong>${escapeHtml(p.nameAr)}</strong><br><small>${escapeHtml(p.nameEn)}</small></td>
-                    <td>${p.priceOMR} ر.ع${p.oldPrice ? `<br><span style="text-decoration:line-through;">${p.oldPrice}</span>` : ''}</td>
+                    <td>
+                        ${p.pricePrimary ? `<span style="font-size:0.7rem; color:#00cc88;">أساسي: ${p.pricePrimary}</span><br>` : ''}
+                        ${p.priceSecondary ? `<span style="font-size:0.7rem; color:#ffaa44;">ثانوي: ${p.priceSecondary}</span><br>` : ''}
+                        ${p.priceOMR} ر.ع${p.oldPrice ? `<br><span style="text-decoration:line-through; font-size:0.7rem;">${p.oldPrice}</span>` : ''}
+                    </td>
                     <td><input type="number" class="stock-input" value="${p.stock}" min="0" onchange="updateStock(${p.id}, this.value)"></td>
                     <td>${categoryNames[p.category] || p.category}</td>
                     <td><button class="edit-btn" onclick="openEditForm(${p.id})">✏️</button><button class="delete-btn" onclick="deleteProduct(${p.id})">🗑️</button></td>
@@ -515,8 +568,10 @@
                 <tr id="edit-form-${p.id}" style="display:none;"><td colspan="7"><div class="product-edit-form">
                     <div class="edit-field"><label>📝 الاسم بالعربية</label><input type="text" id="editNameAr_${p.id}" value="${escapeHtml(p.nameAr)}"></div>
                     <div class="edit-field"><label>🌐 الاسم بالإنجليزية</label><input type="text" id="editNameEn_${p.id}" value="${escapeHtml(p.nameEn)}"></div>
-                    <div class="edit-field"><label>💰 السعر</label><input type="number" id="editPrice_${p.id}" value="${p.priceOMR}" step="0.5"></div>
-                    <div class="edit-field"><label>🏷️ السعر القديم</label><input type="number" id="editOldPrice_${p.id}" value="${p.oldPrice||''}" step="0.5"></div>
+                    <div class="edit-field"><label>💰 السعر الافتراضي</label><input type="number" id="editPrice_${p.id}" value="${p.priceOMR}" step="0.1"></div>
+                    <div class="edit-field"><label>🟢 سعر النسخة الأساسية</label><input type="number" id="editPricePrimary_${p.id}" value="${p.pricePrimary||''}" step="0.1"></div>
+                    <div class="edit-field"><label>🟠 سعر النسخة الثانوية</label><input type="number" id="editPriceSecondary_${p.id}" value="${p.priceSecondary||''}" step="0.1"></div>
+                    <div class="edit-field"><label>🏷️ السعر القديم</label><input type="number" id="editOldPrice_${p.id}" value="${p.oldPrice||''}" step="0.1"></div>
                     <div class="edit-field"><label>📦 الكمية</label><input type="number" id="editStock_${p.id}" value="${p.stock}" step="1"></div>
                     <div class="edit-field"><label>🖼️ رابط الصورة</label><input type="text" id="editImageUrl_${p.id}" value="${escapeHtml(p.image||'')}"></div>
                     <div class="edit-field"><label>📝 الوصف بالعربية</label><textarea id="editDescAr_${p.id}" rows="2">${escapeHtml(p.detailsAr||'')}</textarea></div>
@@ -537,6 +592,8 @@
         p.nameAr = document.getElementById(`editNameAr_${id}`).value;
         p.nameEn = document.getElementById(`editNameEn_${id}`).value;
         p.priceOMR = parseFloat(document.getElementById(`editPrice_${id}`).value);
+        p.pricePrimary = parseFloat(document.getElementById(`editPricePrimary_${id}`).value) || null;
+        p.priceSecondary = parseFloat(document.getElementById(`editPriceSecondary_${id}`).value) || null;
         p.oldPrice = parseFloat(document.getElementById(`editOldPrice_${id}`).value) || null;
         p.stock = parseInt(document.getElementById(`editStock_${id}`).value) || 0;
         p.image = document.getElementById(`editImageUrl_${id}`).value;
@@ -562,6 +619,8 @@
         const nameEn = document.getElementById('newNameEn').value.trim();
         const category = document.getElementById('newCategorySelect').value;
         const price = parseFloat(document.getElementById('newPrice').value);
+        const pricePrimary = parseFloat(document.getElementById('newPricePrimary').value) || null;
+        const priceSecondary = parseFloat(document.getElementById('newPriceSecondary').value) || null;
         const oldPrice = parseFloat(document.getElementById('newOldPrice').value) || null;
         const stock = parseInt(document.getElementById('newStock').value) || 0;
         const image = currentImageData || "";
@@ -572,7 +631,10 @@
         
         const newProduct = {
             id: Date.now(), nameAr, nameEn, category,
-            priceOMR: price, oldPrice: (oldPrice && oldPrice > price) ? oldPrice : null,
+            priceOMR: price, 
+            pricePrimary: pricePrimary,
+            priceSecondary: priceSecondary,
+            oldPrice: (oldPrice && oldPrice > price) ? oldPrice : null,
             stock, image, detailsAr: descAr, detailsEn: descEn || descAr,
             order: products.length
         };
@@ -582,6 +644,8 @@
         document.getElementById('newNameAr').value = '';
         document.getElementById('newNameEn').value = '';
         document.getElementById('newPrice').value = '';
+        document.getElementById('newPricePrimary').value = '';
+        document.getElementById('newPriceSecondary').value = '';
         document.getElementById('newOldPrice').value = '';
         document.getElementById('newStock').value = '99';
         document.getElementById('newDesc').value = '';
@@ -592,7 +656,119 @@
         updateOfferSelect();
         showNotification('✅ تم إضافة المنتج');
     }
-    
+
+    // Helper functions and rest of logic (keeping original functionality)
+    function showTab(tabId) {
+        document.querySelectorAll('.section-tab, .section-card').forEach(s => {
+            if(s.id.includes('Tab')) s.style.display = 'none';
+        });
+        document.getElementById(tabId + 'Tab').style.display = 'block';
+        document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+        event.target.classList.add('active');
+        currentTab = tabId;
+    }
+
+    function escapeHtml(text) {
+        if (!text) return "";
+        const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+        return text.replace(/[&<>"']/g, m => map[m]);
+    }
+
+    function showNotification(msg) {
+        const div = document.createElement('div');
+        div.className = 'admin-notification';
+        div.innerHTML = `<span>${msg}</span>`;
+        document.body.appendChild(div);
+        setTimeout(() => div.remove(), 3000);
+    }
+
+    function updateDashboard() {
+        document.getElementById('statProducts').innerText = products.length;
+        document.getElementById('statOrders').innerText = orders.length;
+        document.getElementById('statOffers').innerText = weeklyOffers.length;
+        document.getElementById('statCoupons').innerText = coupons.length;
+        let total = 0;
+        orders.forEach(o => { if(o.status === 'completed') total += parseFloat(o.total || 0); });
+        document.getElementById('statSales').innerText = total.toFixed(2) + ' ر.ع';
+    }
+
+    function loadOrders() {
+        ordersRef.on('value', (snapshot) => {
+            const data = snapshot.val();
+            orders = data ? Object.values(data).reverse() : [];
+            renderOrdersTable();
+            updateDashboard();
+        });
+    }
+
+    function renderOrdersTable() {
+        const tbody = document.getElementById('ordersTableBody');
+        if (!tbody) return;
+        tbody.innerHTML = orders.map(o => `
+            <tr>
+                <td>#${o.id.toString().slice(-5)}</td>
+                <td>${o.items ? o.items.map(i => i.nameAr).join(', ') : 'منتج'}</td>
+                <td>${o.total} ر.ع</td>
+                <td>${o.customerName}<br><small>${o.phone}</small></td>
+                <td>${new Date(o.timestamp).toLocaleDateString('ar-OM')}</td>
+                <td>
+                    <select class="status-select" onchange="updateOrderStatus('${o.id}', this.value)">
+                        <option value="pending" ${o.status==='pending'?'selected':''}>قيد الانتظار</option>
+                        <option value="processing" ${o.status==='processing'?'selected':''}>جاري التجهيز</option>
+                        <option value="completed" ${o.status==='completed'?'selected':''}>تم التسليم</option>
+                        <option value="cancelled" ${o.status==='cancelled'?'selected':''}>ملغي</option>
+                    </select>
+                </td>
+                <td><button class="btn-sm btn-danger" onclick="deleteOrder('${o.id}')">🗑️</button></td>
+            </tr>
+        `).join('');
+    }
+
+    function updateOrderStatus(id, status) {
+        ordersRef.child(id).update({ status }).then(() => showNotification('✅ تم تحديث الحالة'));
+    }
+
+    function deleteOrder(id) {
+        if(confirm('حذف الطلب؟')) ordersRef.child(id).remove().then(() => showNotification('✅ تم حذف الطلب'));
+    }
+
+    function loadCategories() {
+        categoriesRef.on('value', (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                categories = Object.keys(data);
+                categoryNames = data;
+                renderCategoriesList();
+                updateCategorySelects();
+            }
+        });
+    }
+
+    function renderCategoriesList() {
+        const container = document.getElementById('categoriesList');
+        if (!container) return;
+        container.innerHTML = categories.map(cat => `<div class="item-badge">${categoryNames[cat]} <i class="fas fa-trash" onclick="deleteCategory('${cat}')"></i></div>`).join('');
+    }
+
+    function updateCategorySelects() {
+        const selects = ['newCategorySelect', 'editCategory']; // Simplified
+        const options = categories.map(cat => `<option value="${cat}">${categoryNames[cat]}</option>`).join('');
+        const newSelect = document.getElementById('newCategorySelect');
+        if (newSelect) newSelect.innerHTML = options;
+    }
+
+    function addCategory() {
+        const name = document.getElementById('newCategoryName').value.trim();
+        if (!name) return;
+        const id = 'cat_' + Date.now();
+        categoriesRef.child(id).set(name);
+        document.getElementById('newCategoryName').value = '';
+    }
+
+    function deleteCategory(id) {
+        if(confirm('حذف التصنيف؟')) categoriesRef.child(id).remove();
+    }
+
     function loadWeeklyOffers() {
         offersRef.on('value', (snapshot) => {
             const data = snapshot.val();
@@ -601,165 +777,75 @@
             updateDashboard();
         });
     }
-    
+
     function renderOffersList() {
         const container = document.getElementById('offersList');
+        if (!container) return;
         container.innerHTML = weeklyOffers.map(o => `<div class="item-badge">${o.productName} - ${o.discount}% <i class="fas fa-trash" onclick="deleteOffer('${o.id}')"></i></div>`).join('');
     }
-    
+
     function addWeeklyOffer() {
         const pid = document.getElementById('offerProductSelect').value;
         const discount = parseInt(document.getElementById('offerDiscount').value);
-        if (!pid || !discount) { alert('اختر منتج ونسبة الخصم'); return; }
+        if (!pid || !discount) return;
         const p = products.find(p => p.id == pid);
         if (!p) return;
-        const newOffer = { id: Date.now(), productId: parseInt(pid), productName: p.nameAr, discount };
-        weeklyOffers.push(newOffer);
-        offersRef.set(weeklyOffers);
+        const id = Date.now().toString();
+        offersRef.child(id).set({ id, productId: pid, productName: p.nameAr, discount });
         document.getElementById('offerDiscount').value = '';
-        showNotification('✅ تم إضافة العرض');
     }
-    
+
     function deleteOffer(id) {
-        weeklyOffers = weeklyOffers.filter(o => o.id != id);
-        offersRef.set(weeklyOffers);
-        showNotification('✅ تم حذف العرض');
+        offersRef.child(id).remove();
     }
-    
+
     function updateOfferSelect() {
         const select = document.getElementById('offerProductSelect');
         if (select) select.innerHTML = products.map(p => `<option value="${p.id}">${p.nameAr}</option>`).join('');
     }
-    
-    function loadCategories() {
-        categoriesRef.on('value', (snapshot) => {
+
+    function loadCoupons() {
+        couponsRef.on('value', (snapshot) => {
             const data = snapshot.val();
-            if (data && data.categories && data.names) {
-                categories = data.categories;
-                categoryNames = data.names;
-            } else {
-                categories = ["games", "giftcards"];
-                categoryNames = { games: "🎮 ألعاب PS4/PS5", giftcards: "💳 بطاقات شحن" };
-                categoriesRef.set({ categories, names: categoryNames });
-            }
-            renderCategoriesList();
-            updateCategorySelect();
-            updateFilterSelect();
+            coupons = data ? Object.values(data) : [];
+            renderCouponsList();
+            updateDashboard();
         });
     }
-    
-    function renderCategoriesList() {
-        const container = document.getElementById('categoriesList');
-        container.innerHTML = categories.map(cat => `<div class="item-badge">${categoryNames[cat]} <i class="fas fa-trash" onclick="deleteCategory('${cat}')"></i></div>`).join('');
+
+    function renderCouponsList() {
+        const container = document.getElementById('couponsList');
+        if (!container) return;
+        container.innerHTML = coupons.map(c => `<div class="item-badge">${c.code} - ${c.discount}% <i class="fas fa-trash" onclick="deleteCoupon('${c.id}')"></i></div>`).join('');
     }
-    
-    function addCategory() {
-        const newName = document.getElementById('newCategoryName').value.trim();
-        if (!newName) { alert('أدخل اسم التصنيف'); return; }
-        const key = newName.replace(/\s/g, "_").toLowerCase();
-        if (categories.includes(key)) { alert('التصنيف موجود'); return; }
-        categories.push(key);
-        categoryNames[key] = newName;
-        categoriesRef.set({ categories, names: categoryNames });
-        document.getElementById('newCategoryName').value = '';
-        renderCategoriesList();
-        updateCategorySelect();
-        updateFilterSelect();
-        showNotification('✅ تم إضافة التصنيف');
+
+    function addCoupon() {
+        const code = document.getElementById('couponCode').value.trim().toUpperCase();
+        const discount = parseInt(document.getElementById('couponDiscount').value);
+        if (!code || !discount) return;
+        const id = Date.now().toString();
+        couponsRef.child(id).set({ id, code, discount });
+        document.getElementById('couponCode').value = '';
+        document.getElementById('couponDiscount').value = '';
     }
-    
-    function deleteCategory(cat) {
-        if (cat === "games" || cat === "giftcards") { alert('لا يمكن حذف التصنيفات الأساسية'); return; }
-        if (confirm('حذف التصنيف؟')) {
-            categories = categories.filter(c => c !== cat);
-            delete categoryNames[cat];
-            categoriesRef.set({ categories, names: categoryNames });
-            renderCategoriesList();
-            updateCategorySelect();
-            updateFilterSelect();
-            showNotification('✅ تم حذف التصنيف');
-        }
+
+    function deleteCoupon(id) {
+        couponsRef.child(id).remove();
     }
-    
-    function updateCategorySelect() {
-        const select = document.getElementById('newCategorySelect');
-        if (select) select.innerHTML = categories.map(cat => `<option value="${cat}">${categoryNames[cat]}</option>`).join('');
-    }
-    
-    function updateFilterSelect() {
-        const filter = document.getElementById('filterCategory');
-        if (filter) {
-            const val = filter.value;
-            filter.innerHTML = '<option value="all">الكل</option>' + categories.map(cat => `<option value="${cat}">${categoryNames[cat]}</option>`).join('');
-            filter.value = val;
-        }
-    }
-    
-    function updateDashboard() {
-        document.getElementById('statProducts').innerText = products.length;
-        const totalSales = products.reduce((s, p) => s + ((p.sales || 0) * (p.priceOMR || 0)), 0);
-        document.getElementById('statSales').innerText = totalSales.toFixed(2);
-        document.getElementById('statOffers').innerText = weeklyOffers.length;
-    }
-    
-    function showTab(tab) {
-        currentTab = tab;
-        document.querySelectorAll('.admin-tab').forEach(btn => btn.classList.remove('active'));
-        event.target.classList.add('active');
-        document.getElementById('productsTab').style.display = tab === 'products' ? 'block' : 'none';
-        document.getElementById('offersTab').style.display = tab === 'offers' ? 'block' : 'none';
-        document.getElementById('categoriesTab').style.display = tab === 'categories' ? 'block' : 'none';
-    }
-    
-    function showNotification(message) {
-        const existing = document.querySelector('.admin-notification');
-        if (existing) existing.remove();
-        const notif = document.createElement('div');
-        notif.className = 'admin-notification';
-        notif.innerHTML = `<i class="fas fa-bell"></i> ${message}`;
-        document.body.appendChild(notif);
-        if (notificationTimeout) clearTimeout(notificationTimeout);
-        notificationTimeout = setTimeout(() => notif.remove(), 3000);
-    }
-    
-    function escapeHtml(t) { return t ? t.replace(/[&<>]/g, m => ({ '&':'&amp;','<':'&lt;','>':'&gt;' }[m]||m)) : ''; }
-    
-    const uploadArea = document.getElementById("newImageUploadArea");
-    const fileInput = document.getElementById("newImageFile");
-    const preview = document.getElementById("newImagePreview");
-    if (uploadArea) uploadArea.addEventListener("click", () => fileInput.click());
-    if (fileInput) {
-        fileInput.addEventListener("change", (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => { currentImageData = e.target.result; preview.src = e.target.result; preview.style.display = "block"; };
-                reader.readAsDataURL(file);
-            }
+
+    function loadNews() {
+        newsRef.on('value', (snapshot) => {
+            const data = snapshot.val();
+            news = data ? Object.values(data) : [];
+            renderNewsList();
         });
     }
-    
-    document.getElementById('searchInput').addEventListener('input', (e) => { searchQuery = e.target.value.toLowerCase(); renderProductsTable(); });
-    document.getElementById('filterCategory').addEventListener('change', (e) => { filterCategory = e.target.value; renderProductsTable(); });
-    
-    window.checkPassword = checkPassword;
-    window.logout = logout;
-    window.showTab = showTab;
-    window.moveProductUp = moveProductUp;
-    window.moveProductDown = moveProductDown;
-    window.moveToPosition = moveToPosition;
-    window.updateStock = updateStock;
-    window.openEditForm = openEditForm;
-    window.closeEditForm = closeEditForm;
-    window.saveEdit = saveEdit;
-    window.deleteProduct = deleteProduct;
-    window.addProduct = addProduct;
-    window.addWeeklyOffer = addWeeklyOffer;
-    window.deleteOffer = deleteOffer;
-    window.addCategory = addCategory;
-    window.deleteCategory = deleteCategory;
-    
-    checkSession();
-</script>
-</body>
-</html>
+
+    function renderNewsList() {
+        const container = document.getElementById('newsList');
+        if (!container) return;
+        container.innerHTML = news.map(n => `<div class="item-badge" style="width:100%; justify-content:space-between;"><b>${n.title}</b> <span>${n.content.slice(0,30)}...</span> <i class="fas fa-trash" onclick="deleteNews('${n.id}')"></i></div>`).join('');
+    }
+
+    function addNews() {
+        const title = document.getElementById('newsTitle').value
