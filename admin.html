@@ -324,7 +324,7 @@
             <input type="text" id="newCategoryName" placeholder="اسم التصنيف (مثل: 🎮 ألعاب)">
             <button class="btn-save" onclick="addCategory()">➕ إضافة تصنيف جديد</button>
         </div>
-        <p style="font-size:0.7rem; color:#888; margin-top:0.5rem;">💡 يمكنك إضافة أي تصنيف جديد حسب رغبتك</p>
+        <p style="font-size:0.7rem; color:#ffaa44; margin-top:0.5rem;">💡 يمكنك إضافة أي تصنيف جديد حسب رغبتك (مثل: 🔥 عروض، ⭐ مميز)</p>
     </div>
 
     <div class="footer">
@@ -477,7 +477,7 @@
                             <th style="padding:10px;">الكمية</th>
                             <th style="padding:10px;">التصنيف</th>
                             <th style="padding:10px;">إجراءات</th>
-                         </tr>
+                          </tr>
                     </thead>
                     <tbody id="tableBody"></tbody>
                  </table>
@@ -488,6 +488,7 @@
         tbody.innerHTML = filtered.map((p, idx) => {
             const realIdx = products.findIndex(prod => prod.id === p.id);
             const orderNum = realIdx + 1;
+            const categoryName = categories[p.category] || p.category || "غير مصنف";
             return `
                 <tr style="border-bottom:1px solid rgba(255,255,255,0.1);">
                     <td style="padding:8px;">
@@ -502,10 +503,10 @@
                     <td style="padding:8px;"><strong>${escapeHtml(p.nameAr)}</strong><br><small>${escapeHtml(p.nameEn)}</small></td>
                     <td style="padding:8px;"><span style="color:#00cc88; font-weight:bold;">${p.pricePrimary || p.priceOMR || 0} ر.ع</span></td>
                     <td style="padding:8px;"><span style="color:#ffaa44; font-weight:bold;">${p.priceSecondary || 0} ر.ع</span></td>
-                    <td style="padding:8px;"><input type="number" class="stock-input" value="${p.stock || 0}" min="0" onchange="updateStock(${p.id}, this.value)"> </td>
-                    <td style="padding:8px;">${categories[p.category] || p.category} </td>
+                    <td style="padding:8px;"><input type="number" class="stock-input" value="${p.stock || 0}" min="0" onchange="updateStock(${p.id}, this.value)"></td>
+                    <td style="padding:8px;">${categoryName}</td>
                     <td style="padding:8px;"><button class="edit-btn" onclick="openEditForm(${p.id})">✏️ تعديل</button><button class="delete-btn" onclick="deleteProduct(${p.id})">🗑️ حذف</button></td>
-                 </tr>
+                </tr>
                 <tr id="edit-form-${p.id}" style="display:none; background:#1e1e3a;">
                     <td colspan="8" style="padding:15px;">
                         <div class="product-edit-form">
@@ -523,8 +524,8 @@
                             </select></div>
                             <div class="edit-buttons"><button onclick="saveEdit(${p.id})" style="background:#00cc88;">💾 حفظ</button><button onclick="closeEditForm(${p.id})" style="background:#ff4444;">❌ إلغاء</button></div>
                         </div>
-                     </td>
-                 </tr>
+                    </td>
+                </tr>
             `;
         }).join('');
     }
@@ -660,13 +661,32 @@
         categoriesRef.on('value', (snapshot) => {
             const data = snapshot.val();
             if (data && Object.keys(data).length > 0) {
-                categories = data;
+                // تحديث الأسماء القديمة إلى الجديدة
+                let needsUpdate = false;
+                const updatedCategories = { ...data };
+                
+                if (updatedCategories.games === "🎮 ألعاب PS4/PS5" || updatedCategories.games === "🎮 العاب") {
+                    updatedCategories.games = "🎮 ألعاب";
+                    needsUpdate = true;
+                }
+                if (updatedCategories.giftcards === "💳 بطاقات شحن" || updatedCategories.giftcards === "🎁 هدايا") {
+                    updatedCategories.giftcards = "🎁 هدايا";
+                    needsUpdate = true;
+                }
+                
+                if (needsUpdate) {
+                    categoriesRef.set(updatedCategories);
+                    categories = updatedCategories;
+                } else {
+                    categories = data;
+                }
             } else {
                 categories = { games: "🎮 ألعاب", giftcards: "🎁 هدايا" };
                 categoriesRef.set(categories);
             }
             renderCategoriesList();
             updateCategorySelects();
+            renderProductsTable();
         });
     }
 
@@ -705,6 +725,7 @@
             document.getElementById('newCategoryName').value = '';
             updateCategorySelects();
             renderProductsTable();
+            renderCategoriesList();
         });
     }
 
@@ -719,6 +740,7 @@
                 showNotification('✅ تم حذف التصنيف');
                 updateCategorySelects();
                 renderProductsTable();
+                renderCategoriesList();
             });
         }
     }
