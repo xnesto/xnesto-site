@@ -28,9 +28,6 @@
             .hero-content { padding: 1.2rem 1rem; }
             .main-logo { font-size: 1.6rem; }
             .slider-text { font-size: 0.75rem; padding: 5px 10px; }
-            .weekly-grid { gap: 0.5rem; }
-            .weekly-item { padding: 0.3rem 0.6rem; }
-            .weekly-item img { width: 30px; height: 30px; }
         }
         
         @media (min-width: 641px) and (max-width: 1024px) {
@@ -182,46 +179,6 @@
         .stat-item i { color: #ffaa44; font-size: 1rem; }
         .stat-number { color: #ffaa44; font-weight: 800; font-size: 1.1rem; }
         .stat-item:hover { transform: translateY(-3px); background: rgba(255,170,68,0.15); border-color: #ffaa44; }
-        
-        .weekly-offers {
-            background: linear-gradient(135deg, rgba(255, 170, 68, 0.15), rgba(255, 100, 0, 0.05));
-            border-radius: 1.5rem;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(255, 170, 68, 0.3);
-            text-align: center;
-        }
-        .weekly-offers h3 { color: #ffaa44; margin-bottom: 0.5rem; font-size: 1.2rem; }
-        .weekly-offers p { color: #ffdd99; font-size: 0.8rem; margin-bottom: 1rem; }
-        .weekly-grid {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-        .weekly-item {
-            background: rgba(0,0,0,0.3);
-            border-radius: 1rem;
-            padding: 0.5rem 1rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            border: 1px solid rgba(255,170,68,0.3);
-            cursor: pointer;
-        }
-        .weekly-item img { width: 40px; height: 40px; border-radius: 8px; object-fit: cover; }
-        .weekly-item .info { text-align: right; }
-        .weekly-item .name { font-size: 0.75rem; font-weight: bold; }
-        .weekly-item .offer-price { color: #ffaa44; font-size: 0.7rem; }
-        .weekly-item .old-price { font-size: 0.6rem; text-decoration: line-through; opacity: 0.7; }
-        .offer-badge {
-            background: #ff4444;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 20px;
-            font-size: 0.65rem;
-            font-weight: bold;
-        }
         
         .trust-bar {
             display: flex;
@@ -473,7 +430,7 @@
         }
         .whatsapp-float:hover { transform: scale(1.1); background: #20b859; }
         
-        /* Modal Styles - مطابق للصورة */
+        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -506,7 +463,6 @@
         .modal-content h3 { color: #ffaa44; margin-bottom: 0.5rem; text-align: center; font-size: 1.3rem; }
         .modal-content p { color: #ffdd99; margin-bottom: 1rem; text-align: center; }
         
-        /* Licensing Options - مثل الصورة */
         .license-options {
             display: flex;
             gap: 20px;
@@ -543,7 +499,6 @@
             white-space: nowrap;
         }
 
-        /* Comparison Table - مثل الصورة */
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
@@ -571,27 +526,35 @@
         .comparison-table i.fa-check { color: #00cc88; font-size: 1.1rem; }
         .comparison-table i.fa-times { color: #ff4444; font-size: 1.1rem; }
 
-        /* شرح التفعيل */
-        .activation-info {
+        /* شرح تفصيلي للنسخة الأساسية والثانوية */
+        .activation-details {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 1rem;
             padding: 1rem;
             margin: 1rem 0;
-            border-right: 3px solid #ffaa44;
         }
-        .activation-info h4 {
+        .activation-details h4 {
             color: #ffaa44;
             margin-bottom: 8px;
             font-size: 0.9rem;
         }
-        .activation-info p {
+        .activation-details p {
             text-align: right;
             font-size: 0.8rem;
             color: #b9c5f0;
-            margin: 0;
+            margin: 5px 0;
+            line-height: 1.6;
         }
-
-        /* شروط المتجر */
+        .activation-details .primary-desc {
+            border-right: 2px solid #00cc88;
+            padding-right: 10px;
+            margin-bottom: 12px;
+        }
+        .activation-details .secondary-desc {
+            border-right: 2px solid #ffaa44;
+            padding-right: 10px;
+        }
+        
         .store-terms {
             background: rgba(0, 0, 0, 0.2);
             border-radius: 1rem;
@@ -711,12 +674,6 @@
     <div class="trust-badge"><i class="fas fa-shield-alt"></i> حماية المشتري</div>
 </div>
 
-<div class="weekly-offers" id="weeklyOffersSection">
-    <h3><i class="fas fa-calendar-alt"></i> العروض الأسبوعية 🔥</h3>
-    <p>خصومات تصل إلى 40% لفترة محدودة</p>
-    <div id="weeklyGrid" class="weekly-grid"></div>
-</div>
-
 <div class="control-bar">
     <div class="lang-switch">
         <button class="lang-btn active" data-lang="ar" onclick="setLang('ar')">🇸🇦 العربية</button>
@@ -762,7 +719,7 @@
     <i class="fab fa-whatsapp"></i>
 </a>
 
-<!-- Modal اختيار النسخة - مطابق للصورة -->
+<!-- Modal اختيار النسخة مع شرح تفصيلي -->
 <div id="termsModal" class="modal" style="display:none;">
     <div class="modal-content">
         <h3 id="modalProductName">اسم المنتج</h3>
@@ -780,52 +737,59 @@
             </div>
         </div>
 
-        <!-- جدول المقارنة مثل الصورة -->
+        <!-- جدول المقارنة -->
         <table class="comparison-table">
             <thead>
                 <tr>
                     <th>الميزة</th>
-                    <th>النسخة الأساسية</th>
-                    <th>النسخة الثانوية</th>
-                </tr>
+                    <th id="primaryHeader">النسخة الأساسية</th>
+                    <th id="secondaryHeader">النسخة الثانوية</th>
+                 </tr>
             </thead>
             <tbody>
-                <tr>
+                 <tr>
                     <td>اللعب بحسابك الخاص</td>
-                    <td><i class="fas fa-check"></i> نعم</td>
-                    <td><i class="fas fa-times"></i> لا</td>
-                </tr>
-                <tr>
+                    <td><i class="fas fa-check"></i> <span id="yesText">نعم</span></td>
+                    <td><i class="fas fa-times"></i> <span id="noText">لا</span></td>
+                 </tr>
+                 <tr>
                     <td>اللعب بدون إنترنت</td>
-                    <td><i class="fas fa-check"></i> نعم</td>
-                    <td><i class="fas fa-times"></i> لا</td>
-                </tr>
-                <tr>
+                    <td><i class="fas fa-check"></i> <span id="yesText2">نعم</span></td>
+                    <td><i class="fas fa-times"></i> <span id="noText2">لا</span></td>
+                  </tr>
+                  <tr>
                     <td>تجميع التروفيز</td>
-                    <td><i class="fas fa-check"></i> نعم</td>
-                    <td><i class="fas fa-times"></i> لا</td>
-                </tr>
+                    <td><i class="fas fa-check"></i> <span id="yesText3">نعم</span></td>
+                    <td><i class="fas fa-times"></i> <span id="noText3">لا</span></td>
+                  </tr>
             </tbody>
-        </table>
+         </table>
 
-        <!-- شرح التفعيل -->
-        <div class="activation-info">
-            <h4><i class="fas fa-info-circle"></i> شرح التفعيل:</h4>
-            <p>النسخة الأساسية: تفعل الحساب كجهاز رئيسي وتلعب من حسابك الخاص.</p>
+        <!-- شرح تفصيلي للنسخة الأساسية والثانوية -->
+        <div class="activation-details">
+            <h4><i class="fas fa-info-circle"></i> <span id="detailsTitle">شرح تفصيلي للنسختين:</span></h4>
+            <div class="primary-desc">
+                <strong id="primaryTitle" style="color:#00cc88;">✓ النسخة الأساسية (Primary):</strong>
+                <p id="primaryDesc">تفعل الحساب كجهاز رئيسي (Primary) على جهاز PlayStation الخاص بك، مما يتيح لك اللعب من حسابك الشخصي مع إمكانية اللعب بدون إنترنت وتجميع التروفيز والإنجازات. هذه النسخة مناسبة لمن يريد تجربة كاملة ومستقلة.</p>
+            </div>
+            <div class="secondary-desc">
+                <strong id="secondaryTitle" style="color:#ffaa44;">✓ النسخة الثانوية (Secondary):</strong>
+                <p id="secondaryDesc">تفعل الحساب كجهاز ثانوي (Secondary) وتتطلب تسجيل الدخول إلى حساب المتجر مع اتصال دائم بالإنترنت، ولا يمكنك تجميع التروفيز على حسابك الشخصي. هذه النسخة اقتصادية لمن لا يهتم بالميزات الإضافية.</p>
+            </div>
         </div>
 
         <!-- شروط المتجر -->
         <div class="store-terms">
-            <h4><i class="fas fa-gavel"></i> شروط المتجر:</h4>
-            <p>1. يمنع تغيير بيانات الحساب نهائياً.</p>
-            <p>2. النسخة الأساسية تسمح لك باللعب بحسابك الشخصي.</p>
-            <p>3. النسخة الثانوية تتطلب اتصال دائم بالإنترنت واللعب من حساب المتجر.</p>
-            <p>4. الضمان يسري لمدة 7 أيام من تاريخ الاستلام.</p>
+            <h4><i class="fas fa-gavel"></i> <span id="termsTitle">شروط المتجر:</span></h4>
+            <p id="term1">1. يمنع تغيير بيانات الحساب نهائياً.</p>
+            <p id="term2">2. النسخة الأساسية تسمح لك باللعب بحسابك الشخصي.</p>
+            <p id="term3">3. النسخة الثانوية تتطلب اتصال دائم بالإنترنت واللعب من حساب المتجر.</p>
+            <p id="term4">4. الضمان يسري لمدة 7 أيام من تاريخ الاستلام.</p>
         </div>
         
         <div class="terms-actions">
-            <button onclick="rejectTerms()" class="btn-cancel" id="cancelBtn">إلغاء</button>
-            <button onclick="acceptTerms()" class="btn-accept" id="acceptBtn">تأكيد الطلب عبر واتساب</button>
+            <button onclick="rejectTerms()" class="btn-cancel" id="cancelBtn"><span id="cancelText">إلغاء</span></button>
+            <button onclick="acceptTerms()" class="btn-accept" id="acceptBtn"><span id="acceptText">تأكيد الطلب عبر واتساب</span></button>
         </div>
     </div>
 </div>
@@ -858,14 +822,48 @@
             searchPlaceholder: "🔍 ابحث عن منتج...", orderNow: "اطلب الآن",
             outOfStock: "نفذت الكمية", currencyLabel: "العملة:",
             statGames: "لعبة", statCustomers: "عميل", statRating: "تقييم", statSupport: "دعم",
-            termsTitle: "📋 شروط الشراء والاستخدام", cancelBtn: "إلغاء", acceptBtn: "تأكيد الطلب عبر واتساب"
+            // ترجمات النافذة المنبثقة
+            modalSelectText: "يرجى اختيار نوع النسخة المطلوبة:",
+            primaryHeader: "النسخة الأساسية",
+            secondaryHeader: "النسخة الثانوية",
+            yes: "نعم",
+            no: "لا",
+            detailsTitle: "شرح تفصيلي للنسختين:",
+            primaryTitle: "✓ النسخة الأساسية (Primary):",
+            primaryDesc: "تفعل الحساب كجهاز رئيسي (Primary) على جهاز PlayStation الخاص بك، مما يتيح لك اللعب من حسابك الشخصي مع إمكانية اللعب بدون إنترنت وتجميع التروفيز والإنجازات. هذه النسخة مناسبة لمن يريد تجربة كاملة ومستقلة.",
+            secondaryTitle: "✓ النسخة الثانوية (Secondary):",
+            secondaryDesc: "تفعل الحساب كجهاز ثانوي (Secondary) وتتطلب تسجيل الدخول إلى حساب المتجر مع اتصال دائم بالإنترنت، ولا يمكنك تجميع التروفيز على حسابك الشخصي. هذه النسخة اقتصادية لمن لا يهتم بالميزات الإضافية.",
+            termsTitle: "شروط المتجر:",
+            term1: "1. يمنع تغيير بيانات الحساب نهائياً.",
+            term2: "2. النسخة الأساسية تسمح لك باللعب بحسابك الشخصي.",
+            term3: "3. النسخة الثانوية تتطلب اتصال دائم بالإنترنت واللعب من حساب المتجر.",
+            term4: "4. الضمان يسري لمدة 7 أيام من تاريخ الاستلام.",
+            cancelText: "إلغاء",
+            acceptText: "تأكيد الطلب عبر واتساب"
         },
         en: {
             games: "🎮 Games", giftcards: "💳 Cards", all: "🔥 All",
             searchPlaceholder: "🔍 Search products...", orderNow: "Order Now",
             outOfStock: "Out of Stock", currencyLabel: "Currency:",
             statGames: "Games", statCustomers: "Customers", statRating: "Rating", statSupport: "Support",
-            termsTitle: "📋 Terms of Purchase", cancelBtn: "Cancel", acceptBtn: "Confirm via WhatsApp"
+            // English translations for modal
+            modalSelectText: "Please select the license type:",
+            primaryHeader: "Primary License",
+            secondaryHeader: "Secondary License",
+            yes: "Yes",
+            no: "No",
+            detailsTitle: "Detailed License Explanation:",
+            primaryTitle: "✓ Primary License:",
+            primaryDesc: "Activate the account as Primary on your PlayStation device, allowing you to play from your personal account with offline play and trophy collection. This license is perfect for those who want a complete and independent experience.",
+            secondaryTitle: "✓ Secondary License:",
+            secondaryDesc: "Activate the account as Secondary, requiring login to the store account with constant internet connection. You cannot collect trophies on your personal account. This is an economical option for those who don't need additional features.",
+            termsTitle: "Store Terms:",
+            term1: "1. Changing account information is strictly prohibited.",
+            term2: "2. Primary license allows you to play from your personal account.",
+            term3: "3. Secondary license requires constant internet connection and playing from the store account.",
+            term4: "4. Warranty is valid for 7 days from the date of receipt.",
+            cancelText: "Cancel",
+            acceptText: "Confirm via WhatsApp"
         }
     };
 
@@ -881,12 +879,6 @@
                 renderProducts();
                 renderTabs();
             }
-        });
-
-        db.ref('weekly_offers').on('value', (snapshot) => {
-            const data = snapshot.val();
-            weeklyOffers = data ? Object.values(data) : [];
-            renderWeeklyOffers();
         });
     }
 
@@ -960,6 +952,57 @@
         container.innerHTML = html;
     }
 
+    // تحديث النصوص في النافذة المنبثقة حسب اللغة
+    function updateModalLanguage() {
+        const t = translations[currentLang];
+        
+        // تحديث عناوين الجدول
+        const primaryHeader = document.getElementById('primaryHeader');
+        const secondaryHeader = document.getElementById('secondaryHeader');
+        if (primaryHeader) primaryHeader.innerText = t.primaryHeader;
+        if (secondaryHeader) secondaryHeader.innerText = t.secondaryHeader;
+        
+        // تحديث نصوص نعم/لا
+        const yesElements = document.querySelectorAll('#yesText, #yesText2, #yesText3');
+        const noElements = document.querySelectorAll('#noText, #noText2, #noText3');
+        yesElements.forEach(el => { if(el) el.innerText = t.yes; });
+        noElements.forEach(el => { if(el) el.innerText = t.no; });
+        
+        // تحديث شرح التفاصيل
+        const detailsTitle = document.getElementById('detailsTitle');
+        const primaryTitle = document.getElementById('primaryTitle');
+        const primaryDesc = document.getElementById('primaryDesc');
+        const secondaryTitle = document.getElementById('secondaryTitle');
+        const secondaryDesc = document.getElementById('secondaryDesc');
+        if (detailsTitle) detailsTitle.innerText = t.detailsTitle;
+        if (primaryTitle) primaryTitle.innerText = t.primaryTitle;
+        if (primaryDesc) primaryDesc.innerText = t.primaryDesc;
+        if (secondaryTitle) secondaryTitle.innerText = t.secondaryTitle;
+        if (secondaryDesc) secondaryDesc.innerText = t.secondaryDesc;
+        
+        // تحديث شروط المتجر
+        const termsTitle = document.getElementById('termsTitle');
+        const term1 = document.getElementById('term1');
+        const term2 = document.getElementById('term2');
+        const term3 = document.getElementById('term3');
+        const term4 = document.getElementById('term4');
+        if (termsTitle) termsTitle.innerText = t.termsTitle;
+        if (term1) term1.innerText = t.term1;
+        if (term2) term2.innerText = t.term2;
+        if (term3) term3.innerText = t.term3;
+        if (term4) term4.innerText = t.term4;
+        
+        // تحديث أزرار الإلغاء والتأكيد
+        const cancelText = document.getElementById('cancelText');
+        const acceptText = document.getElementById('acceptText');
+        if (cancelText) cancelText.innerText = t.cancelText;
+        if (acceptText) acceptText.innerText = t.acceptText;
+        
+        // تحديث نص اختيار النسخة
+        const modalSelectText = document.getElementById('modalSelectText');
+        if (modalSelectText) modalSelectText.innerText = t.modalSelectText;
+    }
+
     function requestPurchase(productId) {
         const p = products.find(prod => prod.id == productId);
         if (!p) return;
@@ -976,6 +1019,9 @@
         // حفظ الأسعار للاستخدام لاحقاً
         pendingProductData.displayPrimaryPrice = primaryPrice;
         pendingProductData.displaySecondaryPrice = secondaryPrice;
+        
+        // تحديث النصوص حسب اللغة الحالية
+        updateModalLanguage();
         
         // إعادة تعيين الاختيار إلى الأساسية
         selectedLicenseType = 'primary';
@@ -1023,25 +1069,16 @@
     function setCategory(cat) { currentCategory = cat; currentPage = 1; renderProducts(); renderTabs(); }
     function goToPage(page) { currentPage = page; renderProducts(); window.scrollTo(0, 400); }
     function setCurrency(cur) { currentCurrency = cur; renderProducts(); }
-    function setLang(lang) { currentLang = lang; renderTabs(); renderProducts(); }
-    function escapeHtml(text) { return text ? text.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])) : ''; }
-
-    function renderWeeklyOffers() {
-        const container = document.getElementById('weeklyGrid');
-        container.innerHTML = weeklyOffers.map(o => {
-            const p = products.find(prod => prod.id == o.productId);
-            if (!p) return '';
-            return `
-                <div class="weekly-item" onclick="requestPurchase('${p.id}')">
-                    <img src="${p.image}" alt="">
-                    <div class="info">
-                        <div class="name">${p.nameAr}</div>
-                        <div class="offer-price">${formatPrice(p.priceOMR * (1 - o.discount/100))} <span class="offer-badge">-${o.discount}%</span></div>
-                    </div>
-                </div>
-            `;
-        }).join('');
+    function setLang(lang) { 
+        currentLang = lang; 
+        renderTabs(); 
+        renderProducts();
+        // تحديث النصوص في النافذة المنبثقة إذا كانت مفتوحة
+        if (document.getElementById('termsModal').style.display === 'flex') {
+            updateModalLanguage();
+        }
     }
+    function escapeHtml(text) { return text ? text.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])) : ''; }
 
     function setView(view) {
         const grid = document.getElementById('productsContainer');
