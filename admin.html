@@ -123,6 +123,7 @@
         .btn-save { background: #00cc88; border: none; padding: 0.5rem 1rem; border-radius: 2rem; cursor: pointer; font-weight: bold; color: #0a0a1a; }
         .btn-sm { background: #2d2f6e; border: none; padding: 0.3rem 0.8rem; border-radius: 2rem; cursor: pointer; color: white; }
         .btn-danger { background: #ff4444; }
+        .btn-warning { background: #ffaa44; color: #0a0a1a; }
         
         .items-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
         .item-badge {
@@ -143,7 +144,7 @@
             margin-top: 0.5rem;
         }
         .stock-input { width: 80px; background: #1e1e3a; border: 1px solid #ffaa44; border-radius: 1rem; padding: 5px; text-align: center; color: white; }
-        .edit-btn, .delete-btn {
+        .edit-btn, .delete-btn, .move-btn {
             padding: 5px 10px;
             margin: 0 2px;
             border: none;
@@ -152,6 +153,7 @@
         }
         .edit-btn { background: #ffa500; color: #fff; }
         .delete-btn { background: #ff4444; color: #fff; }
+        .move-btn { background: #00cc88; color: #0a0a1a; }
         .product-edit-form {
             background: #1e1e3a;
             padding: 1rem;
@@ -228,6 +230,49 @@
             to { transform: translateX(0); opacity: 1; }
         }
         
+        /* نقل المنتج Modal */
+        .move-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            z-index: 10001;
+        }
+        .move-modal-content {
+            background: #11152b;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            border: 2px solid #ffaa44;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .move-modal-content h3 { color: #ffaa44; margin-bottom: 1rem; }
+        .move-modal-content select {
+            width: 100%;
+            padding: 10px;
+            margin: 1rem 0;
+            background: #1e1e3a;
+            border: 1px solid #ffaa44;
+            border-radius: 2rem;
+            color: white;
+            font-size: 1rem;
+        }
+        .move-modal-content button {
+            padding: 8px 20px;
+            margin: 5px;
+            border-radius: 2rem;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
         @media (max-width: 640px) {
             body { padding: 0.5rem; }
             th, td { padding: 6px; font-size: 0.7rem; }
@@ -262,7 +307,7 @@
 <div id="adminContent" style="display:none;">
     <div class="header">
         <h1>🔐 لوحة إدارة xnesto</h1>
-        <p>تحكم كامل في المنتجات والتصنيفات</p>
+        <p>تحكم كامل في المنتجات والتصنيفات | يمكنك نقل المنتجات بين التصنيفات</p>
     </div>
 
     <div class="control-bar">
@@ -296,10 +341,7 @@
         <div class="flex-form">
             <input type="text" id="newNameAr" placeholder="الاسم بالعربية *">
             <input type="text" id="newNameEn" placeholder="Name in English *">
-            <select id="newCategorySelect">
-                <option value="games">🎮 ألعاب</option>
-                <option value="giftcards">🎁 هدايا</option>
-            </select>
+            <select id="newCategorySelect"></select>
             <input type="number" id="newPricePrimary" step="0.1" placeholder="السعر الأساسي (ر.ع) *">
             <input type="number" id="newPriceSecondary" step="0.1" placeholder="السعر الثانوي (ر.ع)">
             <input type="number" id="newOldPrice" step="0.1" placeholder="السعر القديم (اختياري)">
@@ -332,6 +374,19 @@
     </div>
 </div>
 
+<!-- نافذة نقل المنتج -->
+<div id="moveProductModal" class="move-modal">
+    <div class="move-modal-content">
+        <h3><i class="fas fa-exchange-alt"></i> نقل المنتج إلى تصنيف آخر</h3>
+        <p id="moveProductName" style="color:#ffaa44;">اسم المنتج</p>
+        <select id="targetCategorySelect"></select>
+        <div>
+            <button onclick="confirmMoveProduct()" style="background:#00cc88;">تأكيد النقل</button>
+            <button onclick="closeMoveModal()" style="background:#ff4444;">إلغاء</button>
+        </div>
+    </div>
+</div>
+
 <script>
     const ADMIN_PASSWORD = "ssp1995";
     const SESSION_KEY = "xnesto_admin_logged";
@@ -342,6 +397,7 @@
     let currentImageData = null;
     let searchQuery = "";
     let filterCategory = "all";
+    let productToMove = null; // تخزين المنتج المراد نقله
     
     let db, productsRef, categoriesRef;
     
@@ -447,6 +503,53 @@
         }
     }
     
+    // ========== دالة نقل المنتج إلى تصنيف آخر ==========
+    function openMoveModal(productId) {
+        const product = products.find(p => p.id == productId);
+        if (!product) return;
+        productToMove = product;
+        document.getElementById('moveProductName').innerHTML = `<i class="fas fa-gamepad"></i> ${product.nameAr}`;
+        
+        // تعبئة قائمة التصنيفات مع استبعاد التصنيف الحالي
+        const targetSelect = document.getElementById('targetCategorySelect');
+        let options = '';
+        Object.entries(categories).forEach(([catId, catName]) => {
+            if (catId !== product.category) {
+                options += `<option value="${catId}">${catName}</option>`;
+            }
+        });
+        
+        if (options === '') {
+            options = '<option disabled>لا توجد تصنيفات أخرى متاحة</option>';
+        }
+        targetSelect.innerHTML = options;
+        document.getElementById('moveProductModal').style.display = 'flex';
+    }
+    
+    function confirmMoveProduct() {
+        if (!productToMove) return;
+        const targetCategory = document.getElementById('targetCategorySelect').value;
+        if (!targetCategory || targetCategory === productToMove.category) {
+            showNotification('⚠️ لم يتم اختيار تصنيف مختلف');
+            return;
+        }
+        
+        const oldCategory = productToMove.category;
+        productToMove.category = targetCategory;
+        
+        saveProducts();
+        renderProductsTable();
+        closeMoveModal();
+        showNotification(`✅ تم نقل "${productToMove.nameAr}" من ${categories[oldCategory] || oldCategory} إلى ${categories[targetCategory] || targetCategory}`);
+        productToMove = null;
+    }
+    
+    function closeMoveModal() {
+        document.getElementById('moveProductModal').style.display = 'none';
+        productToMove = null;
+    }
+    // ========== نهاية دالة النقل ==========
+    
     function getFilteredProducts() {
         let filtered = [...products];
         if (searchQuery) filtered = filtered.filter(p => (p.nameAr || '').toLowerCase().includes(searchQuery) || (p.nameEn || '').toLowerCase().includes(searchQuery));
@@ -477,10 +580,10 @@
                             <th style="padding:10px;">الكمية</th>
                             <th style="padding:10px;">التصنيف</th>
                             <th style="padding:10px;">إجراءات</th>
-                          </tr>
+                           </tr>
                     </thead>
                     <tbody id="tableBody"></tbody>
-                 </table>
+                </table>
             </div>
         `;
         
@@ -504,8 +607,14 @@
                     <td style="padding:8px;"><span style="color:#00cc88; font-weight:bold;">${p.pricePrimary || p.priceOMR || 0} ر.ع</span></td>
                     <td style="padding:8px;"><span style="color:#ffaa44; font-weight:bold;">${p.priceSecondary || 0} ر.ع</span></td>
                     <td style="padding:8px;"><input type="number" class="stock-input" value="${p.stock || 0}" min="0" onchange="updateStock(${p.id}, this.value)"></td>
-                    <td style="padding:8px;">${categoryName}</td>
-                    <td style="padding:8px;"><button class="edit-btn" onclick="openEditForm(${p.id})">✏️ تعديل</button><button class="delete-btn" onclick="deleteProduct(${p.id})">🗑️ حذف</button></td>
+                    <td style="padding:8px;">
+                        <span style="background:rgba(255,170,68,0.2); padding:3px 8px; border-radius:1rem;">${categoryName}</span>
+                        <button class="move-btn" onclick="openMoveModal(${p.id})" style="margin-right:5px;" title="نقل إلى تصنيف آخر"><i class="fas fa-exchange-alt"></i> نقل</button>
+                    </td>
+                    <td style="padding:8px;">
+                        <button class="edit-btn" onclick="openEditForm(${p.id})">✏️ تعديل</button>
+                        <button class="delete-btn" onclick="deleteProduct(${p.id})">🗑️ حذف</button>
+                    </td>
                 </tr>
                 <tr id="edit-form-${p.id}" style="display:none; background:#1e1e3a;">
                     <td colspan="8" style="padding:15px;">
@@ -661,7 +770,6 @@
         categoriesRef.on('value', (snapshot) => {
             const data = snapshot.val();
             if (data && Object.keys(data).length > 0) {
-                // تحديث الأسماء القديمة إلى الجديدة
                 let needsUpdate = false;
                 const updatedCategories = { ...data };
                 
