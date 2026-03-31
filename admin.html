@@ -248,7 +248,6 @@
             background: #f5f5f5 !important;
             color: #1a1a2e !important;
         }
-        body.light-mode .admin-notification { background: #ffffff !important; }
     </style>
 </head>
 <body>
@@ -275,8 +274,8 @@
             <input type="text" class="search-input" placeholder="بحث عن منتج..." oninput="searchQuery = this.value.toLowerCase(); renderProductsTable();">
             <select class="filter-select" onchange="filterCategory = this.value; renderProductsTable();">
                 <option value="all">جميع التصنيفات</option>
-                <option value="games">🎮 ألعاب PS4/PS5</option>
-                <option value="giftcards">💳 بطاقات شحن</option>
+                <option value="games">🎮 ألعاب</option>
+                <option value="giftcards">🎁 هدايا</option>
             </select>
             <button class="btn-sm" onclick="document.body.classList.toggle('light-mode')">🌓</button>
         </div>
@@ -298,8 +297,8 @@
             <input type="text" id="newNameAr" placeholder="الاسم بالعربية *">
             <input type="text" id="newNameEn" placeholder="Name in English *">
             <select id="newCategorySelect">
-                <option value="games">🎮 ألعاب PS4/PS5</option>
-                <option value="giftcards">💳 بطاقات شحن</option>
+                <option value="games">🎮 ألعاب</option>
+                <option value="giftcards">🎁 هدايا</option>
             </select>
             <input type="number" id="newPricePrimary" step="0.1" placeholder="السعر الأساسي (ر.ع) *">
             <input type="number" id="newPriceSecondary" step="0.1" placeholder="السعر الثانوي (ر.ع)">
@@ -322,10 +321,10 @@
         <div id="categoriesList" class="items-list"></div>
         <div class="flex-form">
             <input type="text" id="newCategoryId" placeholder="معرف التصنيف (مثل: games)">
-            <input type="text" id="newCategoryName" placeholder="اسم التصنيف (مثل: 🎮 ألعاب PS4/PS5)">
-            <button class="btn-save" onclick="addCategory()">➕ إضافة تصنيف</button>
+            <input type="text" id="newCategoryName" placeholder="اسم التصنيف (مثل: 🎮 ألعاب)">
+            <button class="btn-save" onclick="addCategory()">➕ إضافة تصنيف جديد</button>
         </div>
-        <p style="font-size:0.7rem; color:#888; margin-top:0.5rem;">⚠️ لا يمكن حذف التصنيفات الأساسية (games, giftcards)</p>
+        <p style="font-size:0.7rem; color:#888; margin-top:0.5rem;">💡 يمكنك إضافة أي تصنيف جديد حسب رغبتك</p>
     </div>
 
     <div class="footer">
@@ -339,11 +338,10 @@
     const firebaseConfig = { databaseURL: "https://xnesto-645bf-default-rtdb.asia-southeast1.firebasedatabase.app/" };
     
     let products = [];
-    let categories = { games: "🎮 ألعاب PS4/PS5", giftcards: "💳 بطاقات شحن" };
+    let categories = { games: "🎮 ألعاب", giftcards: "🎁 هدايا" };
     let currentImageData = null;
     let searchQuery = "";
     let filterCategory = "all";
-    let currentTab = "products";
     
     let db, productsRef, categoriesRef;
     
@@ -390,11 +388,8 @@
         productsRef.on('value', (snapshot) => {
             const data = snapshot.val();
             if (data) {
-                if (Array.isArray(data)) {
-                    products = data.sort((a, b) => (a.order || 0) - (b.order || 0));
-                } else {
-                    products = Object.values(data).sort((a, b) => (a.order || 0) - (b.order || 0));
-                }
+                products = Array.isArray(data) ? data : Object.values(data);
+                products.sort((a, b) => (a.order || 0) - (b.order || 0));
             } else {
                 products = [];
             }
@@ -482,10 +477,10 @@
                             <th style="padding:10px;">الكمية</th>
                             <th style="padding:10px;">التصنيف</th>
                             <th style="padding:10px;">إجراءات</th>
-                        </tr>
+                         </tr>
                     </thead>
                     <tbody id="tableBody"></tbody>
-                </table>
+                 </table>
             </div>
         `;
         
@@ -507,10 +502,10 @@
                     <td style="padding:8px;"><strong>${escapeHtml(p.nameAr)}</strong><br><small>${escapeHtml(p.nameEn)}</small></td>
                     <td style="padding:8px;"><span style="color:#00cc88; font-weight:bold;">${p.pricePrimary || p.priceOMR || 0} ر.ع</span></td>
                     <td style="padding:8px;"><span style="color:#ffaa44; font-weight:bold;">${p.priceSecondary || 0} ر.ع</span></td>
-                    <td style="padding:8px;"><input type="number" class="stock-input" value="${p.stock || 0}" min="0" onchange="updateStock(${p.id}, this.value)"></td>
-                    <td style="padding:8px;">${categories[p.category] || p.category}</td>
+                    <td style="padding:8px;"><input type="number" class="stock-input" value="${p.stock || 0}" min="0" onchange="updateStock(${p.id}, this.value)"> </td>
+                    <td style="padding:8px;">${categories[p.category] || p.category} </td>
                     <td style="padding:8px;"><button class="edit-btn" onclick="openEditForm(${p.id})">✏️ تعديل</button><button class="delete-btn" onclick="deleteProduct(${p.id})">🗑️ حذف</button></td>
-                </tr>
+                 </tr>
                 <tr id="edit-form-${p.id}" style="display:none; background:#1e1e3a;">
                     <td colspan="8" style="padding:15px;">
                         <div class="product-edit-form">
@@ -518,7 +513,7 @@
                             <div class="edit-field"><label>🌐 الاسم بالإنجليزية</label><input type="text" id="editNameEn_${p.id}" value="${escapeHtml(p.nameEn)}"></div>
                             <div class="edit-field"><label>🟢 السعر الأساسي (ر.ع)</label><input type="number" id="editPricePrimary_${p.id}" value="${p.pricePrimary || p.priceOMR || 0}" step="0.1"></div>
                             <div class="edit-field"><label>🟠 السعر الثانوي (ر.ع)</label><input type="number" id="editPriceSecondary_${p.id}" value="${p.priceSecondary || 0}" step="0.1"></div>
-                            <div class="edit-field"><label>🏷️ السعر القديم (اختياري)</label><input type="number" id="editOldPrice_${p.id}" value="${p.oldPrice || ''}" step="0.1"></div>
+                            <div class="edit-field"><label>🏷️ السعر القديم</label><input type="number" id="editOldPrice_${p.id}" value="${p.oldPrice || ''}" step="0.1"></div>
                             <div class="edit-field"><label>📦 الكمية</label><input type="number" id="editStock_${p.id}" value="${p.stock || 0}" step="1"></div>
                             <div class="edit-field"><label>🖼️ رابط الصورة</label><input type="text" id="editImageUrl_${p.id}" value="${escapeHtml(p.image||'')}"></div>
                             <div class="edit-field"><label>📝 الوصف بالعربية</label><textarea id="editDescAr_${p.id}" rows="2">${escapeHtml(p.detailsAr||'')}</textarea></div>
@@ -526,10 +521,10 @@
                             <div class="edit-field"><label>📂 التصنيف</label><select id="editCategory_${p.id}">
                                 ${Object.entries(categories).map(([catId, catName]) => `<option value="${catId}" ${p.category===catId?'selected':''}>${catName}</option>`).join('')}
                             </select></div>
-                            <div class="edit-buttons"><button onclick="saveEdit(${p.id})" style="background:#00cc88; padding:8px 20px; border-radius:2rem; border:none; cursor:pointer; font-weight:bold;">💾 حفظ التعديلات</button><button onclick="closeEditForm(${p.id})" style="background:#ff4444; padding:8px 20px; border-radius:2rem; border:none; cursor:pointer; font-weight:bold;">❌ إلغاء</button></div>
+                            <div class="edit-buttons"><button onclick="saveEdit(${p.id})" style="background:#00cc88;">💾 حفظ</button><button onclick="closeEditForm(${p.id})" style="background:#ff4444;">❌ إلغاء</button></div>
                         </div>
-                    </td>
-                </tr>
+                     </td>
+                 </tr>
             `;
         }).join('');
     }
@@ -610,7 +605,6 @@
         products.push(newProduct);
         saveProducts();
         
-        // تنظيف النموذج
         document.getElementById('newNameAr').value = '';
         document.getElementById('newNameEn').value = '';
         document.getElementById('newPricePrimary').value = '';
@@ -641,8 +635,6 @@
                 btn.classList.add('active');
             }
         });
-        
-        currentTab = tabId;
     }
 
     function escapeHtml(text) {
@@ -670,8 +662,7 @@
             if (data && Object.keys(data).length > 0) {
                 categories = data;
             } else {
-                // التصنيفات الافتراضية
-                categories = { games: "🎮 ألعاب PS4/PS5", giftcards: "💳 بطاقات شحن" };
+                categories = { games: "🎮 ألعاب", giftcards: "🎁 هدايا" };
                 categoriesRef.set(categories);
             }
             renderCategoriesList();
@@ -703,9 +694,13 @@
             alert('⚠️ يرجى إدخال معرف التصنيف والاسم');
             return;
         }
+        if (categories[id]) {
+            alert('⚠️ هذا المعرف موجود بالفعل');
+            return;
+        }
         categories[id] = name;
         categoriesRef.set(categories).then(() => {
-            showNotification('✅ تم إضافة التصنيف');
+            showNotification('✅ تم إضافة التصنيف الجديد');
             document.getElementById('newCategoryId').value = '';
             document.getElementById('newCategoryName').value = '';
             updateCategorySelects();
@@ -715,7 +710,7 @@
 
     function deleteCategory(id) {
         if (id === 'games' || id === 'giftcards') {
-            alert('⚠️ لا يمكن حذف التصنيفات الأساسية');
+            alert('⚠️ لا يمكن حذف التصنيفات الأساسية (ألعاب - هدايا)');
             return;
         }
         if (confirm(`⚠️ حذف التصنيف "${categories[id]}"؟`)) {
@@ -728,7 +723,6 @@
         }
     }
 
-    // رفع الصور
     const uploadArea = document.getElementById('newImageUploadArea');
     if (uploadArea) {
         uploadArea.onclick = () => document.getElementById('newImageFile').click();
