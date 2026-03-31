@@ -378,8 +378,6 @@
         
         .card-info { padding: 1.2rem; display: flex; flex-direction: column; flex-grow: 1; }
         .product-title { font-size: 0.95rem; font-weight: 800; color: #fff; margin-bottom: 8px; line-height: 1.4; display: flex; justify-content: space-between; align-items: flex-start; }
-        .share-btn { background: none; border: none; color: #25d366; cursor: pointer; font-size: 1.1rem; padding: 0 5px; transition: 0.2s; }
-        .share-btn:hover { transform: scale(1.2); }
         
         .price-container { 
             display: flex; 
@@ -446,7 +444,6 @@
         }
         .btn-wa:hover { transform: scale(1.02); box-shadow: 0 5px 15px rgba(255, 136, 68, 0.4); }
         .btn-wa.disabled { background: #333; color: #888; cursor: not-allowed; opacity: 0.6; }
-        .btn-wa.disabled:hover { transform: none; box-shadow: none; }
         
         .pagination { display: flex; justify-content: center; gap: 10px; margin: 3rem 0; }
         .page-btn { background: #1e1e3a; border: 1px solid rgba(255, 170, 68, 0.2); color: white; width: 40px; height: 40px; border-radius: 10px; cursor: pointer; font-weight: 700; transition: 0.3s; }
@@ -592,15 +589,6 @@
             margin: 5px 0;
             line-height: 1.6;
         }
-        .activation-details .primary-desc {
-            border-right: 2px solid #00cc88;
-            padding-right: 10px;
-            margin-bottom: 12px;
-        }
-        .activation-details .secondary-desc {
-            border-right: 2px solid #ffaa44;
-            padding-right: 10px;
-        }
         
         .store-terms {
             background: rgba(0, 0, 0, 0.2);
@@ -614,10 +602,6 @@
             color: #ffaa44;
             margin-bottom: 8px;
             font-size: 0.85rem;
-        }
-        .store-terms p {
-            margin: 5px 0;
-            line-height: 1.6;
         }
         
         .terms-actions {
@@ -635,9 +619,8 @@
             cursor: pointer;
             font-weight: bold;
             font-size: 0.9rem;
-            transition: all 0.2s;
         }
-        .btn-cancel:hover { background: #555; transform: scale(1.02); }
+        .btn-cancel:hover { background: #555; }
         .btn-accept {
             background: #ffaa44;
             color: #0a0a1a;
@@ -647,9 +630,8 @@
             cursor: pointer;
             font-weight: bold;
             font-size: 0.9rem;
-            transition: all 0.2s;
         }
-        .btn-accept:hover { background: #ffbb55; transform: scale(1.02); }
+        .btn-accept:hover { background: #ffbb55; }
         
         .device-bar {
             background: #07071a;
@@ -673,7 +655,6 @@
             display: flex;
             align-items: center;
             gap: 5px;
-            transition: all 0.2s;
         }
         .device-btn.active { background: #ffaa44; color: #0a0a1a; border-color: #ffaa44; }
     </style>
@@ -699,16 +680,16 @@
         </div>
         <div class="divider-line"></div>
         <div class="quotes-container">
-            <div class="hero-badge" id="badgeBestPrice"><i class="fas fa-tag"></i> أفضل الأسعار</div>
-            <div class="hero-badge" id="badgeFastDelivery"><i class="fas fa-bolt"></i> توصيل فوري</div>
-            <div class="hero-badge" id="badgeSupport"><i class="fas fa-headset"></i> دعم 24/7</div>
-            <div class="hero-badge" id="badgeSecure"><i class="fas fa-shield-alt"></i> دفع آمن</div>
+            <div class="hero-badge"><i class="fas fa-tag"></i> أفضل الأسعار</div>
+            <div class="hero-badge"><i class="fas fa-bolt"></i> توصيل فوري</div>
+            <div class="hero-badge"><i class="fas fa-headset"></i> دعم 24/7</div>
+            <div class="hero-badge"><i class="fas fa-shield-alt"></i> دفع آمن</div>
         </div>
         <div class="stats-container">
-            <div class="stat-item"><i class="fas fa-gamepad"></i> <span class="stat-number">50+</span> <span id="statGames">لعبة</span></div>
-            <div class="stat-item"><i class="fas fa-users"></i> <span class="stat-number">10K+</span> <span id="statCustomers">عميل</span></div>
-            <div class="stat-item"><i class="fas fa-star"></i> <span class="stat-number">4.9</span> <span id="statRating">تقييم</span></div>
-            <div class="stat-item"><i class="fas fa-clock"></i> <span class="stat-number">24/7</span> <span id="statSupport">دعم</span></div>
+            <div class="stat-item"><i class="fas fa-gamepad"></i> <span class="stat-number">50+</span> <span>لعبة</span></div>
+            <div class="stat-item"><i class="fas fa-users"></i> <span class="stat-number">10K+</span> <span>عميل</span></div>
+            <div class="stat-item"><i class="fas fa-star"></i> <span class="stat-number">4.9</span> <span>تقييم</span></div>
+            <div class="stat-item"><i class="fas fa-clock"></i> <span class="stat-number">24/7</span> <span>دعم</span></div>
         </div>
     </div>
 </div>
@@ -727,7 +708,7 @@
         <button class="lang-btn" data-lang="en" onclick="setLang('en')">🇬🇧 English</button>
     </div>
     <div class="currency-selector">
-        <label><i class="fas fa-coins"></i> <span id="currencyLabel">العملة:</span></label>
+        <label><i class="fas fa-coins"></i> <span>العملة:</span></label>
         <select id="currencySelect" onchange="setCurrency(this.value)">
             <option value="OMR">🇴🇲 ريال عماني</option>
             <option value="SAR">🇸🇦 ريال سعودي</option>
@@ -756,10 +737,10 @@
 
 <div class="footer">
     <div class="social-icons">
-        <i class="fab fa-instagram"></i> <span id="instagramText">xnesto_store</span>
-        <i class="fab fa-whatsapp"></i> <span id="whatsappText">+96879977100</span>
+        <i class="fab fa-instagram"></i> <span>xnesto_store</span>
+        <i class="fab fa-whatsapp"></i> <span>+96879977100</span>
     </div>
-    <p id="copyright">© 2025 xnesto - جميع الحقوق محفوظة</p>
+    <p>© 2025 xnesto - جميع الحقوق محفوظة</p>
 </div>
 
 <a href="https://wa.me/96879977100" class="whatsapp-float" target="_blank">
@@ -770,7 +751,7 @@
 <div id="termsModal" class="modal" style="display:none;">
     <div class="modal-content">
         <h3 id="modalProductName">اسم المنتج</h3>
-        <p id="modalSelectText">يرجى اختيار نوع النسخة المطلوبة:</p>
+        <p>يرجى اختيار نوع النسخة المطلوبة:</p>
         
         <div id="licenseSelectionArea" class="license-options">
             <div class="license-card" id="primaryCard" onclick="selectLicense('primary')">
@@ -785,39 +766,31 @@
         </div>
 
         <table class="comparison-table">
-            <thead>
-                <tr><th>الميزة</th><th id="primaryHeader">النسخة الأساسية</th><th id="secondaryHeader">النسخة الثانوية</th> </tr>
-            </thead>
+            <thead><tr><th>الميزة</th><th>النسخة الأساسية</th><th>النسخة الثانوية</th></tr></thead>
             <tbody>
-                <tr><td>اللعب بحسابك الخاص</td><td><i class="fas fa-check"></i> <span id="yesText">نعم</span></td><td><i class="fas fa-times"></i> <span id="noText">لا</span></td></tr>
-                <tr><td>اللعب بدون إنترنت</td><td><i class="fas fa-check"></i> <span id="yesText2">نعم</span></td><td><i class="fas fa-times"></i> <span id="noText2">لا</span></td></tr>
-                <tr><td>تجميع التروفيز</td><td><i class="fas fa-check"></i> <span id="yesText3">نعم</span></td><td><i class="fas fa-times"></i> <span id="noText3">لا</span></td></tr>
+                <tr><td>اللعب بحسابك الخاص</td><td><i class="fas fa-check"></i> نعم</td><td><i class="fas fa-times"></i> لا</td></tr>
+                <tr><td>اللعب بدون إنترنت</td><td><i class="fas fa-check"></i> نعم</td><td><i class="fas fa-times"></i> لا</td></tr>
+                <tr><td>تجميع التروفيز</td><td><i class="fas fa-check"></i> نعم</td><td><i class="fas fa-times"></i> لا</td></tr>
             </tbody>
         </table>
 
         <div class="activation-details">
-            <h4><i class="fas fa-info-circle"></i> <span id="detailsTitle">شرح تفصيلي للنسختين:</span></h4>
-            <div class="primary-desc">
-                <strong id="primaryTitle" style="color:#00cc88;">✓ النسخة الأساسية (Primary):</strong>
-                <p id="primaryDesc">تفعل الحساب كجهاز رئيسي على جهاز PlayStation الخاص بك، مما يتيح لك اللعب من حسابك الشخصي مع إمكانية اللعب بدون إنترنت وتجميع التروفيز والإنجازات.</p>
-            </div>
-            <div class="secondary-desc">
-                <strong id="secondaryTitle" style="color:#ffaa44;">✓ النسخة الثانوية (Secondary):</strong>
-                <p id="secondaryDesc">تفعل الحساب كجهاز ثانوي وتتطلب تسجيل الدخول إلى حساب المتجر مع اتصال دائم بالإنترنت، ولا يمكنك تجميع التروفيز على حسابك الشخصي.</p>
-            </div>
+            <h4><i class="fas fa-info-circle"></i> شرح التفعيل:</h4>
+            <p><strong style="color:#00cc88;">النسخة الأساسية:</strong> تفعل الحساب كجهاز رئيسي، تلعب من حسابك الخاص مع تجميع التروفيز واللعب بدون إنترنت.</p>
+            <p><strong style="color:#ffaa44;">النسخة الثانوية:</strong> تفعل الحساب كجهاز ثانوي، تتطلب إنترنت دائم، تلعب من حساب المتجر فقط.</p>
         </div>
 
         <div class="store-terms">
-            <h4><i class="fas fa-gavel"></i> <span id="termsTitle">شروط المتجر:</span></h4>
-            <p id="term1">1. يمنع تغيير بيانات الحساب نهائياً.</p>
-            <p id="term2">2. النسخة الأساسية تسمح لك باللعب بحسابك الشخصي.</p>
-            <p id="term3">3. النسخة الثانوية تتطلب اتصال دائم بالإنترنت واللعب من حساب المتجر.</p>
-            <p id="term4">4. الضمان يسري لمدة 7 أيام من تاريخ الاستلام.</p>
+            <h4><i class="fas fa-gavel"></i> شروط المتجر:</h4>
+            <p>1. يمنع تغيير بيانات الحساب نهائياً.</p>
+            <p>2. الضمان يسري لمدة 7 أيام من تاريخ الاستلام.</p>
+            <p>3. النسخة الأساسية تسمح باللعب بحسابك الشخصي.</p>
+            <p>4. النسخة الثانوية تتطلب اتصال دائم بالإنترنت.</p>
         </div>
         
         <div class="terms-actions">
-            <button onclick="rejectTerms()" class="btn-cancel" id="cancelBtn"><span id="cancelText">إلغاء</span></button>
-            <button onclick="acceptTerms()" class="btn-accept" id="acceptBtn"><span id="acceptText">تأكيد الطلب عبر واتساب</span></button>
+            <button onclick="rejectTerms()" class="btn-cancel">إلغاء</button>
+            <button onclick="acceptTerms()" class="btn-accept">تأكيد الطلب عبر واتساب</button>
         </div>
     </div>
 </div>
@@ -826,7 +799,7 @@
     const firebaseConfig = { databaseURL: "https://xnesto-645bf-default-rtdb.asia-southeast1.firebasedatabase.app/" };
     
     let products = [];
-    let categories = { games: "🎮 ألعاب PS4/PS5", giftcards: "💳 بطاقات شحن" };
+    let categories = { games: "🎮 ألعاب", giftcards: "🎁 هدايا" };
     let currentLang = "ar";
     let currentCurrency = "OMR";
     let currentPage = 1;
@@ -840,55 +813,6 @@
     
     const exchangeRates = { OMR: 1, SAR: 9.75, AED: 9.55, KWD: 0.79, BHD: 0.98, QAR: 9.45, USD: 2.60, EUR: 2.40 };
     const currencySymbols = { OMR: 'ر.ع', SAR: 'ر.س', AED: 'د.إ', KWD: 'د.ك', BHD: 'د.ب', QAR: 'ر.ق', USD: '$', EUR: '€' };
-
-    const translations = {
-        ar: {
-            games: "🎮 ألعاب", giftcards: "💳 بطاقات", all: "🔥 الكل",
-            searchPlaceholder: "🔍 ابحث عن منتج...", orderNow: "اطلب الآن",
-            outOfStock: "نفذت الكمية", currencyLabel: "العملة:",
-            statGames: "لعبة", statCustomers: "عميل", statRating: "تقييم", statSupport: "دعم",
-            modalSelectText: "يرجى اختيار نوع النسخة المطلوبة:",
-            primaryHeader: "النسخة الأساسية",
-            secondaryHeader: "النسخة الثانوية",
-            yes: "نعم",
-            no: "لا",
-            detailsTitle: "شرح تفصيلي للنسختين:",
-            primaryTitle: "✓ النسخة الأساسية (Primary):",
-            primaryDesc: "تفعل الحساب كجهاز رئيسي على جهاز PlayStation الخاص بك، مما يتيح لك اللعب من حسابك الشخصي مع إمكانية اللعب بدون إنترنت وتجميع التروفيز والإنجازات.",
-            secondaryTitle: "✓ النسخة الثانوية (Secondary):",
-            secondaryDesc: "تفعل الحساب كجهاز ثانوي وتتطلب تسجيل الدخول إلى حساب المتجر مع اتصال دائم بالإنترنت، ولا يمكنك تجميع التروفيز على حسابك الشخصي.",
-            termsTitle: "شروط المتجر:",
-            term1: "1. يمنع تغيير بيانات الحساب نهائياً.",
-            term2: "2. النسخة الأساسية تسمح لك باللعب بحسابك الشخصي.",
-            term3: "3. النسخة الثانوية تتطلب اتصال دائم بالإنترنت واللعب من حساب المتجر.",
-            term4: "4. الضمان يسري لمدة 7 أيام من تاريخ الاستلام.",
-            cancelText: "إلغاء",
-            acceptText: "تأكيد الطلب عبر واتساب"
-        },
-        en: {
-            games: "🎮 Games", giftcards: "💳 Cards", all: "🔥 All",
-            searchPlaceholder: "🔍 Search products...", orderNow: "Order Now",
-            outOfStock: "Out of Stock", currencyLabel: "Currency:",
-            statGames: "Games", statCustomers: "Customers", statRating: "Rating", statSupport: "Support",
-            modalSelectText: "Please select the license type:",
-            primaryHeader: "Primary License",
-            secondaryHeader: "Secondary License",
-            yes: "Yes",
-            no: "No",
-            detailsTitle: "Detailed License Explanation:",
-            primaryTitle: "✓ Primary License:",
-            primaryDesc: "Activate the account as Primary on your PlayStation device, allowing you to play from your personal account with offline play and trophy collection.",
-            secondaryTitle: "✓ Secondary License:",
-            secondaryDesc: "Activate the account as Secondary, requiring login to the store account with constant internet connection. You cannot collect trophies on your personal account.",
-            termsTitle: "Store Terms:",
-            term1: "1. Changing account information is strictly prohibited.",
-            term2: "2. Primary license allows you to play from your personal account.",
-            term3: "3. Secondary license requires constant internet connection and playing from the store account.",
-            term4: "4. Warranty is valid for 7 days from the date of receipt.",
-            cancelText: "Cancel",
-            acceptText: "Confirm via WhatsApp"
-        }
-    };
 
     function initFirebase() {
         if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
@@ -921,8 +845,7 @@
 
     function renderTabs() {
         const container = document.getElementById('tabsContainer');
-        const t = translations[currentLang];
-        let html = `<button class="tab-btn ${currentCategory === 'all' ? 'active' : ''}" onclick="setCategory('all')">${t.all}</button>`;
+        let html = `<button class="tab-btn ${currentCategory === 'all' ? 'active' : ''}" onclick="setCategory('all')">🔥 الكل</button>`;
         Object.keys(categories).forEach(cat => {
             html += `<button class="tab-btn ${currentCategory === cat ? 'active' : ''}" onclick="setCategory('${cat}')">${categories[cat]}</button>`;
         });
@@ -930,7 +853,7 @@
     }
 
     function getStockStatus(stock) {
-        if (stock <= 0) return { text: translations[currentLang].outOfStock, class: 'out-stock' };
+        if (stock <= 0) return { text: "نفذت الكمية", class: 'out-stock' };
         if (stock < 5) return { text: `🔥 متبقي ${stock} فقط`, class: 'low-stock' };
         return { text: `✅ متوفر ${stock}`, class: 'in-stock' };
     }
@@ -947,8 +870,6 @@
         const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
         const start = (currentPage - 1) * ITEMS_PER_PAGE;
         const pageProducts = filtered.slice(start, start + ITEMS_PER_PAGE);
-
-        const t = translations[currentLang];
         
         container.innerHTML = pageProducts.map(p => {
             const name = currentLang === 'ar' ? p.nameAr : p.nameEn;
@@ -956,12 +877,10 @@
             const secondaryPrice = formatPrice(p.priceSecondary || (p.priceOMR * 0.6) || 0);
             const isOutOfStock = (p.stock || 0) <= 0;
             const stockStatus = getStockStatus(p.stock);
-            const hasDiscount = p.oldPrice && p.oldPrice > (p.pricePrimary || p.priceOMR);
             
             return `
                 <div class="product-card ${isOutOfStock ? 'out-of-stock' : ''}">
-                    ${hasDiscount ? `<div class="discount-badge">🔥 خصم</div>` : ''}
-                    ${isOutOfStock ? `<div class="out-of-stock-badge">${t.outOfStock}</div>` : ''}
+                    ${isOutOfStock ? `<div class="out-of-stock-badge">نفذت الكمية</div>` : ''}
                     <div class="product-image" style="background-image: url('${p.image}'); background-size: cover; background-position: center;">
                         <div class="product-badge">${categories[p.category] || p.category}</div>
                     </div>
@@ -970,13 +889,12 @@
                         <div class="price-container">
                             <div class="price-primary"><i class="fas fa-crown"></i> أساسي: ${primaryPrice}</div>
                             <div class="price-secondary"><i class="fas fa-share-alt"></i> ثانوي: ${secondaryPrice}</div>
-                            ${hasDiscount ? `<div class="old-price">كان: ${formatPrice(p.oldPrice)}</div>` : ''}
                         </div>
                         <div class="stock-status ${stockStatus.class}">
                             <i class="fas ${stockStatus.class === 'in-stock' ? 'fa-check-circle' : (stockStatus.class === 'low-stock' ? 'fa-exclamation-triangle' : 'fa-times-circle')}"></i> ${stockStatus.text}
                         </div>
                         <button class="btn-wa ${isOutOfStock ? 'disabled' : ''}" onclick="${!isOutOfStock ? `requestPurchase('${p.id}')` : ''}">
-                            <i class="fab fa-whatsapp"></i> ${t.orderNow}
+                            <i class="fab fa-whatsapp"></i> اطلب الآن
                         </button>
                     </div>
                 </div>
@@ -997,23 +915,6 @@
         container.innerHTML = html;
     }
 
-    function updateModalLanguage() {
-        const t = translations[currentLang];
-        const elements = ['primaryHeader', 'secondaryHeader', 'detailsTitle', 'primaryTitle', 'secondaryTitle', 'termsTitle', 'cancelText', 'acceptText', 'modalSelectText'];
-        elements.forEach(id => {
-            const el = document.getElementById(id);
-            if (el && t[id]) el.innerText = t[id];
-        });
-        document.getElementById('primaryDesc').innerText = t.primaryDesc;
-        document.getElementById('secondaryDesc').innerText = t.secondaryDesc;
-        document.getElementById('term1').innerText = t.term1;
-        document.getElementById('term2').innerText = t.term2;
-        document.getElementById('term3').innerText = t.term3;
-        document.getElementById('term4').innerText = t.term4;
-        ['yesText', 'yesText2', 'yesText3'].forEach(id => { if(document.getElementById(id)) document.getElementById(id).innerText = t.yes; });
-        ['noText', 'noText2', 'noText3'].forEach(id => { if(document.getElementById(id)) document.getElementById(id).innerText = t.no; });
-    }
-
     function requestPurchase(productId) {
         const p = products.find(prod => prod.id == productId);
         if (!p) return;
@@ -1029,8 +930,6 @@
         
         pendingProductData.displayPrimaryPrice = primaryPrice;
         pendingProductData.displaySecondaryPrice = secondaryPrice;
-        
-        updateModalLanguage();
         
         selectedLicenseType = 'primary';
         document.getElementById('primaryCard').classList.add('active');
@@ -1069,12 +968,7 @@
     function setCategory(cat) { currentCategory = cat; currentPage = 1; renderProducts(); renderTabs(); }
     function goToPage(page) { currentPage = page; renderProducts(); window.scrollTo(0, 400); }
     function setCurrency(cur) { currentCurrency = cur; renderProducts(); }
-    function setLang(lang) { 
-        currentLang = lang; 
-        renderTabs(); 
-        renderProducts();
-        if (document.getElementById('termsModal').style.display === 'flex') updateModalLanguage();
-    }
+    function setLang(lang) { currentLang = lang; renderProducts(); }
     function escapeHtml(text) { return text ? text.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])) : ''; }
 
     function setView(view) {
