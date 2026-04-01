@@ -284,21 +284,19 @@
             background: #f0f4ff !important;
             color: #1a1a2e !important;
         }
-        body.light-mode .header { background: linear-gradient(135deg, #1a3a7a, #0d2a6e) !important; }
-        body.light-mode .section-card { background: #ffffff !important; }
-        body.light-mode .dashboard-card { background: #ffffff !important; }
-        body.light-mode .products-table { background: rgba(0,0,0,0.05) !important; }
-        body.light-mode td { color: #1a1a2e !important; }
-        body.light-mode input, body.light-mode select, body.light-mode textarea {
-            background: #f5f5f5 !important;
-            color: #1a1a2e !important;
-        }
+        body.light-mode .header { background: linear-gradient(135deg, #ffffff, #f0f0f0); border-color: #ffaa44; }
+        body.light-mode .header h1 { color: #1a1a2e; }
+        body.light-mode .section-card, body.light-mode .dashboard-card { background: white; border-color: #ddd; color: #1a1a2e; }
+        body.light-mode .flex-form input, body.light-mode .flex-form select, body.light-mode .flex-form textarea { background: #f9f9f9; color: #1a1a2e; border-color: #ccc; }
+        body.light-mode .admin-tab { background: #eee; color: #666; }
+        body.light-mode .admin-tab.active { background: #ffaa44; color: white; }
     </style>
 </head>
 <body>
 
 <div id="loginSection" class="login-box">
     <h2>🔐 دخول الإدارة</h2>
+    <p style="color:#ffdd99; font-size:0.8rem; margin-bottom:1rem;">متجر xnesto المطور</p>
     <input type="password" id="adminPassword" placeholder="كلمة السر">
     <button onclick="checkPassword()">دخول</button>
     <div id="loginError" class="login-error"></div>
@@ -306,575 +304,609 @@
 
 <div id="adminContent" style="display:none;">
     <div class="header">
-        <h1>🔐 لوحة إدارة xnesto</h1>
-        <p>تحكم كامل في المنتجات والتصنيفات | يمكنك نقل المنتجات بين التصنيفات</p>
+        <h1>🔐 لوحة إدارة xnesto المتكاملة</h1>
+        <p>تحكم كامل في المنتجات، الأقسام، والعملات</p>
     </div>
 
     <div class="control-bar">
-        <div>
-            <a href="index.html" class="back-link"><i class="fas fa-external-link-alt"></i> عرض المتجر</a>
-            <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> خروج</button>
-        </div>
-        <div>
-            <input type="text" class="search-input" placeholder="بحث عن منتج..." oninput="searchQuery = this.value.toLowerCase(); renderProductsTable();">
-            <select class="filter-select" onchange="filterCategory = this.value; renderProductsTable();">
-                <option value="all">جميع التصنيفات</option>
-                <option value="games">🎮 ألعاب</option>
-                <option value="giftcards">🎁 هدايا</option>
-            </select>
-            <button class="btn-sm" onclick="document.body.classList.toggle('light-mode')">🌓</button>
-        </div>
+        <a href="index.html" class="back-link"><i class="fas fa-external-link-alt"></i> عرض المتجر</a>
+        <button onclick="logout()" class="logout-btn"><i class="fas fa-sign-out-alt"></i> خروج</button>
     </div>
 
     <div class="admin-tabs">
-        <button class="admin-tab active" data-tab="products" onclick="showTab('products')">📦 المنتجات</button>
-        <button class="admin-tab" data-tab="categories" onclick="showTab('categories')">📁 التصنيفات</button>
+        <button class="admin-tab active" onclick="showTab('dashboard')"><i class="fas fa-chart-line"></i> ملخص</button>
+        <button class="admin-tab" onclick="showTab('products')"><i class="fas fa-box"></i> المنتجات</button>
+        <button class="admin-tab" onclick="showTab('categories')"><i class="fas fa-tags"></i> الأقسام</button>
+        <button class="admin-tab" onclick="showTab('currencies')"><i class="fas fa-coins"></i> العملات</button>
+        <button class="admin-tab" onclick="showTab('settings')"><i class="fas fa-cog"></i> الإعدادات</button>
     </div>
 
-    <div id="dashboardSection" class="dashboard-grid">
-        <div class="dashboard-card"><i class="fas fa-box"></i><div class="value" id="statProducts">0</div><div class="label">المنتجات</div></div>
-        <div class="dashboard-card"><i class="fas fa-tags"></i><div class="value" id="statCategories">0</div><div class="label">التصنيفات</div></div>
+    <!-- Dashboard Tab -->
+    <div id="dashboardTab" class="section-card">
+        <h3>📊 ملخص المتجر</h3>
+        <div class="dashboard-grid">
+            <div class="dashboard-card">
+                <i class="fas fa-boxes"></i>
+                <div class="value" id="statProducts">0</div>
+                <div class="label">إجمالي المنتجات</div>
+            </div>
+            <div class="dashboard-card">
+                <i class="fas fa-th-large"></i>
+                <div class="value" id="statCategories">0</div>
+                <div class="label">إجمالي الأقسام</div>
+            </div>
+            <div class="dashboard-card">
+                <i class="fas fa-exclamation-triangle"></i>
+                <div class="value" id="statOutOfStock">0</div>
+                <div class="label">منتجات نفذت</div>
+            </div>
+            <div class="dashboard-card">
+                <i class="fas fa-eye"></i>
+                <div class="value" id="statVisits">0</div>
+                <div class="label">زيارات المتجر</div>
+            </div>
+        </div>
     </div>
 
-    <div id="productsTab" class="section-card">
-        <h3>➕ إضافة منتج جديد</h3>
-        <div class="flex-form">
-            <input type="text" id="newNameAr" placeholder="الاسم بالعربية *">
-            <input type="text" id="newNameEn" placeholder="Name in English *">
+    <!-- Products Tab -->
+    <div id="productsTab" class="section-card" style="display:none;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+            <h3>📦 إدارة المنتجات</h3>
+            <div style="display:flex; gap:10px;">
+                <input type="text" id="productSearch" class="search-input" placeholder="بحث عن منتج..." oninput="filterProducts()">
+                <select id="productFilter" class="filter-select" onchange="filterProducts()">
+                    <option value="all">كل الأقسام</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="flex-form" style="background: rgba(255,170,68,0.1); padding: 1rem; border-radius: 1rem;">
+            <input type="text" id="newNameAr" placeholder="اسم المنتج (عربي)">
             <select id="newCategorySelect"></select>
-            <input type="number" id="newPricePrimary" step="0.1" placeholder="السعر الأساسي (ر.ع) *">
-            <input type="number" id="newPriceSecondary" step="0.1" placeholder="السعر الثانوي (ر.ع)">
-            <input type="number" id="newOldPrice" step="0.1" placeholder="السعر القديم (اختياري)">
-            <input type="number" id="newStock" step="1" placeholder="الكمية" value="99">
-            <div class="image-upload-area" id="newImageUploadArea">
-                <i class="fas fa-cloud-upload-alt"></i> 📸 صورة المنتج
-                <input type="file" id="newImageFile" accept="image/*">
+            <input type="number" id="newPrice" placeholder="السعر الافتراضي" step="0.1">
+            <input type="number" id="newPricePrimary" placeholder="سعر النسخة الأساسية" step="0.1">
+            <input type="number" id="newPriceSecondary" placeholder="سعر النسخة الثانوية" step="0.1">
+            <input type="number" id="newPricePS4" placeholder="سعر نسخة PS4" step="0.1">
+            <input type="number" id="newStock" placeholder="الكمية (0 = نفذت)" value="99">
+            
+            <div class="image-upload-area" onclick="document.getElementById('newImageFile').click()">
+                <i class="fas fa-image"></i> اختر صورة
+                <input type="file" id="newImageFile" accept="image/*" onchange="previewImage(event, 'newImagePreview')">
                 <img id="newImagePreview" class="image-preview">
             </div>
-            <textarea id="newDesc" rows="2" placeholder="وصف المنتج بالعربية"></textarea>
-            <textarea id="newDescEn" rows="2" placeholder="Product description in English"></textarea>
-            <button class="btn-save" onclick="addProduct()">💾 إضافة منتج</button>
+            
+            <button class="btn-save" onclick="addProduct()"><i class="fas fa-plus"></i> إضافة المنتج</button>
         </div>
-        <div id="productsTable" class="products-table"><div class="loading">جاري التحميل...</div></div>
+
+        <div id="productsTable" class="products-table">
+            <div class="loading">جاري تحميل المنتجات...</div>
+        </div>
     </div>
 
+    <!-- Categories Tab -->
     <div id="categoriesTab" class="section-card" style="display:none;">
-        <h3><i class="fas fa-tags"></i> إدارة التصنيفات</h3>
-        <div id="categoriesList" class="items-list"></div>
+        <h3>📁 إدارة الأقسام (التصنيفات)</h3>
         <div class="flex-form">
-            <input type="text" id="newCategoryId" placeholder="معرف التصنيف (مثل: games)">
-            <input type="text" id="newCategoryName" placeholder="اسم التصنيف (مثل: 🎮 ألعاب)">
-            <button class="btn-save" onclick="addCategory()">➕ إضافة تصنيف جديد</button>
+            <input type="text" id="catKey" placeholder="كود القسم (إنجليزي - مثال: games)">
+            <input type="text" id="catName" placeholder="اسم القسم (عربي - مثال: ألعاب)">
+            <button class="btn-save" onclick="addCategory()">إضافة قسم</button>
         </div>
-        <p style="font-size:0.7rem; color:#ffaa44; margin-top:0.5rem;">💡 يمكنك إضافة أي تصنيف جديد حسب رغبتك (مثل: 🔥 عروض، ⭐ مميز)</p>
+        <div id="categoriesList" class="items-list"></div>
+    </div>
+
+    <!-- Currencies Tab -->
+    <div id="currenciesTab" class="section-card" style="display:none;">
+        <h3>💰 إدارة العملات</h3>
+        <div class="flex-form">
+            <input type="text" id="currKey" placeholder="كود العملة (مثال: USD)">
+            <input type="text" id="currSymbol" placeholder="الرمز (مثال: $)">
+            <input type="number" id="currRate" placeholder="سعر الصرف (مقابل الريال العماني)" step="0.01">
+            <input type="text" id="currFlag" placeholder="علم الدولة (إيموجي 🇴🇲)">
+            <button class="btn-save" onclick="addCurrency()">إضافة عملة</button>
+        </div>
+        <div id="currenciesList" class="items-list"></div>
+    </div>
+
+    <!-- Settings Tab -->
+    <div id="settingsTab" class="section-card" style="display:none;">
+        <h3>⚙️ إعدادات المتجر</h3>
+        <div class="flex-form" style="flex-direction:column; align-items:flex-start;">
+            <div class="edit-field" style="width:100%;">
+                <label>رقم الواتساب (بدون +)</label>
+                <input type="text" id="setWhatsapp" placeholder="96879977100">
+            </div>
+            <div class="edit-field" style="width:100%;">
+                <label>نص رسالة الطلب</label>
+                <textarea id="setOrderMsg" rows="3">🛒 طلب شراء جديد من متجر xnesto</textarea>
+            </div>
+            <div class="edit-field" style="width:100%;">
+                <label>شروط المتجر (كل سطر شرط)</label>
+                <textarea id="setTerms" rows="5"></textarea>
+            </div>
+            <div style="display:flex; gap:10px; margin-top:10px;">
+                <button class="btn-save" onclick="saveSettings()">حفظ الإعدادات</button>
+                <button class="btn-sm btn-warning" onclick="toggleDarkMode()">تبديل الوضع (ليلي/نهاري)</button>
+            </div>
+        </div>
     </div>
 
     <div class="footer">
-        <p>📞 واتساب: +96879977100 | 📸 انستقرام: xnesto_store</p>
+        © 2025 xnesto - لوحة الإدارة المطورة V10
     </div>
 </div>
 
-<!-- نافذة نقل المنتج -->
-<div id="moveProductModal" class="move-modal">
+<!-- Move Product Modal -->
+<div id="moveModal" class="move-modal">
     <div class="move-modal-content">
-        <h3><i class="fas fa-exchange-alt"></i> نقل المنتج إلى تصنيف آخر</h3>
-        <p id="moveProductName" style="color:#ffaa44;">اسم المنتج</p>
-        <select id="targetCategorySelect"></select>
-        <div>
-            <button onclick="confirmMoveProduct()" style="background:#00cc88;">تأكيد النقل</button>
-            <button onclick="closeMoveModal()" style="background:#ff4444;">إلغاء</button>
+        <h3>🔄 نقل ترتيب المنتج</h3>
+        <p id="moveProductName" style="font-size:0.8rem; margin-bottom:1rem;"></p>
+        <label>انقل إلى ما قبل:</label>
+        <select id="moveTargetSelect"></select>
+        <div style="margin-top:1rem;">
+            <button onclick="confirmMove()" class="btn-save">تأكيد النقل</button>
+            <button onclick="closeMoveModal()" class="btn-sm btn-danger">إلغاء</button>
         </div>
     </div>
 </div>
 
 <script>
     const ADMIN_PASSWORD = "ssp1995";
-    const SESSION_KEY = "xnesto_admin_logged";
     const firebaseConfig = { databaseURL: "https://xnesto-645bf-default-rtdb.asia-southeast1.firebasedatabase.app/" };
     
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    
     let products = [];
-    let categories = { games: "🎮 ألعاب", giftcards: "🎁 هدايا" };
-    let currentImageData = null;
-    let searchQuery = "";
-    let filterCategory = "all";
-    let productToMove = null; // تخزين المنتج المراد نقله
-    
-    let db, productsRef, categoriesRef;
-    
-    function checkSession() {
-        const isLoggedIn = localStorage.getItem(SESSION_KEY) === "true";
-        if (isLoggedIn) {
-            document.getElementById('loginSection').style.display = 'none';
-            document.getElementById('adminContent').style.display = 'block';
-            initFirebaseAndLoad();
-        }
-    }
-    
+    let categories = { "games": "🎮 ألعاب", "giftcards": "💳 بطاقات" };
+    let currencies = { "OMR": { symbol: "ر.ع", rate: 1, flag: "🇴🇲" } };
+    let currentMovingId = null;
+    let currentImageData = "";
+
+    // --- Auth ---
     function checkPassword() {
-        const pwd = document.getElementById('adminPassword').value;
-        if (pwd === ADMIN_PASSWORD) {
-            localStorage.setItem(SESSION_KEY, "true");
+        const pass = document.getElementById('adminPassword').value;
+        if (pass === ADMIN_PASSWORD) {
             document.getElementById('loginSection').style.display = 'none';
             document.getElementById('adminContent').style.display = 'block';
-            initFirebaseAndLoad();
+            localStorage.setItem('xnesto_admin_auth', 'true');
+            loadAllData();
         } else {
-            document.getElementById('loginError').innerHTML = '❌ كلمة السر غير صحيحة';
+            document.getElementById('loginError').innerText = 'كلمة السر غير صحيحة!';
         }
     }
-    
+
+    if (localStorage.getItem('xnesto_admin_auth') === 'true') {
+        document.getElementById('loginSection').style.display = 'none';
+        document.getElementById('adminContent').style.display = 'block';
+        loadAllData();
+    }
+
     function logout() {
-        localStorage.removeItem(SESSION_KEY);
-        document.getElementById('loginSection').style.display = 'block';
-        document.getElementById('adminContent').style.display = 'none';
-        document.getElementById('adminPassword').value = '';
-        document.getElementById('loginError').innerHTML = '';
+        localStorage.removeItem('xnesto_admin_auth');
+        location.reload();
     }
-    
-    function initFirebaseAndLoad() {
-        if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-        db = firebase.database();
-        productsRef = db.ref('products');
-        categoriesRef = db.ref('categories');
-        
-        loadProducts();
-        loadCategories();
-    }
-    
-    function loadProducts() {
-        productsRef.on('value', (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
-                products = Array.isArray(data) ? data : Object.values(data);
-                products.sort((a, b) => (a.order || 0) - (b.order || 0));
-            } else {
-                products = [];
-            }
-            renderProductsTable();
-            updateDashboard();
+
+    // --- Data Loading ---
+    function loadAllData() {
+        db.ref('categories').on('value', snap => {
+            if (snap.val()) categories = snap.val();
+            renderCategories();
+            updateCategorySelects();
         });
-    }
-    
-    function saveProducts() {
-        productsRef.set(products).then(() => {
-            showNotification('✅ تم حفظ جميع المنتجات بنجاح');
-        }).catch(error => {
-            showNotification('❌ خطأ في الحفظ: ' + error.message);
+
+        db.ref('currencies').on('value', snap => {
+            if (snap.val()) currencies = snap.val();
+            renderCurrencies();
         });
-    }
-    
-    function updateOrder() {
-        products.forEach((p, idx) => { p.order = idx; });
-        saveProducts();
-        renderProductsTable();
-    }
-    
-    function moveProductUp(index) {
-        if (index === 0) return;
-        [products[index], products[index-1]] = [products[index-1], products[index]];
-        updateOrder();
-    }
-    
-    function moveProductDown(index) {
-        if (index === products.length-1) return;
-        [products[index], products[index+1]] = [products[index+1], products[index]];
-        updateOrder();
-    }
-    
-    function moveToPosition(productId, newPos) {
-        const idx = products.findIndex(p => p.id == productId);
-        if (idx === -1) return;
-        let target = newPos - 1;
-        if (target < 0) target = 0;
-        if (target >= products.length) target = products.length - 1;
-        if (idx === target) return;
-        const product = products[idx];
-        products.splice(idx, 1);
-        products.splice(target, 0, product);
-        updateOrder();
-    }
-    
-    function updateStock(id, newStock) {
-        const p = products.find(p => p.id == id);
-        if (p) { 
-            p.stock = parseInt(newStock); 
-            saveProducts(); 
-            renderProductsTable();
-            showNotification('✅ تم تحديث الكمية');
-        }
-    }
-    
-    // ========== دالة نقل المنتج إلى تصنيف آخر ==========
-    function openMoveModal(productId) {
-        const product = products.find(p => p.id == productId);
-        if (!product) return;
-        productToMove = product;
-        document.getElementById('moveProductName').innerHTML = `<i class="fas fa-gamepad"></i> ${product.nameAr}`;
-        
-        // تعبئة قائمة التصنيفات مع استبعاد التصنيف الحالي
-        const targetSelect = document.getElementById('targetCategorySelect');
-        let options = '';
-        Object.entries(categories).forEach(([catId, catName]) => {
-            if (catId !== product.category) {
-                options += `<option value="${catId}">${catName}</option>`;
+
+        db.ref('products').on('value', snap => {
+            const data = snap.val();
+            products = data ? (Array.isArray(data) ? data : Object.values(data)) : [];
+            renderProducts();
+            updateStats();
+        });
+
+        db.ref('settings').once('value', snap => {
+            const s = snap.val();
+            if (s) {
+                document.getElementById('setWhatsapp').value = s.whatsapp || "";
+                document.getElementById('setOrderMsg').value = s.orderMsg || "";
+                document.getElementById('setTerms').value = s.terms || "";
+                if (s.darkMode === false) document.body.classList.add('light-mode');
             }
         });
-        
-        if (options === '') {
-            options = '<option disabled>لا توجد تصنيفات أخرى متاحة</option>';
-        }
-        targetSelect.innerHTML = options;
-        document.getElementById('moveProductModal').style.display = 'flex';
+
+        db.ref('visits').on('value', snap => {
+            document.getElementById('statVisits').innerText = snap.val() || 0;
+        });
     }
-    
-    function confirmMoveProduct() {
-        if (!productToMove) return;
-        const targetCategory = document.getElementById('targetCategorySelect').value;
-        if (!targetCategory || targetCategory === productToMove.category) {
-            showNotification('⚠️ لم يتم اختيار تصنيف مختلف');
+
+    // --- Products ---
+    function renderProducts(filtered = null) {
+        const list = filtered || products;
+        const container = document.getElementById('productsTable');
+        
+        if (list.length === 0) {
+            container.innerHTML = '<div style="padding:2rem; text-align:center; opacity:0.5;">لا يوجد منتجات حالياً</div>';
             return;
         }
-        
-        const oldCategory = productToMove.category;
-        productToMove.category = targetCategory;
-        
-        saveProducts();
-        renderProductsTable();
-        closeMoveModal();
-        showNotification(`✅ تم نقل "${productToMove.nameAr}" من ${categories[oldCategory] || oldCategory} إلى ${categories[targetCategory] || targetCategory}`);
-        productToMove = null;
-    }
-    
-    function closeMoveModal() {
-        document.getElementById('moveProductModal').style.display = 'none';
-        productToMove = null;
-    }
-    // ========== نهاية دالة النقل ==========
-    
-    function getFilteredProducts() {
-        let filtered = [...products];
-        if (searchQuery) filtered = filtered.filter(p => (p.nameAr || '').toLowerCase().includes(searchQuery) || (p.nameEn || '').toLowerCase().includes(searchQuery));
-        if (filterCategory !== 'all') filtered = filtered.filter(p => p.category === filterCategory);
-        return filtered;
-    }
-    
-    function renderProductsTable() {
-        const filtered = getFilteredProducts();
-        const container = document.getElementById('productsTable');
-        if (!container) return;
-        
-        if (filtered.length === 0) { 
-            container.innerHTML = '<div class="loading">لا توجد منتجات</div>'; 
-            return; 
-        }
-        
-        container.innerHTML = `
-            <div style="overflow-x:auto;">
-                <table style="width:100%; border-collapse:collapse;">
-                    <thead>
-                        <tr style="background:rgba(255,170,68,0.2);">
-                            <th style="padding:10px;">الترتيب</th>
-                            <th style="padding:10px;">الصورة</th>
-                            <th style="padding:10px;">الاسم</th>
-                            <th style="padding:10px;">السعر الأساسي</th>
-                            <th style="padding:10px;">السعر الثانوي</th>
-                            <th style="padding:10px;">الكمية</th>
-                            <th style="padding:10px;">التصنيف</th>
-                            <th style="padding:10px;">إجراءات</th>
-                           </tr>
-                    </thead>
-                    <tbody id="tableBody"></tbody>
-                </table>
-            </div>
+
+        let html = `
+            <table>
+                <thead>
+                    <tr>
+                        <th>الترتيب</th>
+                        <th>الصورة</th>
+                        <th>الاسم</th>
+                        <th>القسم</th>
+                        <th>الأسعار (أساسي/ثانوي/PS4)</th>
+                        <th>الكمية</th>
+                        <th>إجراءات</th>
+                    </tr>
+                </thead>
+                <tbody>
         `;
-        
-        const tbody = document.getElementById('tableBody');
-        tbody.innerHTML = filtered.map((p, idx) => {
-            const realIdx = products.findIndex(prod => prod.id === p.id);
-            const orderNum = realIdx + 1;
-            const categoryName = categories[p.category] || p.category || "غير مصنف";
-            return `
-                <tr style="border-bottom:1px solid rgba(255,255,255,0.1);">
-                    <td style="padding:8px;">
-                        <div style="display:flex; gap:5px; justify-content:center; flex-wrap:wrap;">
-                            <button class="edit-btn" onclick="moveProductUp(${realIdx})" ${realIdx===0?'disabled':''}>⬆️</button>
-                            <span style="background:#ffaa44; color:#0a0a1a; padding:2px 8px; border-radius:1rem;">${orderNum}</span>
-                            <button class="edit-btn" onclick="moveProductDown(${realIdx})" ${realIdx===products.length-1?'disabled':''}>⬇️</button>
-                            <input type="number" value="${orderNum}" min="1" max="${products.length}" style="width:55px; background:#1e1e3a; border:1px solid #ffaa44; border-radius:1rem; text-align:center; color:white;" onchange="moveToPosition(${p.id}, this.value)">
+
+        list.forEach((p, index) => {
+            const actualIndex = products.findIndex(item => item.id === p.id);
+            html += `
+                <tr>
+                    <td>${actualIndex + 1}</td>
+                    <td><img src="${p.image}" width="40" height="40" style="border-radius:5px; object-fit:cover;"></td>
+                    <td style="text-align:right;"><b>${p.nameAr}</b></td>
+                    <td><span class="item-badge">${categories[p.category] || p.category}</span></td>
+                    <td>
+                        <div style="font-size:0.7rem;">
+                            <span style="color:#00cc88;">P: ${p.pricePrimary || p.priceOMR}</span> | 
+                            <span style="color:#ffaa44;">S: ${p.priceSecondary || '--'}</span> |
+                            <span style="color:#00aaff;">PS4: ${p.pricePS4 || '--'}</span>
                         </div>
                     </td>
-                    <td style="padding:8px;"><img src="${p.image || ''}" width="45" height="45" style="border-radius:8px; object-fit:cover;" onerror="this.src='https://via.placeholder.com/45'"></td>
-                    <td style="padding:8px;"><strong>${escapeHtml(p.nameAr)}</strong><br><small>${escapeHtml(p.nameEn)}</small></td>
-                    <td style="padding:8px;"><span style="color:#00cc88; font-weight:bold;">${p.pricePrimary || p.priceOMR || 0} ر.ع</span></td>
-                    <td style="padding:8px;"><span style="color:#ffaa44; font-weight:bold;">${p.priceSecondary || 0} ر.ع</span></td>
-                    <td style="padding:8px;"><input type="number" class="stock-input" value="${p.stock || 0}" min="0" onchange="updateStock(${p.id}, this.value)"></td>
-                    <td style="padding:8px;">
-                        <span style="background:rgba(255,170,68,0.2); padding:3px 8px; border-radius:1rem;">${categoryName}</span>
-                        <button class="move-btn" onclick="openMoveModal(${p.id})" style="margin-right:5px;" title="نقل إلى تصنيف آخر"><i class="fas fa-exchange-alt"></i> نقل</button>
+                    <td>
+                        <input type="number" class="stock-input" value="${p.stock}" onchange="updateStock('${p.id}', this.value)">
                     </td>
-                    <td style="padding:8px;">
-                        <button class="edit-btn" onclick="openEditForm(${p.id})">✏️ تعديل</button>
-                        <button class="delete-btn" onclick="deleteProduct(${p.id})">🗑️ حذف</button>
+                    <td>
+                        <button class="edit-btn" onclick="toggleEdit('${p.id}')" title="تعديل"><i class="fas fa-edit"></i></button>
+                        <button class="move-btn" onclick="openMoveModal('${p.id}')" title="نقل الترتيب"><i class="fas fa-arrows-alt-v"></i></button>
+                        <button class="delete-btn" onclick="deleteProduct('${p.id}')" title="حذف"><i class="fas fa-trash"></i></button>
                     </td>
                 </tr>
-                <tr id="edit-form-${p.id}" style="display:none; background:#1e1e3a;">
-                    <td colspan="8" style="padding:15px;">
+                <tr id="edit-row-${p.id}" style="display:none;">
+                    <td colspan="7">
                         <div class="product-edit-form">
-                            <div class="edit-field"><label>📝 الاسم بالعربية</label><input type="text" id="editNameAr_${p.id}" value="${escapeHtml(p.nameAr)}"></div>
-                            <div class="edit-field"><label>🌐 الاسم بالإنجليزية</label><input type="text" id="editNameEn_${p.id}" value="${escapeHtml(p.nameEn)}"></div>
-                            <div class="edit-field"><label>🟢 السعر الأساسي (ر.ع)</label><input type="number" id="editPricePrimary_${p.id}" value="${p.pricePrimary || p.priceOMR || 0}" step="0.1"></div>
-                            <div class="edit-field"><label>🟠 السعر الثانوي (ر.ع)</label><input type="number" id="editPriceSecondary_${p.id}" value="${p.priceSecondary || 0}" step="0.1"></div>
-                            <div class="edit-field"><label>🏷️ السعر القديم</label><input type="number" id="editOldPrice_${p.id}" value="${p.oldPrice || ''}" step="0.1"></div>
-                            <div class="edit-field"><label>📦 الكمية</label><input type="number" id="editStock_${p.id}" value="${p.stock || 0}" step="1"></div>
-                            <div class="edit-field"><label>🖼️ رابط الصورة</label><input type="text" id="editImageUrl_${p.id}" value="${escapeHtml(p.image||'')}"></div>
-                            <div class="edit-field"><label>📝 الوصف بالعربية</label><textarea id="editDescAr_${p.id}" rows="2">${escapeHtml(p.detailsAr||'')}</textarea></div>
-                            <div class="edit-field"><label>📝 الوصف بالإنجليزية</label><textarea id="editDescEn_${p.id}" rows="2">${escapeHtml(p.detailsEn||'')}</textarea></div>
-                            <div class="edit-field"><label>📂 التصنيف</label><select id="editCategory_${p.id}">
-                                ${Object.entries(categories).map(([catId, catName]) => `<option value="${catId}" ${p.category===catId?'selected':''}>${catName}</option>`).join('')}
-                            </select></div>
-                            <div class="edit-buttons"><button onclick="saveEdit(${p.id})" style="background:#00cc88;">💾 حفظ</button><button onclick="closeEditForm(${p.id})" style="background:#ff4444;">❌ إلغاء</button></div>
+                            <div class="edit-field">
+                                <label>الاسم بالعربي</label>
+                                <input type="text" id="editAr_${p.id}" value="${p.nameAr}">
+                            </div>
+                            <div class="edit-field">
+                                <label>القسم</label>
+                                <select id="editCat_${p.id}">${getCategoryOptions(p.category)}</select>
+                            </div>
+                            <div class="edit-field">
+                                <label>السعر الافتراضي</label>
+                                <input type="number" id="editPrice_${p.id}" value="${p.priceOMR}" step="0.1">
+                            </div>
+                            <div class="edit-field">
+                                <label>سعر النسخة الأساسية</label>
+                                <input type="number" id="editPrimary_${p.id}" value="${p.pricePrimary || ''}" step="0.1">
+                            </div>
+                            <div class="edit-field">
+                                <label>سعر النسخة الثانوية</label>
+                                <input type="number" id="editSecondary_${p.id}" value="${p.priceSecondary || ''}" step="0.1">
+                            </div>
+                            <div class="edit-field">
+                                <label>سعر نسخة PS4</label>
+                                <input type="number" id="editPS4_${p.id}" value="${p.pricePS4 || ''}" step="0.1">
+                            </div>
+                            <div class="edit-field">
+                                <label>تغيير الصورة</label>
+                                <input type="file" accept="image/*" onchange="previewImage(event, 'editPreview_${p.id}')">
+                                <img id="editPreview_${p.id}" src="${p.image}" class="image-preview" style="display:block;">
+                            </div>
+                            <div class="edit-buttons">
+                                <button class="btn-save" onclick="saveEdit('${p.id}')">حفظ التغييرات</button>
+                                <button class="btn-sm" onclick="toggleEdit('${p.id}')">إلغاء</button>
+                            </div>
                         </div>
                     </td>
                 </tr>
             `;
-        }).join('');
-    }
-    
-    function openEditForm(id) { 
-        const form = document.getElementById(`edit-form-${id}`);
-        if (form) form.style.display = 'table-row';
-    }
-    function closeEditForm(id) { 
-        const form = document.getElementById(`edit-form-${id}`);
-        if (form) form.style.display = 'none';
-    }
-    
-    function saveEdit(id) {
-        const p = products.find(p => p.id == id);
-        if (!p) return;
-        
-        p.nameAr = document.getElementById(`editNameAr_${id}`).value;
-        p.nameEn = document.getElementById(`editNameEn_${id}`).value;
-        p.pricePrimary = parseFloat(document.getElementById(`editPricePrimary_${id}`).value);
-        p.priceSecondary = parseFloat(document.getElementById(`editPriceSecondary_${id}`).value) || 0;
-        p.priceOMR = p.pricePrimary;
-        const oldPrice = parseFloat(document.getElementById(`editOldPrice_${id}`).value);
-        p.oldPrice = (oldPrice && oldPrice > p.pricePrimary) ? oldPrice : null;
-        p.stock = parseInt(document.getElementById(`editStock_${id}`).value) || 0;
-        p.image = document.getElementById(`editImageUrl_${id}`).value;
-        p.detailsAr = document.getElementById(`editDescAr_${id}`).value;
-        p.detailsEn = document.getElementById(`editDescEn_${id}`).value;
-        p.category = document.getElementById(`editCategory_${id}`).value;
-        
-        saveProducts();
-        closeEditForm(id);
-        renderProductsTable();
-        showNotification('✅ تم تحديث المنتج');
-    }
-    
-    function deleteProduct(id) {
-        if (confirm('⚠️ هل أنت متأكد من حذف هذا المنتج؟')) {
-            products = products.filter(p => p.id != id);
-            updateOrder();
-            showNotification('✅ تم حذف المنتج');
-        }
-    }
-    
-    function addProduct() {
-        const nameAr = document.getElementById('newNameAr').value.trim();
-        const nameEn = document.getElementById('newNameEn').value.trim();
-        const category = document.getElementById('newCategorySelect').value;
-        const pricePrimary = parseFloat(document.getElementById('newPricePrimary').value);
-        const priceSecondary = parseFloat(document.getElementById('newPriceSecondary').value) || 0;
-        const oldPrice = parseFloat(document.getElementById('newOldPrice').value) || null;
-        const stock = parseInt(document.getElementById('newStock').value) || 0;
-        const image = currentImageData || "";
-        const descAr = document.getElementById('newDesc').value;
-        const descEn = document.getElementById('newDescEn').value;
-        
-        if (!nameAr || !nameEn || isNaN(pricePrimary)) { 
-            alert('⚠️ يرجى ملء الاسم والسعر الأساسي'); 
-            return; 
-        }
-        
-        const newProduct = {
-            id: Date.now(),
-            nameAr: nameAr,
-            nameEn: nameEn,
-            category: category,
-            pricePrimary: pricePrimary,
-            priceSecondary: priceSecondary,
-            priceOMR: pricePrimary,
-            oldPrice: (oldPrice && oldPrice > pricePrimary) ? oldPrice : null,
-            stock: stock,
-            image: image,
-            detailsAr: descAr,
-            detailsEn: descEn || descAr,
-            order: products.length
-        };
-        
-        products.push(newProduct);
-        saveProducts();
-        
-        document.getElementById('newNameAr').value = '';
-        document.getElementById('newNameEn').value = '';
-        document.getElementById('newPricePrimary').value = '';
-        document.getElementById('newPriceSecondary').value = '';
-        document.getElementById('newOldPrice').value = '';
-        document.getElementById('newStock').value = '99';
-        document.getElementById('newDesc').value = '';
-        document.getElementById('newDescEn').value = '';
-        currentImageData = null;
-        document.getElementById('newImagePreview').style.display = 'none';
-        renderProductsTable();
-        showNotification('✅ تم إضافة المنتج بنجاح');
+        });
+
+        html += `</tbody></table>`;
+        container.innerHTML = html;
     }
 
-    function showTab(tabId) {
-        const tabs = ['productsTab', 'categoriesTab'];
-        tabs.forEach(tab => {
-            const element = document.getElementById(tab);
-            if (element) element.style.display = 'none';
+    function addProduct() {
+        const nameAr = document.getElementById('newNameAr').value;
+        const price = parseFloat(document.getElementById('newPrice').value);
+        const category = document.getElementById('newCategorySelect').value;
+        
+        if (!nameAr || isNaN(price)) {
+            showNotification('يرجى إدخال الاسم والسعر على الأقل!', 'error');
+            return;
+        }
+
+        const newProduct = {
+            id: 'p' + Date.now(),
+            nameAr: nameAr,
+            category: category,
+            priceOMR: price,
+            pricePrimary: parseFloat(document.getElementById('newPricePrimary').value) || null,
+            priceSecondary: parseFloat(document.getElementById('newPriceSecondary').value) || null,
+            pricePS4: parseFloat(document.getElementById('newPricePS4').value) || null,
+            stock: parseInt(document.getElementById('newStock').value) || 0,
+            image: currentImageData || "https://via.placeholder.com/150",
+            order: products.length
+        };
+
+        products.push(newProduct);
+        db.ref('products').set(products).then(() => {
+            showNotification('تم إضافة المنتج بنجاح');
+            clearAddForm();
+        });
+    }
+
+    function saveEdit(id) {
+        const idx = products.findIndex(p => p.id === id);
+        if (idx === -1) return;
+
+        const imgPreview = document.getElementById(`editPreview_${id}`);
+        
+        products[idx].nameAr = document.getElementById(`editAr_${id}`).value;
+        products[idx].category = document.getElementById(`editCat_${id}`).value;
+        products[idx].priceOMR = parseFloat(document.getElementById(`editPrice_${id}`).value);
+        products[idx].pricePrimary = parseFloat(document.getElementById(`editPrimary_${id}`).value) || null;
+        products[idx].priceSecondary = parseFloat(document.getElementById(`editSecondary_${id}`).value) || null;
+        products[idx].pricePS4 = parseFloat(document.getElementById(`editPS4_${id}`).value) || null;
+        products[idx].image = imgPreview.src;
+
+        db.ref('products').set(products).then(() => {
+            showNotification('تم تحديث بيانات المنتج');
+            toggleEdit(id);
+        });
+    }
+
+    function deleteProduct(id) {
+        if (confirm('هل أنت متأكد من حذف هذا المنتج نهائياً؟')) {
+            products = products.filter(p => p.id !== id);
+            db.ref('products').set(products).then(() => {
+                showNotification('تم حذف المنتج بنجاح');
+            });
+        }
+    }
+
+    function updateStock(id, val) {
+        const idx = products.findIndex(p => p.id === id);
+        if (idx !== -1) {
+            products[idx].stock = parseInt(val) || 0;
+            db.ref('products').set(products);
+        }
+    }
+
+    // --- Sorting ---
+    function openMoveModal(id) {
+        currentMovingId = id;
+        const p = products.find(item => item.id === id);
+        document.getElementById('moveProductName').innerText = p.nameAr;
+        
+        const select = document.getElementById('moveTargetSelect');
+        select.innerHTML = '<option value="end">نهاية القائمة</option>';
+        products.forEach((item, index) => {
+            if (item.id !== id) {
+                select.innerHTML += `<option value="${index}">${index + 1}. قبل ${item.nameAr}</option>`;
+            }
         });
         
-        const selectedTab = document.getElementById(tabId + 'Tab');
-        if (selectedTab) selectedTab.style.display = 'block';
+        document.getElementById('moveModal').style.display = 'flex';
+    }
+
+    function confirmMove() {
+        const target = document.getElementById('moveTargetSelect').value;
+        const idx = products.findIndex(p => p.id === currentMovingId);
+        const item = products.splice(idx, 1)[0];
+        
+        if (target === 'end') {
+            products.push(item);
+        } else {
+            products.splice(parseInt(target), 0, item);
+        }
+        
+        db.ref('products').set(products).then(() => {
+            showNotification('تم إعادة ترتيب المنتجات');
+            closeMoveModal();
+        });
+    }
+
+    function closeMoveModal() {
+        document.getElementById('moveModal').style.display = 'none';
+        currentMovingId = null;
+    }
+
+    // --- Categories ---
+    function renderCategories() {
+        const container = document.getElementById('categoriesList');
+        container.innerHTML = "";
+        Object.entries(categories).forEach(([key, name]) => {
+            container.innerHTML += `
+                <div class="item-badge">
+                    ${name} (${key})
+                    <i class="fas fa-times-circle" onclick="deleteCategory('${key}')"></i>
+                </div>
+            `;
+        });
+    }
+
+    function addCategory() {
+        const key = document.getElementById('catKey').value.trim();
+        const name = document.getElementById('catName').value.trim();
+        if (!key || !name) return;
+        categories[key] = name;
+        db.ref('categories').set(categories).then(() => {
+            document.getElementById('catKey').value = "";
+            document.getElementById('catName').value = "";
+            showNotification('تم إضافة القسم الجديد');
+        });
+    }
+
+    function deleteCategory(key) {
+        if (confirm(`حذف قسم "${categories[key]}"؟ سيتم نقل منتجاته لـ "غير مصنف"`)) {
+            delete categories[key];
+            db.ref('categories').set(categories);
+        }
+    }
+
+    // --- Currencies ---
+    function renderCurrencies() {
+        const container = document.getElementById('currenciesList');
+        container.innerHTML = "";
+        Object.entries(currencies).forEach(([key, data]) => {
+            container.innerHTML += `
+                <div class="item-badge">
+                    ${data.flag} ${key} (${data.symbol}) - سعر: ${data.rate}
+                    <i class="fas fa-times-circle" onclick="deleteCurrency('${key}')"></i>
+                </div>
+            `;
+        });
+    }
+
+    function addCurrency() {
+        const key = document.getElementById('currKey').value.trim();
+        const symbol = document.getElementById('currSymbol').value.trim();
+        const rate = parseFloat(document.getElementById('currRate').value);
+        const flag = document.getElementById('currFlag').value.trim();
+        
+        if (!key || !symbol || isNaN(rate)) return;
+        
+        currencies[key] = { symbol, rate, flag };
+        db.ref('currencies').set(currencies).then(() => {
+            document.getElementById('currKey').value = "";
+            document.getElementById('currSymbol').value = "";
+            document.getElementById('currRate').value = "";
+            document.getElementById('currFlag').value = "";
+            showNotification('تم إضافة العملة بنجاح');
+        });
+    }
+
+    function deleteCurrency(key) {
+        if (key === "OMR") return alert("لا يمكن حذف العملة الأساسية!");
+        delete currencies[key];
+        db.ref('currencies').set(currencies);
+    }
+
+    // --- Settings ---
+    function saveSettings() {
+        const settings = {
+            whatsapp: document.getElementById('setWhatsapp').value,
+            orderMsg: document.getElementById('setOrderMsg').value,
+            terms: document.getElementById('setTerms').value,
+            darkMode: !document.body.classList.contains('light-mode')
+        };
+        db.ref('settings').set(settings).then(() => {
+            showNotification('تم حفظ الإعدادات بنجاح');
+        });
+    }
+
+    function toggleDarkMode() {
+        document.body.classList.toggle('light-mode');
+    }
+
+    // --- Helpers ---
+    function showTab(tab) {
+        const tabs = ['dashboard', 'products', 'categories', 'currencies', 'settings'];
+        tabs.forEach(t => {
+            document.getElementById(t + 'Tab').style.display = t === tab ? 'block' : 'none';
+        });
         
         document.querySelectorAll('.admin-tab').forEach(btn => {
             btn.classList.remove('active');
-            if (btn.getAttribute('data-tab') === tabId) {
+            if (btn.innerText.includes(tab === 'dashboard' ? 'ملخص' : 
+                                      tab === 'products' ? 'المنتجات' : 
+                                      tab === 'categories' ? 'الأقسام' : 
+                                      tab === 'currencies' ? 'العملات' : 'الإعدادات')) {
                 btn.classList.add('active');
             }
         });
     }
 
-    function escapeHtml(text) {
-        if (!text) return "";
-        const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
-        return text.replace(/[&<>"']/g, m => map[m]);
+    function updateCategorySelects() {
+        const selects = ['newCategorySelect', 'productFilter'];
+        selects.forEach(sId => {
+            const s = document.getElementById(sId);
+            const currentVal = s.value;
+            s.innerHTML = sId === 'productFilter' ? '<option value="all">كل الأقسام</option>' : '';
+            Object.entries(categories).forEach(([key, name]) => {
+                s.innerHTML += `<option value="${key}">${name}</option>`;
+            });
+            s.value = currentVal || (sId === 'productFilter' ? 'all' : Object.keys(categories)[0]);
+        });
     }
 
-    function showNotification(msg) {
-        const div = document.createElement('div');
-        div.className = 'admin-notification';
-        div.innerHTML = `<span>${msg}</span>`;
-        document.body.appendChild(div);
-        setTimeout(() => div.remove(), 3000);
+    function getCategoryOptions(selected) {
+        return Object.entries(categories).map(([key, name]) => 
+            `<option value="${key}" ${key === selected ? 'selected' : ''}>${name}</option>`
+        ).join('');
     }
 
-    function updateDashboard() {
+    function filterProducts() {
+        const query = document.getElementById('productSearch').value.toLowerCase();
+        const cat = document.getElementById('productFilter').value;
+        
+        const filtered = products.filter(p => {
+            const matchesSearch = p.nameAr.toLowerCase().includes(query);
+            const matchesCat = cat === 'all' || p.category === cat;
+            return matchesSearch && matchesCat;
+        });
+        
+        renderProducts(filtered);
+    }
+
+    function updateStats() {
         document.getElementById('statProducts').innerText = products.length;
         document.getElementById('statCategories').innerText = Object.keys(categories).length;
+        document.getElementById('statOutOfStock').innerText = products.filter(p => p.stock <= 0).length;
     }
 
-    function loadCategories() {
-        categoriesRef.on('value', (snapshot) => {
-            const data = snapshot.val();
-            if (data && Object.keys(data).length > 0) {
-                let needsUpdate = false;
-                const updatedCategories = { ...data };
-                
-                if (updatedCategories.games === "🎮 ألعاب PS4/PS5" || updatedCategories.games === "🎮 العاب") {
-                    updatedCategories.games = "🎮 ألعاب";
-                    needsUpdate = true;
-                }
-                if (updatedCategories.giftcards === "💳 بطاقات شحن" || updatedCategories.giftcards === "🎁 هدايا") {
-                    updatedCategories.giftcards = "🎁 هدايا";
-                    needsUpdate = true;
-                }
-                
-                if (needsUpdate) {
-                    categoriesRef.set(updatedCategories);
-                    categories = updatedCategories;
-                } else {
-                    categories = data;
-                }
-            } else {
-                categories = { games: "🎮 ألعاب", giftcards: "🎁 هدايا" };
-                categoriesRef.set(categories);
-            }
-            renderCategoriesList();
-            updateCategorySelects();
-            renderProductsTable();
-        });
+    function toggleEdit(id) {
+        const row = document.getElementById(`edit-row-${id}`);
+        row.style.display = row.style.display === 'none' ? 'table-row' : 'none';
     }
 
-    function renderCategoriesList() {
-        const container = document.getElementById('categoriesList');
-        if (!container) return;
-        container.innerHTML = Object.entries(categories).map(([id, name]) => `
-            <div class="item-badge">
-                <strong>${id}:</strong> ${name} 
-                <i class="fas fa-trash" onclick="deleteCategory('${id}')"></i>
-            </div>
-        `).join('');
-    }
-
-    function updateCategorySelects() {
-        const options = Object.entries(categories).map(([id, name]) => `<option value="${id}">${name}</option>`).join('');
-        const newSelect = document.getElementById('newCategorySelect');
-        if (newSelect) newSelect.innerHTML = options;
-    }
-
-    function addCategory() {
-        const id = document.getElementById('newCategoryId').value.trim();
-        const name = document.getElementById('newCategoryName').value.trim();
-        if (!id || !name) {
-            alert('⚠️ يرجى إدخال معرف التصنيف والاسم');
-            return;
-        }
-        if (categories[id]) {
-            alert('⚠️ هذا المعرف موجود بالفعل');
-            return;
-        }
-        categories[id] = name;
-        categoriesRef.set(categories).then(() => {
-            showNotification('✅ تم إضافة التصنيف الجديد');
-            document.getElementById('newCategoryId').value = '';
-            document.getElementById('newCategoryName').value = '';
-            updateCategorySelects();
-            renderProductsTable();
-            renderCategoriesList();
-        });
-    }
-
-    function deleteCategory(id) {
-        if (id === 'games' || id === 'giftcards') {
-            alert('⚠️ لا يمكن حذف التصنيفات الأساسية (ألعاب - هدايا)');
-            return;
-        }
-        if (confirm(`⚠️ حذف التصنيف "${categories[id]}"؟`)) {
-            delete categories[id];
-            categoriesRef.set(categories).then(() => {
-                showNotification('✅ تم حذف التصنيف');
-                updateCategorySelects();
-                renderProductsTable();
-                renderCategoriesList();
-            });
-        }
-    }
-
-    const uploadArea = document.getElementById('newImageUploadArea');
-    if (uploadArea) {
-        uploadArea.onclick = () => document.getElementById('newImageFile').click();
-    }
-    const imageFile = document.getElementById('newImageFile');
-    if (imageFile) {
-        imageFile.onchange = function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    currentImageData = event.target.result;
-                    const preview = document.getElementById('newImagePreview');
-                    preview.src = currentImageData;
-                    preview.style.display = 'block';
-                };
-                reader.readAsDataURL(file);
-            }
+    function previewImage(event, previewId) {
+        const reader = new FileReader();
+        reader.onload = function() {
+            const output = document.getElementById(previewId);
+            output.src = reader.result;
+            output.style.display = 'block';
+            if (previewId === 'newImagePreview') currentImageData = reader.result;
         };
+        reader.readAsDataURL(event.target.files[0]);
     }
 
-    window.onload = checkSession;
+    function clearAddForm() {
+        document.getElementById('newNameAr').value = "";
+        document.getElementById('newPrice').value = "";
+        document.getElementById('newPricePrimary').value = "";
+        document.getElementById('newPriceSecondary').value = "";
+        document.getElementById('newPricePS4').value = "";
+        document.getElementById('newImagePreview').style.display = "none";
+        currentImageData = "";
+    }
+
+    function showNotification(msg, type = 'success') {
+        const notif = document.createElement('div');
+        notif.className = 'admin-notification';
+        notif.innerHTML = `
+            <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}" 
+               style="color: ${type === 'success' ? '#00cc88' : '#ff4444'};"></i>
+            <span>${msg}</span>
+        `;
+        document.body.appendChild(notif);
+        setTimeout(() => {
+            notif.style.opacity = '0';
+            setTimeout(() => notif.remove(), 500);
+        }, 3000);
+    }
 </script>
 </body>
 </html>
