@@ -3,743 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>xnesto – متجر الألعاب وبطاقات الشحن | PS4/PS5</title>
+    <title>XNESTO STORE – PS4/PS5 Games</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <style>
+        :root { --primary: #ffaa44; --bg: #0a0a1a; --card: #11152b; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: linear-gradient(135deg, #0a0a1a 0%, #0a0a1a 100%);
-            font-family: 'Cairo', 'Segoe UI', Tahoma, system-ui, sans-serif;
-            color: #f0f0ff;
-            padding: 1rem;
-            min-height: 100vh;
-        }
+        body { background: var(--bg); font-family: 'Cairo', sans-serif; color: #f0f0ff; padding: 1rem; min-height: 100vh; }
         
-        @media (max-width: 640px) {
-            body { padding: 0.5rem; }
-            .products-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 0.8rem; }
-            .product-image { height: 130px; background-size: contain !important; background-repeat: no-repeat !important; background-position: center !important; }
-            .product-title { font-size: 0.7rem; }
-            .price-container { flex-direction: column; align-items: flex-start; gap: 5px; }
-            .price-primary, .price-secondary, .price-ps4 { font-size: 0.65rem; }
-            .btn-wa { font-size: 0.6rem; padding: 5px; }
-            .hero-content { padding: 1.2rem 1rem; }
-            .main-logo { font-size: 1.6rem; }
-            .slider-text { font-size: 0.75rem; padding: 5px 10px; }
-        }
+        .hero { text-align: center; background: linear-gradient(135deg, #0f0f2a, #1a1a3a); border-radius: 2rem; padding: 2rem; border: 1px solid rgba(255,170,68,0.3); margin-bottom: 2rem; }
+        .logo { font-size: 2.5rem; font-weight: 900; background: linear-gradient(135deg, #ffcc88, #ffaa44); -webkit-background-clip: text; color: transparent; }
         
-        @media (min-width: 641px) and (max-width: 1024px) {
-            .products-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 1rem; }
-        }
+        .search-box { background: rgba(30,30,58,0.6); border-radius: 50px; padding: 12px 25px; border: 1px solid rgba(255,170,68,0.3); display: flex; align-items: center; max-width: 600px; margin: 0 auto 2rem auto; }
+        .search-box input { background: transparent; border: none; color: white; width: 100%; font-size: 1rem; outline: none; margin: 0 10px; }
         
-        @media (min-width: 1025px) {
-            .products-grid { grid-template-columns: repeat(4, 1fr) !important; gap: 1.5rem; }
-        }
-        
-        .hero-header {
-            position: relative;
-            background: linear-gradient(135deg, #0f0f2a 0%, #1a1a3a 50%, #0a0a1f 100%);
-            border-radius: 2rem;
-            margin-bottom: 2rem;
-            overflow: hidden;
-            border: 1px solid rgba(255, 170, 68, 0.3);
-            animation: fadeInUp 0.8s ease-out;
-        }
-        
-        .hero-header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 30% 40%, rgba(255, 170, 68, 0.15), transparent 50%),
-                        radial-gradient(circle at 70% 60%, rgba(0, 150, 255, 0.1), transparent 50%);
-            animation: rotateGlow 15s linear infinite;
-            pointer-events: none;
-        }
-        
-        @keyframes rotateGlow {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            padding: 2rem 1.5rem;
-        }
-        
-        .logo-section { margin-bottom: 1rem; }
-        .main-logo {
-            display: inline-flex;
-            align-items: center;
-            gap: 15px;
-            font-size: 2.8rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #ffcc88, #ffaa44, #ff8844);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            letter-spacing: 3px;
-            animation: pulseGlow 2s ease-in-out infinite;
-        }
-        
-        @keyframes pulseGlow {
-            0%, 100% { text-shadow: 0 0 5px rgba(255,170,68,0.3); transform: scale(1); }
-            50% { text-shadow: 0 0 20px rgba(255,170,68,0.6); transform: scale(1.02); }
-        }
-        
-        .controller-icon {
-            display: inline-block;
-            font-size: 2.8rem;
-            margin: 0 5px;
-            animation: floatController 3s ease-in-out infinite;
-            filter: drop-shadow(0 0 10px rgba(255, 170, 68, 0.5));
-        }
-        
-        @keyframes floatController {
-            0%, 100% { transform: translateY(0) rotate(-3deg); }
-            50% { transform: translateY(-8px) rotate(3deg); }
-        }
-        
-        .animated-text-section { margin: 1rem 0; min-height: 70px; }
-        .slider-text {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #ffdd99;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(8px);
-            padding: 10px 20px;
-            border-radius: 50px;
-            display: inline-block;
-            border: 1px solid rgba(255, 170, 68, 0.3);
-        }
-        
-        .divider-line {
-            width: 80%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #ffaa44, #ffaa44, transparent);
-            margin: 1rem auto;
-        }
-        
-        .quotes-container {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin: 1rem 0;
-        }
-        
-        .hero-badge {
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            padding: 8px 18px;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            border: 1px solid rgba(255, 170, 68, 0.4);
-            transition: all 0.3s ease;
-            cursor: default;
-        }
-        
-        .hero-badge i { margin-left: 6px; color: #ffaa44; }
-        .hero-badge:hover { transform: translateY(-3px); background: rgba(255,170,68,0.2); border-color: #ffaa44; }
-        
-        .stats-container {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-        
-        .stat-item {
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(5px);
-            padding: 8px 20px;
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 170, 68, 0.2);
-        }
-        
-        .stat-item i { color: #ffaa44; font-size: 1rem; }
-        .stat-number { color: #ffaa44; font-weight: 800; font-size: 1.1rem; }
-        .stat-item:hover { transform: translateY(-3px); background: rgba(255,170,68,0.15); border-color: #ffaa44; }
-        
-        .trust-bar {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            margin-bottom: 1.5rem;
-            padding: 0.8rem;
-            background: rgba(0,0,0,0.2);
-            border-radius: 3rem;
-        }
-        .trust-badge {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.7rem;
-            color: #ffdd99;
-        }
-        .trust-badge i { font-size: 1rem; color: #ffaa44; }
-        
-        .control-bar {
-            max-width: 1400px;
-            margin: 0 auto 1rem auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            background: rgba(15, 15, 42, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 10px 20px;
-            border-radius: 50px;
-            border: 1px solid rgba(255, 170, 68, 0.2);
-        }
-        .lang-switch {
-            display: flex;
-            gap: 8px;
-            background: #1e1e3a;
-            padding: 4px;
-            border-radius: 40px;
-        }
-        .lang-btn {
-            background: transparent;
-            border: none;
-            padding: 6px 16px;
-            border-radius: 40px;
-            color: #ccc;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-        .lang-btn.active { background: #ffaa44; color: #0a0a1a; }
-        .currency-selector {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: #1e1e3a;
-            padding: 4px 12px;
-            border-radius: 40px;
-        }
-        #currencySelect {
-            background: transparent;
-            border: none;
-            color: #ffaa44;
-            font-weight: bold;
-            cursor: pointer;
-            outline: none;
-            font-family: 'Cairo', sans-serif;
-            font-size: 0.85rem;
-        }
-        
-        .search-bar-container { max-width: 800px; margin: 0 auto 2rem auto; }
-        .search-box {
-            position: relative;
-            background: rgba(30, 30, 58, 0.6);
-            backdrop-filter: blur(10px);
-            border-radius: 50px;
-            padding: 12px 25px;
-            border: 1px solid rgba(255, 170, 68, 0.3);
-            display: flex;
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-        .search-box:focus-within { border-color: #ffaa44; box-shadow: 0 0 15px rgba(255, 170, 68, 0.2); transform: translateY(-2px); }
-        .search-box i { color: #ffaa44; margin-left: 15px; font-size: 1.2rem; }
-        .search-box input {
-            background: transparent;
-            border: none;
-            color: white;
-            width: 100%;
-            font-size: 1rem;
-            outline: none;
-            font-family: 'Cairo', sans-serif;
-        }
-        
-        .tabs-container {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-        .tab-btn {
-            background: #1e1e3a;
-            border: 1px solid rgba(255, 170, 68, 0.2);
-            color: #ccc;
-            padding: 10px 25px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-        .tab-btn.active {
-            background: #ffaa44;
-            color: #0a0a1a;
-            border-color: #ffaa44;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(255, 170, 68, 0.3);
-        }
-        
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        .product-card {
-            background: #11152b;
-            border-radius: 2rem;
-            overflow: hidden;
-            border: 1px solid rgba(255, 170, 68, 0.15);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-        .product-card:hover { transform: translateY(-10px); border-color: #ffaa44; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
-        
-        .product-image {
-            height: 220px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            transition: all 0.4s ease;
-        }
-        .product-card:hover .product-image { transform: scale(1.05); }
-        
-        .product-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(5px);
-            color: #ffaa44;
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 800;
-            border: 1px solid rgba(255, 170, 68, 0.3);
-        }
-        
-        .out-of-stock-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(3px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 5;
-        }
-        .out-of-stock-badge {
-            background: #ff4444;
-            color: white;
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-weight: 900;
-            font-size: 1rem;
-            transform: rotate(-10deg);
-            border: 2px solid white;
-            box-shadow: 0 0 20px rgba(255, 68, 68, 0.5);
-        }
-        
-        .card-info { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
-        .product-title { font-size: 1rem; font-weight: 800; color: #fff; margin-bottom: 15px; line-height: 1.4; height: 2.8em; overflow: hidden; }
-        
-        .price-container { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; }
-        .price-row { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); padding: 5px 10px; border-radius: 10px; }
-        .price-label { font-size: 0.75rem; color: #aaa; font-weight: 600; }
-        .price-val { font-size: 0.9rem; font-weight: 900; color: #ffaa44; }
-        .price-val.primary { color: #00cc88; }
-        .price-val.ps4 { color: #00aaff; }
-        
-        .btn-wa {
-            background: linear-gradient(135deg, #ffaa44 0%, #ff8844 100%);
-            color: #0a0a1a;
-            border: none;
-            padding: 12px;
-            border-radius: 15px;
-            font-weight: 800;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            text-decoration: none;
-            width: 100%;
-            margin-top: auto;
-        }
-        .btn-wa:hover { transform: scale(1.02); box-shadow: 0 5px 15px rgba(255, 170, 68, 0.4); }
-        .btn-wa.disabled { background: #333; color: #777; cursor: not-allowed; transform: none; box-shadow: none; }
+        .tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 2rem; flex-wrap: wrap; }
+        .tab-btn { background: #1e1e3a; border: 1px solid rgba(255,170,68,0.2); color: #ccc; padding: 8px 20px; border-radius: 50px; cursor: pointer; font-weight: 700; }
+        .tab-btn.active { background: var(--primary); color: #0a0a1a; }
 
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(10px);
-            align-items: center;
-            justify-content: center;
-            z-index: 5000;
-            padding: 1rem;
-        }
-        .modal-content {
-            background: #11152b;
-            border-radius: 2rem;
-            padding: 2rem;
-            border: 2px solid #ffaa44;
-            width: 100%;
-            max-width: 600px;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-        }
-        .license-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin: 1.5rem 0; }
-        .license-card {
-            background: #1e1e3a;
-            border: 2px solid rgba(255, 170, 68, 0.2);
-            border-radius: 1.2rem;
-            padding: 1rem;
-            cursor: pointer;
-            text-align: center;
-            transition: 0.3s;
-        }
-        .license-card.active { border-color: #ffaa44; background: rgba(255, 170, 68, 0.1); transform: translateY(-5px); }
-        .license-card h4 { font-size: 0.9rem; margin-bottom: 5px; }
-        .license-card .price { font-weight: 900; color: #ffaa44; font-size: 1.1rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; max-width: 1400px; margin: 0 auto; }
+        @media (max-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; } }
         
-        .comparison-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.8rem; }
-        .comparison-table th, .comparison-table td { padding: 10px; border-bottom: 1px solid rgba(255, 170, 68, 0.1); text-align: center; }
-        .comparison-table th { color: #ffaa44; font-weight: 800; }
+        .card { background: var(--card); border-radius: 1.5rem; overflow: hidden; border: 1px solid rgba(255,170,68,0.15); transition: 0.3s; display: flex; flex-direction: column; position: relative; }
+        .img { height: 180px; background-size: cover; background-position: center; position: relative; }
+        .badge { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.6); color: var(--primary); padding: 3px 10px; border-radius: 50px; font-size: 0.7rem; font-weight: 700; }
+        .out-badge { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-10deg); background: #ff4444; color: white; padding: 5px 15px; border-radius: 50px; font-weight: 900; z-index: 10; border: 2px solid white; }
+
+        .info { padding: 1rem; flex-grow: 1; text-align: center; }
+        .title { font-size: 0.9rem; font-weight: 800; margin-bottom: 10px; height: 2.8em; overflow: hidden; }
         
-        .guide-box { background: rgba(255, 255, 255, 0.05); border-radius: 1.2rem; padding: 1.2rem; margin-top: 1.5rem; border: 1px solid rgba(255, 170, 68, 0.2); }
-        .guide-box h4 { color: #ffaa44; margin-bottom: 10px; font-size: 1rem; }
-        .guide-box p { font-size: 0.85rem; line-height: 1.6; color: #ccc; }
+        .prices { background: rgba(255,255,255,0.03); padding: 8px; border-radius: 12px; margin-bottom: 10px; font-size: 0.7rem; }
+        .p-row { display: flex; justify-content: space-between; margin-bottom: 2px; }
+        .p-val { font-weight: 900; color: var(--primary); }
+        .p-val.green { color: #00cc88; }
+        .p-val.blue { color: #00aaff; }
+
+        .btn-order { background: linear-gradient(135deg, var(--primary), #ff8844); color: #0a0a1a; border: none; padding: 10px; border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%; }
+        .btn-order.disabled { background: #444; color: #888; cursor: not-allowed; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); align-items: center; justify-content: center; z-index: 9999; padding: 1rem; }
+        .modal-content { background: var(--card); border-radius: 1.5rem; padding: 1.5rem; border: 2px solid var(--primary); width: 100%; max-width: 550px; max-height: 90vh; overflow-y: auto; }
         
-        .modal-actions { display: flex; gap: 15px; margin-top: 2rem; }
-        .btn-modal { flex: 1; padding: 12px; border-radius: 15px; font-weight: 800; cursor: pointer; border: none; }
-        .btn-cancel { background: #333; color: white; }
-        .btn-confirm { background: #ffaa44; color: #0a0a1a; }
+        .opt-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin: 1.5rem 0; }
+        .opt-card { background: #1e1e3a; border: 2px solid rgba(255,170,68,0.2); border-radius: 1rem; padding: 10px; cursor: pointer; text-align: center; }
+        .opt-card.active { border-color: var(--primary); background: rgba(255,170,68,0.1); }
         
-        .whatsapp-float {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            background: #25d366;
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            z-index: 1000;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-            animation: pulseWA 2s infinite;
-        }
-        @keyframes pulseWA { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+        .table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.75rem; color: #ccc; }
+        .table th, .table td { padding: 8px; border-bottom: 1px solid rgba(255,170,68,0.1); text-align: center; }
+        
+        .guide { background: rgba(255,255,255,0.05); border-radius: 1rem; padding: 1rem; margin-top: 1rem; border: 1px solid rgba(255,170,68,0.2); font-size: 0.8rem; }
+        .actions { display: flex; gap: 10px; margin-top: 1.5rem; }
+        .btn-c { background: #444; color: white; border: none; padding: 10px 20px; border-radius: 40px; cursor: pointer; flex: 1; }
+        .btn-a { background: var(--primary); color: #0a0a1a; border: none; padding: 10px 20px; border-radius: 40px; cursor: pointer; font-weight: bold; flex: 1; }
     </style>
 </head>
 <body>
 
-<div class="hero-header">
-    <div class="hero-content">
-        <div class="logo-section">
-            <span class="controller-icon"><i class="fas fa-gamepad"></i></span>
-            <h1 class="main-logo">XNESTO STORE</h1>
-            <span class="controller-icon"><i class="fas fa-headset"></i></span>
-        </div>
-        <div class="animated-text-section">
-            <div class="slider-text" id="hero-sub">تسجيل حساب فوري - استلم خلال دقائق</div>
-        </div>
-        <div class="divider-line"></div>
-        <div class="quotes-container">
-            <div class="hero-badge"><i class="fas fa-star"></i> <span id="b1">أفضل الأسعار</span></div>
-            <div class="hero-badge"><i class="fas fa-bolt"></i> <span id="b2">توصيل فوري</span></div>
-            <div class="hero-badge"><i class="fas fa-headset"></i> <span id="b3">دعم 24/7</span></div>
-        </div>
-        <div class="stats-container">
-            <div class="stat-item"><i class="fas fa-shield-alt"></i> <span id="s1">دفع آمن 100%</span></div>
-            <div class="stat-item"><i class="fas fa-truck"></i> <span id="s2">توصيل فوري</span></div>
-            <div class="stat-item"><i class="fas fa-history"></i> <span id="s3">ضمان 7 أيام</span></div>
-        </div>
-    </div>
+<div class="hero">
+    <div class="logo">XNESTO STORE</div>
+    <p style="color:#ffdd99; margin-top:10px;">تسجيل حساب فوري - استلم خلال دقائق</p>
 </div>
 
-<div class="control-bar">
-    <div class="lang-switch">
-        <button class="lang-btn active" id="btnAr" onclick="setLang('ar')">العربية</button>
-        <button class="lang-btn" id="btnEn" onclick="setLang('en')">English</button>
-    </div>
-    <div class="currency-selector">
-        <i class="fas fa-coins" style="color:#ffaa44;"></i>
-        <select id="currencySelect" onchange="updateCurrency(this.value)">
-            <option value="OMR">🇴🇲 OMR</option>
-            <option value="SAR">🇸🇦 SAR</option>
-            <option value="AED">🇦🇪 AED</option>
-            <option value="QAR">🇶🇦 QAR</option>
-            <option value="KWD">🇰🇼 KWD</option>
-            <option value="BHD">🇧🇭 BHD</option>
-            <option value="USD">🇺🇸 USD</option>
-            <option value="EUR">🇪🇺 EUR</option>
-        </select>
-    </div>
+<div class="search-box">
+    <i class="fas fa-search" style="color:var(--primary);"></i>
+    <input type="text" id="searchIn" placeholder="ابحث عن لعبة أو بطاقة..." oninput="render()">
 </div>
 
-<div class="search-bar-container">
-    <div class="search-box">
-        <i class="fas fa-search"></i>
-        <input type="text" id="searchInput" placeholder="ابحث عن لعبة أو بطاقة..." oninput="filterProducts()">
-    </div>
-</div>
+<div id="tabs" class="tabs"></div>
+<div id="grid" class="grid"></div>
 
-<div id="tabsContainer" class="tabs-container"></div>
-<div id="productsContainer" class="products-grid"></div>
-
-<!-- Purchase Modal -->
-<div id="purchaseModal" class="modal">
+<div id="modal" class="modal">
     <div class="modal-content">
-        <h3 id="modalTitle" style="text-align:center; color:#ffaa44; margin-bottom:1rem;"></h3>
-        <div id="gameLicenseSection">
-            <p id="modalHint" style="text-align:center; font-size:0.9rem; color:#aaa;"></p>
-            <div class="license-options">
-                <div class="license-card active" id="card-primary" onclick="selectLicense('primary')">
-                    <h4 id="lblP">أساسية PS5</h4>
-                    <div class="price" id="modalPriceP"></div>
+        <h3 id="mTitle" style="text-align:center; color:var(--primary);"></h3>
+        <div id="gameLicense">
+            <p style="text-align:center; margin:10px 0; font-size:0.8rem; color:#aaa;">يرجى اختيار نوع النسخة المطلوبة:</p>
+            <div class="opt-grid">
+                <div class="opt-card active" id="opt-p" onclick="select('primary')">
+                    <div style="font-size:0.8rem;">أساسية PS5</div>
+                    <div id="mPriceP" style="font-weight:900; color:var(--primary);"></div>
                 </div>
-                <div class="license-card" id="card-secondary" onclick="selectLicense('secondary')">
-                    <h4 id="lblS">ثانوية PS5</h4>
-                    <div class="price" id="modalPriceS"></div>
+                <div class="opt-card" id="opt-s" onclick="select('secondary')">
+                    <div style="font-size:0.8rem;">ثانوية PS5</div>
+                    <div id="mPriceS" style="font-weight:900; color:var(--primary);"></div>
                 </div>
-                <div class="license-card" id="card-ps4" onclick="selectLicense('ps4')">
-                    <h4 id="lblPS4">نسخة PS4</h4>
-                    <div class="price" id="modalPricePS4"></div>
+                <div class="opt-card" id="opt-ps4" onclick="select('ps4')">
+                    <div style="font-size:0.8rem;">نسخة PS4</div>
+                    <div id="mPricePS4" style="font-weight:900; color:var(--primary);"></div>
                 </div>
             </div>
-            <table class="comparison-table">
-                <thead>
-                    <tr><th id="thF">الميزة</th><th id="thP">أساسية</th><th id="thS">ثانوية</th><th id="thPS4">PS4</th></tr>
-                </thead>
+            <table class="table">
+                <thead><tr><th>الميزة</th><th>أساسية</th><th>ثانوية</th><th>PS4</th></tr></thead>
                 <tbody>
-                    <tr><td id="td1">اللعب بحسابك الخاص</td><td>✅</td><td>❌</td><td>✅</td></tr>
-                    <tr><td id="td2">اللعب بدون إنترنت</td><td>✅</td><td>❌</td><td>✅</td></tr>
-                    <tr><td id="td3">تجميع التروفيز</td><td>✅</td><td>❌</td><td>✅</td></tr>
+                    <tr><td>اللعب بحسابك الخاص</td><td>✅</td><td>❌</td><td>✅</td></tr>
+                    <tr><td>اللعب بدون إنترنت</td><td>✅</td><td>❌</td><td>✅</td></tr>
+                    <tr><td>تجميع التروفيز</td><td>✅</td><td>❌</td><td>✅</td></tr>
                 </tbody>
             </table>
-            <div class="guide-box">
-                <h4 id="gTitle">ℹ️ شرح التفعيل:</h4>
-                <p id="guideText"></p>
+            <div class="guide">
+                <h4 style="color:var(--primary); margin-bottom:5px;">ℹ️ شرح التفعيل:</h4>
+                <p id="guideTxt"></p>
             </div>
         </div>
-        <div class="guide-box">
-            <h4 id="tTitle">📋 شروط المتجر:</h4>
-            <ul id="termsList" style="padding-right:20px; font-size:0.8rem; color:#ccc;"></ul>
+        <div class="guide">
+            <h4 style="color:var(--primary); margin-bottom:5px;">📋 شروط المتجر:</h4>
+            <ul id="termsList" style="padding-right:20px; font-size:0.75rem; color:#ccc;"></ul>
         </div>
-        <div class="modal-actions">
-            <button class="btn-modal btn-cancel" id="btnCancel" onclick="closeModal()">إلغاء</button>
-            <button class="btn-modal btn-confirm" id="btnConfirm" onclick="confirmOrder()">تأكيد واتساب</button>
+        <div class="actions">
+            <button onclick="closeM()" class="btn-c">إلغاء</button>
+            <button onclick="order()" class="btn-a">تأكيد واتساب</button>
         </div>
     </div>
 </div>
-
-<a href="https://wa.me/96879977100" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
 <script>
     const firebaseConfig = { databaseURL: "https://xnesto-645bf-default-rtdb.asia-southeast1.firebasedatabase.app/" };
-    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    let products = [], categories = {}, settings = {};
-    let currentLang = 'ar', currentCurrency = 'OMR', currentCategory = 'all';
-    let selectedProduct = null, selectedLicense = 'primary';
-
-    const rates = { OMR:1, SAR:9.75, AED:9.55, QAR:9.45, KWD:0.8, BHD:0.98, USD:2.6, EUR:2.4 };
-    const symbols = { OMR:'ر.ع', SAR:'ر.س', AED:'د.إ', QAR:'ر.ق', KWD:'د.ك', BHD:'د.ب', USD:'$', EUR:'€' };
-
-    const i18n = {
-        ar: {
-            heroSub: "تسجيل حساب فوري - استلم خلال دقائق", b1:"أفضل الأسعار", b2:"توصيل فوري", b3:"دعم 24/7",
-            s1:"دفع آمن 100%", s2:"توصيل فوري", s3:"ضمان 7 أيام", search:"ابحث عن لعبة أو بطاقة...",
-            all:"🔥 الكل", order:"اطلب الآن", out:"نفذت الكمية", modalHint:"يرجى اختيار نوع النسخة المطلوبة:",
-            lblP:"أساسية PS5", lblS:"ثانوية PS5", lblPS4:"نسخة PS4", thF:"الميزة", thP:"أساسية", thS:"ثانوية", thPS4:"PS4",
-            td1:"اللعب بحسابك الخاص", td2:"اللعب بدون إنترنت", td3:"تجميع التروفيز", gTitle:"ℹ️ شرح التفعيل:",
-            gp:"الأساسية PS5: فعل الحساب كجهاز رئيسي لكي تلعب من حسابك الخاص وتجمع التروفيز على جهاز PS5.",
-            gs:"الثانوية PS5: العب من حساب المتجر مباشرة (يتطلب إنترنت دائماً) ولا تفعله كجهاز رئيسي.",
-            gps4:"نسخة PS4: فعل الحساب كجهاز رئيسي على PS4 لكي تلعب من حسابك الخاص وتجمع التروفيز.",
-            tTitle:"📋 شروط المتجر:", cancel:"إلغاء", confirm:"تأكيد واتساب",
-            msg: "🛒 طلب شراء جديد\n🎮 المنتج: {name}\n📂 النوع: {type}\n💰 السعر: {price}\n━━━━━━━━━━━━\n✅ أوافق على شروط المتجر."
-        },
-        en: {
-            heroSub: "Instant Account Registration - Receive in Minutes", b1:"Best Prices", b2:"Instant Delivery", b3:"24/7 Support",
-            s1:"100% Secure Payment", s2:"Fast Delivery", s3:"7 Days Warranty", search:"Search for a game or card...",
-            all:"🔥 All", order:"Order Now", out:"Out of Stock", modalHint:"Please select the required version:",
-            lblP:"Primary PS5", lblS:"Secondary PS5", lblPS4:"PS4 Version", thF:"Feature", thP:"Primary", thS:"Secondary", thPS4:"PS4",
-            td1:"Play on your account", td2:"Play offline", td3:"Collect trophies", gTitle:"ℹ️ Activation Guide:",
-            gp:"Primary PS5: Activate as main console to play on your profile and earn trophies on PS5.",
-            gs:"Secondary PS5: Play directly from store account (requires internet) - do not activate as main.",
-            gps4:"PS4 Version: Activate as main console on PS4 to play on your profile and earn trophies.",
-            tTitle:"📋 Store Terms:", cancel:"Cancel", confirm:"Confirm WhatsApp",
-            msg: "🛒 New Order\n🎮 Product: {name}\n📂 Type: {type}\n💰 Price: {price}\n━━━━━━━━━━━━\n✅ I agree to the terms."
-        }
-    };
+    let products = [], categories = {}, settings = {}, curCat = 'all', selProd = null, selType = 'primary';
 
     function init() {
-        db.ref('categories').on('value', snap => { categories = snap.val() || {}; renderTabs(); });
-        db.ref('products').on('value', snap => { products = snap.val() || []; renderProducts(); });
-        db.ref('settings').on('value', snap => {
-            settings = snap.val() || {};
-            const list = document.getElementById('termsList');
-            list.innerHTML = (settings.terms || "").split('\n').map(t => `<li>${t}</li>`).join('');
-        });
-        updateUI();
-        db.ref('visits').transaction(v => (v || 0) + 1);
-    }
-
-    function setLang(lang) {
-        currentLang = lang;
-        document.dir = lang === 'ar' ? 'rtl' : 'ltr';
-        document.getElementById('btnAr').classList.toggle('active', lang === 'ar');
-        document.getElementById('btnEn').classList.toggle('active', lang === 'en');
-        updateUI(); renderTabs(); renderProducts();
-    }
-
-    function updateUI() {
-        const t = i18n[currentLang];
-        document.getElementById('hero-sub').innerText = t.heroSub;
-        ['b1','b2','b3','s1','s2','s3'].forEach(id => document.getElementById(id).innerText = t[id]);
-        document.getElementById('searchInput').placeholder = t.search;
-        document.getElementById('modalHint').innerText = t.modalHint;
-        ['lblP','lblS','lblPS4','thF','thP','thS','thPS4','td1','td2','td3','gTitle','tTitle','btnCancel','btnConfirm'].forEach(id => {
-            document.getElementById(id).innerText = t[id];
+        db.ref('categories').on('value', s => { categories = s.val() || {}; renderTabs(); });
+        db.ref('products').on('value', s => { products = s.val() || []; render(); });
+        db.ref('settings').on('value', s => {
+            settings = s.val() || {};
+            document.getElementById('termsList').innerHTML = (settings.terms || "").split('\n').map(t => `<li>${t}</li>`).join('');
         });
     }
 
     function renderTabs() {
-        const container = document.getElementById('tabsContainer');
-        let html = `<button class="tab-btn ${currentCategory === 'all' ? 'active' : ''}" onclick="setCategory('all')">${i18n[currentLang].all}</button>`;
-        Object.entries(categories).forEach(([key, name]) => {
-            html += `<button class="tab-btn ${currentCategory === key ? 'active' : ''}" onclick="setCategory('${key}')">${name}</button>`;
+        const t = document.getElementById('tabs');
+        let h = `<button class="tab-btn ${curCat==='all'?'active':''}" onclick="setCat('all')">🔥 الكل</button>`;
+        Object.entries(categories).forEach(([k, v]) => {
+            h += `<button class="tab-btn ${curCat===k?'active':''}" onclick="setCat('${k}')">${v}</button>`;
         });
-        container.innerHTML = html;
+        t.innerHTML = h;
     }
 
-    function renderProducts() {
-        const container = document.getElementById('productsContainer');
-        const query = document.getElementById('searchInput').value.toLowerCase();
-        const t = i18n[currentLang];
-        
-        const filtered = products.filter(p => {
-            const matchesSearch = p.nameAr.toLowerCase().includes(query);
-            const matchesCat = currentCategory === 'all' || p.category === currentCategory;
-            return matchesSearch && matchesCat;
-        });
+    function render() {
+        const g = document.getElementById('grid');
+        const q = document.getElementById('searchIn').value.toLowerCase();
+        const filtered = products.filter(p => p.nameAr.toLowerCase().includes(q) && (curCat==='all' || p.category===curCat));
 
-        container.innerHTML = filtered.map(p => {
-            const out = (p.stock <= 0);
-            const isGame = (p.category === 'games');
+        g.innerHTML = filtered.map(p => {
+            const out = p.stock <= 0;
+            const isGame = p.category === 'games';
             const p1 = p.pricePrimary || p.priceOMR;
             const p2 = p.priceSecondary || (p.priceOMR * 0.6).toFixed(1);
             const p3 = p.pricePS4 || (p.priceOMR * 0.7).toFixed(1);
 
-            let pricing = isGame ? `
-                <div class="price-container">
-                    <div class="price-row"><span class="price-label">${t.lblP}:</span><span class="price-val primary">${formatPrice(p1)}</span></div>
-                    <div class="price-row"><span class="price-label">${t.lblS}:</span><span class="price-val">${formatPrice(p2)}</span></div>
-                    <div class="price-row"><span class="price-label">${t.lblPS4}:</span><span class="price-val ps4">${formatPrice(p3)}</span></div>
-                </div>` : `<div class="price-container" style="align-items:center;"><span class="price-val" style="font-size:1.2rem;">${formatPrice(p.priceOMR)}</span></div>`;
+            let prices = isGame ? `
+                <div class="prices">
+                    <div class="p-row"><span>أساسية PS5:</span><span class="p-val green">${p1} ر.ع</span></div>
+                    <div class="p-row"><span>ثانوية PS5:</span><span class="p-val">${p2} ر.ع</span></div>
+                    <div class="p-row"><span>نسخة PS4:</span><span class="p-val blue">${p3} ر.ع</span></div>
+                </div>` : `<div class="prices" style="font-size:1.1rem; font-weight:900; color:var(--primary);">${p.priceOMR} ر.ع</div>`;
 
             return `
-                <div class="product-card">
-                    ${out ? `<div class="out-of-stock-overlay"><div class="out-of-stock-badge">${t.out}</div></div>` : ''}
-                    <div class="product-image" style="background-image:url('${p.image}')">
-                        <div class="product-badge">${categories[p.category] || ''}</div>
+                <div class="card">
+                    ${out ? `<div class="out-badge">نفذت الكمية</div>` : ''}
+                    <div class="img" style="background-image:url('${p.image}')">
+                        <div class="badge">${categories[p.category] || ''}</div>
                     </div>
-                    <div class="card-info">
-                        <div class="product-title">${p.nameAr}</div>
-                        ${pricing}
-                        <button class="btn-wa ${out ? 'disabled' : ''}" onclick="${out ? '' : `openModal('${p.id}')`}">
-                            <i class="fab fa-whatsapp"></i> ${out ? t.out : t.order}
-                        </button>
+                    <div class="info">
+                        <div class="title">${p.nameAr}</div>
+                        ${prices}
+                        <button class="btn-order ${out?'disabled':''}" onclick="${out?'':'openM(\''+p.id+'\')'}">اطلب الآن</button>
                     </div>
                 </div>`;
         }).join('');
     }
 
-    function formatPrice(omr) { return `${symbols[currentCurrency]} ${(omr * rates[currentCurrency]).toFixed(2)}`; }
-    function updateCurrency(cur) { currentCurrency = cur; renderProducts(); }
-    function setCategory(cat) { currentCategory = cat; renderTabs(); renderProducts(); }
-    function filterProducts() { renderProducts(); }
-
-    function openModal(id) {
-        selectedProduct = products.find(p => p.id == id);
-        document.getElementById('modalTitle').innerText = selectedProduct.nameAr;
-        if (selectedProduct.category === 'games') {
-            document.getElementById('gameLicenseSection').style.display = 'block';
-            const p1 = selectedProduct.pricePrimary || selectedProduct.priceOMR;
-            const p2 = selectedProduct.priceSecondary || (selectedProduct.priceOMR * 0.6).toFixed(1);
-            const p3 = selectedProduct.pricePS4 || (selectedProduct.priceOMR * 0.7).toFixed(1);
-            document.getElementById('modalPriceP').innerText = formatPrice(p1);
-            document.getElementById('modalPriceS').innerText = formatPrice(p2);
-            document.getElementById('modalPricePS4').innerText = formatPrice(p3);
-            selectLicense('primary');
-        } else { document.getElementById('gameLicenseSection').style.display = 'none'; }
-        document.getElementById('purchaseModal').style.display = 'flex';
+    function openM(id) {
+        selProd = products.find(p => p.id == id);
+        document.getElementById('mTitle').innerText = selProd.nameAr;
+        if (selProd.category === 'games') {
+            document.getElementById('gameLicense').style.display = 'block';
+            document.getElementById('mPriceP').innerText = (selProd.pricePrimary || selProd.priceOMR) + " ر.ع";
+            document.getElementById('mPriceS').innerText = (selProd.priceSecondary || (selProd.priceOMR * 0.6).toFixed(1)) + " ر.ع";
+            document.getElementById('mPricePS4').innerText = (selProd.pricePS4 || (selProd.priceOMR * 0.7).toFixed(1)) + " ر.ع";
+            select('primary');
+        } else document.getElementById('gameLicense').style.display = 'none';
+        document.getElementById('modal').style.display = 'flex';
     }
 
-    function selectLicense(type) {
-        selectedLicense = type;
-        ['primary','secondary','ps4'].forEach(t => document.getElementById('card-'+t).classList.toggle('active', t === type));
-        const t = i18n[currentLang];
-        document.getElementById('guideText').innerText = type === 'primary' ? t.gp : (type === 'secondary' ? t.gs : t.gps4);
+    function select(t) {
+        selType = t;
+        ['p','s','ps4'].forEach(x => document.getElementById('opt-'+x).classList.toggle('active', x === t));
+        const guides = {
+            primary: "الأساسية PS5: فعل الحساب كجهاز رئيسي لكي تلعب من حسابك الخاص وتجمع التروفيز على جهاز PS5.",
+            secondary: "الثانوية PS5: العب من حساب المتجر مباشرة (يتطلب إنترنت دائماً) ولا تفعله كجهاز رئيسي.",
+            ps4: "نسخة PS4: فعل الحساب كجهاز رئيسي على PS4 لكي تلعب من حسابك الخاص وتجمع التروفيز."
+        };
+        document.getElementById('guideTxt').innerText = guides[t];
     }
 
-    function closeModal() { document.getElementById('purchaseModal').style.display = 'none'; }
-
-    function confirmOrder() {
-        const p = selectedProduct; const t = i18n[currentLang];
-        let price = p.priceOMR, typeText = currentLang === 'ar' ? 'طلب' : 'Order';
-        if (p.category === 'games') {
-            price = selectedLicense === 'primary' ? (p.pricePrimary || p.priceOMR) : (selectedLicense === 'secondary' ? (p.priceSecondary || p.priceOMR * 0.6) : (p.pricePS4 || p.priceOMR * 0.7));
-            typeText = t[selectedLicense === 'primary' ? 'lblP' : (selectedLicense === 'secondary' ? 'lblS' : 'lblPS4')];
+    function order() {
+        let type = "طلب";
+        let price = selProd.priceOMR;
+        if (selProd.category === 'games') {
+            const types = { primary: "أساسية PS5", secondary: "ثانوية PS5", ps4: "نسخة PS4" };
+            type = types[selType];
+            price = selType === 'primary' ? (selProd.pricePrimary || selProd.priceOMR) : (selType === 'secondary' ? (selProd.priceSecondary || (selProd.priceOMR * 0.6).toFixed(1)) : (selProd.pricePS4 || (selProd.priceOMR * 0.7).toFixed(1)));
         }
-        const msg = t.msg.replace('{name}', p.nameAr).replace('{type}', typeText).replace('{price}', formatPrice(price));
+        const msg = `🛒 طلب شراء جديد\n🎮 المنتج: ${selProd.nameAr}\n📂 النوع: ${type}\n💰 السعر: ${price} ر.ع\n━━━━━━━━━━━━\n✅ أوافق على شروط المتجر.`;
         window.open(`https://wa.me/${settings.whatsapp || '96879977100'}?text=${encodeURIComponent(msg)}`, '_blank');
-        closeModal();
+        closeM();
     }
 
+    function closeM() { document.getElementById('modal').style.display = 'none'; }
+    function setCat(c) { curCat = c; renderTabs(); render(); }
     init();
 </script>
 </body>
